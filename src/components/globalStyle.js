@@ -73,3 +73,31 @@ button {
 }
 `;
 
+export const GlobalStyle = createGlobalStyle`
+html {
+  box-sizing: border-box;
+  font-size: 62.5%; 
+  font-family: 'HelveticaNeue', Helvetica, Arial, 'Lucida Grande', sans-serif;
+}
+
+@font-face {
+    font-family: custom-sans-serif;
+    src: local("Noto Sans TC"), local("Noto Sans TC");
+    unicode-range: U+4E00-9FFF;
+}
+
+@font-face {
+    font-family: custom-sans-serif;
+    src: local(Noto Sans TC), local(Noto Sans TC);
+    unicode-range: U+00-024F;
+}
+.custom-sans-serif {
+    font-family: custom-sans-serif;
+}
+
+h1{
+  font-size: 68px;
+  font-weight: bold;
+  font-family: Noto Sans TC;
+}
+`;
