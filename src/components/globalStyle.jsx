@@ -99,6 +99,11 @@ export const GlobalStyle = createGlobalStyle`
   --color-grayscale-dark30:#F1F1F5;
   --color-grayscale-dark20:#FAFAFB;
   --color-grayscale-dark20:#FAFAFB;
+  --color-input-background:#F5F8FA;
+  --color-line-default: #657786;
+  --color-line-hover-focus: #50B5FF;
+  --color-line-errors: #FC5A5A;
+  --color-line-disabled: #D5D5DC;
 }
 //中文
 @font-face{

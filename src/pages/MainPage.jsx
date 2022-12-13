@@ -1,8 +1,12 @@
-import React from 'react'
+import React from 'react';
+import SectionSidebar from '../components/SectionSidebar.jsx';
 
 const MainPage = () => {
   return (
-    <div>MainPage</div>
+    <>
+      <div>MainPage</div>
+      <SectionSidebar />
+    </>
   )
 }
 

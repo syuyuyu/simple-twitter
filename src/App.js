@@ -3,6 +3,7 @@ import { ResetStyle,GlobalStyle } from './components/globalStyle'
 import AdminPage from './pages/AdminPage';
 import LoginPage from './pages/LoginPage';
 import RegistPage from "./pages/RegistPage";
+import MainPage from "./pages/MainPage";
 
 
 function App() {
@@ -10,7 +11,8 @@ function App() {
     <div className='app'>
       <ResetStyle />
       <GlobalStyle />
-      <RegistPage />
+      {/* <RegistPage /> */}
+      <MainPage />
       {/* <LoginPage /> */}
       {/* <AdminPage/> */}
     </div>
