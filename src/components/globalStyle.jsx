@@ -101,7 +101,30 @@ export const GlobalStyle = createGlobalStyle`
   --color-grayscale-dark20:#FAFAFB;
 }
 
-html {
+@font-face{
+  font-family: 'Noto Sans TC';
+  src: local('Noto Sans TC');
+  unicode-range: U+4E00-9FFF;
+}
+@font-face{
+  font-family: 'Noto Sans TC';
+  src: local("Noto Sans TC");
+  unicode-range: U+0041-007A;
+}
+
+@font-face{
+  font-family: 'Noto Sans TC';
+  src: local("montserrat");
+  unicode-range: U+0030-0039;
+}
+
+html, body {
+  font-family:"Noto Sans TC";
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+/* html {
   font-family: 'montserrat';
   box-sizing: border-box;
   font-size: 16px;
@@ -119,7 +142,6 @@ html {
   /* .custom-sans-serif {
       font-family:  'Noto Sans TC';
   } */
-}
 
 
 h1{

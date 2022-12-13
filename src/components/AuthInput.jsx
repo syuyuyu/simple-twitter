@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 const StyledContainer = styled.div`
+  font-family: "Noto Sans TC", sans-serif;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -13,6 +14,7 @@ const StyledContainer = styled.div`
   border-radius: 2px;
 `;
 const StyledLabel = styled.label`
+  /* font-family: "Noto Sans TC", sans-serif; */
   width: 100%;
   padding: 3px 10.5px 0;
   height: 22px;
@@ -20,27 +22,29 @@ const StyledLabel = styled.label`
   font-size: 14px;
   font-weight: 400;
   line-height: 22px;
-  color: #696974;
+  color: var(--color-grayscale-dark80);
 `;
 const StyledInput = styled.input`
+  /* font-family: "Noto Sans TC", sans-serif; */
   width: 100%;
   height: 26px;
   padding: 3px 10.5px 0;
   font-size: 16px;
   font-weight: 400;
   line-height: 26px;
-  color: #696974;
+  color: var(--color-grayscale-dark80);
   background-color: #f5f8fa;
   outline: none;
   border: none;
   border-bottom: 2px solid #657786;
   &:hover,
   :focus {
-    border-bottom: 2px solid #50b5ff;
+    border-bottom: 2px solid var(--color-secondary-blue);
   }
 `;
 
 const StyledAlertContainer = styled.div`
+
   position: absolute;
   top: 54px;
   display: flex;
@@ -54,7 +58,7 @@ const StyledError = styled.div`
   line-height: 20px;
   font-size: 12px;
   font-weight: 500;
-  color: #fc5a5a;
+  color: var(--color-error);
 `;
 
 const StyledCount = styled.div`
@@ -63,7 +67,7 @@ const StyledCount = styled.div`
   line-height: 20px;
   font-size: 12px;
   font-weight: 500;
-  color: #696974;
+  color: var(--color-grayscale-dark80);
 `;
 
 const AuthInput = ({ type, label, value, placeholder, onChange }) => {
