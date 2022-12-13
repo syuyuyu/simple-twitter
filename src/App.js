@@ -6,10 +6,6 @@ function App() {
     <div className="App">
       <ResetStyle />
       <GlobalStyle />
-      <p><h1>dddddddddd</h1></p>
-      <p><h1>dddddddddd</h1></p>
-      <p><h1>dddddddddd</h1></p>
-      <p><h1>dddddddddd</h1></p>
     </div>
   );
 }
