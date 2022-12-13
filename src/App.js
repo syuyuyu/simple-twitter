@@ -1,5 +1,5 @@
-import "./App.css";
-import {ResetStyle} from "./components/globalStyle";
+import './App.css';
+import { ResetStyle,GlobalStyle } from './components/globalStyle'
 import RegistPage from "./pages/RegistPage";
 
 
@@ -7,7 +7,8 @@ function App() {
   return (
     <div className='app'>
       <ResetStyle />
-        <RegistPage />
+      <GlobalStyle />
+      <RegistPage />
     </div>
   );
 }
