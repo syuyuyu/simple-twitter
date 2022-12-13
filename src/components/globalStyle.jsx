@@ -100,28 +100,46 @@ export const GlobalStyle = createGlobalStyle`
   --color-grayscale-dark20:#FAFAFB;
   --color-grayscale-dark20:#FAFAFB;
 }
-
-html {
+//中文
+@font-face{
+  font-family: 'Noto Sans TC';
+  src: local('Noto Sans TC');
+  unicode-range: U+4E00-9FFF;
+}
+//英文
+@font-face{
+  font-family: 'Noto Sans TC';
+  src: local('Noto Sans TC');
+  unicode-range: U+41-005A;
+}
+@font-face{
+  font-family: 'Noto Sans TC';
+  src: local('Noto Sans TC');
+  unicode-range: U+61-007A;
+}
+//數字
+@font-face{
   font-family: 'montserrat';
-  box-sizing: border-box;
-  font-size: 16px;
-
-  @font-face{
-    font-family: 'Noto Sans TC';
-    src: local('Noto Sans TC');
-    unicode-range: U+4E00-9FFF;
-  }
-  @font-face{
-    font-family: 'Noto Sans TC';
-    src: local(Noto Sans TC);
-    unicode-range: U+00-024F;
-  }
-  /* .custom-sans-serif {
-      font-family:  'Noto Sans TC';
-  } */
+  src: local(montserrat);
+  uncode-range: U+030-039;
+}
+//符號
+@font-face{
+  font-family: 'montserrat';
+  src: local(montserrat);
+  uncode-range: U+020-002F;
+}
+@font-face{
+  font-family: 'montserrat';
+  src: local(montserrat);
+  uncode-range: U+3000-303F;
 }
 
-
+html {
+  font-family: noto sans tc;
+  box-sizing: border-box;
+  font-size: 16px;
+}
 h1{
 /* font-family: 'Noto Sans TC'; */
 font-style: normal;
