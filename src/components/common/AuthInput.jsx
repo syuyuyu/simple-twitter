@@ -29,7 +29,7 @@ const StyledInput = styled.input`
   font-size: 16px;
   font-weight: 400;
   line-height: 26px;
-  color: #b5b5be;
+  color: #696974;
   background-color: #f5f8fa;
   outline: none;
   border: none;
