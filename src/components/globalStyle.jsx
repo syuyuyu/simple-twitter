@@ -141,7 +141,7 @@ export const GlobalStyle = createGlobalStyle`
 }
 
 html {
-  font-family: noto sans tc;
+  font-family: Noto Sans TC;
   box-sizing: border-box;
   font-size: 16px;
 }

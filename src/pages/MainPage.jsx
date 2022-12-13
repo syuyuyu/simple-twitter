@@ -1,13 +1,17 @@
-import React from 'react';
-import SectionSidebar from '../components/SectionSidebar.jsx';
+import React from 'react'
+import { StyledGroupContainer } from "../components/common/StyledGroup";
+import SectionSidebar from "../components/SectionSidebar";
+import SectionMain from "../components/SectionMain";
+import SectionPopular from "../components/SectionPopular";
 
 const MainPage = () => {
   return (
-    <>
-      <div>MainPage</div>
+    <StyledGroupContainer>
       <SectionSidebar />
-    </>
-  )
+      <SectionMain />
+      <SectionPopular />
+    </StyledGroupContainer>
+  );
 }
 
 export default MainPage
