@@ -1,9 +1,45 @@
-import React from 'react'
+import React, { useState } from "react";
+import {
+  AuthButton,
+  AuthContainer,
+  AuthDot,
+  AuthLinkText,
+  LinkTextContainer,
+  LogoStyle,
+  TitleH3,
+} from "../components/common/authstyled";
+import AuthInput from "../components/AuthInput";
 
 const LoginPage = () => {
+  const [account, setAccount] = useState("");
+  const [password, setPassword] = useState("");
   return (
-    <div>LoginPage</div>
-  )
-}
+    <AuthContainer>
+      <LogoStyle>
+        <div className='logo-icon'></div>
+      </LogoStyle>
+      <TitleH3>登入Alphitter</TitleH3>
+      <AuthInput //用useReducer
+        label='帳號'
+        placeholder='請輸入帳號'
+        value={account}
+        onChange={(accountInputValue) => setAccount(accountInputValue)}
+      />
+      <AuthInput
+        type='password'
+        label='密碼'
+        placeholder='請設定密碼'
+        value={password}
+        onChange={(passwordInputValue) => setPassword(passwordInputValue)}
+      />
+      <AuthButton>登入</AuthButton>
+      <LinkTextContainer>
+        <AuthLinkText>註冊</AuthLinkText>
+        <AuthDot>·</AuthDot>
+        <AuthLinkText>後台登入</AuthLinkText>
+      </LinkTextContainer>
+    </AuthContainer>
+  );
+};
 
-export default LoginPage
+export default LoginPage;

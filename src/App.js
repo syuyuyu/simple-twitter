@@ -1,6 +1,8 @@
 import './App.css';
 import { ResetStyle,GlobalStyle } from './components/globalStyle'
-import Sidebar from "./component/common/Sidebar.jsx";
+import AdminPage from './pages/AdminPage';
+import LoginPage from './pages/LoginPage';
+import RegistPage from "./pages/RegistPage";
 
 
 function App() {
@@ -8,7 +10,9 @@ function App() {
     <div className='app'>
       <ResetStyle />
       <GlobalStyle />
-      <Sidebar />
+      <RegistPage />
+      {/* <LoginPage /> */}
+      {/* <AdminPage/> */}
     </div>
   );
 }

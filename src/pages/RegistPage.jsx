@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { AuthButton, AuthContainer, AuthLinkText, LogoStyle, TitleH3 } from "../components/common/authstyled";
-import AuthInput from "../components/common/AuthInput";
+import AuthInput from "../components/AuthInput";
 import { Link, useNavigate } from "react-router-dom";
 
 const RegistPage = () => {
@@ -51,7 +51,9 @@ const RegistPage = () => {
       />
       <AuthButton>註冊</AuthButton>
       {/* <Link to='/login'> */}
-      <AuthLinkText>取消</AuthLinkText>
+      <AuthLinkText as='a' href='/logo'>
+        取消
+      </AuthLinkText>
       {/* </Link> */}
     </AuthContainer>
   );
