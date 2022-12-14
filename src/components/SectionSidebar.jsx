@@ -1,8 +1,8 @@
 import React from "react";
-import { SidebarContainer } from "../components/common/StyledGroup";
+import { StyledSectionSidebar } from "../components/common/StyledGroup";
 
 const SectionSidebar = () => {
-  return <SidebarContainer>123</SidebarContainer>;
+  return <StyledSectionSidebar>123</StyledSectionSidebar>;
 };
 
 export default SectionSidebar;
