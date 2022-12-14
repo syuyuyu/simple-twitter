@@ -1,8 +1,8 @@
 import { LogoStyle } from './common/authstyled';
-import { StyledSidebarContainer } from "../components/common/StyledGroup";
+import { StyledSidebarContainer } from "./common/StyledGroup";
 import SidebarItem from './SidebarItem';
 
-const SidebarContainer=()=>{
+const AdminSidebarContainer=()=>{
   return (
     <>
       <StyledSidebarContainer>
@@ -11,13 +11,13 @@ const SidebarContainer=()=>{
         </LogoStyle>
         <SidebarItem
         value={'推文清單'}
-        path={'/path'}
+        path={'/admin-main'}
         iconName={'mainIcon'}
         active={'active'}
         />
         <SidebarItem
         value={'使用者列表'}
-        path={'/path'}
+        path={'/admin-users'}
         iconName={'profileIcon'}
         />
       </StyledSidebarContainer>
@@ -25,4 +25,4 @@ const SidebarContainer=()=>{
   )
 }
 
-export default SidebarContainer;
+export default AdminSidebarContainer;

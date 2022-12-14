@@ -1,5 +1,5 @@
 import { StyledAdminGroupContainer } from "../components/common/StyledGroup";
-import SectionSidebar from '../components/SectionSidebar'
+import SectionAdminSidebar from '../components/SectionAdminSidebar'
 import SectionAdminMain from '../components/SectionAdminMain'
 
 
@@ -8,7 +8,7 @@ const AdminMainPage =()=>{
   return(
     <>
     <StyledAdminGroupContainer>
-      <SectionSidebar />
+      <SectionAdminSidebar />
       <SectionAdminMain />
     </StyledAdminGroupContainer>
     </>  

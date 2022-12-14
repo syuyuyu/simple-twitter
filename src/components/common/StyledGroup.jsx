@@ -259,16 +259,22 @@ const StyledProfileContainer = styled.div`
 const StyleSectionAdminMain = styled.div`
     width: 100%;
     height: 100%;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    overscroll-behavior: contain;
+    ::-webkit-scrollbar {
+      width: 0;
+    }
+
 `
 const StyledAdminUserList = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   grid-gap: 16px;
   grid-auto-rows: min-content;
   `
 const StyledAdminUserCard = styled.div`
-  max-width: 249px;
-  height: 285px;
+  height: 300px;
   border-radius: 10px;
   background-color: #F6F7F8;
 `

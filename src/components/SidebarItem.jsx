@@ -14,7 +14,9 @@ const NavLink = styled(Link)`
   display: flex;
   align-items: center;
   &.active{
+    h5{
       color:var(--color-main);
+    }
     .mainIcon{
       background-image: url(${mainActiveIcon});
     }
@@ -42,10 +44,10 @@ const MainIcon = styled.div`
   }
 `;
 
-const SidebarItem = ({ value, path, iconName,active}) => {
+const SidebarItem = ({ value, path, iconName}) => {
   return (
     <StyleSidebarItem>
-      <NavLink to={path} className={active}>
+      <NavLink to={path}>
         <MainIcon className={iconName}></MainIcon>
         <h5>{value}</h5>
       </NavLink>

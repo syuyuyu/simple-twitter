@@ -49,7 +49,7 @@ const StyleUserCardContent = styled.div`
 
 const StyledCardFollow = styled.div`
   color: var(--color-dark-100);
-  margin-top: 9px;
+  margin-top: 13px;
   span:nth-child(even){
   color: var(--color-secondary);
   }
