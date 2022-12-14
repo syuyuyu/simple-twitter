@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import avatarDefault from "../../icons/avatar-default.svg";
 import backIcon from "../../icons/back.svg";
 
@@ -50,10 +50,9 @@ const StyledPopularContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
   overflow-y: scroll;
   &::-webkit-scrollbar {
-    width: 6px;
+    width: 3px;
   }
   &::-webkit-scrollbar-thumb {
     border-radius: 3px;
@@ -69,14 +68,20 @@ const StyleSidebarItem = styled.div`
   &:not(:nth-child(4)) {
     margin-bottom: 40px;
   }
+  h5 {
+    color: var(--color-grayscale-dark100);
+  }
 `;
 const StyledSidebarLogout = styled.div`
   width: 100%;
   height: 45px;
   padding: 0 0 0 13px;
+  h5 {
+    color: var(--color-grayscale-dark100);
+  }
 `;
 const StyledTitleH4 = styled.h4`
-  height: 24px;
+  max-height: 24px;
   margin: 24px;
   font-size: 24px;
   font-weight: 700;
@@ -106,7 +111,6 @@ const StyledAvatarDefault = styled.div`
   .avatar {
     width: 50px;
     height: 50px;
-
     background-image: url(${avatarDefault});
     background-size: cover;
   }
@@ -146,7 +150,6 @@ const StyledPublicButton = styled.button`
   font-weight: 400;
   padding: 8px 16px;
   margin-right: 16px;
-
   &:hover {
     cursor: pointer;
   }
@@ -155,6 +158,13 @@ const StyledPublicButton = styled.button`
     color: var(--color-main);
     border: 1px solid var(--color-main);
   }
+  ${({ whiteMode }) =>
+    whiteMode &&
+    css`
+      background-color: var(--color-white);
+      border: 1px solid var(--color-main);
+      color: var(--color-main);
+    `}
 `;
 
 const StyledMainContainer = styled.div`
@@ -164,7 +174,7 @@ const StyledMainContainer = styled.div`
   border: 1px solid #e6ecf0;
   overflow-y: scroll;
   &::-webkit-scrollbar {
-    width: 6px;
+    width: 0px;
   }
   &::-webkit-scrollbar-thumb {
     border-radius: 3px;
@@ -177,13 +187,13 @@ const StyledHeader = styled.nav`
   height: 74px;
   border: 1px solid #e6ecf0;
 `;
-const StyledContent = styled.div`
+const StyledContentContainer = styled.div`
   position: relative;
   min-height: 136px;
   border-bottom: 10px solid #e6ecf0;
 `;
 
-const StyledContentContainer = styled.div`
+const StyledContentWrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -242,6 +252,7 @@ const StyledTitleTweetCount = styled.div`
 `;
 
 const StyledProfileContainer = styled.div`
+  position: relative;
   width: 100%;
 `;
 
@@ -285,6 +296,93 @@ const StyledAdminTweetsList=styled.div`
   flex-direction: column;
 `
 
+const StyledTitleWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+
+const StyledBackgroundImage = styled.div`
+  width: 100%;
+  height: 200px;
+  background: #aaa;
+`;
+const StyledEditContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  padding: 16px;
+`;
+const StyledAvatarImage = styled.div`
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  border: 4px solid #fff;
+  border-radius: 50%;
+  top:124px;
+  left: 16.1px;
+  &.avatar {
+    width: 140px;
+    height: 140px;
+    background-image: url(${avatarDefault});
+    background-size: cover;
+  }
+`;
+const StyledInfoWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding:16px;
+`
+const StyledContent = styled.p`
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+  margin: 6px 0 8px;
+`
+const StyledFollowsWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 180px;
+`
+const StyledFollowWrapper = styled.div`
+  display: flex;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+  color: var(--color-secondary);
+`;
+const StyledTweetsNavbarWrapper = styled.div`
+  width: 100%;
+  height: 52px;
+`;
+const StyledTweetsNavbar = styled.div`
+  width: 390px;
+  display: flex;
+  justify-content: space-between;
+`
+const StyledTweetNavLink = styled.div`
+  height: 52px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-line-default);
+  &:hover {
+    cursor: pointer;
+    border-bottom: 2px solid var(--color-main);
+    color: var(--color-main);
+  }
+
+  ${({ activeMode }) =>
+    activeMode &&
+    css`
+      border-bottom: 2px solid var(--color-main);
+      color: var(--color-main);
+    `};
+`;
 export {
   StyledGroupContainer,
   StyledSectionSidebar,
@@ -301,8 +399,8 @@ export {
   StyledPublicButton,
   StyledMainContainer,
   StyledHeader,
-  StyledContent,
   StyledContentContainer,
+  StyledContentWrapper,
   StyledButtonContainer,
   StyledError,
   StyledSidebarContainer,
@@ -321,4 +419,15 @@ export {
   StyledAdminUserAvatar,
   StyleSectionAdminMain,
   StyledAdminTweetsList,
+  StyledBackgroundImage,
+  StyledEditContainer,
+  StyledAvatarImage,
+  StyledTitleWrapper,
+  StyledInfoWrapper,
+  StyledContent,
+  StyledFollowsWrapper,
+  StyledFollowWrapper,
+  StyledTweetsNavbarWrapper,
+  StyledTweetsNavbar,
+  StyledTweetNavLink,
 };
