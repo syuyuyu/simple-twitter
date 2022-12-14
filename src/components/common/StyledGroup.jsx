@@ -10,6 +10,15 @@ const StyledGroupContainer = styled.div`
   gap: 24px;
 `;
 
+const StyledAdminGroupContainer = styled.div`
+  max-width: 1140px;
+  height: 100vh;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  gap: 24px;
+`
+
 const StyledSectionSidebar = styled.div`
   background: var(--color-white);
   display: flex;
@@ -202,4 +211,5 @@ export {
   StyledSidebarContainer,
   StyledSidebarLogout,
   StyleSidebarItem,
+  StyledAdminGroupContainer,
 };
