@@ -3,16 +3,15 @@ import {
   StyledHeader,
   StyledMainContainer,
   StyledTitleH4,
-  StyledContent,
   StyledContentContainer,
+  StyledContentWrapper,
   StyledAvatarDefault,
   StyledButtonContainer,
   StyledPublicButton,
   StyledError,
-  StyledTweetsList,
 } from "./common/StyledGroup";
 import ContentInput from "./ContentTextarea";
-import TweetItem from "./TweetItem";
+import TweetsList from "./TweetsList";
 
 
 const Main = () => {
@@ -22,8 +21,8 @@ const Main = () => {
       <StyledHeader>
         <StyledTitleH4>首頁</StyledTitleH4>
       </StyledHeader>
-      <StyledContent>
-        <StyledContentContainer>
+      <StyledContentContainer>
+        <StyledContentWrapper>
           <StyledAvatarDefault>
             <div className='avatar'></div>
           </StyledAvatarDefault>
@@ -32,18 +31,13 @@ const Main = () => {
             value={content}
             onChange={(accountInputValue) => setContevt(accountInputValue)}
           />
-        </StyledContentContainer>
+        </StyledContentWrapper>
         <StyledButtonContainer>
           <StyledError>字數不可超過140字</StyledError>
-          <StyledPublicButton >推文</StyledPublicButton>
+          <StyledPublicButton>推文</StyledPublicButton>
         </StyledButtonContainer>
-      </StyledContent>
-      <StyledTweetsList>
-        <TweetItem/>
-        <TweetItem/>
-        <TweetItem/>
-        <TweetItem/>
-      </StyledTweetsList>
+      </StyledContentContainer>
+      <TweetsList />
     </StyledMainContainer>
   );
 };
