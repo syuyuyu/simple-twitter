@@ -1,19 +1,13 @@
-import styled from 'styled-components';
-import AdminUserListContainer from './AdminUserListContainer';
-import AdminTweetsContainer from './AdminTweetsContainer';
-
-const StyleSectionAdminMain = styled.div`
-    width: 100%;
-    height: 100%;
-    display: flex;
-`
+import AdminUserList from "./AdminUserList";
+import AdminTweetsList from "./AdminTweetsList";
+import {StyleSectionAdminMain} from "./common/StyledGroup";
 
 const SectionAdminMain =()=>{
   return (
     <>
       <StyleSectionAdminMain>
-      {/* <AdminTweetsContainer /> */}
-      <AdminUserListContainer />
+        {/* <AdminTweetsList /> */}
+        <AdminUserList />
       </StyleSectionAdminMain>
     </>
   )

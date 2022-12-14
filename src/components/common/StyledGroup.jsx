@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import avatarDefault from "../../icons/avatar-default.svg";
+import backIcon from "../../icons/back.svg";
 
 const StyledGroupContainer = styled.div`
   max-width: 1140px;
@@ -15,11 +16,12 @@ const StyledAdminGroupContainer = styled.div`
   height: 100vh;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr 5fr;
+  grid-template-columns: 1fr 6fr;
   gap: 24px;
 `
 
 const StyledSectionSidebar = styled.div`
+  height: 100vh;
   background: var(--color-white);
   display: flex;
   flex-direction: column;
@@ -34,10 +36,12 @@ const StyledSectionMain = styled.div`
 const StyledSectionPopular = styled.div`
   width: 100%;
   height: 100%;
+  overflow: hidden;
 `;
 
 const StyledPopularContainer = styled.div`
   max-width: 273px;
+  height: 100vh;
   background: var(--color-grayscale-dark20);
   border-radius: 16px;
   margin-top: 16px;
@@ -47,23 +51,30 @@ const StyledPopularContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  `
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+`;
 const StyledSidebarContainer = styled.div`
   width: 100%;
-  height : 330px;
-  `
+  height: 330px;
+`;
 const StyleSidebarItem = styled.div`
-  padding: 13px  0 0 13px;
-  &:not(:nth-child(4)){
+  padding: 13px 0 0 13px;
+  &:not(:nth-child(4)) {
     margin-bottom: 40px;
   }
-`
+`;
 const StyledSidebarLogout = styled.div`
   width: 100%;
   height: 45px;
-  padding:0 0 0 13px;
-
-`
+  padding: 0 0 0 13px;
+`;
 const StyledTitleH4 = styled.h4`
   height: 24px;
   margin: 24px;
@@ -88,7 +99,7 @@ const StyledPopularItem = styled.div`
     cursor: pointer;
   }
 `;
-const AvatarDefault = styled.div`
+const StyledAvatarDefault = styled.div`
   width: 50px;
   height: 50px;
   margin: 16px 8px 16px 16px;
@@ -101,13 +112,13 @@ const AvatarDefault = styled.div`
   }
 `;
 
-const NameContainer = styled.div`
+const StyledStyledNameContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   flex: 1;
 `;
-const Name = styled.p`
+const StyledName = styled.p`
   height: 26px;
   font-size: 16px;
   font-weight: 700;
@@ -115,7 +126,7 @@ const Name = styled.p`
   color: var(--color-grayscale-dark100);
 `;
 
-const Account = styled.p`
+const StyledAccount = styled.p`
   height: 22px;
   font-size: 16px;
   font-weight: 500;
@@ -123,7 +134,7 @@ const Account = styled.p`
   color: var(--color-grayscale-dark70);
 `;
 
-const PublicButton = styled.button`
+const StyledPublicButton = styled.button`
   border-radius: 50px;
   background-color: var(--color-main);
   border: none;
@@ -146,32 +157,40 @@ const PublicButton = styled.button`
   }
 `;
 
-const MainContainer = styled.div`
+const StyledMainContainer = styled.div`
   position: relative;
   width: 100%;
   height: 100%;
   border: 1px solid #e6ecf0;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    background-color: rgba(0, 0, 0, 0.1);
+  }
 `;
-const Header = styled.nav`
+const StyledHeader = styled.nav`
   /* position: fixed; */
   background: #ffffffa3;
   height: 74px;
   border: 1px solid #e6ecf0;
 `;
-const Content = styled.div`
+const StyledContent = styled.div`
   position: relative;
   min-height: 136px;
   border-bottom: 10px solid #e6ecf0;
 `;
 
-const ContentContainer = styled.div`
+const StyledContentContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
   width: 100%;
   margin-left: 8.2px;
 `;
-const ButtonContainer = styled.div`
+const StyledButtonContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -187,29 +206,119 @@ const StyledError = styled.p`
   margin-right: 20px;
 `;
 
+const StyledTweetsList = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+`;
+const StyledTitleContainer = styled.div`
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 25px;
+`;
+const StyledBackIcon = styled.div`
+  width: 24px;
+  height: 24px;
+  background-size: cover;
+  margin-right: 16px;
+  &.backIcon {
+    background-image: url(${backIcon});
+  }
+`;
+const StyledTitleH5 = styled.h5`
+  height: 26px;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 26px;
+  color: var(--color-grayscale-dark100);
+`;
+const StyledTitleTweetCount = styled.div`
+  height: 19px;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 19px;
+  color: var(--color-grayscale-dark70);
+`;
+
+const StyledProfileContainer = styled.div`
+  width: 100%;
+`;
+
+const StyleSectionAdminMain = styled.div`
+    width: 100%;
+    height: 100%;
+`
+const StyledAdminUserList = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
+  grid-gap: 16px;
+  grid-auto-rows: min-content;
+  `
+const StyledAdminUserCard = styled.div`
+  max-width: 249px;
+  height: 285px;
+  border-radius: 10px;
+  background-color: #F6F7F8;
+`
+const StyledAdminUserBackground = styled.div`
+    height: 125px;
+    width: 100%;
+    background-color: grey;
+    border-radius: 10px 10px 0 0;
+    background-size:cover;
+    position: relative;
+`
+const StyledAdminUserAvatar= styled.img`
+    height:100px;
+    width: 100px;
+    background-color: black;
+    border-radius: 50%;
+    border: 3px solid var(--color-white);
+    position: absolute;
+    top: 0;
+    transform: translateY(-105px);
+    background-size:cover;
+`
+const StyledAdminTweetsList=styled.div`
+  display: flex;
+  flex-direction: column;
+`
+
 export {
-  StyledGroupContainer as GroupContainer,
+  StyledGroupContainer,
   StyledSectionSidebar,
   StyledSectionMain,
   StyledSectionPopular,
-  StyledPopularContainer as PopularContainer,
-  StyledTitleH4 as TitleH4,
-  StyledPopularList as PopularList,
+  StyledPopularContainer,
+  StyledTitleH4,
+  StyledPopularList,
   StyledPopularItem,
-  AvatarDefault,
-  NameContainer,
-  Name,
-  Account,
-  PublicButton,
-  MainContainer,
-  Header,
-  Content,
-  ContentContainer,
-  ButtonContainer,
+  StyledAvatarDefault,
+  StyledStyledNameContainer,
+  StyledName,
+  StyledAccount,
+  StyledPublicButton,
+  StyledMainContainer,
+  StyledHeader,
+  StyledContent,
+  StyledContentContainer,
+  StyledButtonContainer,
   StyledError,
-  StyledGroupContainer,
   StyledSidebarContainer,
   StyledSidebarLogout,
   StyleSidebarItem,
   StyledAdminGroupContainer,
+  StyledTweetsList,
+  StyledTitleContainer,
+  StyledBackIcon,
+  StyledTitleH5,
+  StyledTitleTweetCount,
+  StyledProfileContainer,
+  StyledAdminUserList,
+  StyledAdminUserCard,
+  StyledAdminUserBackground,
+  StyledAdminUserAvatar,
+  StyleSectionAdminMain,
+  StyledAdminTweetsList,
 };

@@ -1,15 +1,27 @@
-import {Header,TitleH4} from './common/StyledGroup';
-import AdminUserCard from './AdminUserCard'
-
+import AdminUserCard from "./AdminUserCard";
+import {StyledAdminUserList,StyledHeader,StyledTitleH4} from "./common/StyledGroup";
 
 const AdminUserList =()=>{
-
   return (
     <>
-      <p>AdminUserList</p>
-      <AdminUserCard />
+      <StyledHeader>
+        <StyledTitleH4>使用者列表</StyledTitleH4>
+      </StyledHeader>
+      <StyledAdminUserList>
+        <AdminUserCard />
+        <AdminUserCard />
+        <AdminUserCard />
+        <AdminUserCard />
+        <AdminUserCard />
+        <AdminUserCard />
+        <AdminUserCard />
+        <AdminUserCard />
+        <AdminUserCard />
+        <AdminUserCard />
+      </StyledAdminUserList>
     </>
   )
 }
 
 export default AdminUserList;
+

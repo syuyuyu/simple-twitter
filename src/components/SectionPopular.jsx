@@ -1,9 +1,9 @@
 import React from "react";
 import {
-  PopularContainer,
+  StyledPopularContainer,
   StyledSectionPopular,
-  PopularList,
-  TitleH4,
+  StyledPopularList,
+  StyledTitleH4,
 } from "../components/common/StyledGroup";
 
 import PopularItem from "./PopularItem";
@@ -11,9 +11,9 @@ import PopularItem from "./PopularItem";
 const SectionPopular = () => {
   return (
     <StyledSectionPopular>
-      <PopularContainer>
-        <TitleH4>推薦跟隨</TitleH4>
-        <PopularList>
+      <StyledPopularContainer>
+        <StyledTitleH4>推薦跟隨</StyledTitleH4>
+        <StyledPopularList>
           <PopularItem/>
           <PopularItem/>
           <PopularItem/>
@@ -23,8 +23,8 @@ const SectionPopular = () => {
           <PopularItem/>
           <PopularItem/>
           <PopularItem/>
-        </PopularList>
-      </PopularContainer>
+        </StyledPopularList>
+      </StyledPopularContainer>
     </StyledSectionPopular>
   );
 };

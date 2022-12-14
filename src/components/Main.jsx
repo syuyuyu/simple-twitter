@@ -1,41 +1,50 @@
 import React, { useState } from "react";
 import {
-  Header,
-  MainContainer,
-  TitleH4,
-  Content,
-  ContentContainer,
-  AvatarDefault,
-  ButtonContainer,
-  PublicButton,
+  StyledHeader,
+  StyledMainContainer,
+  StyledTitleH4,
+  StyledContent,
+  StyledContentContainer,
+  StyledAvatarDefault,
+  StyledButtonContainer,
+  StyledPublicButton,
   StyledError,
+  StyledTweetsList,
 } from "./common/StyledGroup";
 import ContentInput from "./ContentTextarea";
+import TweetItem from "./TweetItem";
+
 
 const Main = () => {
   const [content, setContevt] = useState("");
   return (
-    <MainContainer>
-      <Header>
-        <TitleH4>首頁</TitleH4>
-      </Header>
-      <Content>
-        <ContentContainer>
-          <AvatarDefault>
+    <StyledMainContainer>
+      <StyledHeader>
+        <StyledTitleH4>首頁</StyledTitleH4>
+      </StyledHeader>
+      <StyledContent>
+        <StyledContentContainer>
+          <StyledAvatarDefault>
             <div className='avatar'></div>
-          </AvatarDefault>
+          </StyledAvatarDefault>
           <ContentInput
             placeholder='有什麼新鮮事？'
             value={content}
             onChange={(accountInputValue) => setContevt(accountInputValue)}
           />
-        </ContentContainer>
-        <ButtonContainer>
+        </StyledContentContainer>
+        <StyledButtonContainer>
           <StyledError>字數不可超過140字</StyledError>
-          <PublicButton >推文</PublicButton>
-        </ButtonContainer>
-      </Content>
-    </MainContainer>
+          <StyledPublicButton >推文</StyledPublicButton>
+        </StyledButtonContainer>
+      </StyledContent>
+      <StyledTweetsList>
+        <TweetItem/>
+        <TweetItem/>
+        <TweetItem/>
+        <TweetItem/>
+      </StyledTweetsList>
+    </StyledMainContainer>
   );
 };
 

@@ -2,9 +2,7 @@ import { LogoStyle } from './common/authstyled';
 import { StyledSidebarContainer } from "../components/common/StyledGroup";
 import SidebarItem from './SidebarItem';
 
-
-
-const SidebarContainer =()=>{
+const SidebarContainer=()=>{
   return (
     <>
       <StyledSidebarContainer>
