@@ -11,7 +11,11 @@ const StyledGroupContainer = styled.div`
 `;
 
 const StyledSectionSidebar = styled.div`
-  background: #f00;
+  background: var(--color-white);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
 `;
 const StyledSectionMain = styled.div`
   width: 100%;
