@@ -1,10 +1,12 @@
 import React from 'react'
 import { StyledSectionMain } from "../components/common/StyledGroup";
+import Main from './Main';
+
 
 const SectionMain = () => {
   return (
     <StyledSectionMain>
-      section main
+      <Main/>
     </StyledSectionMain>
   )
 }

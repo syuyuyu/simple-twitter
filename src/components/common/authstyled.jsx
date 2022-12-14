@@ -23,7 +23,7 @@ const StyleLogo = styled.div`
   }
 `;
 
-const H3Title = styled.h3`
+const StyledTitleH3 = styled.h3`
   /* font-family: "Noto Sans TC", sans-serif; */
   font-size: 28px;
   font-weight: 700;
@@ -79,7 +79,7 @@ const StyledLinkTextContainer = styled.div`
 export {
   StyledContainer as AuthContainer,
   StyleLogo as LogoStyle,
-  H3Title as TitleH3,
+  StyledTitleH3 as TitleH3,
   StyledButton as AuthButton,
   StyledLinkText as AuthLinkText,
   StyledDot as AuthDot,
