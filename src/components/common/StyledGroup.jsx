@@ -10,18 +10,42 @@ const StyledGroupContainer = styled.div`
   background: #5ff;
 `;
 
+const StyledSectionSidebar = styled.div`
+  background: var(--color-white);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  `
 const StyledSidebarContainer = styled.div`
-  background: #f00;
+  width: 100%;
+  height : 330px;
+  `
+const StyleSidebarItem = styled.div`
+  padding: 13px  0 0 13px;
+  &:not(:nth-child(4)){
+    margin-bottom: 40px;
+  }
 `
-const StyledMainCotainer = styled.div`
-  background: #0f0;
+const StyledSidebarLogout = styled.div`
+  width: 100%;
+  height: 45px;
+  padding:0 0 0 13px;
+
+`
+
+const StyledSectionMain = styled.div`
+  background: #9a9a9a;
 `;
-const StyledPopularContainer = styled.div`
-  background: #00f;
+const StyledSectionPopular = styled.div`
+  background: #848484;
 `;
 export {
-  StyledGroupContainer as GroupContainer,
-  StyledSidebarContainer as SidebarContainer,
-  StyledMainCotainer as MainCotainer,
-  StyledPopularContainer as PopularContainer,
+  StyledGroupContainer,
+  StyledSectionSidebar,
+  StyledSectionMain,
+  StyledSectionPopular,
+  StyledSidebarContainer,
+  StyledSidebarLogout,
+  StyleSidebarItem,
 };

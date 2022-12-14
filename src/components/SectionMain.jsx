@@ -1,11 +1,11 @@
 import React from 'react'
-import { MainCotainer } from "../components/common/StyledGroup";
+import { StyledSectionMain } from "../components/common/StyledGroup";
 
 const SectionMain = () => {
   return (
-    <MainCotainer>
-      123
-    </MainCotainer>
+    <StyledSectionMain>
+      section main
+    </StyledSectionMain>
   )
 }
 
