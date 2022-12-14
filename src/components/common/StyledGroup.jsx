@@ -29,8 +29,28 @@ const StyledPopularContainer = styled.div`
   border-radius: 16px;
   margin-top: 16px;
   padding-top: 4px;
-`;
+  background: var(--color-white);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  `
+const StyledSidebarContainer = styled.div`
+  width: 100%;
+  height : 330px;
+  `
+const StyleSidebarItem = styled.div`
+  padding: 13px  0 0 13px;
+  &:not(:nth-child(4)){
+    margin-bottom: 40px;
+  }
+`
+const StyledSidebarLogout = styled.div`
+  width: 100%;
+  height: 45px;
+  padding:0 0 0 13px;
 
+`
 const StyledTitleH4 = styled.h4`
   height: 24px;
   margin: 24px;
@@ -174,4 +194,8 @@ export {
   ContentContainer,
   ButtonContainer,
   StyledError,
+  StyledGroupContainer,
+  StyledSidebarContainer,
+  StyledSidebarLogout,
+  StyleSidebarItem,
 };

@@ -10,10 +10,10 @@ function App() {
     <div className='app'>
       <ResetStyle />
       <GlobalStyle />
+      <MainPage />
       {/* <RegistPage /> */}
       {/* <LoginPage /> */}
       {/* <AdminPage/> */}
-      <MainPage/>
     </div>
   );
 }
