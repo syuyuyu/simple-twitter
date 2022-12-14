@@ -10,7 +10,7 @@ import {
   PublicButton,
   StyledError,
 } from "./common/StyledGroup";
-import ContentInput from "./ContentInput";
+import ContentInput from "./ContentTextarea";
 
 const Main = () => {
   const [content, setContevt] = useState("");

@@ -4,20 +4,23 @@ import styled from "styled-components";
 const StyledContainer = styled.div`
   position: relative;
   flex-grow: 0.9;
+  padding-top: 10px;
 `;
-const StyledInput = styled.input`
+const StyledTextarea = styled.textarea`
+  width: 100%;
   font-size: 18px;
   line-height: 26px;
   outline: none;
   border: none;
+  overflow: visible;
 `;
 
-const ContentInput = ({ type, value, placeholder, onChange }) => {
+const ContentInput = ({ value, placeholder, onChange }) => {
   return (
     <>
       <StyledContainer>
-        <StyledInput
-          type={type || "text"}
+        <StyledTextarea
+          type={"text"}
           value={value}
           placeholder={placeholder}
           onChange={(event) => onChange?.(event.target.value)}
