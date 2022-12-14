@@ -14,12 +14,12 @@ const SidebarContainer =()=>{
         </LogoStyle>
         <SidebarItem
         value={'首頁'}
-        path={'/path'}
+        path={'/*'}
         iconName={'mainIcon'}
         />
         <SidebarItem
         value={'個人資料'}
-        path={'/path'}
+        path={'/profile'}
         iconName={'profileIcon'}
         />
         <SidebarItem

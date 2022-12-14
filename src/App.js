@@ -1,19 +1,22 @@
-import './App.css';
-import { ResetStyle,GlobalStyle } from './components/globalStyle'
-import AdminPage from './pages/AdminPage';
-import LoginPage from './pages/LoginPage';
-import MainPage from './pages/MainPage';
-import RegistPage from "./pages/RegistPage";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import "./App.css";
+import { ResetStyle, GlobalStyle } from "./components/globalStyle";
+import { AdminPage, HomePage, LoginPage, MainPage, RegistPage } from "./pages";
 
 function App() {
   return (
     <div className='app'>
       <ResetStyle />
       <GlobalStyle />
-      <MainPage />
-      {/* <RegistPage /> */}
-      {/* <LoginPage /> */}
-      {/* <AdminPage/> */}
+      <BrowserRouter>
+        <Routes>
+          <Route path='login' element={<LoginPage />} />
+          <Route path='regist' element={<RegistPage />} />
+          <Route path='admin' element={<AdminPage />} />
+          <Route path='*' element={<MainPage />} />
+          <Route path='home' element={<HomePage />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
