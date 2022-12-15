@@ -271,7 +271,7 @@ const StyledAvatarImage = styled.div`
   height: 140px;
   border: 4px solid #fff;
   border-radius: 50%;
-  top:124px;
+  top: 124px;
   left: 16.1px;
   &.avatar {
     width: 140px;
@@ -284,20 +284,20 @@ const StyledInfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding:16px;
-`
+  padding: 16px;
+`;
 const StyledContent = styled.p`
   font-size: 14px;
   font-weight: 400;
   line-height: 22px;
   margin: 6px 0 8px;
-`
+`;
 const StyledFollowsWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   width: 180px;
-`
+`;
 const StyledFollowWrapper = styled.div`
   display: flex;
   font-size: 14px;
@@ -313,7 +313,7 @@ const StyledTweetsNavbar = styled.div`
   width: 390px;
   display: flex;
   justify-content: space-between;
-`
+`;
 const StyledTweetNavLink = styled.div`
   height: 52px;
   width: 100%;
@@ -326,13 +326,16 @@ const StyledTweetNavLink = styled.div`
     border-bottom: 2px solid var(--color-main);
     color: var(--color-main);
   }
-
-  ${({ activeMode }) =>
+  &.active {
+    border-bottom: 2px solid var(--color-main);
+    color: var(--color-main);
+  }
+  /* ${({ activeMode }) =>
     activeMode &&
     css`
       border-bottom: 2px solid var(--color-main);
       color: var(--color-main);
-    `};
+    `}; */
 `;
 export {
   StyledGroupContainer,
