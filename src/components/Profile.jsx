@@ -62,9 +62,9 @@ const Profile = () => {
       </StyledProfileContainer>
       <StyledTweetsNavbarWrapper>
         <StyledTweetsNavbar>
-          <StyledTweetNavLink activeMode={true}>推文</StyledTweetNavLink>
-          <StyledTweetNavLink>回覆</StyledTweetNavLink>
-          <StyledTweetNavLink>喜歡的內容</StyledTweetNavLink>
+          <StyledTweetNavLink activeStyle>推文</StyledTweetNavLink>
+          <StyledTweetNavLink activeStyle>回覆</StyledTweetNavLink>
+          <StyledTweetNavLink activeStyle>喜歡的內容</StyledTweetNavLink>
         </StyledTweetsNavbar>
       </StyledTweetsNavbarWrapper>
       <TweetsList />

@@ -9,7 +9,7 @@ const SectionMain = () => {
     <StyledSectionMain>
       <Routes>
         <Route path='/profile' element={<Profile />} />
-        <Route path='/profile' element={<Main />} />
+        <Route path='/*' element={<Main />} />
       </Routes>
     </StyledSectionMain>
   );
