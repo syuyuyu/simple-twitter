@@ -79,45 +79,41 @@ const StyledIcon = styled.div`
     background-image: url(${LikeIcon});
   }
 `;
-const TweetItem = () => {
-  const [modal, setModal] = useState(false);
-  const toggleModal = () => {
-    setModal(!modal);
-  };
+const TweetItem = ({replyModal,toggleReplyModal}) => {
 
   return (
     <>
-    <ItemContainer>
-      <StyledAvatarDefault style={{ margin: "0px" }}>
-        <div className='avatar'></div>
-      </StyledAvatarDefault>
-      <TextContainer>
-        <RowContainer>
-          <Name>Apple</Name>
-          <Account>@apple · 3小時</Account>
-        </RowContainer>
-        <RowContainer>
-          <TweetText>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt non optio ipsam amet minima,
-            perspiciatis, autem eaque iure voluptatibus odio beatae, impedit architecto nihil maiores aliquid commodi
-            sapiente fugit possimus!
-          </TweetText>
-        </RowContainer>
-        <RowContainer>
-          <IconsContainer>
-            <IconContainer>
-              <StyledIcon className='replyIcon' onClick={toggleModal}></StyledIcon>
-              <p>13</p>
-            </IconContainer>
-            <IconContainer>
-              <StyledIcon className='likeIcon'></StyledIcon>
-              <p>76</p>
-            </IconContainer>
-          </IconsContainer>
-        </RowContainer>
-      </TextContainer>
-    </ItemContainer>
-    <ReplyModal modal={modal} toggleModal={toggleModal}/>
+      <ItemContainer>
+        <StyledAvatarDefault style={{ margin: "0px" }}>
+          <div className='avatar'></div>
+        </StyledAvatarDefault>
+        <TextContainer>
+          <RowContainer>
+            <Name>Apple</Name>
+            <Account>@apple · 3小時</Account>
+          </RowContainer>
+          <RowContainer>
+            <TweetText>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt non optio ipsam amet minima,
+              perspiciatis, autem eaque iure voluptatibus odio beatae, impedit architecto nihil maiores aliquid commodi
+              sapiente fugit possimus!
+            </TweetText>
+          </RowContainer>
+          <RowContainer>
+            <IconsContainer>
+              <IconContainer>
+                <StyledIcon className='replyIcon' onClick={toggleReplyModal}></StyledIcon>
+                <p>13</p>
+              </IconContainer>
+              <IconContainer>
+                <StyledIcon className='likeIcon'></StyledIcon>
+                <p>76</p>
+              </IconContainer>
+            </IconsContainer>
+          </RowContainer>
+        </TextContainer>
+      </ItemContainer>
+      <ReplyModal replyModal={replyModal} toggleReplyModal={toggleReplyModal} />
     </>
   );
 };

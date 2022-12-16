@@ -3,11 +3,11 @@ import { StyledSectionSidebar } from "../components/common/StyledGroup";
 import SidebarContainer from "./SidebarContainer";
 import SidebarLogout from "./SidebarLogout";
 
-const SectionSidebar = ({ modal, toggleModal }) => {
+const SectionSidebar = ({ toggleTweetModal }) => {
   return (
     <>
       <StyledSectionSidebar>
-        <SidebarContainer modal={modal} toggleModal={toggleModal} />
+        <SidebarContainer toggleTweetModal={toggleTweetModal} />
         <SidebarLogout />
       </StyledSectionSidebar>
     </>

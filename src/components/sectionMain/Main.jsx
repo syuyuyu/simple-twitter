@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Outlet } from "react-router-dom";
 import {
   StyledHeader,
   StyledMainContainer,
@@ -16,7 +15,7 @@ import TweetModal from "../Modals/TweetModal";
 import TweetsList from "../TweetsList";
 
 
-const Main = ({ modal, toggleModal }) => {
+const Main = ({ tweetModal, toggleTweetModal }) => {
   const [content, setContevt] = useState("");
 
   return (
@@ -43,7 +42,7 @@ const Main = ({ modal, toggleModal }) => {
         </StyledContentContainer>
         <TweetsList />
       </StyledMainContainer>
-      <TweetModal modal={modal} toggleModal={toggleModal} />
+      <TweetModal tweetModal={tweetModal} toggleTweetModal={toggleTweetModal} />
     </>
   );
 };

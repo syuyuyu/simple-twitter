@@ -91,7 +91,7 @@ const Time = styled.p`
   color: #6c757d;
 `;
 
-const Reply = ({ modal, toggleModal }) => {
+const Reply = ({ replyModal, toggleReplyModal }) => {
   return (
     <>
       <StyledMainContainer>
@@ -128,14 +128,14 @@ const Reply = ({ modal, toggleModal }) => {
           </TweetContainer>
           <TweetContainer style={{ border: "none" }}>
             <div className='icon-wrapper'>
-              <div className='icon reply' onClick={toggleModal}></div>
+              <div className='icon reply' onClick={toggleReplyModal}></div>
               <div className='icon like active'></div>
             </div>
           </TweetContainer>
           <ReplysList />
         </StyledHeader>
       </StyledMainContainer>
-      <ReplyModal modal={modal} toggleModal={toggleModal} />
+      <ReplyModal replyModal={replyModal} toggleReplyModal={toggleReplyModal} />
     </>
   );
 };

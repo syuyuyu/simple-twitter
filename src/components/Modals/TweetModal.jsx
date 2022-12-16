@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import styled from "styled-components";
 import {
   StyledContentContainer,
@@ -8,7 +8,7 @@ import {
   StyledError,
   StyledPublicButton,
 } from "../common/StyledGroup";
-import ContentInput from '../ContentTextarea';
+import ContentInput from "../ContentTextarea";
 import close from "../../icons/close.svg";
 
 const Modal = styled.div`
@@ -60,21 +60,20 @@ const Close = styled.button`
 const NavContainer = styled.div`
   height: 50px;
   width: 100%;
-  border-bottom: 1px solid #E6ECF0;
-`
+  border-bottom: 1px solid #e6ecf0;
+`;
 
-
-const TweetModal = ({ modal, toggleModal }) => {
+const TweetModal = ({ tweetModal, toggleTweetModal }) => {
   return (
     <>
-      {modal && (
+      {tweetModal && (
         <Modal>
-          <Overlay onClick={toggleModal}></Overlay>
+          <Overlay onClick={toggleTweetModal}></Overlay>
           <Content>
             <NavContainer>
-                <Close className='close' onClick={toggleModal}></Close>
+              <Close className='close' onClick={toggleTweetModal}></Close>
             </NavContainer>
-            <StyledContentContainer style={{border: "none", height:'243px'}}>
+            <StyledContentContainer style={{ border: "none", height: "243px" }}>
               <StyledContentWrapper>
                 <StyledAvatarDefault>
                   <div className='avatar'></div>
@@ -97,4 +96,4 @@ const TweetModal = ({ modal, toggleModal }) => {
   );
 };
 
-export default TweetModal
+export default TweetModal;

@@ -19,9 +19,9 @@ const StyledSidebarButton =styled.button`
 `
 
 
-const SidebarButton = ({ toggleModal }) => {
+const SidebarButton = ({ toggleTweetModal }) => {
   return (
-    <StyledSidebarButton onClick={toggleModal}>
+    <StyledSidebarButton onClick={toggleTweetModal}>
       <p>推文</p>
     </StyledSidebarButton>
   );

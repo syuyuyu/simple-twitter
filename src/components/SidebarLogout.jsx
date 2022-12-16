@@ -20,7 +20,7 @@ const LogoutIcon = styled.div`
 const SidebarLogout = () => {
   return (
     <StyledSidebarLogout>
-      <NavLink to={"/login"}>
+      <NavLink to={"/"}>
         <LogoutIcon></LogoutIcon>
         <h5>登出</h5>
       </NavLink>

@@ -35,11 +35,13 @@ const AdminPage = () => {
         onChange={(passwordInputValue) => setPassword(passwordInputValue)}
       />
 
-      <Link to={'/admin/main'} activeStyle>
+      <Link to='/admin/main'>
         <AuthButton>登入</AuthButton>
       </Link>
       <LinkTextContainer>
+      <Link to='/'>
         <AuthLinkText>前台登入</AuthLinkText>
+      </Link>
       </LinkTextContainer>
     </AuthContainer>
   );

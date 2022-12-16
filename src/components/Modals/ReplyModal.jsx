@@ -80,15 +80,15 @@ const StyledTextarea = styled.textarea`
   border: none;
 `;
 
-const ReplyModal = ({ modal, toggleModal }) => {
+const ReplyModal = ({ replyModal, toggleReplyModal }) => {
   return (
     <>
-      {modal && (
+      {replyModal && (
         <Modal>
-          <Overlay onClick={toggleModal}></Overlay>
+          <Overlay onClick={toggleReplyModal}></Overlay>
           <Content>
             <NavContainer>
-              <Close className='close' onClick={toggleModal}></Close>
+              <Close className='close' onClick={toggleReplyModal}></Close>
             </NavContainer>
             <TweetContainer>
               <ReplyTweet />
@@ -100,7 +100,7 @@ const ReplyModal = ({ modal, toggleModal }) => {
                 </StyledAvatarDefault>
                 <StyledContainer>
                   <StyledTextarea
-                    type="text"
+                    type='text'
                     placeholder='推你的回覆'
                     // value={value}
                     // onChange={(event) => onChange?.(event.target.value)}
