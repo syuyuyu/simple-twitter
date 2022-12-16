@@ -1,4 +1,5 @@
 import React from "react";
+import { Outlet } from "react-router-dom";
 import {
   StyledMainContainer,
   StyledHeader,
@@ -19,9 +20,27 @@ import {
   StyledFollowWrapper,
   StyledTweetsNavbar,
   StyledTweetsNavbarWrapper,
-  StyledTweetNavLink,
-} from "./common/StyledGroup";
-import TweetsList from "./TweetsList";
+} from "../common/StyledGroup";
+import { NavLink as Link } from "react-router-dom";
+import styled from "styled-components";
+
+const NavLink = styled(Link)`
+  height: 52px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-line-default);
+  &:hover {
+    cursor: pointer;
+    border-bottom: 2px solid var(--color-main);
+    color: var(--color-main);
+  }
+  &.active {
+    border-bottom: 2px solid var(--color-main);
+    color: var(--color-main);
+  }
+`;
 
 const Profile = () => {
   return (
@@ -62,12 +81,12 @@ const Profile = () => {
       </StyledProfileContainer>
       <StyledTweetsNavbarWrapper>
         <StyledTweetsNavbar>
-          <StyledTweetNavLink activeStyle>推文</StyledTweetNavLink>
-          <StyledTweetNavLink activeStyle>回覆</StyledTweetNavLink>
-          <StyledTweetNavLink activeStyle>喜歡的內容</StyledTweetNavLink>
+          <NavLink to='tweets'>推文</NavLink>
+          <NavLink to='replys'>回覆</NavLink>
+          <NavLink to='likes'>喜歡的內容</NavLink>
         </StyledTweetsNavbar>
       </StyledTweetsNavbarWrapper>
-      <TweetsList />
+      <Outlet />
     </StyledMainContainer>
   );
 };

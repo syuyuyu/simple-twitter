@@ -1,14 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { StyledAvatarDefault } from "./common/StyledGroup";
 import ReplyIcon from "../icons/reply.svg";
-import LikeIcon from "../icons/reply.svg";
+import LikeIcon from "../icons/like.svg";
+import ReplyModal from "./Modals/ReplyModal";
+
 
 const ItemContainer = styled.div`
   display: flex;
   flex-direction: row;
   border: 1px solid #e6ecf0;
   padding: 16px 29px 16px 24px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const TextContainer = styled.div`
@@ -29,6 +34,9 @@ const Name = styled.p`
   font-weight: 700;
   line-height: 26px;
   color: var(--color-grayscale-dark100);
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const Account = styled.p`
@@ -61,6 +69,9 @@ const StyledIcon = styled.div`
   height: 16px;
   background-size: cover;
   margin-right: 9px;
+  &:hover {
+    cursor: pointer;
+  }
   &.replyIcon {
     background-image: url(${ReplyIcon});
   }
@@ -69,7 +80,13 @@ const StyledIcon = styled.div`
   }
 `;
 const TweetItem = () => {
+  const [modal, setModal] = useState(false);
+  const toggleModal = () => {
+    setModal(!modal);
+  };
+
   return (
+    <>
     <ItemContainer>
       <StyledAvatarDefault style={{ margin: "0px" }}>
         <div className='avatar'></div>
@@ -89,7 +106,7 @@ const TweetItem = () => {
         <RowContainer>
           <IconsContainer>
             <IconContainer>
-              <StyledIcon className='replyIcon'></StyledIcon>
+              <StyledIcon className='replyIcon' onClick={toggleModal}></StyledIcon>
               <p>13</p>
             </IconContainer>
             <IconContainer>
@@ -100,6 +117,8 @@ const TweetItem = () => {
         </RowContainer>
       </TextContainer>
     </ItemContainer>
+    <ReplyModal modal={modal} toggleModal={toggleModal}/>
+    </>
   );
 };
 

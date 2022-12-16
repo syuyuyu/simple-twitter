@@ -1,18 +1,16 @@
 import { StyledAdminGroupContainer } from "../components/common/StyledGroup";
-import SectionAdminSidebar from '../components/SectionAdminSidebar'
-import SectionAdminMain from '../components/SectionAdminMain'
+import SectionAdminSidebar from "../components/SectionAdminSidebar";
+import { Outlet } from "react-router-dom";
 
-
-const AdminMainPage =()=>{
-
-  return(
+const AdminMainPage = () => {
+  return (
     <>
-    <StyledAdminGroupContainer>
-      <SectionAdminSidebar />
-      <SectionAdminMain />
-    </StyledAdminGroupContainer>
-    </>  
-  )
-}
+      <StyledAdminGroupContainer>
+        <SectionAdminSidebar />
+        <Outlet />
+      </StyledAdminGroupContainer>
+    </>
+  );
+};
 
 export default AdminMainPage;
