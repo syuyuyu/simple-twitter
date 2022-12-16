@@ -8,11 +8,21 @@ const StyledContainer = styled.div`
   justify-content: space-around;
   vertical-align: middle;
   width: 100%;
-  height: 54px;
+  /* height: 54px; */
+  height: 100%;
   margin-bottom: 32px;
   background-color: #f5f8fa;
   border-radius: 2px;
 `;
+
+
+const StyledtextareaWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  height:147px;
+  background-color: #f5f8fa;
+
+`
 const StyledLabel = styled.label`
   /* font-family: "Noto Sans TC", sans-serif; */
   width: 100%;
@@ -24,10 +34,10 @@ const StyledLabel = styled.label`
   line-height: 22px;
   color: var(--color-grayscale-dark80);
 `;
-const StyledInput = styled.input`
+const StyledTextarea = styled.textarea`
   /* font-family: "Noto Sans TC", sans-serif; */
   width: 100%;
-  height: 26px;
+  height: 147px;
   padding: 3px 10.5px 0;
   font-size: 16px;
   font-weight: 400;
@@ -45,19 +55,19 @@ const StyledInput = styled.input`
 
 const StyledAlertContainer = styled.div`
   position: absolute;
-  top: 54px;
+  bottom: -24px;
   display: flex;
   justify-content: space-between;
   width: 100%;
+  /* bottom:0px; */
 `;
-
 const StyledError = styled.div`
-  margin-top: 4px;
-  height: 20px;
-  line-height: 20px;
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--color-error);
+    margin-top: 4px;
+    height: 20px;
+    line-height: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--color-error);
 `;
 
 const StyledCount = styled.div`
@@ -69,24 +79,28 @@ const StyledCount = styled.div`
   color: var(--color-grayscale-dark80);
 `;
 
-const AuthInput = ({ type, label, value, placeholder, onChange }) => {
+
+const DescriptionTextarea = ({ type, label, value, placeholder, onChange }) => {
   return (
     <>
       <StyledContainer>
-        <StyledLabel>{label}</StyledLabel>
-        <StyledInput
-          type={type || "text"}
-          value={value}
-          placeholder={placeholder}
-          onChange={(event) => onChange?.(event.target.value)}
-        />
+        <StyledtextareaWrap>
+          <StyledLabel>{label}</StyledLabel>
+          <StyledTextarea
+            type={type || "text"}
+            value={value}
+            placeholder={placeholder}
+            onChange={(event) => onChange?.(event.target.value)}/>
+        </StyledtextareaWrap>
+
         <StyledAlertContainer>
           <StyledError>字數超出上限！</StyledError>
-          <StyledCount>50/50</StyledCount>
+          <StyledCount>160/160</StyledCount>
         </StyledAlertContainer>
+
       </StyledContainer>
     </>
   );
 };
 
-export default AuthInput;
+export default DescriptionTextarea;

@@ -11,7 +11,6 @@ const AdminMainPage =()=>{
       <StyledAdminGroupContainer>
         <SectionAdminSidebar />
         <Routes>
-          <Route path="/*" element={<AdminTweetsList />} />
           <Route path='/main' element={<AdminTweetsList />} />
           <Route path='/users' element={<AdminUserList />} />
         </Routes>
