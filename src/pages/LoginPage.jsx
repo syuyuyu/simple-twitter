@@ -9,6 +9,8 @@ import {
   TitleH3,
 } from "../components/common/authstyled";
 import AuthInput from "../components/AuthInput";
+import { Link } from "react-router-dom";
+
 
 const LoginPage = () => {
   const [account, setAccount] = useState("");
@@ -32,11 +34,17 @@ const LoginPage = () => {
         value={password}
         onChange={(passwordInputValue) => setPassword(passwordInputValue)}
       />
+      <Link to='/user/main'>
       <AuthButton>登入</AuthButton>
+      </Link>
       <LinkTextContainer>
-        <AuthLinkText>註冊</AuthLinkText>
+        <Link to='/regist'>
+          <AuthLinkText>註冊</AuthLinkText>
+        </Link>
         <AuthDot>·</AuthDot>
+        <Link to='/admin'>
         <AuthLinkText>後台登入</AuthLinkText>
+        </Link>
       </LinkTextContainer>
     </AuthContainer>
   );

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const StyledSidebarButton =styled.div`
+const StyledSidebarButton =styled.button`
   /* button */
   display: flex;
   width: 178px;
@@ -19,14 +19,12 @@ const StyledSidebarButton =styled.div`
 `
 
 
-const SidebarButton =()=>{
-
-
+const SidebarButton = ({ toggleTweetModal }) => {
   return (
-    <StyledSidebarButton>
+    <StyledSidebarButton onClick={toggleTweetModal}>
       <p>推文</p>
     </StyledSidebarButton>
-  )
-}
+  );
+};
 
 export default SidebarButton;

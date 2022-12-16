@@ -1,8 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { StyledAvatarDefault } from "./common/StyledGroup";
-import ReplyIcon from "../icons/reply.svg";
-import LikeIcon from "../icons/reply.svg";
+import { StyledAvatarDefault } from "../common/StyledGroup";
+import deleteIcon from "../../assets/icons/delete.svg"
 
 const ItemContainer = styled.div`
   display: flex;
@@ -15,6 +14,7 @@ const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin-left: 8px;
+  position: relative;
 `;
 
 const RowContainer = styled.div`
@@ -45,30 +45,18 @@ const TweetText = styled.p`
   font-weight: 400;
   line-height: 26px;
 `;
-const IconsContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 120px;
-`;
-const IconContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
 
-const StyledIcon = styled.div`
-  width: 16px;
-  height: 16px;
+const StyledRemoveIcon= styled.button`
+  width: 24px;
+  height: 24px;
   background-size: cover;
-  margin-right: 9px;
-  &.replyIcon {
-    background-image: url(${ReplyIcon});
-  }
-  &.likeIcon {
-    background-image: url(${LikeIcon});
-  }
-`;
-const TweetItem = () => {
+  background-image: url(${deleteIcon});
+  position: absolute;
+  right: 0px;
+  transform: translateX(30px);
+  cursor: pointer;
+`
+const AdminTweetItem = () => {
   return (
     <ItemContainer>
       <StyledAvatarDefault style={{ margin: "0px" }}>
@@ -81,26 +69,13 @@ const TweetItem = () => {
         </RowContainer>
         <RowContainer>
           <TweetText>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt non optio ipsam amet minima,
-            perspiciatis, autem eaque iure voluptatibus odio beatae, impedit architecto nihil maiores aliquid commodi
-            sapiente fugit possimus!
+            Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. 
           </TweetText>
         </RowContainer>
-        <RowContainer>
-          <IconsContainer>
-            <IconContainer>
-              <StyledIcon className='replyIcon'></StyledIcon>
-              <p>13</p>
-            </IconContainer>
-            <IconContainer>
-              <StyledIcon className='likeIcon'></StyledIcon>
-              <p>76</p>
-            </IconContainer>
-          </IconsContainer>
-        </RowContainer>
+        <StyledRemoveIcon></StyledRemoveIcon>
       </TextContainer>
     </ItemContainer>
   );
 };
 
-export default TweetItem;
+export default AdminTweetItem;

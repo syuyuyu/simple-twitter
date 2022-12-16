@@ -4,9 +4,9 @@ import {
   StyledPublicButton,
   StyledBackgroundImage,
   StyledAvatarImage,
-} from "./common/StyledGroup";
-import AuthInput from "./AuthInput"
-import DescriptionTextarea from "./DescriptionTextarea"
+} from "../common/StyledGroup";
+import AuthInput from "../AuthInput"
+import DescriptionTextarea from "../DescriptionTextarea"
 import closeIcon from "../icons/close.svg"
 import addphotoIcon from "../icons/addphoto.svg"
 import cancelIcon from "../icons/cancel.svg"
@@ -108,12 +108,10 @@ const StyledBackgroundHover = styled.div`
   justify-content: center;
   align-items: center;
 `
-const StyleddescriptionTextarea = styled.div`
-  /* margin-top: 32px; */
-`
+const StyleddescriptionTextarea = styled.div``
 
 
-const ProfileModal = ({ modal, toggleModal }) => {
+const EditModal = ({ modal, toggleModal }) => {
   const [name, setName] = useState("");
   const [content, setContent] = useState("");
 
@@ -189,4 +187,4 @@ const ProfileModal = ({ modal, toggleModal }) => {
   );
 };
 
-export default ProfileModal;
+export default EditModal;

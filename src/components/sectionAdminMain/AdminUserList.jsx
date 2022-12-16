@@ -1,7 +1,7 @@
-import AdminUserCard from "./AdminUserCard";
-import {StyledAdminUserList,StyledHeader,StyledTitleH4,StyleSectionAdminMain} from "./common/StyledGroup";
+import AdminUserCard from "../AdminUserCard";
+import { StyledAdminUserList, StyledHeader, StyledTitleH4, StyleSectionAdminMain } from "../common/StyledGroup";
 
-const AdminUserList =()=>{
+const AdminUserList = () => {
   return (
     <>
       <StyleSectionAdminMain>
@@ -22,8 +22,7 @@ const AdminUserList =()=>{
         </StyledAdminUserList>
       </StyleSectionAdminMain>
     </>
-  )
-}
+  );
+};
 
 export default AdminUserList;
-

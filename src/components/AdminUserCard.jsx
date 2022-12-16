@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import {StyledAdminUserCard,StyledAdminUserBackground,StyledAdminUserAvatar,StyledName} from "./common/StyledGroup";
-import likeIcom from "../icons/like.svg";
-import tweetIcon from "../icons/tweet.svg";
+import likeIcom from "../assets/icons/like.svg";
+import tweetIcon from "../assets/icons/tweet.svg";
 
 const IconsContainer = styled.div`
   display: flex;

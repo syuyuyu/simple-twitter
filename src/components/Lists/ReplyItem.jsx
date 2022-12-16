@@ -1,7 +1,6 @@
-import React from "react";
+import React from 'react'
 import styled from "styled-components";
-import { StyledAvatarDefault } from "./common/StyledGroup";
-import deleteIcon from "../icons/delete.svg"
+import { StyledAvatarDefault } from "../common/StyledGroup";
 
 const ItemContainer = styled.div`
   display: flex;
@@ -14,13 +13,25 @@ const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin-left: 8px;
-  position: relative;
 `;
 
 const RowContainer = styled.div`
   display: flex;
   flex-flow: row;
   margin-bottom: 8px;
+  .text {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 22px;
+    color: #6c757d;
+  }
+  .account {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 22px;
+    color: var(--color-main);
+    cursor: pointer;
+  }
 `;
 
 const Name = styled.p`
@@ -29,6 +40,9 @@ const Name = styled.p`
   font-weight: 700;
   line-height: 26px;
   color: var(--color-grayscale-dark100);
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const Account = styled.p`
@@ -46,17 +60,7 @@ const TweetText = styled.p`
   line-height: 26px;
 `;
 
-const StyledRemoveIcon= styled.button`
-  width: 24px;
-  height: 24px;
-  background-size: cover;
-  background-image: url(${deleteIcon});
-  position: absolute;
-  right: 0px;
-  transform: translateX(30px);
-  cursor: pointer;
-`
-const AdminTweetItem = () => {
+const ReplyItem = () => {
   return (
     <ItemContainer>
       <StyledAvatarDefault style={{ margin: "0px" }}>
@@ -64,18 +68,21 @@ const AdminTweetItem = () => {
       </StyledAvatarDefault>
       <TextContainer>
         <RowContainer>
-          <Name>Apple</Name>
-          <Account>@apple · 3小時</Account>
+          <Name>Watermaloon</Name>
+          <Account>@Watermaloon · 12小時</Account>
+        </RowContainer>
+        <RowContainer>
+          <p className='text'>回覆</p>
+          <p className='account'>@Watermaloon</p>
         </RowContainer>
         <RowContainer>
           <TweetText>
-            Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. 
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Inventore et ex commodi odit deserunt. Vel.
           </TweetText>
         </RowContainer>
-        <StyledRemoveIcon></StyledRemoveIcon>
       </TextContainer>
     </ItemContainer>
   );
-};
+}
 
-export default AdminTweetItem;
+export default ReplyItem

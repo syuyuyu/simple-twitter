@@ -9,19 +9,14 @@ import {
   StyledButtonContainer,
   StyledPublicButton,
   StyledError,
-} from "./common/StyledGroup";
-import ContentInput from "./ContentTextarea";
-import TweetModal from "./TweetModal";
-import TweetsList from "./TweetsList";
+} from "../common/StyledGroup";
+import ContentInput from "../ContentTextarea";
+import TweetModal from "../Modals/TweetModal";
+import TweetsList from "../Lists/TweetsList";
 
 
-const Main = () => {
+const Main = ({ tweetModal, toggleTweetModal }) => {
   const [content, setContevt] = useState("");
-  const [modal, setModal] = useState(false)
-
-  const toggleModal = () => {
-    setModal(!modal);
-  };
 
   return (
     <>
@@ -42,14 +37,12 @@ const Main = () => {
           </StyledContentWrapper>
           <StyledButtonContainer>
             <StyledError>字數不可超過140字</StyledError>
-            <StyledPublicButton onClick={toggleModal}>
-              推文
-            </StyledPublicButton>
+            <StyledPublicButton>推文</StyledPublicButton>
           </StyledButtonContainer>
         </StyledContentContainer>
         <TweetsList />
       </StyledMainContainer>
-      <TweetModal modal={modal} toggleModal={toggleModal} />
+      <TweetModal tweetModal={tweetModal} toggleTweetModal={toggleTweetModal} />
     </>
   );
 };
