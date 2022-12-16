@@ -10,7 +10,9 @@ import TweetsList from "../components/TweetsList";
 import Reply from "../components/sectionMain/Reply";
 import ReplysList from "../components/ReplysList";
 import LikeTweetsList from "../components/LikeTweetsList";
-
+import Follower from "../components/Follower";
+import Following from "../components/Following";
+import Setting from "../components/Setting";
 
 const MainPage = () => {
   const [modal, setModal] = useState(false);
@@ -34,6 +36,9 @@ const MainPage = () => {
           <Route path='likes' element={<LikeTweetsList />} />
         </Route>
         <Route path='/reply' element={<Reply modal={modal} toggleModal={toggleModal} />} />
+        <Route path='/setting' element={<Setting />} />
+        <Route path='/follower' element={<Follower />} />
+        <Route path='/following' element={<Following />} />
       </Routes>
       <SectionPopular />
     </StyledGroupContainer>

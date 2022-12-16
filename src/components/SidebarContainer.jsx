@@ -12,7 +12,7 @@ const SidebarContainer = ({ modal, toggleModal }) => {
         </LogoStyle>
         <SidebarItem value={"首頁"} path={"/"} iconName={"mainIcon"} />
         <SidebarItem value={"個人資料"} path={"/profile/tweets"} iconName={"profileIcon"} />
-        <SidebarItem value={"設定"} path={"/path"} iconName={"settingIcon"} />
+        <SidebarItem value={"設定"} path={"/setting"} iconName={"settingIcon"} />
         <SidebarButton modal={modal} toggleModal={toggleModal} />
       </StyledSidebarContainer>
     </>

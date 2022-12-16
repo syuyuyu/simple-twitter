@@ -4,5 +4,6 @@ import LoginPage from "./LoginPage";
 import MainPage from "./MainPage";
 import RegistPage from "./RegistPage";
 import AdminMainPage from "./AdminMainPage";
+import SettingPage from "./SettingPage";
 
-export { HomePage, AdminPage, LoginPage, MainPage, RegistPage,AdminMainPage };
+export { HomePage, AdminPage, LoginPage, MainPage, RegistPage,AdminMainPage,SettingPage };

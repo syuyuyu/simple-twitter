@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { StyledAvatarDefault } from "./common/StyledGroup";
-import closeIcon from "../icons/close.svg"
+import deleteIcon from "../icons/delete.svg"
 
 const ItemContainer = styled.div`
   display: flex;
@@ -46,11 +46,11 @@ const TweetText = styled.p`
   line-height: 26px;
 `;
 
-const StyledRemoveX= styled.button`
+const StyledRemoveIcon= styled.button`
   width: 24px;
   height: 24px;
   background-size: cover;
-  background-image: url(${closeIcon});
+  background-image: url(${deleteIcon});
   position: absolute;
   right: 0px;
   transform: translateX(30px);
@@ -72,7 +72,7 @@ const AdminTweetItem = () => {
             Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. 
           </TweetText>
         </RowContainer>
-        <StyledRemoveX></StyledRemoveX>
+        <StyledRemoveIcon></StyledRemoveIcon>
       </TextContainer>
     </ItemContainer>
   );

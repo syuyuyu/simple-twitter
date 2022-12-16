@@ -9,8 +9,16 @@ const AdminSidebarContainer=()=>{
         <LogoStyle style={{ padding: "13px  0 0 13px" }}>
           <div className='logo-icon'></div>
         </LogoStyle>
-        <SidebarItem value={"推文清單"} path={"admin_main"} iconName={"mainIcon"} />
-        <SidebarItem value={"使用者列表"} path={"admin_users"} iconName={"profileIcon"} />
+        <SidebarItem
+        value={'推文清單'}
+        path={'/admin/main'}
+        iconName={'mainIcon'}
+        />
+        <SidebarItem
+        value={'使用者列表'}
+        path={'/admin/users'}
+        iconName={'profileIcon'}
+        />
       </StyledSidebarContainer>
     </>
   );

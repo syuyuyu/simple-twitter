@@ -107,7 +107,7 @@ export const GlobalStyle = createGlobalStyle`
 }
 //中文
 @font-face{
-  font-family: 'Noto Sans TC';
+  font-family:'Noto Sans TC';
   src: local('Noto Sans TC');
   unicode-range: U+4E00-9FFF;
 }
