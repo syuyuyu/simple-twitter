@@ -1,8 +1,9 @@
 import React from 'react'
-import { StyledTweetsList } from "./common/StyledGroup";
-import TweetItem from "./TweetItem";
+import { StyledTweetsList } from '../common/StyledGroup'
+import TweetItem from './TweetItem'
 
-const LikeTweetsList = () => {
+
+const TweetsList = () => {
   return (
     <StyledTweetsList>
       <TweetItem />
@@ -13,4 +14,4 @@ const LikeTweetsList = () => {
   );
 }
 
-export default LikeTweetsList
+export default TweetsList

@@ -10,10 +10,10 @@ import {
   StyledTitleContainer,
   StyledTitleH4,
 } from "../common/StyledGroup";
-import reply from '../../icons/reply.svg'
-import unlike from '../../icons/like.svg'
-import like from '../../icons/like-active.svg'
-import ReplysList from "../ReplysList";
+import reply from '../../assets/icons/reply.svg'
+import unlike from '../../assets/icons/like.svg'
+import like from '../../assets/icons/like-active.svg'
+import ReplysList from "../Lists/ReplysList";
 import ReplyModal from "../Modals/ReplyModal";
 
 

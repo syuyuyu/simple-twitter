@@ -21,10 +21,10 @@ import {
   StyledTweetsNavbarWrapper,
 } from "../common/StyledGroup";
 import styled from "styled-components";
-import noti from '../../icons/noti.svg'
-import notiActive from '../../icons/noti-active.svg'
-import message from "../../icons/message.svg";
-import messageActive from "../../icons/message-active.svg";
+import noti from '../../assets/icons/noti.svg'
+import notiActive from '../../assets/icons/noti-active.svg'
+import message from "../../assets/icons/message.svg";
+import messageActive from "../../assets/icons/message-active.svg";
 import { NavLink as Link, Outlet } from "react-router-dom";
 
 

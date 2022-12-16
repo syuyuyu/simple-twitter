@@ -1,6 +1,6 @@
 import { StyledSidebarLogout } from "./common/StyledGroup";
 import styled from "styled-components";
-import logoutIcon from "../icons/logout.svg";
+import logoutIcon from "../assets/icons/logout.svg";
 import { NavLink as Link } from "react-router-dom";
 
 const NavLink = styled(Link)`

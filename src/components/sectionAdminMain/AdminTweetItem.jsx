@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { StyledAvatarDefault } from "./common/StyledGroup";
-import deleteIcon from "../icons/delete.svg"
+import { StyledAvatarDefault } from "../common/StyledGroup";
+import deleteIcon from "../../assets/icons/delete.svg"
 
 const ItemContainer = styled.div`
   display: flex;

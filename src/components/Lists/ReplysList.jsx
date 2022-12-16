@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyledTweetsList } from './common/StyledGroup'
+import { StyledTweetsList } from '../common/StyledGroup'
 import ReplyItem from './ReplyItem'
 
 
