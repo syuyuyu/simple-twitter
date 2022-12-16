@@ -8,6 +8,9 @@ import {
   TitleH3,
 } from "../components/common/authstyled";
 import AuthInput from "../components/AuthInput";
+// import {Routes,Route} from "react-router-dom";
+import { NavLink as Link } from "react-router-dom";
+
 
 const AdminPage = () => {
   const [account, setAccount] = useState("");
@@ -31,7 +34,10 @@ const AdminPage = () => {
         value={password}
         onChange={(passwordInputValue) => setPassword(passwordInputValue)}
       />
-      <AuthButton>登入</AuthButton>
+
+      <Link to={'/admin/main'} activeStyle>
+        <AuthButton>登入</AuthButton>
+      </Link>
       <LinkTextContainer>
         <AuthLinkText>前台登入</AuthLinkText>
       </LinkTextContainer>

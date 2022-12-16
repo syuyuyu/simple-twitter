@@ -11,13 +11,13 @@ const AdminSidebarContainer=()=>{
         </LogoStyle>
         <SidebarItem
         value={'推文清單'}
-        path={'/admin-main'}
+        path={'/admin/main'}
         iconName={'mainIcon'}
         active={'active'}
         />
         <SidebarItem
         value={'使用者列表'}
-        path={'/admin-users'}
+        path={'/admin/users'}
         iconName={'profileIcon'}
         />
       </StyledSidebarContainer>
