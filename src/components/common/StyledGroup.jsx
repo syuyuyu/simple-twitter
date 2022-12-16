@@ -22,6 +22,7 @@ const StyledAdminGroupContainer = styled.div`
 
 const StyledSectionSidebar = styled.div`
   height: 100vh;
+  min-width: 155px;
   background: var(--color-white);
   display: flex;
   flex-direction: column;
@@ -46,13 +47,12 @@ const StyledPopularContainer = styled.div`
   border-radius: 16px;
   margin-top: 16px;
   padding-top: 4px;
-  background: var(--color-white);
   display: flex;
   flex-direction: column;
   align-items: center;
   overflow-y: scroll;
   &::-webkit-scrollbar {
-    width: 3px;
+    width: 0px;
   }
   &::-webkit-scrollbar-thumb {
     border-radius: 3px;
@@ -269,7 +269,7 @@ const StyleSectionAdminMain = styled.div`
 `
 const StyledAdminUserList = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   grid-gap: 16px;
   grid-auto-rows: min-content;
   `
@@ -370,6 +370,9 @@ const StyledTweetsNavbar = styled.div`
   justify-content: space-between;
 `;
 const StyledTweetNavLink = styled.div`
+  font-size:15px;
+  font-weight: 700;
+  line-height:21.72px;
   height: 52px;
   width: 100%;
   display: flex;

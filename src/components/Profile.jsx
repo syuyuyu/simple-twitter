@@ -22,9 +22,17 @@ import {
   StyledTweetNavLink,
 } from "./common/StyledGroup";
 import TweetsList from "./TweetsList";
+import TweetModal from "./TweetModal";
+import {useState} from "react"
 
 const Profile = () => {
+  const [modal, setModal] = useState(false)
+  const toggleModal = () => {
+    setModal(!modal);
+  };
+  
   return (
+    <>
     <StyledMainContainer>
       <StyledHeader style={{ border: "0px" }}>
         <StyledTitleContainer>
@@ -38,9 +46,11 @@ const Profile = () => {
       <StyledProfileContainer>
         <StyledBackgroundImage></StyledBackgroundImage>
         <StyledAvatarImage className='avatar'></StyledAvatarImage>
+
         <StyledEditContainer>
-          <StyledPublicButton whiteMode={true}>編輯個人資料</StyledPublicButton>
+          <StyledPublicButton whiteMode={true} onClick={toggleModal}>編輯個人資料</StyledPublicButton>
         </StyledEditContainer>
+
         <StyledInfoWrapper>
           <StyledTitleH5>John Doe</StyledTitleH5>
           <StyledAccount style={{ fontSize: "14px", fontWeight: "400" }}>@heyjohn</StyledAccount>
@@ -69,6 +79,8 @@ const Profile = () => {
       </StyledTweetsNavbarWrapper>
       <TweetsList />
     </StyledMainContainer>
+    <TweetModal modal={modal} toggleModal={toggleModal} />
+    </>
   );
 };
 

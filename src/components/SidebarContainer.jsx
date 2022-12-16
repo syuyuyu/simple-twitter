@@ -24,7 +24,7 @@ const SidebarContainer =()=>{
         />
         <SidebarItem
         value={'設定'}
-        path={'/path'}
+        path={'/setting'}
         iconName={'settingIcon'}
         />
       <SidebarButton />
