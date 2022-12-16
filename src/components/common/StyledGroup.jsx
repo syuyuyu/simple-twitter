@@ -47,6 +47,7 @@ const StyledPopularContainer = styled.div`
   border-radius: 16px;
   margin-top: 16px;
   padding-top: 4px;
+  background: var(--color-grayscale-dark20);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -108,6 +109,9 @@ const StyledAvatarDefault = styled.div`
   width: 50px;
   height: 50px;
   margin: 16px 8px 16px 16px;
+  &:hover {
+    cursor: pointer;
+  }
   .avatar {
     width: 50px;
     height: 50px;
@@ -128,6 +132,9 @@ const StyledName = styled.p`
   font-weight: 700;
   line-height: 26px;
   color: var(--color-grayscale-dark100);
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const StyledAccount = styled.p`
@@ -189,6 +196,9 @@ const StyledHeader = styled.nav`
 `;
 const StyledContentContainer = styled.div`
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   min-height: 136px;
   border-bottom: 10px solid #e6ecf0;
 `;
@@ -232,6 +242,9 @@ const StyledBackIcon = styled.div`
   height: 24px;
   background-size: cover;
   margin-right: 16px;
+  &:hover{
+    cursor: pointer;
+  }
   &.backIcon {
     background-image: url(${backIcon});
   }
@@ -369,32 +382,8 @@ const StyledTweetsNavbar = styled.div`
   display: flex;
   justify-content: space-between;
 `;
-const StyledTweetNavLink = styled.div`
-  font-size:15px;
-  font-weight: 700;
-  line-height:21.72px;
-  height: 52px;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: var(--color-line-default);
-  &:hover {
-    cursor: pointer;
-    border-bottom: 2px solid var(--color-main);
-    color: var(--color-main);
-  }
-  &.active {
-    border-bottom: 2px solid var(--color-main);
-    color: var(--color-main);
-  }
-  /* ${({ activeMode }) =>
-    activeMode &&
-    css`
-      border-bottom: 2px solid var(--color-main);
-      color: var(--color-main);
-    `}; */
-`;
+
+
 export {
   StyledGroupContainer,
   StyledSectionSidebar,
@@ -441,5 +430,4 @@ export {
   StyledFollowWrapper,
   StyledTweetsNavbarWrapper,
   StyledTweetsNavbar,
-  StyledTweetNavLink,
 };

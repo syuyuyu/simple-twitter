@@ -50,11 +50,11 @@ const RegistPage = () => {
         onChange={(checkPasswordInputValue) => setcheCkPassword(checkPasswordInputValue)}
       />
       <AuthButton>註冊</AuthButton>
-      {/* <Link to='/login'> */}
-      <AuthLinkText as='a' href='/logo'>
-        取消
-      </AuthLinkText>
-      {/* </Link> */}
+      <Link to='/'>
+        <AuthLinkText>
+          取消
+        </AuthLinkText>
+      </Link>
     </AuthContainer>
   );
 };
