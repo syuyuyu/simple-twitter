@@ -15,7 +15,7 @@ import unlike from '../../icons/like.svg'
 import like from '../../icons/like-active.svg'
 import ReplysList from "../ReplysList";
 import ReplyModal from "../Modals/ReplyModal";
-
+import { useNavigate } from "react-router-dom";
 
 const TweetContainer = styled.div`
   margin: 0 16px;
@@ -92,12 +92,14 @@ const Time = styled.p`
 `;
 
 const Reply = ({ replyModal, toggleReplyModal }) => {
+const navigate = useNavigate();
+
   return (
     <>
       <StyledMainContainer>
         <StyledHeader>
           <StyledTitleContainer>
-            <StyledBackIcon className='backIcon'></StyledBackIcon>
+            <StyledBackIcon className='backIcon' onClick={() => navigate(-1)}></StyledBackIcon>
             <StyledTitleH4 style={{ marginLeft: "0px" }}>推文</StyledTitleH4>
           </StyledTitleContainer>
           <TweetContainer style={{ flexFlow: "column" }}>
