@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { StyledAvatarDefault } from "./common/StyledGroup";
-import ReplyIcon from "../icons/reply.svg";
-import LikeIcon from "../icons/like.svg";
-import ReplyModal from "./Modals/ReplyModal";
+import { StyledAvatarDefault } from "../common/StyledGroup";
+import ReplyIcon from "../../assets/icons/reply.svg";
+import LikeIcon from "../../assets/icons/like.svg";
+import ReplyModal from "../Modals/ReplyModal";
 
 
 const ItemContainer = styled.div`

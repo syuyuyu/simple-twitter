@@ -9,7 +9,7 @@ import {
   StyledPublicButton,
 } from "../common/StyledGroup";
 import ContentInput from "../ContentTextarea";
-import close from "../../icons/close.svg";
+import close from "../../assets/icons/close.svg";
 import ReplyTweet from "../ReplyTweet";
 
 

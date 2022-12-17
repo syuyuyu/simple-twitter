@@ -12,7 +12,7 @@ import {
 } from "../common/StyledGroup";
 import ContentInput from "../ContentTextarea";
 import TweetModal from "../Modals/TweetModal";
-import TweetsList from "../TweetsList";
+import TweetsList from "../Lists/TweetsList";
 
 
 const Main = ({ tweetModal, toggleTweetModal }) => {

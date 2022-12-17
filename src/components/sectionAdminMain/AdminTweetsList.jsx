@@ -5,7 +5,7 @@ import {
   StyledAdminTweetsList,
   StyleSectionAdminMain,
 } from "../common/StyledGroup";
-import AdminTweetItem from "../AdminTweetItem";
+import AdminTweetItem from "./AdminTweetItem";
 
 const AdminTweetsList = () => {
   return (

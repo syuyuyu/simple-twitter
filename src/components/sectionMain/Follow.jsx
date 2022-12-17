@@ -8,7 +8,7 @@ import {
   StyledTitleTweetCount,
   StyledTweetsNavbarWrapper,
   StyledTweetsNavbar,
-} from "./common/StyledGroup";
+} from "../common/StyledGroup";
 import {NavLink as Link, Outlet, useNavigate} from "react-router-dom";
 import styled from "styled-components";
 

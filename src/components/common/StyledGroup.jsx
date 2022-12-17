@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
-import avatarDefault from "../../icons/avatar-default.svg";
-import backIcon from "../../icons/back.svg";
+import avatarDefault from "../../assets/icons/avatar-default.svg";
+import backIcon from "../../assets/icons/back.svg";
 
 const StyledGroupContainer = styled.div`
   max-width: 1140px;

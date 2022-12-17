@@ -6,16 +6,16 @@ import { ResetStyle, GlobalStyle } from "./components/globalStyle";
 import { AdminPage, HomePage, LoginPage, MainPage, RegistPage, AdminMainPage, SettingPage } from "./pages";
 import Main from "./components/sectionMain/Main";
 import Profile from "./components/sectionMain/Profile";
-import TweetsList from "./components/TweetsList";
-import ReplysList from "./components/ReplysList";
-import LikeTweetsList from "./components/LikeTweetsList";
+import TweetsList from "./components/Lists/TweetsList";
+import ReplysList from "./components/Lists/ReplysList";
+import LikeTweetsList from "./components/Lists/LikeTweetsList";
 import OtherUser from "./components/sectionMain/OtherUser";
 import Reply from "./components/sectionMain/Reply";
 import { useState } from "react";
 import Setting from "./components/Setting";
-import Follow from "./components/Follow";
-import FollowerList from "./components/FollowerList";
-import FollowingList from "./components/FollowingList";
+import Follow from "./components/sectionMain/Follow";
+import FollowerList from "./components/Lists/FollowerList";
+import FollowingList from "./components/Lists/FollowingList";
 
 
 
