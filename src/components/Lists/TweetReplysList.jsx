@@ -7,10 +7,6 @@ const ReplysList = () => {
   return (
     <StyledTweetsList>
       <ReplyItem />
-      <ReplyItem />
-      <ReplyItem />
-      <ReplyItem />
-      <ReplyItem />
     </StyledTweetsList>
   );
 }

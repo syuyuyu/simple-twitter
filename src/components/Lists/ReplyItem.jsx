@@ -1,6 +1,9 @@
 import React from 'react'
 import styled from "styled-components";
 import { StyledAvatarDefault } from "../common/StyledGroup";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+import "dayjs/locale/zh-tw";
 
 const ItemContainer = styled.div`
   display: flex;
@@ -60,29 +63,32 @@ const TweetText = styled.p`
   line-height: 26px;
 `;
 
-const ReplyItem = () => {
+const ReplyItem = ({ reply }) => {
+  dayjs.extend(relativeTime);
   return (
     <ItemContainer>
       <StyledAvatarDefault style={{ margin: "0px" }}>
-        <div className='avatar'></div>
+        <div className={reply.User.avatar}></div>
       </StyledAvatarDefault>
       <TextContainer>
         <RowContainer>
-          <Name>Watermaloon</Name>
-          <Account>@Watermaloon · 12小時</Account>
+          <Name>{reply.name}</Name>
+          <Account>
+            @{reply.account} · {dayjs(`${reply.createdAt}`).locale("zh-tw").fromNow("zh-tw")}
+          </Account>
         </RowContainer>
         <RowContainer>
           <p className='text'>回覆</p>
-          <p className='account'>@Watermaloon</p>
+          <p className='account'>@{reply.User.name}</p>
         </RowContainer>
         <RowContainer>
           <TweetText>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Inventore et ex commodi odit deserunt. Vel.
+            {reply.comment}
           </TweetText>
         </RowContainer>
       </TextContainer>
     </ItemContainer>
   );
-}
+};
 
 export default ReplyItem
