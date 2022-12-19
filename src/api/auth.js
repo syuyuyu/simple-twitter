@@ -38,6 +38,6 @@ export const register = async ({account,name,email,password,checkPassword})=>{
     }
     return{ status: "error",...data}; //無取得token
   }catch(error){
-    console.log('[Register failed]:',err); //登入串接失敗
+    console.log('[Register failed]:',error); //登入串接失敗
   }
 }
