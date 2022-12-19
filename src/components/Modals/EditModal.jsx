@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState,useContext} from 'react'
 import styled from "styled-components";
 import {
   StyledPublicButton,
@@ -7,9 +7,12 @@ import {
 } from "../common/StyledGroup";
 import AuthInput from "../AuthInput"
 import DescriptionTextarea from "../DescriptionTextarea"
-import closeIcon from "../icons/close.svg"
-import addphotoIcon from "../icons/addphoto.svg"
-import cancelIcon from "../icons/cancel.svg"
+import closeIcon from "../../assets/icons/close.svg"
+import addphotoIcon from "../../assets/icons/addphoto.svg"
+import cancelIcon from "../../assets/icons/cancel.svg"
+import { EditModalContext } from "../../contexts/ModalContext";
+
+
 
 const StyledGroupContainer = styled.div`
   max-width: 1140px;
@@ -110,16 +113,16 @@ const StyledBackgroundHover = styled.div`
 `
 const StyleddescriptionTextarea = styled.div``
 
-
-const EditModal = ({ modal, toggleModal }) => {
+const EditModal = () => {
+  const {editModal,toggleEditModal} = useContext(EditModalContext);
   const [name, setName] = useState("");
   const [content, setContent] = useState("");
 
   return (
     <>
-      {modal && (
+      {editModal && (
         <Modal>
-          <Overlay onClick={toggleModal}></Overlay>
+          <Overlay onClick={toggleEditModal}></Overlay>
     <StyledGroupContainer>
       <StyledSectionPopular></StyledSectionPopular>
 
@@ -127,7 +130,7 @@ const EditModal = ({ modal, toggleModal }) => {
       <StyledSectionMain>
           <Content>
             <HeaderContainer>
-              <CloseIcon onClick={toggleModal}></CloseIcon>
+              <CloseIcon onClick={toggleEditModal}></CloseIcon>
               <h5 style={{marginLeft:'30px'}}>編輯個人資料</h5>
               <StyledPublicButton style={{
                 position: 'absolute',
@@ -166,14 +169,6 @@ const EditModal = ({ modal, toggleModal }) => {
                   onChange={(contentInputValue) => setContent(contentInputValue)}
                 />
               </StyleddescriptionTextarea>
-
-            {/* <ContentTextarea
-              backgroundColor={true}
-              placeholder='有什麼新鮮事？'
-              value={content}
-              onChange={(accountInputValue) => setContent(accountInputValue)}
-            /> */}
-
 
             </InputContainer>
           </Content>

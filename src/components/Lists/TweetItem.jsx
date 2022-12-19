@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { StyledAvatarDefault } from "../common/StyledGroup";
 import ReplyIcon from "../../assets/icons/reply.svg";
 import LikeIcon from "../../assets/icons/like.svg";
 import ReplyModal from "../Modals/ReplyModal";
-
+import { ReplyModalContext } from "../../contexts/ModalContext";
+import { useNavigate } from 'react-router-dom';
 
 const ItemContainer = styled.div`
   display: flex;
@@ -79,11 +80,13 @@ const StyledIcon = styled.div`
     background-image: url(${LikeIcon});
   }
 `;
-const TweetItem = ({replyModal,toggleReplyModal}) => {
+const TweetItem = () => {
+  const {toggleReplyModal} = useContext(ReplyModalContext);
+  const navigate = useNavigate();
 
   return (
     <>
-      <ItemContainer>
+      <ItemContainer onClick={()=> navigate('/user/reply')} >
         <StyledAvatarDefault style={{ margin: "0px" }}>
           <div className='avatar'></div>
         </StyledAvatarDefault>
@@ -113,7 +116,7 @@ const TweetItem = ({replyModal,toggleReplyModal}) => {
           </RowContainer>
         </TextContainer>
       </ItemContainer>
-      <ReplyModal replyModal={replyModal} toggleReplyModal={toggleReplyModal} />
+      <ReplyModal />
     </>
   );
 };

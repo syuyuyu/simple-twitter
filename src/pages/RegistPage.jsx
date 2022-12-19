@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { AuthButton, AuthContainer, AuthLinkText, LogoStyle, TitleH3 } from "../components/common/authstyled";
 import AuthInput from "../components/AuthInput";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { register } from "../api/auth";
 
 const RegistPage = () => {
   const [account, setAccount] = useState("");
@@ -11,6 +12,34 @@ const RegistPage = () => {
   const [checkPassword, setcheCkPassword] = useState("");
   // const navigate = useNavigate();
 
+  const handleClick = async()=>{
+    if (account.length === 0 || name.length === 0 || email.length === 0 || password.length === 0 || checkPassword.length === 0){
+      return
+    };
+
+    const success = await register({
+      account,
+      name,
+      email,
+      password,
+      checkPassword
+    });
+
+    // console.log('success',{
+    //   account,
+    //   name,
+    //   email,
+    //   password,
+    //   checkPassword})
+    // 若註冊成功跳出成功訊息
+    if(success){
+      alert('註冊成功,',success,'::',account,name,email,password,checkPassword)
+      // 不成功就直接返回
+      return;
+    }
+    alert('註冊失敗',account,name,email,password,checkPassword);
+  };
+  
   return (
     <AuthContainer>
       <LogoStyle>
@@ -32,6 +61,7 @@ const RegistPage = () => {
       <AuthInput
         label='Email'
         placeholder='請輸入Email'
+        typr='email'
         value={email}
         onChange={(emailInputValue) => setEmail(emailInputValue)}
       />
@@ -49,7 +79,7 @@ const RegistPage = () => {
         value={checkPassword}
         onChange={(checkPasswordInputValue) => setcheCkPassword(checkPasswordInputValue)}
       />
-      <AuthButton>註冊</AuthButton>
+      <AuthButton onClick={handleClick}>註冊</AuthButton>
       <Link to='/'>
         <AuthLinkText>
           取消

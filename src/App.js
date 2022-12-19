@@ -17,11 +17,16 @@ import Follow from "./components/sectionMain/Follow";
 import FollowerList from "./components/Lists/FollowerList";
 import FollowingList from "./components/Lists/FollowingList";
 
-
+import {
+  EditModalContext,
+  TweetModalContext,
+  // ReplyModalContext
+} from "./contexts/ModalContext";
 
 function App() {
   const [tweetModal, setTweetModal] = useState(false);
   const [replyModal, setReplyModal] = useState(false);
+  const [editModal, setEditModal] = useState(false);
 
   const toggleTweetModal = () => {
     setTweetModal(!tweetModal);
@@ -29,35 +34,45 @@ function App() {
   const toggleReplyModal = () => {
     setReplyModal(!replyModal);
   };
-
+  const toggleEditModal = () => {
+    setEditModal(!editModal);
+  };
 
   return (
     <div className='app'>
       <ResetStyle />
       <GlobalStyle />
       <BrowserRouter>
+      <TweetModalContext.Provider value={{tweetModal,toggleTweetModal}}>
+      {/* <ReplyModalContext.Provider value={{replyModal,toggleReplyModal}}> */}
+      <EditModalContext.Provider value={{editModal,toggleEditModal}}>
+
         <Routes>
           <Route path='/' element={<LoginPage />} />
           <Route path='regist' element={<RegistPage />} />
-          <Route path='user' element={<MainPage tweetModal={tweetModal} toggleTweetModal={toggleTweetModal} />}>
+          <Route path='user' element={<MainPage />}>
             <Route path='main' element={<Main />} />
             <Route path='profile' element={<Profile />}>
               <Route path='tweets' element={<TweetsList />} />
               <Route path='replys' element={<ReplysList />} />
               <Route path='likes' element={<LikeTweetsList />} />
             </Route>
+
             <Route path=':d/follow' element={<Follow />}>
               <Route path='follower' element={<FollowerList />} />
               <Route path='following' element={<FollowingList />} />
             </Route>
+
             <Route path='otheruser' element={<OtherUser />}>
               <Route path='tweets' element={<TweetsList />} />
               <Route path='replys' element={<ReplysList />} />
               <Route path='likes' element={<LikeTweetsList />} />
             </Route>
+
             <Route path='reply' element={<Reply replyModal={replyModal} toggleReplyModal={toggleReplyModal} />} />
             <Route path='setting' element={<Setting />} />
           </Route>
+
           <Route path='home' element={<HomePage />} />
           <Route path='admin/*' element={<AdminMainPage />}>
             <Route path='main' element={<AdminTweetsList />} />
@@ -66,6 +81,10 @@ function App() {
           <Route path='setting' element={<SettingPage />} />
           <Route path='admin' element={<AdminPage />} />
         </Routes>
+
+      </EditModalContext.Provider>
+      {/* </ReplyModalContext.Provider> */}
+      </TweetModalContext.Provider>
       </BrowserRouter>
     </div>
   );

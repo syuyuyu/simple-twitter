@@ -15,7 +15,8 @@ import TweetModal from "../Modals/TweetModal";
 import TweetsList from "../Lists/TweetsList";
 
 
-const Main = ({ tweetModal, toggleTweetModal }) => {
+
+const Main = () => {
   const [content, setContevt] = useState("");
 
   return (
@@ -42,7 +43,7 @@ const Main = ({ tweetModal, toggleTweetModal }) => {
         </StyledContentContainer>
         <TweetsList />
       </StyledMainContainer>
-      <TweetModal tweetModal={tweetModal} toggleTweetModal={toggleTweetModal} />
+      <TweetModal />
     </>
   );
 };

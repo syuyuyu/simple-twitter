@@ -1,4 +1,4 @@
-import React from "react";
+import React,{ useContext }  from "react";
 import styled from "styled-components";
 import {
   StyledContentContainer,
@@ -10,6 +10,7 @@ import {
 } from "../common/StyledGroup";
 import ContentInput from "../ContentTextarea";
 import close from "../../assets/icons/close.svg";
+import { TweetModalContext } from "../../contexts/ModalContext";
 
 const Modal = styled.div`
   width: 100vw;
@@ -63,7 +64,8 @@ const NavContainer = styled.div`
   border-bottom: 1px solid #e6ecf0;
 `;
 
-const TweetModal = ({ tweetModal, toggleTweetModal }) => {
+const TweetModal = () => {
+    const {tweetModal,toggleTweetModal} = useContext(TweetModalContext);
   return (
     <>
       {tweetModal && (

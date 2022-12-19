@@ -1,20 +1,19 @@
-import React from "react";
+import React,{ useContext } from "react";
 import { StyledGroupContainer } from "../components/common/StyledGroup";
 import SectionSidebar from "../components/SectionSidebar";
 import SectionPopular from "../components/SectionPopular";
 import { Outlet} from "react-router-dom";
 import TweetModal from "../components/Modals/TweetModal";
 
-
-const MainPage = ({ tweetModal, toggleTweetModal }) => {
+const MainPage = () => {
   return (
     <>
     <StyledGroupContainer>
-      <SectionSidebar tweetModal={tweetModal} toggleTweetModal={toggleTweetModal} />
+      <SectionSidebar />
       <Outlet />
       <SectionPopular />
     </StyledGroupContainer>
-    <TweetModal tweetModal={tweetModal} toggleTweetModal={toggleTweetModal} />
+    <TweetModal />
     </>
     
   );
