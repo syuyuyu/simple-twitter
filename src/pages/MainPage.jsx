@@ -1,4 +1,4 @@
-import React,{ useContext } from "react";
+import React from "react";
 import { StyledGroupContainer } from "../components/common/StyledGroup";
 import SectionSidebar from "../components/SectionSidebar";
 import SectionPopular from "../components/SectionPopular";

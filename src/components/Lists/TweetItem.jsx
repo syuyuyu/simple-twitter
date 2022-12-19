@@ -1,11 +1,16 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 import { StyledAvatarDefault } from "../common/StyledGroup";
-import ReplyIcon from "../../assets/icons/reply.svg";
-import LikeIcon from "../../assets/icons/like.svg";
+import replyIcon from "../../assets/icons/reply.svg";
+import unLikeIcon from "../../assets/icons/like.svg";
+import likeIcon from "../../assets/icons/like-active.svg";
 import ReplyModal from "../Modals/ReplyModal";
 import { ReplyModalContext } from "../../contexts/ModalContext";
 import { useNavigate } from 'react-router-dom';
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+import "dayjs/locale/zh-tw";
+import clsx from "clsx";
 
 const ItemContainer = styled.div`
   display: flex;
@@ -63,6 +68,13 @@ const IconsContainer = styled.div`
 const IconContainer = styled.div`
   display: flex;
   flex-direction: row;
+  p {
+    font-family: montserrat;
+    font-size: 14px;
+    line-height: 14px;
+    font-weight: 600;
+    color: var(--color-secondary);
+  }
 `;
 
 const StyledIcon = styled.div`
@@ -74,16 +86,19 @@ const StyledIcon = styled.div`
     cursor: pointer;
   }
   &.replyIcon {
-    background-image: url(${ReplyIcon});
+    background-image: url(${replyIcon});
   }
   &.likeIcon {
-    background-image: url(${LikeIcon});
+    background-image: url(${unLikeIcon});
+    &.like {
+      background-image: url(${likeIcon});
+    }
   }
 `;
-const TweetItem = () => {
+const TweetItem = ({ tweet,onToggleLike }) => {
   const {toggleReplyModal} = useContext(ReplyModalContext);
   const navigate = useNavigate();
-
+  dayjs.extend(relativeTime);
   return (
     <>
       <ItemContainer onClick={()=> navigate('/user/reply')} >
@@ -92,25 +107,28 @@ const TweetItem = () => {
         </StyledAvatarDefault>
         <TextContainer>
           <RowContainer>
-            <Name>Apple</Name>
-            <Account>@apple · 3小時</Account>
+            <Name>{tweet.name}</Name>
+            <Account>
+              @{tweet.account} · {dayjs(`${tweet.createdAt}`).locale("zh-tw").fromNow("zh-tw")}
+            </Account>
           </RowContainer>
           <RowContainer>
-            <TweetText>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt non optio ipsam amet minima,
-              perspiciatis, autem eaque iure voluptatibus odio beatae, impedit architecto nihil maiores aliquid commodi
-              sapiente fugit possimus!
-            </TweetText>
+            <TweetText onClick={() => navigate("/user/reply")}>{tweet.description}</TweetText>
           </RowContainer>
           <RowContainer>
             <IconsContainer>
               <IconContainer>
                 <StyledIcon className='replyIcon' onClick={toggleReplyModal}></StyledIcon>
-                <p>13</p>
+                <p>{tweet.replyCount}</p>
               </IconContainer>
               <IconContainer>
-                <StyledIcon className='likeIcon'></StyledIcon>
-                <p>76</p>
+                <StyledIcon
+                  className={clsx("likeIcon",{like: tweet.isLike})}
+                  onClick={() => {
+                    onToggleLike?.(tweet.id);
+                  }}
+                ></StyledIcon>
+                <p>{tweet.likeCount}</p>
               </IconContainer>
             </IconsContainer>
           </RowContainer>

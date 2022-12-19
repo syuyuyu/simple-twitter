@@ -10,7 +10,6 @@ import {
 } from "../components/common/authstyled";
 import AuthInput from "../components/AuthInput";
 import { Link, useNavigate } from 'react-router-dom';
-
 import { login } from "../api/auth";
 
 
@@ -18,14 +17,22 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const [account, setAccount] = useState("");
   const [password, setPassword] = useState("");
-  const [isAuth,setIsAuth] = useState(false);
-  
 
-  const handleClick= async() => {
-//刪掉
+  const handleClick = async () => {
+    if (account.length === 0) {
+      return;
+    }
+    if (password.length === 0) {
+      return;
+    }
+    const { status, token } = await login({ account, password });
+
+    if (status === "success") {
+      localStorage.setItem("authToken", token);
+    }
   };
 
-useEffect(() => {
+  useEffect(() => {
   // 若通行轉到todo頁面去
   if (isAuth) {
     navigate('/user/main');
@@ -38,7 +45,7 @@ useEffect(() => {
         <div className='logo-icon'></div>
       </LogoStyle>
       <TitleH3>登入Alphitter</TitleH3>
-      <AuthInput //用useReducer
+      <AuthInput
         label='帳號'
         placeholder='請輸入帳號'
         value={account}
@@ -60,7 +67,7 @@ useEffect(() => {
         </Link>
         <AuthDot>·</AuthDot>
         <Link to='/admin'>
-        <AuthLinkText>後台登入</AuthLinkText>
+          <AuthLinkText>後台登入</AuthLinkText>
         </Link>
       </LinkTextContainer>
     </AuthContainer>

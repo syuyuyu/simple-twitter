@@ -2,14 +2,18 @@ import React from 'react'
 import { StyledTweetsList } from '../common/StyledGroup'
 import TweetItem from './TweetItem'
 
-const TweetsList = () => {
+
+const TweetsList = ({ tweets, onToggleLike }) => {
   return (
     <StyledTweetsList>
-      <TweetItem />
-      <TweetItem />
-      <TweetItem />
+      {tweets.map((tweet) => {
+        return <TweetItem 
+        key={tweet.id} 
+        tweet={tweet} 
+        onToggleLike={(id) => onToggleLike?.(id)} />;
+      })}
     </StyledTweetsList>
   );
-}
+};
 
 export default TweetsList

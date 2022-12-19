@@ -1,29 +1,25 @@
 import axios from "axios";
 //第三方跨域請求
 // const corsURL = 'https://cors-anywhere.herokuapp.com/'; // use cors-anywhere to fetch api data
+
 const authURL= 'https://nameless-fortress-45508.herokuapp.com';
 
 
 //登入功能
-export const login = async({ account, password })=>{
-  try{
-    //用解構的方式直接取出axios回傳的data
-    const {data} = await axios.post(`${authURL}/api/users/login`,{
-    account,
-    password,
-    });
-    const {status}= data
-    // const {authToken} = data;
-    console.log(status)
-    // 若有成功取得token，回傳success及data
-    if(status==='success'){
-      return{ ...data };
+export const login = async ({ account, password }) => {
+  try {
+    const { data } = await axios.post(`${authURL}/api/users/login`, { account, password });
+    console.log(data);
+    const { token } = data;
+    if (token) {
+      return { status: "success", ...data };
     }
-    return{ status,...data}; //無取得token
-  }catch(err){
-    console.log('[Login failed]:',err); //登入串接失敗
+  } catch (error) {
+    console.log("[Login Failed]:", error);
+    console.log(error.response.data.message)
   }
 };
+
 
 //註冊功能
 export const register = async ({account,name,email,password,checkPassword})=>{
@@ -35,15 +31,13 @@ export const register = async ({account,name,email,password,checkPassword})=>{
       password,
       checkPassword
     });
-
-    const {authToken} = data;
+    const {token} = data;
     // console.log(data.data)
-    if(authToken){
-      return{ success: true,...data };
+    if(token){
+      return { status: "success", ...data };
     }
-    return{ success: false,...data}; //無取得token
-    // console.log(data)
-  }catch(err){
+    return{ status: "error",...data}; //無取得token
+  }catch(error){
     console.log('[Register failed]:',err); //登入串接失敗
   }
-};
+}

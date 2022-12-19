@@ -8,7 +8,6 @@ import {
   StyledError,
   StyledPublicButton,
 } from "../common/StyledGroup";
-// import ContentInput from "../ContentTextarea";
 import close from "../../assets/icons/close.svg";
 import ReplyTweet from "../ReplyTweet";
 import { ReplyModalContext } from "../../contexts/ModalContext";

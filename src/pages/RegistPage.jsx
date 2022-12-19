@@ -10,7 +10,11 @@ const RegistPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [checkPassword, setcheCkPassword] = useState("");
-  // const navigate = useNavigate();
+
+  const handleSubmit = (event) => {
+    event.preventDedault();
+    
+  };
 
   const handleClick = async()=>{
     if (account.length === 0 || name.length === 0 || email.length === 0 || password.length === 0 || checkPassword.length === 0){
@@ -33,7 +37,7 @@ const RegistPage = () => {
     //   checkPassword})
     // 若註冊成功跳出成功訊息
     if(success){
-      alert('註冊成功,',success,'::',account,name,email,password,checkPassword)
+      alert('註冊成功,',success,account,name,email,password,checkPassword)
       // 不成功就直接返回
       return;
     }
@@ -41,7 +45,7 @@ const RegistPage = () => {
   };
   
   return (
-    <AuthContainer>
+    <AuthContainer onSubmit={handleSubmit}>
       <LogoStyle>
         <div className='logo-icon'></div>
       </LogoStyle>
@@ -81,9 +85,7 @@ const RegistPage = () => {
       />
       <AuthButton onClick={handleClick}>註冊</AuthButton>
       <Link to='/'>
-        <AuthLinkText>
-          取消
-        </AuthLinkText>
+        <AuthLinkText>取消</AuthLinkText>
       </Link>
     </AuthContainer>
   );

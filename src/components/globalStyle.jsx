@@ -105,42 +105,8 @@ export const GlobalStyle = createGlobalStyle`
   --color-line-errors: #FC5A5A;
   --color-line-disabled: #D5D5DC;
 }
-//中文
-@font-face{
-  font-family:'Noto Sans TC';
-  src: local('Noto Sans TC');
-  unicode-range: U+4E00-9FFF;
-}
-//英文
-@font-face{
-  font-family: 'Noto Sans TC';
-  src: local('Noto Sans TC');
-  unicode-range: U+41-005A;
-}
-@font-face{
-  font-family: 'Noto Sans TC';
-  src: local('Noto Sans TC');
-  unicode-range: U+61-007A;
-}
-//數字
-@font-face{
-  font-family: 'montserrat';
-  src: local(montserrat);
-  uncode-range: U+030-039;
-}
-//符號
-@font-face{
-  font-family: 'montserrat';
-  src: local(montserrat);
-  uncode-range: U+020-002F;
-}
-@font-face{
-  font-family: 'montserrat';
-  src: local(montserrat);
-  uncode-range: U+3000-303F;
-}
 
-html {
+html,body {
   font-family: Noto Sans TC;
   box-sizing: border-box;
   font-size: 16px;

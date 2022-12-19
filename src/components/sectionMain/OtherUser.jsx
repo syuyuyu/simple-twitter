@@ -25,8 +25,7 @@ import noti from '../../assets/icons/noti.svg'
 import notiActive from '../../assets/icons/noti-active.svg'
 import message from "../../assets/icons/message.svg";
 import messageActive from "../../assets/icons/message-active.svg";
-import { NavLink as Link, Outlet } from "react-router-dom";
-
+import { NavLink as Link, Outlet, useNavigate } from "react-router-dom";
 
 const NotiButton = styled.div`
   width: 40px;
@@ -79,11 +78,12 @@ const NavLink = styled(Link)`
 `;
 
 const OtherUser = () => {
+  const navigate = useNavigate();
   return (
     <StyledMainContainer>
       <StyledHeader style={{ border: "0px" }}>
         <StyledTitleContainer>
-          <StyledBackIcon className='backIcon'></StyledBackIcon>
+          <StyledBackIcon className='backIcon' onClick={() => navigate(-1)}></StyledBackIcon>
           <StyledTitleWrapper>
             <StyledTitleH5>John Doe</StyledTitleH5>
             <StyledTitleTweetCount>25推文</StyledTitleTweetCount>
@@ -110,14 +110,18 @@ const OtherUser = () => {
             expedita esse maxime.
           </StyledContent>
           <StyledFollowsWrapper>
+            <Link to='follow/following'>
             <StyledFollowWrapper>
               <p style={{ color: "var(--color-grayscale-dark100)" }}>231個</p>
               <p>跟隨中</p>
             </StyledFollowWrapper>
+            </Link>
+            <Link to='follow/follower'>
             <StyledFollowWrapper>
               <p style={{ color: "var(--color-grayscale-dark100)" }}>59位</p>
               <p>跟隨者</p>
             </StyledFollowWrapper>
+            </Link>
           </StyledFollowsWrapper>
         </StyledInfoWrapper>
       </StyledProfileContainer>
