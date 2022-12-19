@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import {
   StyledContentContainer,
@@ -10,7 +10,7 @@ import {
 } from "../common/StyledGroup";
 import close from "../../assets/icons/close.svg";
 import ReplyTweet from "../ReplyTweet";
-
+import { ReplyModalContext } from "../../contexts/ModalContext";
 
 const Modal = styled.div`
   width: 100vw;
@@ -79,7 +79,9 @@ const StyledTextarea = styled.textarea`
   border: none;
 `;
 
-const ReplyModal = ({ replyModal, toggleReplyModal }) => {
+const ReplyModal = () => {
+   const {replyModal,toggleReplyModal} = useContext(ReplyModalContext);
+
   return (
     <>
       {replyModal && (

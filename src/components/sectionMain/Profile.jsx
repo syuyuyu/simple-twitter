@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import { EditModalContext } from "../../contexts/ModalContext";
 import { Outlet, useNavigate } from "react-router-dom";
 import {
   StyledMainContainer,
@@ -23,7 +24,7 @@ import {
 } from "../common/StyledGroup";
 import { NavLink as Link } from "react-router-dom";
 import styled from "styled-components";
-import TweetModal from "../Modals/TweetModal";
+import EditModal from "../Modals/EditModal";
 
 const NavLink = styled(Link)`
   height: 52px;
@@ -43,7 +44,8 @@ const NavLink = styled(Link)`
   }
 `;
 
-const Profile = ({ tweetModal, toggleTweetModal }) => {
+const Profile = () => {
+  const {toggleEditModal} = useContext(EditModalContext);
   const navigate = useNavigate();
   return (
     <>
@@ -62,7 +64,7 @@ const Profile = ({ tweetModal, toggleTweetModal }) => {
           <StyledAvatarImage className='avatar'></StyledAvatarImage>
 
           <StyledEditContainer>
-            <StyledPublicButton whiteMode={true} onClick={toggleTweetModal}>
+            <StyledPublicButton whiteMode={true} onClick={toggleEditModal}>
               編輯個人資料
             </StyledPublicButton>
           </StyledEditContainer>
@@ -99,7 +101,7 @@ const Profile = ({ tweetModal, toggleTweetModal }) => {
         </StyledTweetsNavbarWrapper>
         <Outlet />
       </StyledMainContainer>
-      <TweetModal tweetModal={tweetModal} toggleTweetModal={toggleTweetModal} />
+      <EditModal />
     </>
   );
 };

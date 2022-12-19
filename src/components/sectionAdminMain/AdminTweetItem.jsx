@@ -57,6 +57,17 @@ const StyledRemoveIcon= styled.button`
   cursor: pointer;
 `
 const AdminTweetItem = () => {
+
+  const handleRemoveClick = async(e)=>{
+    //取得要刪除的id，傳入delete API
+    // const tweetId = e.target.id
+    // const data = await delete({tweetId});
+    // if(data){
+      //印出新的list
+    // }
+  };
+
+
   return (
     <ItemContainer>
       <StyledAvatarDefault style={{ margin: "0px" }}>
@@ -72,7 +83,7 @@ const AdminTweetItem = () => {
             Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. 
           </TweetText>
         </RowContainer>
-        <StyledRemoveIcon></StyledRemoveIcon>
+        <StyledRemoveIcon onClick={handleRemoveClick}></StyledRemoveIcon>
       </TextContainer>
     </ItemContainer>
   );

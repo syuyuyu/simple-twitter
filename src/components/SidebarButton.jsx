@@ -1,4 +1,7 @@
+import React,{ useContext } from "react";
 import styled from 'styled-components';
+import { TweetModalContext } from "../contexts/ModalContext";
+// import { EditModalContext } from "../contexts/ModalContext";
 
 const StyledSidebarButton =styled.button`
   /* button */
@@ -19,7 +22,9 @@ const StyledSidebarButton =styled.button`
 `
 
 
-const SidebarButton = ({ toggleTweetModal }) => {
+const SidebarButton = () => {
+    // const {toggleTweetModal} = useContext(TweetModalContext);
+    const {toggleTweetModal} = useContext(TweetModalContext);
   return (
     <StyledSidebarButton onClick={toggleTweetModal}>
       <p>推文</p>

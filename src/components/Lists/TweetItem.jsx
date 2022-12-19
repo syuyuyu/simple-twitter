@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { StyledAvatarDefault } from "../common/StyledGroup";
 import replyIcon from "../../assets/icons/reply.svg";
 import unLikeIcon from "../../assets/icons/like.svg";
 import likeIcon from "../../assets/icons/like-active.svg";
 import ReplyModal from "../Modals/ReplyModal";
-import { useNavigate } from "react-router-dom";
+import { ReplyModalContext } from "../../contexts/ModalContext";
+import { useNavigate } from 'react-router-dom';
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/zh-tw";
@@ -94,13 +95,15 @@ const StyledIcon = styled.div`
     }
   }
 `;
-const TweetItem = ({ tweet, replyModal, toggleReplyModal,onToggleLike }) => {
+const TweetItem = ({ tweet,onToggleLike }) => {
+  const {toggleReplyModal} = useContext(ReplyModalContext);
   const navigate = useNavigate();
   dayjs.extend(relativeTime);
   return (
     <>
-      <ItemContainer>
-        <StyledAvatarDefault style={{ margin: "0px" }}>
+      <ItemContainer onClick={()=> navigate('/user/reply')} >
+        tweetitem
+        {/* <StyledAvatarDefault style={{ margin: "0px" }}>
           <div className='avatar'></div>
         </StyledAvatarDefault>
         <TextContainer>
@@ -130,9 +133,9 @@ const TweetItem = ({ tweet, replyModal, toggleReplyModal,onToggleLike }) => {
               </IconContainer>
             </IconsContainer>
           </RowContainer>
-        </TextContainer>
+        </TextContainer> */}
       </ItemContainer>
-      <ReplyModal replyModal={replyModal} toggleReplyModal={toggleReplyModal} />
+      <ReplyModal />
     </>
   );
 };

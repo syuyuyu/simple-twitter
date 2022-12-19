@@ -15,7 +15,7 @@ import TweetModal from "../Modals/TweetModal";
 import TweetsList from "../Lists/TweetsList";
 import { createTweet, getTweets, patchTweet } from "../../api/tweets";
 
-const Main = ({ tweetModal, toggleTweetModal }) => {
+const Main = () => {
   const [inputValue, setInputValue] = useState("");
   const [tweets, setTweets] = useState([]);
 
@@ -119,7 +119,7 @@ const Main = ({ tweetModal, toggleTweetModal }) => {
         </StyledContentContainer>
         <TweetsList tweets={tweets} onToggleLike={handleToggleLike} />
       </StyledMainContainer>
-      <TweetModal tweetModal={tweetModal} toggleTweetModal={toggleTweetModal} />
+      <TweetModal />
     </>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   AuthButton,
   AuthContainer,
@@ -9,12 +9,15 @@ import {
   TitleH3,
 } from "../components/common/authstyled";
 import AuthInput from "../components/AuthInput";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from 'react-router-dom';
 import { login } from "../api/auth";
 
+
 const LoginPage = () => {
+  const navigate = useNavigate();
   const [account, setAccount] = useState("");
   const [password, setPassword] = useState("");
+  const [isAuth,setIsAuth] = useState(false);
 
   const handleClick = async () => {
     if (account.length === 0) {
@@ -27,8 +30,16 @@ const LoginPage = () => {
 
     if (status === "success") {
       localStorage.setItem("authToken", token);
+      setIsAuth(true)
     }
   };
+
+  useEffect(() => {
+  // 若通行轉到todo頁面去
+  if (isAuth) {
+    navigate('/user/main');
+    }
+  }, [navigate, isAuth]);
 
   return (
     <AuthContainer>
@@ -49,9 +60,9 @@ const LoginPage = () => {
         value={password}
         onChange={(passwordInputValue) => setPassword(passwordInputValue)}
       />
-      <Link to='/user/main'>
-        <AuthButton onClick={handleClick}>登入</AuthButton>
-      </Link>
+      {/* <Link to='/user/main'> */}
+      <AuthButton onClick={handleClick}>登入</AuthButton>
+      {/* </Link> */}
       <LinkTextContainer>
         <Link to='/regist'>
           <AuthLinkText>註冊</AuthLinkText>

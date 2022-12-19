@@ -6,12 +6,13 @@ import TweetItem from './TweetItem'
 const TweetsList = ({ tweets, onToggleLike }) => {
   return (
     <StyledTweetsList>
-      {tweets.map((tweet) => {
+      {/* {tweets.map((tweet) => {
         return <TweetItem 
         key={tweet.id} 
         tweet={tweet} 
         onToggleLike={(id) => onToggleLike?.(id)} />;
-      })}
+      })} */}
+      <TweetItem />
     </StyledTweetsList>
   );
 };

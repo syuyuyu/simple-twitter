@@ -5,16 +5,15 @@ import SectionPopular from "../components/SectionPopular";
 import { Outlet} from "react-router-dom";
 import TweetModal from "../components/Modals/TweetModal";
 
-
-const MainPage = ({ tweetModal, toggleTweetModal }) => {
+const MainPage = () => {
   return (
     <>
     <StyledGroupContainer>
-      <SectionSidebar toggleTweetModal={toggleTweetModal} />
+      <SectionSidebar />
       <Outlet />
       <SectionPopular />
     </StyledGroupContainer>
-    <TweetModal tweetModal={tweetModal} toggleTweetModal={toggleTweetModal} />
+    <TweetModal />
     </>
     
   );
