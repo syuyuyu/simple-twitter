@@ -16,6 +16,7 @@ import Setting from "./components/Setting";
 import Follow from "./components/sectionMain/Follow";
 import FollowerList from "./components/Lists/FollowerList";
 import FollowingList from "./components/Lists/FollowingList";
+import { LogoutContext } from "./contexts/AuthContext";
 
 import {
   EditModalContext,
@@ -27,6 +28,10 @@ function App() {
   const [tweetModal, setTweetModal] = useState(false);
   const [replyModal, setReplyModal] = useState(false);
   const [editModal, setEditModal] = useState(false);
+  const [isAuth,setIsAuth]= useState(false);
+  const handleToggleAuth =()=>{
+    setIsAuth(!isAuth)
+  }
 
   const toggleTweetModal = () => {
     setTweetModal(!tweetModal);
@@ -43,6 +48,7 @@ function App() {
       <ResetStyle />
       <GlobalStyle />
       <BrowserRouter>
+      <LogoutContext.Provider value={{isAuth,handleToggleAuth}}>
       <TweetModalContext.Provider value={{tweetModal,toggleTweetModal}}>
       {/* <ReplyModalContext.Provider value={{replyModal,toggleReplyModal}}> */}
       <EditModalContext.Provider value={{editModal,toggleEditModal}}>
@@ -85,6 +91,7 @@ function App() {
       </EditModalContext.Provider>
       {/* </ReplyModalContext.Provider> */}
       </TweetModalContext.Provider>
+      </LogoutContext.Provider>
       </BrowserRouter>
     </div>
   );

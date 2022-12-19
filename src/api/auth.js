@@ -10,6 +10,7 @@ export const login = async ({ account, password }) => {
   try {
     const { data } = await axios.post(`${authURL}/api/users/login`, { account, password });
     console.log(data);
+
     const { token } = data;
     if (token) {
       return { status: "success", ...data };
@@ -17,6 +18,8 @@ export const login = async ({ account, password }) => {
   } catch (error) {
     console.log("[Login Failed]:", error);
     console.log(error.response.data.message)
+    alert('登入失敗')
+
   }
 };
 
@@ -40,4 +43,18 @@ export const register = async ({account,name,email,password,checkPassword})=>{
   }catch(error){
     console.log('[Register failed]:',error); //登入串接失敗
   }
-}
+};
+
+//check驗證通過
+export const checkPermission = async (authToken) => {
+  try {
+    const res = await axios.get(`${authURL}/test-token`, {
+      headers: {
+        Authorization: 'Bearer ' + authToken,
+      },
+    });
+    return res.data.success;
+  } catch (err) {
+    console.error('[CheckPermission failed]:', err);
+  }
+};

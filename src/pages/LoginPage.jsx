@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState} from "react";
+import { Link, useNavigate } from 'react-router-dom';
 import {
   AuthButton,
   AuthContainer,
@@ -9,37 +10,55 @@ import {
   TitleH3,
 } from "../components/common/authstyled";
 import AuthInput from "../components/AuthInput";
-import { Link, useNavigate } from 'react-router-dom';
-import { login } from "../api/auth";
+import Swal from 'sweetalert2';
+import { useAuth } from "../contexts/AuthContext";
+// import { login } from "../api/auth";
+// import { LogoutContext } from "../contexts/AuthContext";
+
 
 
 const LoginPage = () => {
   const navigate = useNavigate();
   const [account, setAccount] = useState("");
   const [password, setPassword] = useState("");
-  const [isAuth,setIsAuth] = useState(false);
+  // const {isAuth,handleToggleAuth} = useContext(LogoutContext)
+
+  const {login,isAuthenticated}=useAuth();
 
   const handleClick = async () => {
-    if (account.length === 0) {
-      return;
-    }
-    if (password.length === 0) {
-      return;
+    if (account.length === 0 || password.length === 0) {
+      return alert('帳號或密碼不得為空白')
     }
     const { status, token } = await login({ account, password });
 
     if (status === "success") {
       localStorage.setItem("authToken", token);
-      setIsAuth(true)
-    }
-  };
-
+      // handleToggleAuth(true)
+      //登入成功\
+      Swal.fire({
+        title: '登入成功',
+        icon: 'success',
+        showConfirmButton: false,
+        timer: 1000,
+        position: 'top',
+      })
+      return
+    };
+    //登入失敗
+    Swal.fire({
+      title: '登入失敗',
+      icon: 'error',
+      showConfirmButton: false,
+      timer: 1000,
+      position: 'top',
+    })
+  }
   useEffect(() => {
-  // 若通行轉到todo頁面去
-  if (isAuth) {
+  // 若通行轉到main頁面去
+  if (isAuthenticated) {
     navigate('/user/main');
     }
-  }, [navigate, isAuth]);
+  }, [navigate, isAuthenticated]);
 
   return (
     <AuthContainer>

@@ -1,20 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import { AuthButton, AuthContainer, AuthLinkText, LogoStyle, TitleH3 } from "../components/common/authstyled";
 import AuthInput from "../components/AuthInput";
-import { Link } from "react-router-dom";
-import { register } from "../api/auth";
+// import { register } from "../api/auth";
+import { useAuth } from "../contexts/AuthContext";
+
 
 const RegistPage = () => {
+  const navigate = useNavigate();
   const [account, setAccount] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [checkPassword, setcheCkPassword] = useState("");
 
-  const handleSubmit = (event) => {
-    event.preventDedault();
-    
-  };
+    // 將register功能and狀態通行驗證從useAuth取得
+  const { register, isAuthenticated } = useAuth();
+
+  // const handleSubmit = (event) => {
+  //   event.preventDedault();
+  // };
 
   const handleClick = async()=>{
     if (account.length === 0 || name.length === 0 || email.length === 0 || password.length === 0 || checkPassword.length === 0){
@@ -28,24 +34,38 @@ const RegistPage = () => {
       password,
       checkPassword
     });
-
-    // console.log('success',{
-    //   account,
-    //   name,
-    //   email,
-    //   password,
-    //   checkPassword})
-    // 若註冊成功跳出成功訊息
     if(success){
-      alert('註冊成功,',success,account,name,email,password,checkPassword)
-      // 不成功就直接返回
+      // alert('註冊成功,',success,account,name,email,password,checkPassword)
+      Swal.fire({
+        title: '登入成功',
+        icon: 'success',
+        showConfirmButton: false,
+        timer: 1000,
+        position: 'top',
+      });
       return;
+      // 不成功就直接返回
     }
-    alert('註冊失敗',account,name,email,password,checkPassword);
+    Swal.fire({
+      position: 'top',
+      title: '註冊失敗！',
+      timer: 1000,
+      icon: 'error',
+      showConfirmButton: false,
+      });
+    // alert('註冊失敗',account,name,email,password,checkPassword);
   };
+
+  useEffect(()=>{
+  // 若通行轉到main頁面去
+  if (isAuthenticated) {
+    navigate('/user/main');
+    }
+  }, [navigate, isAuthenticated]);
   
   return (
-    <AuthContainer onSubmit={handleSubmit}>
+    // <AuthContainer onSubmit={handleSubmit}>
+    <AuthContainer>
       <LogoStyle>
         <div className='logo-icon'></div>
       </LogoStyle>
