@@ -102,7 +102,8 @@ const TweetItem = ({ tweet,onToggleLike }) => {
   return (
     <>
       <ItemContainer onClick={()=> navigate('/user/reply')} >
-        <StyledAvatarDefault style={{ margin: "0px" }}>
+        tweetitem
+        {/* <StyledAvatarDefault style={{ margin: "0px" }}>
           <div className='avatar'></div>
         </StyledAvatarDefault>
         <TextContainer>
@@ -132,7 +133,7 @@ const TweetItem = ({ tweet,onToggleLike }) => {
               </IconContainer>
             </IconsContainer>
           </RowContainer>
-        </TextContainer>
+        </TextContainer> */}
       </ItemContainer>
       <ReplyModal />
     </>

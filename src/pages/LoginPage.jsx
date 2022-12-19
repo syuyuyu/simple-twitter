@@ -17,6 +17,7 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const [account, setAccount] = useState("");
   const [password, setPassword] = useState("");
+  const [isAuth,setIsAuth] = useState(false);
 
   const handleClick = async () => {
     if (account.length === 0) {
@@ -29,6 +30,7 @@ const LoginPage = () => {
 
     if (status === "success") {
       localStorage.setItem("authToken", token);
+      setIsAuth(true)
     }
   };
 
