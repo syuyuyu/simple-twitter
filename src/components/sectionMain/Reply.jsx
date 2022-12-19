@@ -13,7 +13,7 @@ import {
 import reply from '../../assets/icons/reply.svg'
 import unlike from '../../assets/icons/like.svg'
 import like from '../../assets/icons/like-active.svg'
-import ReplysList from "../Lists/ReplysList";
+import TweetReplysList from "../Lists/TweetReplysList";
 import ReplyModal from "../Modals/ReplyModal";
 import { useNavigate } from "react-router-dom";
 
@@ -135,7 +135,7 @@ const navigate = useNavigate();
               <div className='icon like active'></div>
             </div>
           </TweetContainer>
-          <ReplysList />
+          <TweetReplysList />
         </StyledHeader>
       </StyledMainContainer>
       <ReplyModal replyModal={replyModal} toggleReplyModal={toggleReplyModal} />

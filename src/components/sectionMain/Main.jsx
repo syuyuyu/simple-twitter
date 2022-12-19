@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   StyledHeader,
   StyledMainContainer,
@@ -14,11 +14,13 @@ import ContentTextarea from "../ContentTextarea";
 import TweetModal from "../Modals/TweetModal";
 import TweetsList from "../Lists/TweetsList";
 import { createTweet, getTweets, patchTweet } from "../../api/tweets";
+import { TweetContext } from "../../contexts/TweetContext";
+
 
 const Main = () => {
   const [inputValue, setInputValue] = useState("");
-  const [tweets, setTweets] = useState([]);
-
+  // const [tweets, setTweets] = useState([]);
+const {setTweets} = useContext(TweetContext);
   const handleChange = (value) => {
     setInputValue(value);
   };
@@ -64,28 +66,28 @@ const Main = () => {
     }
   };
 
-  const handleToggleLike = async (id) => {
-    const currentTweet = tweets.find((tweet) => tweet.id === id)
-    try {
-      await patchTweet({
-        id,
-        isLike: !currentTweet.isLike
-      });
-      setTweets((prevTweets) => {
-        return prevTweets.map((tweet) => {
-          if (tweet.id === id) {
-            return {
-              ...tweet,
-              isLike: !tweet.isLike,
-            };
-          }
-          return tweet;
-        });
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  // const handleToggleLike = async (id) => {
+  //   const currentTweet = tweets.find((tweet) => tweet.id === id)
+  //   try {
+  //     await patchTweet({
+  //       id,
+  //       isLike: !currentTweet.isLike
+  //     });
+  //     setTweets((prevTweets) => {
+  //       return prevTweets.map((tweet) => {
+  //         if (tweet.id === id) {
+  //           return {
+  //             ...tweet,
+  //             isLike: !tweet.isLike,
+  //           };
+  //         }
+  //         return tweet;
+  //       });
+  //     });
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   useEffect(() => {
     const getTweetsAsync = async () => {
@@ -97,7 +99,7 @@ const Main = () => {
       }
     };
     getTweetsAsync();
-  }, []);
+  }, [setTweets]);
 
   return (
     <>
@@ -117,7 +119,7 @@ const Main = () => {
             <StyledPublicButton onClick={() => handleAddTweet?.()}>推文</StyledPublicButton>
           </StyledButtonContainer>
         </StyledContentContainer>
-        <TweetsList tweets={tweets} onToggleLike={handleToggleLike} />
+        <TweetsList />
       </StyledMainContainer>
       <TweetModal />
     </>

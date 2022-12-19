@@ -11,6 +11,7 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/zh-tw";
 import clsx from "clsx";
+import { TweetContext } from "../../contexts/TweetContext";
 
 const ItemContainer = styled.div`
   display: flex;
@@ -95,16 +96,16 @@ const StyledIcon = styled.div`
     }
   }
 `;
-const TweetItem = ({ tweet,onToggleLike }) => {
+const TweetItem = ({ tweet }) => {
   const {toggleReplyModal} = useContext(ReplyModalContext);
+  const { handleToggleLike } = useContext(TweetContext);
   const navigate = useNavigate();
   dayjs.extend(relativeTime);
   return (
     <>
-      <ItemContainer onClick={()=> navigate('/user/reply')} >
-        tweetitem
-        {/* <StyledAvatarDefault style={{ margin: "0px" }}>
-          <div className='avatar'></div>
+      <ItemContainer onClick={() => navigate("/user/reply")}>
+        <StyledAvatarDefault style={{ margin: "0px" }}>
+          <div className={tweet.avatar}></div>
         </StyledAvatarDefault>
         <TextContainer>
           <RowContainer>
@@ -124,16 +125,16 @@ const TweetItem = ({ tweet,onToggleLike }) => {
               </IconContainer>
               <IconContainer>
                 <StyledIcon
-                  className={clsx("likeIcon",{like: tweet.isLike})}
+                  className={clsx("likeIcon", { like: tweet.isLike })}
                   onClick={() => {
-                    onToggleLike?.(tweet.id);
+                    handleToggleLike?.(tweet.id);
                   }}
                 ></StyledIcon>
                 <p>{tweet.likeCount}</p>
               </IconContainer>
             </IconsContainer>
           </RowContainer>
-        </TextContainer> */}
+        </TextContainer>
       </ItemContainer>
       <ReplyModal />
     </>

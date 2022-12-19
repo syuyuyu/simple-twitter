@@ -1,18 +1,17 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { TweetContext } from '../../contexts/TweetContext';
 import { StyledTweetsList } from '../common/StyledGroup'
 import TweetItem from './TweetItem'
 
-
-const TweetsList = ({ tweets, onToggleLike }) => {
+const TweetsList = () => {
+  const { tweets } = useContext(TweetContext);
   return (
     <StyledTweetsList>
-      {/* {tweets.map((tweet) => {
+      {tweets.map((tweet) => {
         return <TweetItem 
         key={tweet.id} 
-        tweet={tweet} 
-        onToggleLike={(id) => onToggleLike?.(id)} />;
-      })} */}
-      <TweetItem />
+        tweet={tweet}/>;
+      })}
     </StyledTweetsList>
   );
 };
