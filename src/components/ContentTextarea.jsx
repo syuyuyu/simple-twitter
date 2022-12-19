@@ -5,6 +5,7 @@ const StyledContainer = styled.div`
   position: relative;
   flex-grow: 0.9;
   padding-top: 30px;
+  height: 100%;
 `;
 const StyledTextarea = styled.textarea`
   width: 100%;
@@ -12,6 +13,7 @@ const StyledTextarea = styled.textarea`
   line-height: 26px;
   outline: none;
   border: none;
+  min-height: 150px;
 `;
 
 const ContentTextarea = ({ inputValue, placeholder, onChange }) => {

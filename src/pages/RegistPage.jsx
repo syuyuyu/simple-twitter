@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2';
+// import Swal from 'sweetalert2';
 import { AuthButton, AuthContainer, AuthLinkText, LogoStyle, TitleH3 } from "../components/common/authstyled";
 import AuthInput from "../components/AuthInput";
 // import { register } from "../api/auth";
@@ -27,33 +27,34 @@ const RegistPage = () => {
       return
     };
 
-    const success = await register({
+    const {success} = await register({
       account,
       name,
       email,
       password,
       checkPassword
     });
+    console.log(success)
     if(success){
-      // alert('註冊成功,',success,account,name,email,password,checkPassword)
-      Swal.fire({
-        title: '登入成功',
-        icon: 'success',
-        showConfirmButton: false,
-        timer: 1000,
-        position: 'top',
-      });
-      return;
-      // 不成功就直接返回
+      alert('註冊成功,',success,account,name,email,password,checkPassword)
+    //   Swal.fire({
+    //     title: '登入成功',
+    //     icon: 'success',
+    //     showConfirmButton: false,
+    //     timer: 1000,
+    //     position: 'top',
+    //   });
+    //   return;
+    //   // 不成功就直接返回
     }
-    Swal.fire({
-      position: 'top',
-      title: '註冊失敗！',
-      timer: 1000,
-      icon: 'error',
-      showConfirmButton: false,
-      });
-    // alert('註冊失敗',account,name,email,password,checkPassword);
+    // Swal.fire({
+    //   position: 'top',
+    //   title: '註冊失敗！',
+    //   timer: 1000,
+    //   icon: 'error',
+    //   showConfirmButton: false,
+    //   });
+    alert('註冊失敗',account,name,email,password,checkPassword);
   };
 
   useEffect(()=>{

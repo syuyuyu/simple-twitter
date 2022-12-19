@@ -41,7 +41,15 @@ function App() {
     setReplyModal(!replyModal);
   };
   const toggleEditModal = () => {
-    setEditModal(!editModal);
+    //如果editModal=true ->要關掉modal
+    if(editModal){
+      setEditModal(!editModal);
+      // setName('');
+      // setIntro('');
+      // setCoverImg(null);
+      // setAvatarImg(null);
+    }
+      setEditModal(!editModal);
   };
 
   return (

@@ -316,7 +316,7 @@ const StyledTitleWrapper = styled.div`
 const StyledBackgroundImage = styled.div`
   width: 100%;
   height: 200px;
-  background: #aaa;
+  /* background: #aaa; */
 `;
 const StyledEditContainer = styled.div`
   width: 100%;

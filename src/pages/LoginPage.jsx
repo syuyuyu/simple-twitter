@@ -10,7 +10,7 @@ import {
   TitleH3,
 } from "../components/common/authstyled";
 import AuthInput from "../components/AuthInput";
-import Swal from 'sweetalert2';
+// import Swal from 'sweetalert2';
 import { useAuth } from "../contexts/AuthContext";
 // import { login } from "../api/auth";
 // import { LogoutContext } from "../contexts/AuthContext";
@@ -33,25 +33,26 @@ const LoginPage = () => {
 
     if (status === "success") {
       localStorage.setItem("authToken", token);
+      alert('登入成功')
       // handleToggleAuth(true)
       //登入成功\
-      Swal.fire({
-        title: '登入成功',
-        icon: 'success',
-        showConfirmButton: false,
-        timer: 1000,
-        position: 'top',
-      })
-      return
+    //   Swal.fire({
+    //     title: '登入成功',
+    //     icon: 'success',
+    //     showConfirmButton: false,
+    //     timer: 1000,
+    //     position: 'top',
+    //   })
+    //   return
     };
-    //登入失敗
-    Swal.fire({
-      title: '登入失敗',
-      icon: 'error',
-      showConfirmButton: false,
-      timer: 1000,
-      position: 'top',
-    })
+    // //登入失敗
+    // Swal.fire({
+    //   title: '登入失敗',
+    //   icon: 'error',
+    //   showConfirmButton: false,
+    //   timer: 1000,
+    //   position: 'top',
+    // })
   }
   useEffect(() => {
   // 若通行轉到main頁面去
@@ -79,9 +80,9 @@ const LoginPage = () => {
         value={password}
         onChange={(passwordInputValue) => setPassword(passwordInputValue)}
       />
-      {/* <Link to='/user/main'> */}
+      <Link to='/user/main'>
       <AuthButton onClick={handleClick}>登入</AuthButton>
-      {/* </Link> */}
+      </Link>
       <LinkTextContainer>
         <Link to='/regist'>
           <AuthLinkText>註冊</AuthLinkText>

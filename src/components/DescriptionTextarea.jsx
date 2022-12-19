@@ -93,9 +93,16 @@ const DescriptionTextarea = ({ type, label, value, placeholder, onChange }) => {
             onChange={(event) => onChange?.(event.target.value)}/>
         </StyledtextareaWrap>
 
+
         <StyledAlertContainer>
-          <StyledError>字數超出上限！</StyledError>
-          <StyledCount>160/160</StyledCount>
+          {value.length>160? (
+            <>
+              <StyledError>字數超出上限！</StyledError>
+              <StyledCount>160/160</StyledCount>
+            </>
+          ): 
+            <StyledCount>160/160</StyledCount>
+          }
         </StyledAlertContainer>
 
       </StyledContainer>

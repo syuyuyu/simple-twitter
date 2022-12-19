@@ -1,20 +1,17 @@
-// import axios from "axios";
+import axios from "axios";
 
-// // const baseURL = "https://nameless-fortress-45508.herokuapp.com/api";
+const baseURL = "https://nameless-fortress-45508.herokuapp.com";
 // const baseURL = "http://localhost:3001";
 
-// // const axiosInstance = axios.create({
-// //   baseURL: baseURL,
-// // });
 
-// export const getTweets = async () => {
-//   try {
-//     const res = await axios.get(`${baseURL}/tweets`);
-//     return res.data;
-//   } catch (error) {
-//     console.error("[Get Tweets failed]:", error);
-//   }
-// };
+export const getUserData = async ({userId}) => {
+  try {
+    const res = await axios.get(`${baseURL}/api/users/${userId}`,{userId});
+    return res.data;
+  } catch (error) {
+    console.error("[Get User failed]:", error);
+  }
+};
 
 // export const createTweet = async (payload) => {
 //   try {

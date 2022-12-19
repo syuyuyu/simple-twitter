@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import * as jwt from "jsonwebtoken";
+// import * as jwt from "jsonwebtoken";
 import { login,register,checkPermission } from "../api/auth";
 
 
@@ -43,8 +43,8 @@ export const AuthProvider = ({ children }) => {
       // 若result為true
       if (result) {
         // 建立tempPayload變數，使用JWT將token解析取得payload
-        const tempPayload = jwt.decode(authToken);
-        setPayload(tempPayload);
+        // const tempPayload = jwt.decode(authToken);
+        // setPayload(tempPayload);
         setIsAuthenticated(true);
 
         // 若result不是true，則相反
@@ -70,23 +70,23 @@ export const AuthProvider = ({ children }) => {
             password: data.password,
           });
           // 取得token後開一個變數tempPayload用JWT token將使用者資料解析出來
-          const tempPayload = jwt.decode(authToken);
-          // 若tempPayload is true
-          if (tempPayload) {
-            // 將tempPayload放入setPayload裡
-            setPayload(tempPayload);
-            // 將通行變數狀態改為true
-            setIsAuthenticated(true);
-            // 將token儲存localStorage
-            localStorage.setItem('authToken', authToken);
+          // const tempPayload = jwt.decode(authToken);
+          // // 若tempPayload is true
+          // if (tempPayload) {
+          //   // 將tempPayload放入setPayload裡
+          //   setPayload(tempPayload);
+          //   // 將通行變數狀態改為true
+          //   setIsAuthenticated(true);
+          //   // 將token儲存localStorage
+          //   localStorage.setItem('authToken', authToken);
 
-            // 若tempPayload is false
-          } else {
-            // Payload狀態改為null
-            setPayload(null);
-            // 通行變數狀態也改為false
-            setIsAuthenticated(false);
-          }
+          //   // 若tempPayload is false
+          // } else {
+          //   // Payload狀態改為null
+          //   setPayload(null);
+          //   // 通行變數狀態也改為false
+          //   setIsAuthenticated(false);
+          // }
           return success;
         },
         // 登入API
@@ -96,23 +96,23 @@ export const AuthProvider = ({ children }) => {
             password: data.password,
           });
           // 取得token後開一個變數tempPayload用JWT token將使用者資料解析出來
-          const tempPayload = jwt.decode(authToken);
+          // const tempPayload = jwt.decode(authToken);
           // 若tempPayload is true
-          if (tempPayload) {
-            // 將tempPayload放入setPayload裡
-            setPayload(tempPayload);
-            // 將通行變數狀態改為true
-            setIsAuthenticated(true);
-            // 將token儲存localStorage
-            localStorage.setItem('authToken', authToken);
+          // if (tempPayload) {
+          //   // 將tempPayload放入setPayload裡
+          //   setPayload(tempPayload);
+          //   // 將通行變數狀態改為true
+          //   setIsAuthenticated(true);
+          //   // 將token儲存localStorage
+          //   localStorage.setItem('authToken', authToken);
 
-            // 若tempPayload is false
-          } else {
-            // Payload狀態改為null
-            setPayload(null);
-            // 通行變數狀態也改為false
-            setIsAuthenticated(false);
-          }
+          //   // 若tempPayload is false
+          // } else {
+          //   // Payload狀態改為null
+          //   setPayload(null);
+          //   // 通行變數狀態也改為false
+          //   setIsAuthenticated(false);
+          // }
           return success;
         },
         // 登出
