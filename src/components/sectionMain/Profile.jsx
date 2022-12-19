@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { EditModalContext } from "../../contexts/ModalContext";
 import { Outlet, useNavigate } from "react-router-dom";
 import {
@@ -25,6 +25,7 @@ import {
 import { NavLink as Link } from "react-router-dom";
 import styled from "styled-components";
 import EditModal from "../Modals/EditModal";
+import { getReplys } from "../../api/userReplys";
 
 const NavLink = styled(Link)`
   height: 52px;
@@ -44,9 +45,24 @@ const NavLink = styled(Link)`
   }
 `;
 
+
+
 const Profile = () => {
   const {toggleEditModal} = useContext(EditModalContext);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const getUserReplyssAsync = async () => {
+      try {
+        const userReplys = await getReplys();
+        getReplys(userReplys.map((userReply) => ({ ...userReply })));
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getUserReplyssAsync();
+  }, []);
+
   return (
     <>
       <StyledMainContainer>

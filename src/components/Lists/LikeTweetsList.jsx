@@ -5,10 +5,10 @@ import TweetItem from "./TweetItem";
 const LikeTweetsList = () => {
   return (
     <StyledTweetsList>
+      {/* <TweetItem />
       <TweetItem />
       <TweetItem />
-      <TweetItem />
-      <TweetItem />
+      <TweetItem /> */}
     </StyledTweetsList>
   );
 }
