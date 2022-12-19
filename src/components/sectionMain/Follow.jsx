@@ -9,11 +9,12 @@ import {
   StyledTweetsNavbarWrapper,
   StyledTweetsNavbar,
 } from "../common/StyledGroup";
-import {NavLink as Link, Outlet} from "react-router-dom";
+import {NavLink as Link, Outlet, useNavigate} from "react-router-dom";
 import styled from "styled-components";
 
 
 const Follow =()=>{
+  const navigate = useNavigate();
   const NavLink = styled(Link)`
     height: 52px;
     width: 100%;
@@ -35,7 +36,7 @@ return (
   <StyledMainContainer>
     <StyledHeader style={{ border: "0px" }}>
       <StyledTitleContainer>
-        <StyledBackIcon className='backIcon'></StyledBackIcon>
+        <StyledBackIcon className='backIcon' onClick={() => navigate(-1)}></StyledBackIcon>
         <StyledTitleWrapper>
           <StyledTitleH5>John Doe</StyledTitleH5>
           <StyledTitleTweetCount>25推文</StyledTitleTweetCount>

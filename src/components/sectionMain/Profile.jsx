@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Outlet } from "react-router-dom";
+import React from "react";
+import { Outlet, useNavigate } from "react-router-dom";
 import {
   StyledMainContainer,
   StyledHeader,
@@ -44,12 +44,13 @@ const NavLink = styled(Link)`
 `;
 
 const Profile = ({ tweetModal, toggleTweetModal }) => {
+  const navigate = useNavigate();
   return (
     <>
       <StyledMainContainer>
         <StyledHeader style={{ border: "0px" }}>
           <StyledTitleContainer>
-            <StyledBackIcon className='backIcon'></StyledBackIcon>
+            <StyledBackIcon className='backIcon' onClick={() => navigate(-1)}></StyledBackIcon>
             <StyledTitleWrapper>
               <StyledTitleH5>John Doe</StyledTitleH5>
               <StyledTitleTweetCount>25推文</StyledTitleTweetCount>

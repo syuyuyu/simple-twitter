@@ -10,18 +10,33 @@ import {
 } from "../components/common/authstyled";
 import AuthInput from "../components/AuthInput";
 import { Link } from "react-router-dom";
-
+import { login } from "../api/auth";
 
 const LoginPage = () => {
   const [account, setAccount] = useState("");
   const [password, setPassword] = useState("");
+
+  const handleClick = async () => {
+    if (account.length === 0) {
+      return;
+    }
+    if (password.length === 0) {
+      return;
+    }
+    const { status, token } = await login({ account, password });
+
+    if (status === "success") {
+      localStorage.setItem("authToken", token);
+    }
+  };
+
   return (
     <AuthContainer>
       <LogoStyle>
         <div className='logo-icon'></div>
       </LogoStyle>
       <TitleH3>登入Alphitter</TitleH3>
-      <AuthInput //用useReducer
+      <AuthInput
         label='帳號'
         placeholder='請輸入帳號'
         value={account}
@@ -35,7 +50,7 @@ const LoginPage = () => {
         onChange={(passwordInputValue) => setPassword(passwordInputValue)}
       />
       <Link to='/user/main'>
-      <AuthButton>登入</AuthButton>
+        <AuthButton onClick={handleClick}>登入</AuthButton>
       </Link>
       <LinkTextContainer>
         <Link to='/regist'>
@@ -43,7 +58,7 @@ const LoginPage = () => {
         </Link>
         <AuthDot>·</AuthDot>
         <Link to='/admin'>
-        <AuthLinkText>後台登入</AuthLinkText>
+          <AuthLinkText>後台登入</AuthLinkText>
         </Link>
       </LinkTextContainer>
     </AuthContainer>

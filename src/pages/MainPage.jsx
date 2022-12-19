@@ -10,7 +10,7 @@ const MainPage = ({ tweetModal, toggleTweetModal }) => {
   return (
     <>
     <StyledGroupContainer>
-      <SectionSidebar tweetModal={tweetModal} toggleTweetModal={toggleTweetModal} />
+      <SectionSidebar toggleTweetModal={toggleTweetModal} />
       <Outlet />
       <SectionPopular />
     </StyledGroupContainer>

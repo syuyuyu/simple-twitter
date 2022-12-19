@@ -14,13 +14,13 @@ const StyledTextarea = styled.textarea`
   border: none;
 `;
 
-const ContentInput = ({ value, placeholder, onChange }) => {
+const ContentTextarea = ({ inputValue, placeholder, onChange }) => {
   return (
     <>
       <StyledContainer>
         <StyledTextarea
           type={"text"}
-          value={value}
+          value={inputValue}
           placeholder={placeholder}
           onChange={(event) => onChange?.(event.target.value)}
         />
@@ -29,4 +29,4 @@ const ContentInput = ({ value, placeholder, onChange }) => {
   );
 };
 
-export default ContentInput;
+export default ContentTextarea;
