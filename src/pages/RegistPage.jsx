@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { AuthButton, AuthContainer, AuthLinkText, LogoStyle, TitleH3 } from "../components/common/authstyled";
 import AuthInput from "../components/AuthInput";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const RegistPage = () => {
   const [account, setAccount] = useState("");
@@ -9,10 +9,14 @@ const RegistPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [checkPassword, setcheCkPassword] = useState("");
-  // const navigate = useNavigate();
+
+  const handleSubmit = (event) => {
+    event.preventDedault();
+    
+  };
 
   return (
-    <AuthContainer>
+    <AuthContainer onSubmit={handleSubmit}>
       <LogoStyle>
         <div className='logo-icon'></div>
       </LogoStyle>
@@ -51,9 +55,7 @@ const RegistPage = () => {
       />
       <AuthButton>註冊</AuthButton>
       <Link to='/'>
-        <AuthLinkText>
-          取消
-        </AuthLinkText>
+        <AuthLinkText>取消</AuthLinkText>
       </Link>
     </AuthContainer>
   );

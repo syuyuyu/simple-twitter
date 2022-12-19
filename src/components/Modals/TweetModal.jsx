@@ -8,7 +8,7 @@ import {
   StyledError,
   StyledPublicButton,
 } from "../common/StyledGroup";
-import ContentInput from "../ContentTextarea";
+import ContentTextarea from "../ContentTextarea";
 import close from "../../assets/icons/close.svg";
 
 const Modal = styled.div`
@@ -78,7 +78,7 @@ const TweetModal = ({ tweetModal, toggleTweetModal }) => {
                 <StyledAvatarDefault>
                   <div className='avatar'></div>
                 </StyledAvatarDefault>
-                <ContentInput
+                <ContentTextarea
                   placeholder='有什麼新鮮事？'
                   // value={content}
                   // onChange={(accountInputValue) => setContevt(accountInputValue)}

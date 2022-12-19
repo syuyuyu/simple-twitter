@@ -29,6 +29,7 @@ const TweetContainer = styled.div`
     flex-direction: row;
     margin-right: 24px;
     .count {
+      font-family: montserrat;
       font-weight: 700;
       line-height: 23.16px;
       color: var(--color-grayscale-dark100);
