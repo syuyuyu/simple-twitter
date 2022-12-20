@@ -78,7 +78,7 @@ export const AuthProvider = ({ children }) => {
           //   // 將通行變數狀態改為true
           //   setIsAuthenticated(true);
           //   // 將token儲存localStorage
-          //   localStorage.setItem('authToken', authToken);
+            localStorage.setItem('authToken', authToken);
 
           //   // 若tempPayload is false
           // } else {
@@ -99,20 +99,21 @@ export const AuthProvider = ({ children }) => {
           // const tempPayload = jwt.decode(authToken);
           // 若tempPayload is true
           // if (tempPayload) {
+          if (success) {
           //   // 將tempPayload放入setPayload裡
           //   setPayload(tempPayload);
           //   // 將通行變數狀態改為true
-          //   setIsAuthenticated(true);
+            setIsAuthenticated(true);
           //   // 將token儲存localStorage
-          //   localStorage.setItem('authToken', authToken);
+            localStorage.setItem('authToken', authToken);
 
           //   // 若tempPayload is false
-          // } else {
+          } else {
           //   // Payload狀態改為null
-          //   setPayload(null);
+            setPayload(null);
           //   // 通行變數狀態也改為false
-          //   setIsAuthenticated(false);
-          // }
+            setIsAuthenticated(false);
+          }
           return success;
         },
         // 登出
@@ -129,91 +130,3 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
-
-
-// const AuthContext = createContext(defaultAuthCotext);
-
-// export const userAuth = () => useContext(AuthContext)
-
-// export const AuthProvider = ({children}) => {
-//   const [isAuthenticated, setIsAuthenticated] = useState(false);
-//   const [payload, setPayload] = useState(null);
-
-//   const { pathname } = useLocation(); //取得瀏覽器路徑
-
-//   useEffect(() => {
-  //   const checkTokenIsValid = async () => {
-  //     const authToken = localStorage.getItem("authToken");
-  //     if (!authToken) {
-  //       setIsAuthenticated(false);
-  //       setPayload(null);
-  //       return;
-  //     }
-  //     const result = await checkPermission(authToken); //還沒引入api
-  //     if (result) {
-  //       setIsAuthenticated(true);
-  //       const tempPayload = jwt.decode(authToken);
-  //       setPayload(tempPayload);
-  //     } else {
-  //       setIsAuthenticated(false);
-  //       setPayload(null);
-  //     }
-  //   };
-
-  //   checkTokenIsValid();
-  // }, [pathname]);
-
-  // return (
-  //   <AuthContext.Provider
-      // value={{
-      //   isAuthenticated,
-      //   currentMember: payload && {
-      //     id: payload.sub,
-      //     name: payload.name,
-      //   },
-      //   register: async (data) => {
-      //     const { success, authToken } = await register({
-      //       //還沒引入api
-      //       username: data.username,
-      //       email: data.email,
-      //       password: data.password,
-      //     });
-      //     const tempPayload = jwt.decode(authToken);
-      //     if (tempPayload) {
-      //       setPayload(tempPayload);
-      //       setIsAuthenticated(true);
-      //       localStorage.setItem("authToken", authToken);
-      //     } else {
-      //       setPayload(null);
-      //       setIsAuthenticated(false);
-      //     }
-      //     return success;
-      //   },
-      //   login: async (data) => {
-      //     const { success, authToken } = await login({
-      //       //還沒引入api
-      //       username: data.username,
-      //       password: data.password,
-      //     });
-      //     const tempPayload = jwt.decode(authToken);
-      //     if (tempPayload) {
-      //       setPayload(tempPayload);
-      //       setIsAuthenticated(true);
-      //       localStorage.setItem("authToken", authToken);
-      //     } else {
-      //       setPayload(null);
-      //       setIsAuthenticated(false);
-      //     }
-      //     return success;
-      //   },
-      //   logout: () => {
-      //     localStorage.removeItem("authToken");
-      //     setPayload(null);
-      //     setIsAuthenticated(false);
-      //   },
-      // }}
-    // >
-//       {children}
-//     </AuthContext.Provider>
-//   );
-// }

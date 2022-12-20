@@ -11,8 +11,8 @@ import {
 } from "../components/common/authstyled";
 import AuthInput from "../components/AuthInput";
 // import Swal from 'sweetalert2';
-import { useAuth } from "../contexts/AuthContext";
-// import { login } from "../api/auth";
+// import { useAuth } from "../contexts/AuthContext";
+import { login } from "../api/auth";
 // import { LogoutContext } from "../contexts/AuthContext";
 
 
@@ -22,20 +22,22 @@ const LoginPage = () => {
   const [account, setAccount] = useState("");
   const [password, setPassword] = useState("");
   // const {isAuth,handleToggleAuth} = useContext(LogoutContext)
+  // const { isAuthenticated }=useAuth();
 
-  const {login,isAuthenticated}=useAuth();
+  // 測試用
+  const [isAuthenticated,setIsAuthenticated] = useState(false)
 
   const handleClick = async () => {
     if (account.length === 0 || password.length === 0) {
       return alert('帳號或密碼不得為空白')
     }
     const { status, token } = await login({ account, password });
-
+    
     if (status === "success") {
-      localStorage.setItem("authToken", token);
       alert('登入成功')
+      setIsAuthenticated(true)
       // handleToggleAuth(true)
-      //登入成功\
+      //登入成功
     //   Swal.fire({
     //     title: '登入成功',
     //     icon: 'success',
@@ -44,7 +46,10 @@ const LoginPage = () => {
     //     position: 'top',
     //   })
     //   return
-    };
+    }else{
+      alert('登入失敗')
+      setIsAuthenticated(false)
+    }
     // //登入失敗
     // Swal.fire({
     //   title: '登入失敗',
@@ -53,7 +58,8 @@ const LoginPage = () => {
     //   timer: 1000,
     //   position: 'top',
     // })
-  }
+  ;}
+
   useEffect(() => {
   // 若通行轉到main頁面去
   if (isAuthenticated) {
@@ -80,9 +86,9 @@ const LoginPage = () => {
         value={password}
         onChange={(passwordInputValue) => setPassword(passwordInputValue)}
       />
-      <Link to='/user/main'>
+      {/* <Link to='/user/main'> */}
       <AuthButton onClick={handleClick}>登入</AuthButton>
-      </Link>
+      {/* </Link> */}
       <LinkTextContainer>
         <Link to='/regist'>
           <AuthLinkText>註冊</AuthLinkText>

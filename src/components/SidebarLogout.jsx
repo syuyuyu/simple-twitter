@@ -36,7 +36,7 @@ const SidebarLogout = () => {
 
   const handleLogoutClick = ()=>{
     handleToggleAuth()
-    localStorage.setItem("authToken", '');
+    localStorage.clear();
   };
 
   return (

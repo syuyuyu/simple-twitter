@@ -1,4 +1,4 @@
-import React,{useState,useContext,useRef,useMemo,useEffect } from 'react'
+import React,{useState,useContext,useRef,useEffect,useMemo } from 'react'
 import styled from "styled-components";
 import {
   StyledPublicButton,
@@ -11,7 +11,7 @@ import closeIcon from "../../assets/icons/close.svg"
 import addphotoIcon from "../../assets/icons/addphoto.svg"
 import cancelIcon from "../../assets/icons/cancel.svg"
 import { EditModalContext } from "../../contexts/ModalContext";
-import { getUserData } from '../../api/getUserData';
+import { getUser,putUser } from '../../api/user';
 
 
 const StyledGroupContainer = styled.div`
@@ -113,67 +113,69 @@ const StyledBackgroundHover = styled.div`
 `
 const StyleddescriptionTextarea = styled.div``
 
-const CoverImage = styled.image`
-  width:100%;
-  height: 100%;
-  background-color: black;
-`
-
 
 const EditModal = () => {
   const coverRef = useRef();
 
   const {editModal,toggleEditModal} = useContext(EditModalContext);
   const [name, setName] = useState("");
+  const [intro, setIntro] = useState("");
   const [coverImg, setCoverImg] = useState(null);
   const [avatarImg, setAvatarImg] = useState(null);
-  const [intro, setIntro] = useState("");
-  // - 打 API 時會需要有是否正在執行打 API 的狀態控制
+  // isUpdating是否正在串API
   const [isUpdating, setIsUpdating] = useState(false);
 
-  const handleNameChange=(e)=>{
+  // name輸入input
+  // const handleNameChange=(e)=>{
+  //   if(isUpdating){
+  //     return;
+  //   }
+  //   // let inputName = e.target.value || '';
+  //   setName(e.target.value);
+  // };
+
+  // intro輸入input
+  // const handleIntroChange=(e)=>{
+  //   if(isUpdating){
+  //     return;
+  //   }
+  //   // let inputIntro = e.target.value || '';
+  //   setIntro(e.target.value);
+  // };
+
+
+  const handleImgChange=(e)=>{
     if(isUpdating){
       return;
     }
-    let inputName = e.target.value || '';
-    setName(inputName);
+    const selectedFile = e.target.files[0];
+    const objectUrl = URL.createObjectURL(selectedFile);
+    if (e.target.id === "cover") {
+      console.log('cover')
+      setCoverImg(objectUrl);
+    } else if (e.target.id === "avatar") {
+      console.log('avatar')
+      setAvatarImg(objectUrl);
+    }
   };
 
-    const handleIntroChange=(e)=>{
-      if(isUpdating){
-        return;
-      }
-      let inputIntro = e.target.value || '';
-      setIntro(inputIntro);
-    };
-
-    const handleImgChange=(e)=>{
-      if(isUpdating){
-        return;
-      }
-      const selectedFile = e.target.files[0];
-      const objectUrl = URL.createObjectURL(selectedFile);
-      // let inputName = e.target.value || '';
-      // setName(inputName);
-      if (e.target.id === "cover") {
-        console.log('cover')
-        setCoverImg(objectUrl);
-      } else if (e.target.id === "avatar") {
-        console.log('avatar')
-        setAvatarImg(objectUrl);
-      }
-  };
-
-  const handleSubmit=()=>{
+  const handleSubmit=async()=>{
     setIsUpdating(true)
-    alert('修改資料中')
+    // alert('修改資料中')
+    // console.log('name',name)
+    // console.log('intro',intro)
+    const introduction =intro
+    const cover = coverImg
+    const avatar = avatarImg
     //這裡串接patch api
+    const patchUser = await putUser({name,introduction,cover,avatar})
+    console.log('patchUser: ',patchUser)
     setIsUpdating(false)
   };
 
   //刪除背景圖
   const handleCancel=()=>{
-    const ans = window.confirm(`確定要移除圖片嗎`); // confirm 无法识别,需要加 window.
+    const ans = window.confirm(`確定要移除圖片嗎`); // confirm加window
     if(ans){
       setCoverImg('')
       console.log(`setCoverImg('')`)
@@ -185,45 +187,33 @@ const EditModal = () => {
   };
 
 
-  // const isValid = useMemo(() => {
-  //   if (!name || name.length > 50) {
-  //     return false;
-  //   }
-
-  //   if (!intro || intro.length > 160) {
-  //     return false;
-  //   }
-
-  //   return true;
-  // }, [name, intro]);
+  const isValid = useMemo(() => {
+    if (!name || name.length > 50) {
+      return false;
+    }
+    if (!intro || intro.length > 160) {
+      return false;
+    }
+    return true;
+  }, [name, intro]);
 
 
-  //串接到api後用這個useEffect
-  // useEffect(() => {
-  //     if (!user) return;
-
-  //     setCoverImg(user?.coverImg);
-  //     setAvatarImg(user?.avatarImg);
-  //     setName(user?.name);
-  //     setIntro(user?.intro);
-  //   }, [user]);
   
   useEffect(()=>{
-    const getUser = async () => {
+    const getUserData = async () => {
       try {
-        const user = await getUserData(3);
-        // getReplys(userReplys.map((userReply) => ({ ...userReply })));
-        console.log(user)
-      // setCoverImg(user?.coverImg);
-      // setAvatarImg(user?.avatarImg);
-      // setName(user?.name);
-      // setIntro(user?.intro);
+        const user = await getUser();
+        setCoverImg(user?.cover);
+        setAvatarImg(user?.avatar);
+        setName(user?.name);
+        setIntro(user?.introduction);
+        console.log('EditModal useEffect getUser')
       } catch (error) {
         console.error(error);
       }
     };
-    getUser();
-  }, []);
+    getUserData();
+  }, [toggleEditModal]);
   
   
 // })
@@ -244,7 +234,7 @@ const EditModal = () => {
               <h5 style={{marginLeft:'30px'}}>編輯個人資料</h5>
               <StyledPublicButton 
                 onClick={handleSubmit}
-                // disabled={!isValid}
+                disabled={!isValid}
                 style={{
                   position: 'absolute',
                   right:'0',
@@ -260,7 +250,7 @@ const EditModal = () => {
                 objectFit:'contain',
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: 'cover'}} >
-                <CoverImage />
+                {/* <CoverImage /> */}
                 <StyledBackgroundHover>
                   <label for={"cover"}>
                     <AddphotoIcon
@@ -306,15 +296,18 @@ const EditModal = () => {
                 label='名稱'
                 placeholder='請輸入名稱'
                 value={name}
-                onChange={handleNameChange}
+                // onChange={handleNameChange}
+                onChange={(value=>isUpdating? value :setName(value))}
               />
               <StyleddescriptionTextarea>
                 <DescriptionTextarea //用useReducer
                   label='介紹'
                   placeholder='自我介紹'
                   value={intro}
-                  onChange={handleIntroChange}
+                  // onChange={handleIntroChange}
+                  onChange={(value=>isUpdating? value :setIntro(value))}
                 />
+                <div>{intro}</div>
               </StyleddescriptionTextarea>
 
             </InputContainer>
