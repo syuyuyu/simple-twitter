@@ -1,7 +1,17 @@
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAdmin } from "../../contexts/AdminContext";
 import AdminUserCard from "../AdminUserCard";
 import { StyledAdminUserList, StyledHeader, StyledTitleH4, StyleSectionAdminMain } from "../common/StyledGroup";
 
 const AdminUserList = () => {
+  const navigate = useNavigate();
+  const { isAuthenticated } = useAdmin();
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate("/");
+    }
+  }, [navigate, isAuthenticated]);
   return (
     <>
       <StyleSectionAdminMain>

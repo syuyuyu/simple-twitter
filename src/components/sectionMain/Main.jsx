@@ -13,17 +13,19 @@ import {
 import ContentTextarea from "../ContentTextarea";
 import TweetModal from "../Modals/TweetModal";
 import TweetsList from "../Lists/TweetsList";
-import { createTweet, getTweets, patchTweet } from "../../api/tweets";
+import { createTweet, getTweets } from "../../api/tweets";
 import { TweetContext } from "../../contexts/TweetContext";
-
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
 
 const Main = () => {
   const [inputValue, setInputValue] = useState("");
-  // const [tweets, setTweets] = useState([]);
-const {setTweets} = useContext(TweetContext);
+const { setTweets } = useContext(TweetContext);
   const handleChange = (value) => {
     setInputValue(value);
   };
+  const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
 
   const handleAddTweet = async () => {
     if (inputValue.length === 0) {
@@ -66,40 +68,24 @@ const {setTweets} = useContext(TweetContext);
     }
   };
 
-  // const handleToggleLike = async (id) => {
-  //   const currentTweet = tweets.find((tweet) => tweet.id === id)
-  //   try {
-  //     await patchTweet({
-  //       id,
-  //       isLike: !currentTweet.isLike
-  //     });
-  //     setTweets((prevTweets) => {
-  //       return prevTweets.map((tweet) => {
-  //         if (tweet.id === id) {
-  //           return {
-  //             ...tweet,
-  //             isLike: !tweet.isLike,
-  //           };
-  //         }
-  //         return tweet;
-  //       });
-  //     });
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-
   useEffect(() => {
     const getTweetsAsync = async () => {
       try {
         const tweets = await getTweets();
         setTweets(tweets.map((tweet) => ({ ...tweet })));
+        console.log(tweets);
       } catch (error) {
         console.error(error);
       }
     };
     getTweetsAsync();
   }, [setTweets]);
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate("/");
+    }
+  }, [navigate, isAuthenticated]);
 
   return (
     <>

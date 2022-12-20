@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   StyledMainContainer,
   StyledHeader,
@@ -26,6 +26,7 @@ import notiActive from '../../assets/icons/noti-active.svg'
 import message from "../../assets/icons/message.svg";
 import messageActive from "../../assets/icons/message-active.svg";
 import { NavLink as Link, Outlet, useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
 
 const NotiButton = styled.div`
   width: 40px;
@@ -79,13 +80,21 @@ const NavLink = styled(Link)`
 
 const OtherUser = () => {
   const navigate = useNavigate();
+  const { isAuthenticated,currentMember } = useAuth();
+
+  // useEffect(() => {
+  //   if (!isAuthenticated) {
+  //     navigate("/");
+  //   }
+  // }, [navigate, isAuthenticated]);
+
   return (
     <StyledMainContainer>
       <StyledHeader style={{ border: "0px" }}>
         <StyledTitleContainer>
           <StyledBackIcon className='backIcon' onClick={() => navigate(-1)}></StyledBackIcon>
           <StyledTitleWrapper>
-            <StyledTitleH5>John Doe</StyledTitleH5>
+            <StyledTitleH5>{currentMember?.name}</StyledTitleH5>
             <StyledTitleTweetCount>25推文</StyledTitleTweetCount>
           </StyledTitleWrapper>
         </StyledTitleContainer>
@@ -111,16 +120,16 @@ const OtherUser = () => {
           </StyledContent>
           <StyledFollowsWrapper>
             <Link to='follow/following'>
-            <StyledFollowWrapper>
-              <p style={{ color: "var(--color-grayscale-dark100)" }}>231個</p>
-              <p>跟隨中</p>
-            </StyledFollowWrapper>
+              <StyledFollowWrapper>
+                <p style={{ color: "var(--color-grayscale-dark100)" }}>231個</p>
+                <p>跟隨中</p>
+              </StyledFollowWrapper>
             </Link>
             <Link to='follow/follower'>
-            <StyledFollowWrapper>
-              <p style={{ color: "var(--color-grayscale-dark100)" }}>59位</p>
-              <p>跟隨者</p>
-            </StyledFollowWrapper>
+              <StyledFollowWrapper>
+                <p style={{ color: "var(--color-grayscale-dark100)" }}>59位</p>
+                <p>跟隨者</p>
+              </StyledFollowWrapper>
             </Link>
           </StyledFollowsWrapper>
         </StyledInfoWrapper>
