@@ -1,25 +1,24 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import jwt_decode from "jwt-decode";
-import { checkPermission, login, register } from "../api/auth";
+import { checkPermission, login } from "../api/auth";
 
-const defaultAuthCotext = {
+const defaultAdminCotext = {
   isAuthenticated: false, // 使用者是否登入的判斷依據，預設為 false，若取得後端的有效憑證，則切換為 true
   currentMember: null, // 當前使用者相關資料，預設為 null，成功登入後就會有使用者資料
-  register: null, // 註冊方法
   login: null, // 登入方法
   logout: null, // 登出方法
 };
 
-const AuthContext = createContext(defaultAuthCotext);
+const AdminContext = createContext(defaultAdminCotext);
 
-export const useAuth = () => useContext(AuthContext);
+export const useAdmin = () => useContext(AdminContext);
 
-export const AuthProvider = ({ children }) => {
+export const AdminProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [payload, setPayload] = useState(null);
 
-  const {pathname} = useLocation()
+  const { pathname } = useLocation();
 
   useEffect(() => {
     const checkTokenIsValid = async () => {
@@ -34,44 +33,24 @@ export const AuthProvider = ({ children }) => {
         setIsAuthenticated(true);
         const tempPayload = jwt_decode(token);
         setPayload(tempPayload);
-      }else{
+      } else {
         setIsAuthenticated(false);
         setPayload(null);
       }
     };
-
     checkTokenIsValid();
   }, [pathname]);
 
   return (
-    <AuthContext.Provider
+    <AdminContext.Provider
       value={{
         isAuthenticated,
         currentMember: payload && {
           id: payload.sub,
           name: payload.name,
         },
-        register: async (data) => {
-          const { success, token } = await register({
-            account: data.account,
-            name: data.name,
-            email: data.email,
-            password: data.password,
-            checkPassword: data.checkPassword,
-          });
-          const tempPayload = jwt_decode(token);
-          if (tempPayload) {
-            setPayload(tempPayload);
-            setIsAuthenticated(true);
-            localStorage.setItem("authToken", token);
-          } else {
-            setPayload(null);
-            setIsAuthenticated(false);
-          }
-          return success;
-        },
         login: async (data) => {
-          const { success, token, user } = await login({
+          const { success, token } = await login({
             account: data.account,
             password: data.password,
           });
@@ -80,7 +59,6 @@ export const AuthProvider = ({ children }) => {
             setPayload(tempPayload);
             setIsAuthenticated(true);
             localStorage.setItem("authToken", token);
-            localStorage.setItem("userId", user.id);
           } else {
             setPayload(null);
             setIsAuthenticated(false);
@@ -89,13 +67,12 @@ export const AuthProvider = ({ children }) => {
         },
         logout: () => {
           localStorage.removeItem("authToken");
-          localStorage.removeItem("userId");
           setPayload(null);
           setIsAuthenticated(false);
         },
       }}
     >
       {children}
-    </AuthContext.Provider>
+    </AdminContext.Provider>
   );
 };

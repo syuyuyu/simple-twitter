@@ -16,13 +16,14 @@ import Setting from "./components/Setting";
 import Follow from "./components/sectionMain/Follow";
 import FollowerList from "./components/Lists/FollowerList";
 import FollowingList from "./components/Lists/FollowingList";
-
 import {
   EditModalContext,
   TweetModalContext,
   // ReplyModalContext
 } from "./contexts/ModalContext";
 import { TweetProvider } from "./contexts/TweetContext";
+import { AuthProvider } from "./contexts/AuthContext";
+import { AdminProvider } from "./contexts/AdminContext";
 
 function App() {
   const [tweetModal, setTweetModal] = useState(false);
@@ -44,44 +45,52 @@ function App() {
       <ResetStyle />
       <GlobalStyle />
       <BrowserRouter>
-        <TweetModalContext.Provider value={{ tweetModal, toggleTweetModal }}>
-          {/* <ReplyModalContext.Provider value={{replyModal,toggleReplyModal}}> */}
-          <EditModalContext.Provider value={{ editModal, toggleEditModal }}>
-            <TweetProvider>
-              <Routes>
-                <Route path='/' element={<LoginPage />} />
-                <Route path='regist' element={<RegistPage />} />
-                <Route path='user' element={<MainPage />}>
-                  <Route path='main' element={<Main />} />
-                  <Route path='profile' element={<Profile />}>
-                    <Route path='tweets' element={<TweetsList />} />
-                    <Route path='replys' element={<UserReplysList />} />
-                    <Route path='likes' element={<LikeTweetsList />} />
-                  </Route>
-                  <Route path=':d/follow' element={<Follow />}>
-                    <Route path='follower' element={<FollowerList />} />
-                    <Route path='following' element={<FollowingList />} />
-                  </Route>
-                  <Route path='otheruser' element={<OtherUser />}>
-                    <Route path='tweets' element={<TweetsList />} />
-                    <Route path='replys' element={<UserReplysList />} />
-                    <Route path='likes' element={<LikeTweetsList />} />
-                  </Route>
-                  <Route path='reply' element={<Reply replyModal={replyModal} toggleReplyModal={toggleReplyModal} />} />
-                  <Route path='setting' element={<Setting />} />
-                </Route>
-                <Route path='home' element={<HomePage />} />
-                <Route path='admin/*' element={<AdminMainPage />}>
-                  <Route path='main' element={<AdminTweetsList />} />
-                  <Route path='users' element={<AdminUserList />} />
-                </Route>
-                <Route path='setting' element={<SettingPage />} />
-                <Route path='admin' element={<AdminPage />} />
-              </Routes>
-            </TweetProvider>
-          </EditModalContext.Provider>
-          {/* </ReplyModalContext.Provider> */}
-        </TweetModalContext.Provider>
+        <AuthProvider>
+          <AdminProvider>
+            <TweetModalContext.Provider value={{ tweetModal, toggleTweetModal }}>
+              {/* <ReplyModalContext.Provider value={{replyModal,toggleReplyModal}}> */}
+              <EditModalContext.Provider value={{ editModal, toggleEditModal }}>
+                <TweetProvider>
+                  <Routes>
+                    <Route path='*' element={<HomePage />} />
+                    <Route path='login' element={<LoginPage />} />
+                    <Route path='regist' element={<RegistPage />} />
+                    <Route path='user' element={<MainPage />}>
+                      <Route path='main' element={<Main />} />
+                      <Route path='profile' element={<Profile />}>
+                        <Route path='tweets' element={<TweetsList />} />
+                        <Route path='replys' element={<UserReplysList />} />
+                        <Route path='likes' element={<LikeTweetsList />} />
+                      </Route>
+                      <Route path=':id/follow' element={<Follow />}>
+                        <Route path='follower' element={<FollowerList />} />
+                        <Route path='following' element={<FollowingList />} />
+                      </Route>
+                      <Route path=':id' element={<OtherUser />}>
+                        <Route path='tweets' element={<TweetsList />} />
+                        <Route path='replys' element={<UserReplysList />} />
+                        <Route path='likes' element={<LikeTweetsList />} />
+                      </Route>
+                      <Route
+                        path='reply'
+                        element={<Reply replyModal={replyModal} toggleReplyModal={toggleReplyModal} />}
+                      />
+                      <Route path='setting' element={<Setting />} />
+                    </Route>
+                    <Route path='home' element={<HomePage />} />
+                    <Route path='admin/*' element={<AdminMainPage />}>
+                      <Route path='main' element={<AdminTweetsList />} />
+                      <Route path='users' element={<AdminUserList />} />
+                    </Route>
+                    <Route path='setting' element={<SettingPage />} />
+                    <Route path='admin' element={<AdminPage />} />
+                  </Routes>
+                </TweetProvider>
+              </EditModalContext.Provider>
+              {/* </ReplyModalContext.Provider> */}
+            </TweetModalContext.Provider>
+          </AdminProvider>
+        </AuthProvider>
       </BrowserRouter>
     </div>
   );

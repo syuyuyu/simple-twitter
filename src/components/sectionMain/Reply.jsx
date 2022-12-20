@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import {
   StyledAccount,
@@ -10,12 +10,13 @@ import {
   StyledTitleContainer,
   StyledTitleH4,
 } from "../common/StyledGroup";
-import reply from '../../assets/icons/reply.svg'
-import unlike from '../../assets/icons/like.svg'
-import like from '../../assets/icons/like-active.svg'
+import reply from "../../assets/icons/reply.svg";
+import unlike from "../../assets/icons/like.svg";
+import like from "../../assets/icons/like-active.svg";
 import TweetReplysList from "../Lists/TweetReplysList";
 import ReplyModal from "../Modals/ReplyModal";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
 
 const TweetContainer = styled.div`
   margin: 0 16px;
@@ -93,7 +94,14 @@ const Time = styled.p`
 `;
 
 const Reply = ({ replyModal, toggleReplyModal }) => {
-const navigate = useNavigate();
+  const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate("/");
+    }
+  }, [navigate, isAuthenticated]);
 
   return (
     <>

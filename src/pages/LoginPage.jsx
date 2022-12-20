@@ -9,15 +9,15 @@ import {
   TitleH3,
 } from "../components/common/authstyled";
 import AuthInput from "../components/AuthInput";
-import { Link, useNavigate } from 'react-router-dom';
-import { login } from "../api/auth";
-
+import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import { useAuth } from "../contexts/AuthContext";
 
 const LoginPage = () => {
   const navigate = useNavigate();
   const [account, setAccount] = useState("");
   const [password, setPassword] = useState("");
-  const [isAuth,setIsAuth] = useState(false);
+  const {login, isAuthenticated} = useAuth()
 
   const handleClick = async () => {
     if (account.length === 0) {
@@ -26,20 +26,32 @@ const LoginPage = () => {
     if (password.length === 0) {
       return;
     }
-    const { status, token } = await login({ account, password });
+    const success = await login({ account, password });
 
-    if (status === "success") {
-      localStorage.setItem("authToken", token);
-      setIsAuth(true)
+    if (success) {
+      Swal.fire({
+        title: "登入成功",
+        icon: "success",
+        showConfirmButton: false,
+        timer: 1000,
+        position: "top",
+      });
+      return;
     }
+      Swal.fire({
+        title: "登入失敗",
+        icon: "error",
+        showConfirmButton: false,
+        timer: 1000,
+        position: "top",
+      });
   };
 
   useEffect(() => {
-  // 若通行轉到todo頁面去
-  if (isAuth) {
-    navigate('/user/main');
+    if(isAuthenticated){
+      navigate('/user/main')
     }
-  }, [navigate, isAuth]);
+  }, [navigate, isAuthenticated]);
 
   return (
     <AuthContainer>
@@ -60,9 +72,7 @@ const LoginPage = () => {
         value={password}
         onChange={(passwordInputValue) => setPassword(passwordInputValue)}
       />
-      {/* <Link to='/user/main'> */}
       <AuthButton onClick={handleClick}>登入</AuthButton>
-      {/* </Link> */}
       <LinkTextContainer>
         <Link to='/regist'>
           <AuthLinkText>註冊</AuthLinkText>

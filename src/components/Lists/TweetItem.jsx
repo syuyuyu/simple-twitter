@@ -1,25 +1,41 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import { StyledAvatarDefault } from "../common/StyledGroup";
 import replyIcon from "../../assets/icons/reply.svg";
 import unLikeIcon from "../../assets/icons/like.svg";
 import likeIcon from "../../assets/icons/like-active.svg";
 import ReplyModal from "../Modals/ReplyModal";
 import { ReplyModalContext } from "../../contexts/ModalContext";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/zh-tw";
 import clsx from "clsx";
 import { TweetContext } from "../../contexts/TweetContext";
+import avatarDefault from "../../assets/icons/avatar-default.svg";
 
 const ItemContainer = styled.div`
   display: flex;
   flex-direction: row;
   border: 1px solid #e6ecf0;
   padding: 16px 29px 16px 24px;
+`;
+
+const AvatarContainer = styled.div`
+  width: 50px;
+  height: 50px;
   &:hover {
     cursor: pointer;
+  }
+`;
+
+const Avatar = styled.div`
+  width: 50px;
+  height: 50px;
+  &:hover {
+    cursor: pointer;
+  }
+  &.avatar {
+    background-size: cover;
   }
 `;
 
@@ -27,6 +43,9 @@ const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin-left: 8px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const RowContainer = styled.div`
@@ -97,21 +116,21 @@ const StyledIcon = styled.div`
   }
 `;
 const TweetItem = ({ tweet }) => {
-  const {toggleReplyModal} = useContext(ReplyModalContext);
+  const { toggleReplyModal } = useContext(ReplyModalContext);
   const { handleToggleLike } = useContext(TweetContext);
   const navigate = useNavigate();
   dayjs.extend(relativeTime);
   return (
     <>
-      <ItemContainer onClick={() => navigate("/user/reply")}>
-        <StyledAvatarDefault style={{ margin: "0px" }}>
-          <div className={tweet.avatar}></div>
-        </StyledAvatarDefault>
+      <ItemContainer>
+        <AvatarContainer onClick={() => navigate("/user/:id")}>
+          <Avatar className='avatar' style={{ margin: "0px", backgroundImage: `url('${avatarDefault}')` }}></Avatar>
+        </AvatarContainer>
         <TextContainer>
-          <RowContainer>
-            <Name>{tweet.name}</Name>
+          <RowContainer onClick={() => navigate("/user/:id")}>
+            <Name>{tweet.userName}</Name>
             <Account>
-              @{tweet.account} · {dayjs(`${tweet.createdAt}`).locale("zh-tw").fromNow("zh-tw")}
+              @{tweet.userAccount} · {dayjs(`${tweet.updatedAt}`).locale("zh-tw").fromNow()}
             </Account>
           </RowContainer>
           <RowContainer>
@@ -125,12 +144,12 @@ const TweetItem = ({ tweet }) => {
               </IconContainer>
               <IconContainer>
                 <StyledIcon
-                  className={clsx("likeIcon", { like: tweet.isLike })}
+                  className={clsx("likeIcon", { like: tweet.isLiked })}
                   onClick={() => {
                     handleToggleLike?.(tweet.id);
                   }}
                 ></StyledIcon>
-                <p>{tweet.likeCount}</p>
+                <p>{tweet.likedCount}</p>
               </IconContainer>
             </IconsContainer>
           </RowContainer>

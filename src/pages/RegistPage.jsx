@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AuthButton, AuthContainer, AuthLinkText, LogoStyle, TitleH3 } from "../components/common/authstyled";
 import AuthInput from "../components/AuthInput";
-import { Link } from "react-router-dom";
-import { register } from "../api/auth";
+import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import { useAuth } from "../contexts/AuthContext";
+
 
 const RegistPage = () => {
   const [account, setAccount] = useState("");
@@ -10,47 +12,67 @@ const RegistPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [checkPassword, setcheCkPassword] = useState("");
+  const navigate = useNavigate();
+  const { register, isAuthenticated } = useAuth();
 
-  const handleSubmit = (event) => {
-    event.preventDedault();
-    
-  };
-
-  const handleClick = async()=>{
-    if (account.length === 0 || name.length === 0 || email.length === 0 || password.length === 0 || checkPassword.length === 0){
-      return
-    };
+  const handleClick = async () => {
+    if (account.length === 0) {
+      return;
+    }
+    if (name.length === 0) {
+      return;
+    }
+    if (email.length === 0) {
+      return;
+    }
+    if (password.length === 0) {
+      return;
+    }
+    if (checkPassword.length === 0) {
+      return;
+    }
 
     const success = await register({
       account,
       name,
       email,
       password,
-      checkPassword
+      checkPassword,
     });
 
-    // console.log('success',{
-    //   account,
-    //   name,
-    //   email,
-    //   password,
-    //   checkPassword})
-    // 若註冊成功跳出成功訊息
-    if(success){
-      alert('註冊成功,',success,account,name,email,password,checkPassword)
-      // 不成功就直接返回
+    if (success) {
+      
+      Swal.fire({
+        title: "註冊成功",
+        icon: "success",
+        showCloseButton: false,
+        timer: 1000,
+        position: "top",
+      });
       return;
     }
-    alert('註冊失敗',account,name,email,password,checkPassword);
+    Swal.fire({
+      title: "註冊失敗",
+      icon: "error",
+      showCloseButton: false,
+      timer: 1000,
+      position: "top",
+    });
   };
-  
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/user/main");
+    }
+  }, [navigate, isAuthenticated]);
+
   return (
-    <AuthContainer onSubmit={handleSubmit}>
+    <AuthContainer>
       <LogoStyle>
         <div className='logo-icon'></div>
       </LogoStyle>
       <TitleH3>建立你的帳號</TitleH3>
-      <AuthInput //用useReducer
+      <AuthInput
         label='帳號'
         placeholder='請輸入帳號'
         value={account}

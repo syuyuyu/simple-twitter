@@ -39,7 +39,9 @@ export const TweetProvider = ({ children }) => {
   };
   const value = {
     tweets,
+    setTweets,
     userReplys,
+    setUserReplys,
     handleToggleLike,
   };
 

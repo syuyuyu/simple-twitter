@@ -1,14 +1,14 @@
 import React from "react";
 import { StyledSectionSidebar } from "../components/common/StyledGroup";
 import AdminSidebarContainer from "./AdminSidebarContainer";
-import SidebarLogout from "./SidebarLogout";
+import AdminLogout from "./AdminLogout";
 
 const SectionAdminSidebar = () => {
   return (
     <>
       <StyledSectionSidebar>
         <AdminSidebarContainer />
-        <SidebarLogout />
+        <AdminLogout />
       </StyledSectionSidebar>
     </>
   );

@@ -1,15 +1,35 @@
-import React from 'react'
+import React from "react";
 import styled from "styled-components";
-import { StyledAvatarDefault } from "../common/StyledGroup";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/zh-tw";
+import { useNavigate } from "react-router-dom";
+import avatarDefault from "../../assets/icons/avatar-default.svg";
 
 const ItemContainer = styled.div`
   display: flex;
   flex-direction: row;
   border: 1px solid #e6ecf0;
   padding: 16px 29px 16px 24px;
+`;
+
+const AvatarContainer = styled.div`
+  width: 50px;
+  height: 50px;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const Avatar = styled.div`
+  width: 50px;
+  height: 50px;
+  &:hover {
+    cursor: pointer;
+  }
+  &.avatar {
+    background-size: cover;
+  }
 `;
 
 const TextContainer = styled.div`
@@ -63,32 +83,32 @@ const TweetText = styled.p`
   line-height: 26px;
 `;
 
-const ReplyItem = ({ reply }) => {
+const ReplyItem = ({ userReply }) => {
+  const navigate = useNavigate();
   dayjs.extend(relativeTime);
   return (
     <ItemContainer>
-      <StyledAvatarDefault style={{ margin: "0px" }}>
-        <div className={reply.User.avatar}></div>
-      </StyledAvatarDefault>
+      <AvatarContainer onClick={() => navigate("/user/:id")}>
+        <Avatar className='avatar' style={{ margin: "0px", backgroundImage: `url('${avatarDefault}')` }}></Avatar>
+      </AvatarContainer>
       <TextContainer>
         <RowContainer>
-          <Name>{reply.name}</Name>
+          <Name>wefwef</Name>
           <Account>
-            @{reply.account} · {dayjs(`${reply.createdAt}`).locale("zh-tw").fromNow("zh-tw")}
+            {/* @wetfrf · {dayjs(`${userReply.updatedAt}`).locale("zh-tw").fromNow()} */}
           </Account>
         </RowContainer>
         <RowContainer>
           <p className='text'>回覆</p>
-          <p className='account'>@{reply.User.name}</p>
+          <p className='account'>@1321</p>
         </RowContainer>
         <RowContainer>
-          <TweetText>
-            {reply.comment}
-          </TweetText>
+          <TweetText>weffwef</TweetText>
+          {/* <TweetText>{userReply.comment}</TweetText> */}
         </RowContainer>
       </TextContainer>
     </ItemContainer>
   );
 };
 
-export default ReplyItem
+export default ReplyItem;
