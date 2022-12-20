@@ -14,7 +14,6 @@ const StyledContainer = styled.div`
   border-radius: 2px;
 `;
 const StyledLabel = styled.label`
-  /* font-family: "Noto Sans TC", sans-serif; */
   width: 100%;
   padding: 3px 10.5px 0;
   height: 22px;
@@ -25,7 +24,6 @@ const StyledLabel = styled.label`
   color: var(--color-grayscale-dark80);
 `;
 const StyledInput = styled.input`
-  /* font-family: "Noto Sans TC", sans-serif; */
   width: 100%;
   height: 26px;
   padding: 3px 10.5px 0;
@@ -41,17 +39,22 @@ const StyledInput = styled.input`
   :focus {
     border-bottom: 2px solid var(--color-secondary-blue);
   }
+  &.active {
+    border-bottom: 2px solid var(--color-error);
+  }
 `;
 
 const StyledAlertContainer = styled.div`
   position: absolute;
   top: 54px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   width: 100%;
 `;
 
 const StyledError = styled.div`
+  position: absolute;
+  left: 0;
   margin-top: 4px;
   height: 20px;
   line-height: 20px;
@@ -75,14 +78,16 @@ const AuthInput = ({ type, label, value, placeholder, onChange }) => {
       <StyledContainer>
         <StyledLabel>{label}</StyledLabel>
         <StyledInput
+          className={value.length === 50 ? "active" : ""}
           type={type || "text"}
-          value={value || ''}
-          placeholder={placeholder || ''}
+          value={value || ""}
+          placeholder={placeholder || ""}
           onChange={(event) => onChange?.(event.target.value)}
+          maxLength={50}
         />
         <StyledAlertContainer>
-          <StyledError>字數超出上限！</StyledError>
-          <StyledCount>50/50</StyledCount>
+          {value.length === 50 ? <StyledError>字數超出上限！</StyledError> : null}
+          <StyledCount>{value.length}/50</StyledCount>
         </StyledAlertContainer>
       </StyledContainer>
     </>

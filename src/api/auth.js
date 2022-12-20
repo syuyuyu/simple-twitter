@@ -13,9 +13,10 @@ export const login = async ({ account, password }) => {
     if (token) {
       return { success: true, ...data };
     }
+    
   } catch (error) {
     console.log("[Login Failed]:", error);
-    console.log(error.response.data.message);
+    console.log(error);
   }
 };
 
