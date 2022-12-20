@@ -42,12 +42,10 @@ const StyledSectionPopular = styled.div`
 
 const StyledPopularContainer = styled.div`
   max-width: 273px;
-  height: 100vh;
   background: var(--color-grayscale-dark20);
   border-radius: 16px;
   margin-top: 16px;
   padding-top: 4px;
-  background: var(--color-grayscale-dark20);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -152,7 +150,7 @@ const StyledPublicButton = styled.button`
   &:hover {
     cursor: pointer;
   }
-  .active {
+  &.active {
     background-color: var(--color-white);
     color: var(--color-main);
     border: 1px solid var(--color-main);

@@ -15,9 +15,10 @@ export const login = async ({ account, password }) => {
       localStorage.setItem("userId",user.id)
       return { success: true, token,user }; // 改成token與user
     }
+    
   } catch (error) {
     console.log("[Login Failed]:", error);
-    console.log(error.response.data.message);
+    console.log(error);
   }
 };
 

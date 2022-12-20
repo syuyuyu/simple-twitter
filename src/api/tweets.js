@@ -2,10 +2,10 @@ import axios from "axios";
 
 const baseURL = "https://nameless-fortress-45508.herokuapp.com";
 
-const authToken = localStorage.getItem('authToken')
 
 export const getTweets = async () => {
   try {
+    const authToken = localStorage.getItem('authToken')
     const res = await axios.get(`${baseURL}/api/tweets/`, { headers: { Authorization: `Bearer ${authToken}` } });
     return res.data;
   } catch (error) {

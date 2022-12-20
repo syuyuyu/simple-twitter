@@ -18,14 +18,18 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const [account, setAccount] = useState("");
   const [password, setPassword] = useState("");
-  const {login, isAuthenticated} = useAuth()
+  const { login, isAuthenticated } = useAuth();
 
   const handleClick = async () => {
-    if (account.length === 0 || password.length === 0) {
-      return alert('帳號或密碼不得為空白')
+    
+    try {
+    if (account.length === 0) {
+      return;
+    }
+    if (password.length === 0) {
+      return;
     }
     const success = await login({ account, password });
-
     if (success) {
       Swal.fire({
         title: "登入成功",
@@ -34,8 +38,9 @@ const LoginPage = () => {
         timer: 1000,
         position: "top",
       });
-      return;
+      return
     }
+    } catch (error) {
       Swal.fire({
         title: "登入失敗",
         icon: "error",
@@ -43,11 +48,12 @@ const LoginPage = () => {
         timer: 1000,
         position: "top",
       });
+    }
   };
 
   useEffect(() => {
-    if(isAuthenticated){
-      navigate('/user/main')
+    if (isAuthenticated) {
+      navigate("/user/main");
     }
   }, [navigate, isAuthenticated]);
 
@@ -64,7 +70,7 @@ const LoginPage = () => {
         onChange={(accountInputValue) => setAccount(accountInputValue)}
       />
       <AuthInput
-        type='password'
+        type='text'
         label='密碼'
         placeholder='請設定密碼'
         value={password}

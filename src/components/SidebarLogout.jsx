@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import logoutIcon from "../assets/icons/logout.svg";
 import { useAuth } from "../contexts/AuthContext";
+import Swal from "sweetalert2";
 
 const StyledSidebarLogout = styled.div`
   width: 100%;
@@ -34,6 +35,13 @@ const SidebarLogout = () => {
   const { logout } = useAuth();
   const handleClick = () => {
     logout();
+    Swal.fire({
+      title: "已登出",
+      icon: "warning",
+      showConfirmButton: false,
+      timer: 1000,
+      position: "top",
+    });
   };
   return (
     <StyledSidebarLogout>
