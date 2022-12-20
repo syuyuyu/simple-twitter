@@ -25,7 +25,9 @@ import {
 import { NavLink as Link } from "react-router-dom";
 import styled from "styled-components";
 import EditModal from "../Modals/EditModal";
+import { useAuth } from "../../contexts/AuthContext";
 import { getReplys } from "../../api/userReplys";
+import { UserReplyContext } from "../../contexts/TweetContext";
 
 const NavLink = styled(Link)`
   height: 52px;
@@ -45,23 +47,31 @@ const NavLink = styled(Link)`
   }
 `;
 
-
-
 const Profile = () => {
   const {toggleEditModal} = useContext(EditModalContext);
   const navigate = useNavigate();
+  const { isAuthenticated,currentMember } = useAuth();
+  const { setUserReplys } = useContext(UserReplyContext);
 
   useEffect(() => {
-    const getUserReplyssAsync = async () => {
+    const getUserReplysAsync = async () => {
       try {
         const userReplys = await getReplys();
-        getReplys(userReplys.map((userReply) => ({ ...userReply })));
+        console.log(userReplys);
+        setUserReplys(userReplys.map((tweet) => ({ ...tweet })));
       } catch (error) {
         console.error(error);
       }
     };
-    getUserReplyssAsync();
-  }, []);
+    getUserReplysAsync();
+  }, [setUserReplys]);
+
+
+useEffect(() => {
+  if (!isAuthenticated) {
+    navigate("/");
+  }
+}, [navigate, isAuthenticated]);
 
   return (
     <>
@@ -70,7 +80,7 @@ const Profile = () => {
           <StyledTitleContainer>
             <StyledBackIcon className='backIcon' onClick={() => navigate(-1)}></StyledBackIcon>
             <StyledTitleWrapper>
-              <StyledTitleH5>John Doe</StyledTitleH5>
+              <StyledTitleH5>{currentMember?.name}</StyledTitleH5>
               <StyledTitleTweetCount>25推文</StyledTitleTweetCount>
             </StyledTitleWrapper>
           </StyledTitleContainer>
@@ -86,7 +96,7 @@ const Profile = () => {
           </StyledEditContainer>
 
           <StyledInfoWrapper>
-            <StyledTitleH5>John Doe</StyledTitleH5>
+            <StyledTitleH5>{currentMember?.name}</StyledTitleH5>
             <StyledAccount style={{ fontSize: "14px", fontWeight: "400" }}>@heyjohn</StyledAccount>
             <StyledContent>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam impedit vel Quisquam impedit vel

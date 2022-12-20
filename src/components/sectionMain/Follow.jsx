@@ -9,12 +9,15 @@ import {
   StyledTweetsNavbarWrapper,
   StyledTweetsNavbar,
 } from "../common/StyledGroup";
-import {NavLink as Link, Outlet, useNavigate} from "react-router-dom";
+import { NavLink as Link, Outlet, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { useEffect } from "react";
+import { useAuth } from "../../contexts/AuthContext";
 
-
-const Follow =()=>{
+const Follow = () => {
   const navigate = useNavigate();
+  const { isAuthenticated, currentMember} = useAuth();
+
   const NavLink = styled(Link)`
     height: 52px;
     width: 100%;
@@ -32,35 +35,41 @@ const Follow =()=>{
       color: var(--color-main);
     }
   `;
-return (
-  <StyledMainContainer>
-    <StyledHeader style={{ border: "0px" }}>
-      <StyledTitleContainer>
-        <StyledBackIcon className='backIcon' onClick={() => navigate(-1)}></StyledBackIcon>
-        <StyledTitleWrapper>
-          <StyledTitleH5>John Doe</StyledTitleH5>
-          <StyledTitleTweetCount>25推文</StyledTitleTweetCount>
-        </StyledTitleWrapper>
-      </StyledTitleContainer>
-    </StyledHeader>
-    <div
-      style={{
-        borderTop: "1px solid #E6ECF0",
-      }}
-    ></div>
-    <StyledTweetsNavbarWrapper>
-      <StyledTweetsNavbar style={{ width: "260px" }}>
-        <NavLink to='follower' activeStyle>
-          追隨者
-        </NavLink>
-        <NavLink to='following' activeStyle>
-          正在追隨
-        </NavLink>
-      </StyledTweetsNavbar>
-    </StyledTweetsNavbarWrapper>
-    <Outlet />
-  </StyledMainContainer>
-);
-}
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate("/");
+    }
+  }, [navigate, isAuthenticated]);
+
+  return (
+    <StyledMainContainer>
+      <StyledHeader style={{ border: "0px" }}>
+        <StyledTitleContainer>
+          <StyledBackIcon className='backIcon' onClick={() => navigate(-1)}></StyledBackIcon>
+          <StyledTitleWrapper>
+            <StyledTitleH5>{currentMember?.name}</StyledTitleH5>
+            <StyledTitleTweetCount>25推文</StyledTitleTweetCount>
+          </StyledTitleWrapper>
+        </StyledTitleContainer>
+      </StyledHeader>
+      <div
+        style={{
+          borderTop: "1px solid #E6ECF0",
+        }}
+      ></div>
+      <StyledTweetsNavbarWrapper>
+        <StyledTweetsNavbar style={{ width: "260px" }}>
+          <NavLink to='follower' activeStyle>
+            追隨者
+          </NavLink>
+          <NavLink to='following' activeStyle>
+            正在追隨
+          </NavLink>
+        </StyledTweetsNavbar>
+      </StyledTweetsNavbarWrapper>
+      <Outlet />
+    </StyledMainContainer>
+  );
+};
 
 export default Follow;

@@ -1,7 +1,7 @@
 import { StyledSidebarLogout } from "./common/StyledGroup";
 import styled from "styled-components";
 import logoutIcon from "../assets/icons/logout.svg";
-import { useAuth } from "../contexts/AuthContext";
+import { useAdmin } from "../contexts/AdminContext";
 
 const StyledLink = styled.button`
   height: 26px;
@@ -21,7 +21,7 @@ const LogoutIcon = styled.div`
 `;
 
 const SidebarLogout = () => {
-  const { logout } = useAuth();
+  const { logout } = useAdmin();
   const handleClick = () => {
     logout();
   };

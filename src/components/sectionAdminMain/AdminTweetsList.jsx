@@ -1,3 +1,6 @@
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAdmin } from "../../contexts/AdminContext";
 import {
   StyledHeader,
   StyledTitleH4,
@@ -8,6 +11,14 @@ import {
 import AdminTweetItem from "./AdminTweetItem";
 
 const AdminTweetsList = () => {
+  const navigate = useNavigate();
+  const { isAuthenticated } = useAdmin();
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate("/");
+    }
+  }, [navigate, isAuthenticated]);
+
   return (
     <>
       <StyleSectionAdminMain>

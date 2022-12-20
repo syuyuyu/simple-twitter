@@ -1,9 +1,18 @@
-import React from 'react'
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 
 const HomePage = () => {
-  return (
-    <div>HomePage</div>
-  )
-}
+  const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
 
-export default HomePage
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/user/main");
+    } else {
+      navigate("/login");
+    }
+  }, [navigate, isAuthenticated]);
+};
+
+export default HomePage;
