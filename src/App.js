@@ -30,6 +30,7 @@ function App() {
   const [replyModal, setReplyModal] = useState(false);
   const [editModal, setEditModal] = useState(false);
 
+
   const toggleTweetModal = () => {
     setTweetModal(!tweetModal);
   };
@@ -37,7 +38,7 @@ function App() {
     setReplyModal(!replyModal);
   };
   const toggleEditModal = () => {
-    setEditModal(!editModal);
+      setEditModal(!editModal);
   };
 
   return (

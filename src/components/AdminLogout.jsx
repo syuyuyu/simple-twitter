@@ -1,4 +1,4 @@
-import { StyledSidebarLogout } from "./common/StyledGroup";
+// import { StyledSidebarLogout } from "./common/StyledGroup";
 import styled from "styled-components";
 import logoutIcon from "../assets/icons/logout.svg";
 import { useAdmin } from "../contexts/AdminContext";
@@ -26,12 +26,12 @@ const SidebarLogout = () => {
     logout();
   };
   return (
-    <StyledSidebarLogout>
+    // <StyledSidebarLogout>
       <StyledLink onClick={handleClick}>
         <LogoutIcon></LogoutIcon>
         <h5>登出</h5>
       </StyledLink>
-    </StyledSidebarLogout>
+    // </StyledSidebarLogout>
   );
 };
 

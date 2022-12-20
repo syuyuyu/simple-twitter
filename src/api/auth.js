@@ -8,10 +8,12 @@ const authURL = "https://nameless-fortress-45508.herokuapp.com";
 export const login = async ({ account, password }) => {
   try {
     const { data } = await axios.post(`${authURL}/api/users/login`, { account, password });
-    console.log(data);
-    const { token } = data;
+
+    const { token,user } = data;
     if (token) {
-      return { success: true, ...data };
+      localStorage.setItem('authToken', token);
+      localStorage.setItem("userId",user.id)
+      return { success: true, token,user }; // 改成token與user
     }
   } catch (error) {
     console.log("[Login Failed]:", error);

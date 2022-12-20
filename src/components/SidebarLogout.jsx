@@ -1,7 +1,16 @@
-import { StyledSidebarLogout } from "./common/StyledGroup";
 import styled from "styled-components";
 import logoutIcon from "../assets/icons/logout.svg";
 import { useAuth } from "../contexts/AuthContext";
+
+const StyledSidebarLogout = styled.div`
+  width: 100%;
+  height: 45px;
+  padding: 0 0 0 13px;
+  cursor: pointer;
+  h5 {
+    color: var(--color-grayscale-dark100);
+  }
+`;
 
 const StyledLink = styled.button`
   height: 26px;
@@ -20,6 +29,7 @@ const LogoutIcon = styled.div`
   background-image: url(${logoutIcon});
 `;
 
+
 const SidebarLogout = () => {
   const { logout } = useAuth();
   const handleClick = () => {
@@ -31,7 +41,7 @@ const SidebarLogout = () => {
         <LogoutIcon></LogoutIcon>
         <h5>登出</h5>
       </StyledLink>
-    </StyledSidebarLogout>
+     </StyledSidebarLogout>
   );
 };
 

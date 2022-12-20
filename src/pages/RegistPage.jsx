@@ -7,30 +7,22 @@ import { useAuth } from "../contexts/AuthContext";
 
 
 const RegistPage = () => {
+  const navigate = useNavigate();
   const [account, setAccount] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [checkPassword, setcheCkPassword] = useState("");
-  const navigate = useNavigate();
   const { register, isAuthenticated } = useAuth();
 
-  const handleClick = async () => {
-    if (account.length === 0) {
-      return;
-    }
-    if (name.length === 0) {
-      return;
-    }
-    if (email.length === 0) {
-      return;
-    }
-    if (password.length === 0) {
-      return;
-    }
-    if (checkPassword.length === 0) {
-      return;
-    }
+  // const handleSubmit = (event) => {
+  //   event.preventDedault();
+  // };
+
+  const handleClick = async()=>{
+    if (account.length === 0 || name.length === 0 || email.length === 0 || password.length === 0 || checkPassword.length === 0){
+      return
+    };
 
     const success = await register({
       account,
@@ -41,7 +33,6 @@ const RegistPage = () => {
     });
 
     if (success) {
-      
       Swal.fire({
         title: "註冊成功",
         icon: "success",

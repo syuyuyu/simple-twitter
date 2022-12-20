@@ -81,7 +81,7 @@ const AuthInput = ({ type, label, value, placeholder, onChange }) => {
           onChange={(event) => onChange?.(event.target.value)}
         />
         <StyledAlertContainer>
-          <StyledError>字數超出上限！</StyledError>
+          {/* <StyledError>字數超出上限！</StyledError> */}
           <StyledCount>50/50</StyledCount>
         </StyledAlertContainer>
       </StyledContainer>

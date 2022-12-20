@@ -90,7 +90,7 @@ useEffect(() => {
           <StyledAvatarImage className='avatar'></StyledAvatarImage>
 
           <StyledEditContainer>
-            <StyledPublicButton whiteMode={true} onClick={toggleEditModal}>
+            <StyledPublicButton whiteMode={true} onClick={toggleEditModal}> 
               編輯個人資料
             </StyledPublicButton>
           </StyledEditContainer>

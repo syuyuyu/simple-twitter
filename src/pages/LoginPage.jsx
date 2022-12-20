@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState} from "react";
+import { Link, useNavigate } from 'react-router-dom';
 import {
   AuthButton,
   AuthContainer,
@@ -9,7 +10,7 @@ import {
   TitleH3,
 } from "../components/common/authstyled";
 import AuthInput from "../components/AuthInput";
-import { Link, useNavigate } from "react-router-dom";
+// import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { useAuth } from "../contexts/AuthContext";
 
@@ -20,11 +21,8 @@ const LoginPage = () => {
   const {login, isAuthenticated} = useAuth()
 
   const handleClick = async () => {
-    if (account.length === 0) {
-      return;
-    }
-    if (password.length === 0) {
-      return;
+    if (account.length === 0 || password.length === 0) {
+      return alert('帳號或密碼不得為空白')
     }
     const success = await login({ account, password });
 

@@ -73,14 +73,6 @@ const StyleSidebarItem = styled.div`
     color: var(--color-grayscale-dark100);
   }
 `;
-const StyledSidebarLogout = styled.div`
-  width: 100%;
-  height: 45px;
-  padding: 0 0 0 13px;
-  h5 {
-    color: var(--color-grayscale-dark100);
-  }
-`;
 const StyledTitleH4 = styled.h4`
   max-height: 24px;
   margin: 24px;
@@ -324,7 +316,7 @@ const StyledTitleWrapper = styled.div`
 const StyledBackgroundImage = styled.div`
   width: 100%;
   height: 200px;
-  background: #aaa;
+  /* background: #aaa; */
 `;
 const StyledEditContainer = styled.div`
   width: 100%;
@@ -405,7 +397,6 @@ export {
   StyledButtonContainer,
   StyledError,
   StyledSidebarContainer,
-  StyledSidebarLogout,
   StyleSidebarItem,
   StyledAdminGroupContainer,
   StyledTweetsList,
