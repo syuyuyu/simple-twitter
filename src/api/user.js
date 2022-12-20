@@ -27,14 +27,12 @@ export const putUser = async ({account,name,email,introduction,avatar,cover}) =>
         }};
     
       const data = {
-        params: {
           "account": `${account}`,
           "name":` ${name}`,
           "email": `${email}`,
           "introduction":`${introduction}`,
           "avatar": `${avatar}`,
           "cover": `${cover}`,
-        }
       };
     const res = await axios.put(`${baseURL}/api/users/${userId}`,data,config)
 

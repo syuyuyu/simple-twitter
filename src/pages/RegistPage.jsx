@@ -15,10 +15,9 @@ const RegistPage = () => {
   const [checkPassword, setcheCkPassword] = useState("");
   const { register, isAuthenticated } = useAuth();
 
-  const handleSubmit = (event) => {
-    event.preventDedault();
-    
-  };
+  // const handleSubmit = (event) => {
+  //   event.preventDedault();
+  // };
 
   const handleClick = async()=>{
     if (account.length === 0 || name.length === 0 || email.length === 0 || password.length === 0 || checkPassword.length === 0){

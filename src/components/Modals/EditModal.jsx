@@ -307,7 +307,7 @@ const EditModal = () => {
                   // onChange={handleIntroChange}
                   onChange={(value=>isUpdating? value :setIntro(value))}
                 />
-                <div>{intro}</div>
+                {/* <div>{intro}</div> */}
               </StyleddescriptionTextarea>
 
             </InputContainer>

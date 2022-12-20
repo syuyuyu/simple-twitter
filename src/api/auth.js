@@ -13,7 +13,7 @@ export const login = async ({ account, password }) => {
     if (token) {
       localStorage.setItem('authToken', token);
       localStorage.setItem("userId",user.id)
-      return { status: "success", ...data };
+      return { success: true, token,user }; // 改成token與user
     }
   } catch (error) {
     console.log("[Login Failed]:", error);
