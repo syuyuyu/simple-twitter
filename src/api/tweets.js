@@ -44,3 +44,15 @@ export const patchTweet = async (payload) => {
 };
 
 export const deleteTweet = () => {};
+
+
+export const getUserTweets = async () => {
+  try {
+    const authToken = localStorage.getItem('authToken')
+    const userId = localStorage.getItem('userId');
+    const res = await axios.get(`${baseURL}/api/users/${userId}/tweets`, {headers: { Authorization: `Bearer ${authToken}` } });
+    return res.data;
+  } catch (error) {
+    console.error("[Get UserTweets failed]:", error);
+  }
+};

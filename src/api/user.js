@@ -8,11 +8,9 @@ const userId = localStorage.getItem('userId');
 
 export const getUser = async () => {
   try {
-    // console.log('user api id',userId)
     const res = await axios.get(`${baseURL}/api/users/${userId}`,{
       headers: {'Authorization': `Bearer ${authToken}`}
       });
-      // console.log('user GET api res:',res)
     return res.data;
   } catch (error) {
     console.error("[Get User failed]:", error);
@@ -24,7 +22,6 @@ export const putUser = async ({account,name,email,introduction,avatar,cover}) =>
       const authToken = localStorage.getItem('authToken');
       const userId = localStorage.getItem('userId');
       const getdata =  await getUser()
-      // console.log('getdata:',getdata)
       const config ={
         headers: {
           Authorization: `Bearer ${authToken}`

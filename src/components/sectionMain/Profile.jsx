@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect,useState } from "react";
 import { EditModalContext } from "../../contexts/ModalContext";
 import { Outlet, useNavigate } from "react-router-dom";
 import {
@@ -27,7 +27,9 @@ import styled from "styled-components";
 import EditModal from "../Modals/EditModal";
 import { useAuth } from "../../contexts/AuthContext";
 import { getReplys } from "../../api/userReplys";
-import { UserReplyContext } from "../../contexts/TweetContext";
+import { UserReplyContext,TweetContext } from "../../contexts/TweetContext";
+import { getUser } from "../../api/user";
+import { getUserTweets } from "../../api/tweets";
 
 const NavLink = styled(Link)`
   height: 52px;
@@ -51,13 +53,21 @@ const Profile = () => {
   const {toggleEditModal} = useContext(EditModalContext);
   const navigate = useNavigate();
   const { isAuthenticated,currentMember } = useAuth();
-  const { setUserReplys } = useContext(UserReplyContext);
+  const {setUserReplys } = useContext(UserReplyContext);
+  const {userTweets,setUserTweets} = useContext(TweetContext);
+  const [intro, setIntro] = useState('')
+  const [avatar, setAvatar] = useState('')
+  const [cover, setCover] = useState('')
+  const [name, setName] = useState('')
+  const [followerCount,setFollowerCount] = useState('')
+  const [followingCount,setFollowingCount] = useState('')
 
+  //取得回覆串資料
   useEffect(() => {
     const getUserReplysAsync = async () => {
       try {
         const userReplys = await getReplys();
-        console.log(userReplys);
+        // console.log(userReplys);
         setUserReplys(userReplys.map((tweet) => ({ ...tweet })));
       } catch (error) {
         console.error(error);
@@ -66,6 +76,38 @@ const Profile = () => {
     getUserReplysAsync();
   }, [setUserReplys]);
 
+  //取得user資料
+  useEffect(()=>{
+    const getUserData = async () => {
+      try {
+        const user = await getUser();
+        console.log('Profile useEffect getUser :',user)
+        setIntro(user.introduction)
+        setName(user.name)
+        setAvatar(user.avatar)
+        setCover(user.cover)
+        setFollowerCount(user.followerCount)
+        setFollowingCount(user.followingCount)
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getUserData();
+  }, []);
+
+  //取得userTwieets資料
+  useEffect(()=>{
+    const UserTweets = async () => {
+      try {
+        const tweets = await getUserTweets();
+        console.log('Profile useEffect UserTweets :',tweets)
+        setUserTweets(tweets)
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    UserTweets();
+  }, []);
 
 useEffect(() => {
   if (!isAuthenticated) {
@@ -80,14 +122,14 @@ useEffect(() => {
           <StyledTitleContainer>
             <StyledBackIcon className='backIcon' onClick={() => navigate(-1)}></StyledBackIcon>
             <StyledTitleWrapper>
-              <StyledTitleH5>{currentMember?.name}</StyledTitleH5>
-              <StyledTitleTweetCount>25推文</StyledTitleTweetCount>
+              <StyledTitleH5>{name}</StyledTitleH5>
+              <StyledTitleTweetCount>{userTweets.length}推文</StyledTitleTweetCount>
             </StyledTitleWrapper>
           </StyledTitleContainer>
         </StyledHeader>
         <StyledProfileContainer>
-          <StyledBackgroundImage></StyledBackgroundImage>
-          <StyledAvatarImage className='avatar'></StyledAvatarImage>
+          <StyledBackgroundImage style={{backgroundImage:`url('${cover}')`, backgroundColor: 'red'}}></StyledBackgroundImage>
+          <StyledAvatarImage className='avatar' style={{backgroundImage:`url('${avatar}')`,backgroundColor: 'black'}}></StyledAvatarImage>
 
           <StyledEditContainer>
             <StyledPublicButton whiteMode={true} onClick={toggleEditModal}> 
@@ -96,22 +138,21 @@ useEffect(() => {
           </StyledEditContainer>
 
           <StyledInfoWrapper>
-            <StyledTitleH5>{currentMember?.name}</StyledTitleH5>
-            <StyledAccount style={{ fontSize: "14px", fontWeight: "400" }}>@heyjohn</StyledAccount>
+            <StyledTitleH5>{name}</StyledTitleH5>
+            <StyledAccount style={{ fontSize: "14px", fontWeight: "400" }}>@{currentMember?.name}</StyledAccount>
             <StyledContent>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam impedit vel Quisquam impedit vel
-              Quisquam impedit vel
+              {intro}
             </StyledContent>
             <StyledFollowsWrapper>
               <Link to='follow/following'>
                 <StyledFollowWrapper>
-                  <p style={{ color: "var(--color-grayscale-dark100)" }}>34個</p>
+                  <p style={{ color: "var(--color-grayscale-dark100)" }}>{followingCount}個</p>
                   <p>跟隨中</p>
                 </StyledFollowWrapper>
               </Link>
               <Link to='follow/follower'>
                 <StyledFollowWrapper>
-                  <p style={{ color: "var(--color-grayscale-dark100)" }}>59位</p>
+                  <p style={{ color: "var(--color-grayscale-dark100)" }}>{followerCount}位</p>
                   <p>跟隨者</p>
                 </StyledFollowWrapper>
               </Link>
