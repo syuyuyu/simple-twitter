@@ -70,7 +70,7 @@ const LoginPage = () => {
         onChange={(accountInputValue) => setAccount(accountInputValue)}
       />
       <AuthInput
-        type='text'
+        type='password'
         label='密碼'
         placeholder='請設定密碼'
         value={password}
