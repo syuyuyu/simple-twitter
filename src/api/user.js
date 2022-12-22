@@ -17,7 +17,7 @@ export const getUser = async () => {
   }
 };
 //PUT 使用者個人資料
-export const putUser = async ({account,name,email,introduction,avatar,cover}) => {
+export const putUser = async ({account,name,email,introduction,avatar,cover,password,checkPassword}) => {
   try{
       const authToken = localStorage.getItem('authToken');
       const userId = localStorage.getItem('userId');
@@ -34,6 +34,8 @@ export const putUser = async ({account,name,email,introduction,avatar,cover}) =>
           "introduction": `${introduction}`==="undefined"? `${getdata.introduction}` : `${introduction}` ,
           "avatar": `${avatar}`==="undefined"? `${getdata.avatar}`: `${avatar}` ,
           "cover": `${cover}`==="undefined"?  `${getdata.cover}`: `${cover}` ,
+          "password": `${password}`,
+          "checkPassword": `${checkPassword}`,
       };
       console.log('put data : ',data)
     const res = await axios.put(`${baseURL}/api/users/${userId}`,data,config)

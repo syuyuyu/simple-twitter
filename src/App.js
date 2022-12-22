@@ -67,13 +67,14 @@ function App() {
                           <FollowingProvider>
                             <OtherUserProvider>
                               <Routes>
-                                <Route path='' element={<HomePage />} />
+                                <Route path='*' element={<HomePage />} />
                                 <Route path='login' element={<LoginPage />} />
                                 <Route path='regist' element={<RegistPage />} />
                                 <Route path='user' element={<MainPage />}>
                                   <Route path='main' element={<Main />} />
                                   <Route path='profile' element={<Profile />}>
                                     <Route path='tweets' element={<TweetsList />} />
+                                    <Route path='' element={<TweetsList />} />
                                     <Route path='replys' element={<UserReplysList />} />
                                     <Route path='likes' element={<LikeTweetsList />} />
                                   </Route>
