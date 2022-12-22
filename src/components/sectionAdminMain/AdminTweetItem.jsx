@@ -1,14 +1,10 @@
-import React ,{ useEffect }from "react";
+import React from "react";
 import styled from "styled-components";
 import { StyledAvatarDefault } from "../common/StyledGroup";
 import deleteIcon from "../../assets/icons/delete.svg"
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/zh-tw";
-import { TweetContext } from "../../contexts/TweetContext";
-import { useContext } from "react";
-import { adminDeleteTweets, adminGetTweets } from "../../api/admin";
-
 
 
 const ItemContainer = styled.div`

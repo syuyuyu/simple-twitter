@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { StyledAvatarDefault, StyledPublicButton } from "../../components/common/StyledGroup";
+import { StyledPublicButton } from "../../components/common/StyledGroup";
 
 const ItemContainer = styled.div`
   display: flex;

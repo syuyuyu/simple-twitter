@@ -1,5 +1,4 @@
 import React from "react";
-import { Navigate } from "react-router";
 import styled from "styled-components";
 import {
   StyledStyledNameContainer,
@@ -31,7 +30,7 @@ const Avatar = styled.div`
 `;
 
 const PopularItem = ({ account, avatar, followerCount, followingId, followingUser, isFollowed }) => {
-  const { id, name } = { ...followingUser };
+  const { name } = { ...followingUser };
   return (
     <>
       <StyledPopularItem>

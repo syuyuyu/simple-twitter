@@ -11,7 +11,7 @@ import {
 import ContentTextarea from "../ContentTextarea";
 import TweetModal from "../Modals/TweetModal";
 import TweetsList from "../Lists/TweetsList";
-import { createTweet, getTweets } from "../../api/tweets";
+import { getTweets } from "../../api/tweets";
 import { OtherUserContext,  TweetContext } from "../../contexts/TweetContext";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
@@ -44,14 +44,14 @@ const Main = () => {
     margin-left: 8.2px;
   `;
 
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue] = useState("");
   const { setTweets } = useContext(TweetContext);
-  const [isUpdating, setIsUpdating] = useState(false);
+  // const [isUpdating, setIsUpdating] = useState(false);
   const { otherUser, setOtherUser } = useContext(OtherUserContext);
 
-  const handleChange = (value) => {
-    setInputValue(value);
-  };
+  // const handleChange = (value) => {
+  //   setInputValue(value);
+  // };
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
 

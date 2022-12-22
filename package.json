@@ -1,7 +1,7 @@
 {
-  "name": "simple_twitter",
+  "name": "simple-twitter",
   "version": "0.1.0",
-  "homepage": "https://syuyuyu.github.io/simple_twitter",
+  "homepage": "https://syuyuyu.github.io/simple-twitter",
   "private": true,
   "dependencies": {
     "@fontsource/montserrat": "^4.5.13",
