@@ -1,7 +1,11 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import jwt_decode from "jwt-decode";
-import { adminLogin,checkPermission } from "../api/admin";
+import { checkPermission, login } from "../api/admin";
+
+// const initUsers = {
+//   users: [],
+// };
 
 const defaultAdminCotext = {
   isAuthenticated: false, // 使用者是否登入的判斷依據，預設為 false，若取得後端的有效憑證，則切換為 true
@@ -19,7 +23,7 @@ export const useAdmin = () => useContext(AdminContext);
 export const AdminProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [payload, setPayload] = useState(null);
-  const [getUsers,setGetUsers] = useState(null);
+  const [getUsers, setGetUsers] = useState(null);
   const { pathname } = useLocation();
 
   useEffect(() => {
@@ -54,7 +58,7 @@ export const AdminProvider = ({ children }) => {
           name: payload.name,
         },
         login: async (data) => {
-          const { success, token } = await adminLogin({
+          const { success, token } = await login({
             account: data.account,
             password: data.password,
           });
@@ -81,15 +85,3 @@ export const AdminProvider = ({ children }) => {
     </AdminContext.Provider>
   );
 };
-
-
-// export const GetUsersContext = createContext();
-// export const GetUsersProvider = ({children})=>{
-//   const [getUsers,setGetUsers] = useState()
-//   const value = {
-//     getUsers,setGetUsers
-//   };
-//   return(
-//     <GetUsersContext.Provider value={value}>{children}</GetUsersContext.Provider>
-//   )
-// }
