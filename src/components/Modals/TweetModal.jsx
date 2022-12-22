@@ -6,10 +6,12 @@ import {
   StyledError,
   StyledPublicButton,
 } from "../common/StyledGroup";
+import Swal from "sweetalert2";
 import ContentTextarea from "../ContentTextarea";
 import close from "../../assets/icons/close.svg";
 import { TweetModalContext } from "../../contexts/ModalContext";
 import avatarDefault from "../../assets/icons/avatar-default.svg";
+import { createTweet } from "../../api/tweets";
 
 const Modal = styled.div`
   width: 100vw;
@@ -87,12 +89,56 @@ const Avatar = styled.div`
 `;
 
 const TweetModal = () => {
-    const {tweetModal,toggleTweetModal} = useContext(TweetModalContext);
-    const [inputValue, setInputValue] = useState(""); 
+  const {tweetModal,toggleTweetModal} = useContext(TweetModalContext);
+  const [inputValue, setInputValue] = useState(""); 
+  const [isUpload,setIsUpload] = useState(false)
 
-    const handleChange = (value) => {
-      setInputValue(value);
+  const handleSubmit=async()=>{
+    if(isUpload){
+      Swal.fire({
+        title: "上傳中請稍等",
+        icon: "error",
+        showConfirmButton: false,
+        timer: 1000,
+        position: "top",
+      });
     };
+    if(!inputValue){
+      Swal.fire({
+        title: "推文不可為空白",
+        icon: "error",
+        showConfirmButton: false,
+        timer: 1000,
+        position: "top",
+      });
+    };
+    setIsUpload(true)
+    const description = inputValue
+    console.log('description: ',description)
+    try{
+      const res = await createTweet(description)
+      console.log('res :',res)
+      if(res){
+        await Swal.fire({
+          title: "資料儲存中",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1000,
+          position: "top",
+        });
+      }
+      toggleTweetModal()
+      setIsUpload(false)
+    }catch(err){
+      Swal.fire({
+        title: "儲存失敗",
+        icon: "error",
+        showConfirmButton: false,
+        timer: 1000,
+        position: "top",
+      });
+    }
+  }
 
   return (
     <>
@@ -109,12 +155,12 @@ const TweetModal = () => {
                 <ContentTextarea
                   placeholder='有什麼新鮮事？'
                   value={inputValue}
-                  onChange={(event) => handleChange?.(event.target.value)}
+                  onChange={(value => isUpload? value : setInputValue(value))}
                 />
               </ContentWrapper>
               <StyledButtonContainer>
                 <StyledError>字數不可超過140字</StyledError>
-                <StyledPublicButton>推文</StyledPublicButton>
+                <StyledPublicButton onClick={handleSubmit}>推文</StyledPublicButton>
               </StyledButtonContainer>
             </StyledContentContainer>
           </Content>

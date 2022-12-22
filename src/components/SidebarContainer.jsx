@@ -24,7 +24,6 @@ const SidebarContainer = () => {
         <SidebarButton />
       </StyledSidebarContainer>
       <TweetModal />
-      {/* <EditModal /> */}
     </>
   );
 };
