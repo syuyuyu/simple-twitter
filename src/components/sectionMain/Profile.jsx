@@ -31,7 +31,6 @@ import { LikeTweetContext, OtherUserContext, UserReplyContext, UserTweetContext 
 import { getLikeTweets, getUserTweets } from "../../api/tweets";
 import TweetModal from "../Modals/TweetModal";
 import { getUser } from "../../api/user";
-import { login } from "../../api/auth";
 
 const NavLink = styled(Link)`
   height: 52px;

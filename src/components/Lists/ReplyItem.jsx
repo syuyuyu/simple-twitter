@@ -88,8 +88,8 @@ const ReplyItem = ({ key, User, UserId, comment, time, Tweet }) => {
   dayjs.extend(relativeTime);
   // const { account, id } = { ...Tweet.User };
   const abc = { ...Tweet.User };
-  const {account: tweetUserAccount, id: tweetUserId} = abc;
-  const { account, avatar, id, name } = { ...User };
+  const {account: tweetUserAccount} = abc;
+  const { account, avatar, name } = { ...User };
 
   return (
     <ItemContainer>
