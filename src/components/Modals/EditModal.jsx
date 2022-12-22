@@ -149,14 +149,16 @@ const EditModal = () => {
     const patchUser = await putUser({name,introduction,cover,avatar})
     // console.log('patchUser: ',patchUser)
     setIsUpdating(false)
-    await Swal.fire({
-      title: "資料儲存中",
-      icon: "success",
-      showConfirmButton: false,
-      timer: 1000,
-      position: "top",
-    });
-    toggleEditModal()
+    if(patchUser){
+      await Swal.fire({
+        title: "資料儲存中",
+        icon: "success",
+        showConfirmButton: false,
+        timer: 1000,
+        position: "top",
+      });
+      toggleEditModal()
+    }
   };
 
   //刪除背景圖
