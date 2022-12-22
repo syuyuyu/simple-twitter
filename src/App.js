@@ -7,6 +7,7 @@ import { AdminPage, HomePage, LoginPage, MainPage, RegistPage, AdminMainPage, Se
 import Main from "./components/sectionMain/Main";
 import Profile from "./components/sectionMain/Profile";
 import TweetsList from "./components/Lists/TweetsList";
+import UserTweetsList from "./components/Lists/UserTweetsList";
 import UserReplysList from "./components/Lists/UserReplysList";
 import LikeTweetsList from "./components/Lists/LikeTweetsList";
 import OtherUser from "./components/sectionMain/OtherUser";

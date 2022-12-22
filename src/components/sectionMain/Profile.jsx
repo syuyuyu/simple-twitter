@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect,useState } from "react";
 import { EditModalContext } from "../../contexts/ModalContext";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import {
@@ -27,7 +27,7 @@ import styled from "styled-components";
 import EditModal from "../Modals/EditModal";
 import { useAuth } from "../../contexts/AuthContext";
 import { getReplys } from "../../api/userReplys";
-import { LikeTweetContext, OtherUserContext, UserReplyContext } from "../../contexts/TweetContext";
+import { LikeTweetContext, OtherUserContext, UserReplyContext,TweetContext } from "../../contexts/TweetContext";
 import { getLikeTweets } from "../../api/tweets";
 import TweetModal from "../Modals/TweetModal";
 import { getUser } from "../../api/user";
@@ -54,7 +54,14 @@ const Profile = () => {
   const { toggleEditModal } = useContext(EditModalContext);
   const navigate = useNavigate();
   const { isAuthenticated, currentMember } = useAuth();
-  const { setUserReplys } = useContext(UserReplyContext);
+  const {setUserReplys } = useContext(UserReplyContext);
+  const { userTweets } = useContext(TweetContext);
+  const [intro, setIntro] = useState('')
+  const [avatar, setAvatar] = useState('')
+  const [cover, setCover] = useState('')
+  const [name, setName] = useState('')
+  const [followerCount,setFollowerCount] = useState('')
+  const [followingCount,setFollowingCount] = useState('')
   const { setLikeTweets } = useContext(LikeTweetContext);
   const { otherUser, setOtherUser } = useContext(OtherUserContext);
 
@@ -72,7 +79,7 @@ const Profile = () => {
     getUserAsync();
   }, [setOtherUser]);
 
-  //回覆串
+  //取得回覆串資料
   useEffect(() => {
     const getUserReplysAsync = async () => {
       try {
@@ -99,6 +106,30 @@ const Profile = () => {
     getLikeTweetsAsync();
   }, [setLikeTweets]);
 
+  //取得user資料
+  useEffect(()=>{
+    const getUserData = async () => {
+      try {
+        const user = await getUser();
+        console.log('Profile useEffect getUser :',user)
+        setIntro(user.introduction)
+        setName(user.name)
+        setAvatar(user.avatar)
+        setCover(user.cover)
+        setFollowerCount(user.followerCount)
+        setFollowingCount(user.followingCount)
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getUserData();
+  }, [isAuthenticated]);
+
+useEffect(() => {
+  if (!isAuthenticated) {
+    navigate("/");
+  }
+}, [navigate, isAuthenticated]);
   //身分驗證
   useEffect(() => {
     if (!isAuthenticated) {

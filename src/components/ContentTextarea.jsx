@@ -16,15 +16,16 @@ const StyledTextarea = styled.textarea`
   min-height: 150px;
 `;
 
-const ContentTextarea = ({ type,value, placeholder, onChange }) => {
+const ContentTextarea = ({ type, inputValue, placeholder, onChange }) => {
   return (
     <>
       <StyledContainer>
         <StyledTextarea
-          // type={ type || "text"}
-          // value={value}
-          // placeholder={placeholder}
-          // onChange={(event) => onChange?.(event.target.value)}
+          type={"text"}
+          value={inputValue}
+          placeholder={placeholder}
+          maxLength={140}
+          onChange={(event) => onChange?.(event.target.value)}
         />
       </StyledContainer>
     </>

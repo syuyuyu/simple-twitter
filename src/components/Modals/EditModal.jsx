@@ -1,4 +1,5 @@
 import React,{useState,useContext,useRef,useEffect,useMemo } from 'react'
+import Swal from "sweetalert2";
 import styled from "styled-components";
 import {
   StyledPublicButton,
@@ -125,25 +126,6 @@ const EditModal = () => {
   // isUpdating是否正在串API
   const [isUpdating, setIsUpdating] = useState(false);
 
-  // name輸入input
-  // const handleNameChange=(e)=>{
-  //   if(isUpdating){
-  //     return;
-  //   }
-  //   // let inputName = e.target.value || '';
-  //   setName(e.target.value);
-  // };
-
-  // intro輸入input
-  // const handleIntroChange=(e)=>{
-  //   if(isUpdating){
-  //     return;
-  //   }
-  //   // let inputIntro = e.target.value || '';
-  //   setIntro(e.target.value);
-  // };
-
-
   const handleImgChange=(e)=>{
     if(isUpdating){
       return;
@@ -161,29 +143,43 @@ const EditModal = () => {
 
   const handleSubmit=async()=>{
     setIsUpdating(true)
-    // alert('修改資料中')
-    // console.log('name',name)
-    // console.log('intro',intro)
     const introduction =intro
     const cover = coverImg
     const avatar = avatarImg
-    //這裡串接patch api
     const patchUser = await putUser({name,introduction,cover,avatar})
-    console.log('patchUser: ',patchUser)
+    // console.log('patchUser: ',patchUser)
     setIsUpdating(false)
+    await Swal.fire({
+      title: "資料儲存中",
+      icon: "success",
+      showConfirmButton: false,
+      timer: 1000,
+      position: "top",
+    });
+    toggleEditModal()
   };
 
   //刪除背景圖
   const handleCancel=()=>{
-    const ans = window.confirm(`確定要移除圖片嗎`); // confirm加window
-    if(ans){
-      setCoverImg('')
-      console.log(`setCoverImg('')`)
-    }else{
+    Swal.fire({
+      title: '移除圖片',
+      text: "確定要移除圖片嗎?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '移除'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          'Deleted!',
+          '已移除',
+          'success'
+        )
+        setCoverImg('')
+      }
       setCoverImg(coverImg)
-      console.log(`setCoverImg('coverImg')`)
-    }
-
+    })
   };
 
 
@@ -207,7 +203,7 @@ const EditModal = () => {
         setAvatarImg(user?.avatar);
         setName(user?.name);
         setIntro(user?.introduction);
-        console.log('EditModal useEffect getUser')
+        // console.log('EditModal useEffect getUser')
       } catch (error) {
         console.error(error);
       }

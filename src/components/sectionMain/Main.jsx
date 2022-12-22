@@ -22,6 +22,7 @@ import styled from "styled-components";
 import avatarDefault from "../../assets/icons/avatar-default.svg";
 
 
+
 const Main = () => {
 
   const Avatar = styled.div`
@@ -114,7 +115,7 @@ const Main = () => {
 //身分驗證
   useEffect(() => {
     if (!isAuthenticated) {
-      navigate("/");
+      return navigate("/");
     }
   }, [navigate, isAuthenticated]);
 

@@ -51,17 +51,22 @@ const StyledTextarea = styled.textarea`
   :focus {
     border-bottom: 2px solid var(--color-secondary-blue);
   }
+  &.active {
+    border-bottom: 2px solid var(--color-error);
+  }
 `;
 
 const StyledAlertContainer = styled.div`
   position: absolute;
   bottom: -24px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   width: 100%;
   /* bottom:0px; */
 `;
 const StyledError = styled.div`
+    position: absolute;
+    left: 0;
     margin-top: 4px;
     height: 20px;
     line-height: 20px;
@@ -88,23 +93,17 @@ const DescriptionTextarea = ({ type, label, value, placeholder, onChange }) => {
           <StyledLabel>{label}</StyledLabel>
           <StyledTextarea
             type={type || "text"}
+            className={value.length === 50 ? "active" : ""}
             value={value}
             placeholder={placeholder}
+            maxLength={160}
             onChange={(event) => onChange?.(event.target.value)}/>
         </StyledtextareaWrap>
 
-
         <StyledAlertContainer>
-          {value.length>160? (
-            <>
-              <StyledError>字數超出上限！</StyledError>
-              <StyledCount>160/160</StyledCount>
-            </>
-          ): 
-            <StyledCount>160/160</StyledCount>
-          }
+          {value.length === 160 ? <StyledError>字數超出上限！</StyledError> : null}
+          <StyledCount>{value.length}/160</StyledCount>
         </StyledAlertContainer>
-
       </StyledContainer>
     </>
   );

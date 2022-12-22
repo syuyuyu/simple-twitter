@@ -25,7 +25,7 @@ export const login = async ({ account, password }) => {
 //註冊功能
 export const register = async ({ account, name, email, password, checkPassword }) => {
   try {
-    const { data } = await axios.post(`${authURL}/api/users`, {
+    const { data } = await axios.post(`${authURL}/api/auth/users`, {
       account,
       name,
       email,

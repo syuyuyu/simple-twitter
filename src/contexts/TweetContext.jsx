@@ -23,7 +23,9 @@ const initFollowings = {
 const initOtherUser = {
   otherUser: [],
 };
-
+const initUserTweets = {
+  usertweets: [],
+};
 
 
 export const TweetContext = createContext(initTweets);
@@ -37,6 +39,7 @@ export const OtherUserContext = createContext(initOtherUser);
 //所有推文
 export const TweetProvider = ({ children }) => {
   const [tweets, setTweets] = useState([initTweets]);
+  const [userTweets,setUserTweets] = useState([initUserTweets]);
 
   const handleToggleLike = async (id) => {
     const currentTweet = tweets.find((tweet) => tweet.id === id);
@@ -64,8 +67,9 @@ export const TweetProvider = ({ children }) => {
     tweets,
     setTweets,
     handleToggleLike,
+    userTweets,
+    setUserTweets,
   };
-
   return <TweetContext.Provider value={value}>{children}</TweetContext.Provider>;
 };
 //使用者回覆串
