@@ -2,7 +2,7 @@ import axios from "axios";
 
 const authURL = "https://nameless-fortress-45508.herokuapp.com";
 
-export const login = async ({ account, password }) => {
+export const adminLogin = async ({ account, password }) => {
   try {
     const { data } = await axios.post(`${authURL}/api/auth/admin/login`, { account, password });
     console.log(data);
