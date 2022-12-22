@@ -4,7 +4,7 @@ import styled from "styled-components";
 const StyledContainer = styled.div`
   position: relative;
   flex-grow: 0.9;
-  padding-top: 30px;
+  padding: 15px 0 0 8px;
   height: 100%;
 `;
 const StyledTextarea = styled.textarea`
@@ -16,7 +16,7 @@ const StyledTextarea = styled.textarea`
   min-height: 150px;
 `;
 
-const ContentTextarea = ({ inputValue, placeholder, onChange }) => {
+const ContentTextarea = ({ type, inputValue, placeholder, onChange }) => {
   return (
     <>
       <StyledContainer>

@@ -4,7 +4,6 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/zh-tw";
 import { useNavigate } from "react-router-dom";
-import avatarDefault from "../../assets/icons/avatar-default.svg";
 
 const ItemContainer = styled.div`
   display: flex;
@@ -83,28 +82,29 @@ const TweetText = styled.p`
   line-height: 26px;
 `;
 
-const ReplyItem = ({ userReply }) => {
+const ReplyItem = ({ userReply, key, comment, time, UserId, Tweet }) => {
   const navigate = useNavigate();
   dayjs.extend(relativeTime);
+  const { User } = { ...Tweet };
+
   return (
     <ItemContainer>
       <AvatarContainer onClick={() => navigate("/user/:id")}>
-        <Avatar className='avatar' style={{ margin: "0px", backgroundImage: `url('${avatarDefault}')` }}></Avatar>
+        <Avatar className='avatar' style={{ margin: "0px", backgroundImage: `url('${userReply.avatar}')` }}></Avatar>
       </AvatarContainer>
       <TextContainer>
         <RowContainer>
-          <Name>wefwef</Name>
+          <Name>{userReply.name}</Name>
           <Account>
-            {/* @wetfrf · {dayjs(`${userReply.updatedAt}`).locale("zh-tw").fromNow()} */}
+            @{"User.account"} · {dayjs(`${time}`).locale("zh-tw").fromNow()}
           </Account>
         </RowContainer>
         <RowContainer>
           <p className='text'>回覆</p>
-          <p className='account'>@1321</p>
+          <p className='account'>@{"User.account"}</p>
         </RowContainer>
         <RowContainer>
-          <TweetText>weffwef</TweetText>
-          {/* <TweetText>{userReply.comment}</TweetText> */}
+          <TweetText>{comment}</TweetText>
         </RowContainer>
       </TextContainer>
     </ItemContainer>

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import {
   StyledMainContainer,
   StyledHeader,
@@ -25,8 +25,10 @@ import noti from '../../assets/icons/noti.svg'
 import notiActive from '../../assets/icons/noti-active.svg'
 import message from "../../assets/icons/message.svg";
 import messageActive from "../../assets/icons/message-active.svg";
-import { NavLink as Link, Outlet, useNavigate } from "react-router-dom";
+import { NavLink as Link, Outlet, useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
+import { OtherUserContext } from "../../contexts/TweetContext";
+import { getOtherUser } from "../../api/user";
 
 const NotiButton = styled.div`
   width: 40px;
@@ -80,13 +82,29 @@ const NavLink = styled(Link)`
 
 const OtherUser = () => {
   const navigate = useNavigate();
-  const { isAuthenticated,currentMember } = useAuth();
+  const { isAuthenticated, currentMember } = useAuth();
+  const param = useParams();
+  const { otherUser, setOtherUser } = useContext(OtherUserContext);
+  console.log("網址後面的id",param);
 
-  // useEffect(() => {
-  //   if (!isAuthenticated) {
-  //     navigate("/");
-  //   }
-  // }, [navigate, isAuthenticated]);
+useEffect(() => {
+  const getOtherUserAsync = async () => {
+    try {
+      const otherUser = await getOtherUser(param);
+      console.log(otherUser);
+      // setOtherUser(otherUser);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  getOtherUserAsync();
+}, [setOtherUser, param]);
+  
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate("/");
+    }
+  }, [navigate, isAuthenticated]);
 
   return (
     <StyledMainContainer>
@@ -112,7 +130,7 @@ const OtherUser = () => {
           <StyledPublicButton>正在跟隨</StyledPublicButton>
         </StyledEditContainer>
         <StyledInfoWrapper>
-          <StyledTitleH5>Jane Cathy</StyledTitleH5>
+          <StyledTitleH5>{otherUser.name}</StyledTitleH5>
           <StyledAccount style={{ fontSize: "14px", fontWeight: "400" }}>@iamjane1999</StyledAccount>
           <StyledContent>
             其他使用者頁面 Lorem ipsum, dolor sit amet consectetur adipisicing elit. Harum inventore tenetur iste

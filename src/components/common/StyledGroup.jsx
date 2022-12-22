@@ -314,7 +314,10 @@ const StyledTitleWrapper = styled.div`
 const StyledBackgroundImage = styled.div`
   width: 100%;
   height: 200px;
-  /* background: #aaa; */
+  background: #aaa;
+  &.cover {
+    background-size: cover;
+  }
 `;
 const StyledEditContainer = styled.div`
   width: 100%;
@@ -352,8 +355,6 @@ const StyledContent = styled.p`
 `;
 const StyledFollowsWrapper = styled.div`
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
   width: 180px;
 `;
 const StyledFollowWrapper = styled.div`
@@ -361,6 +362,7 @@ const StyledFollowWrapper = styled.div`
   font-size: 14px;
   font-weight: 400;
   line-height: 22px;
+  margin-right: 10px;
   color: var(--color-secondary);
 `;
 const StyledTweetsNavbarWrapper = styled.div`

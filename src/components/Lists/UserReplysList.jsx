@@ -1,5 +1,4 @@
-import React, { useContext, useEffect } from 'react'
-import { getReplys } from '../../api/userReplys';
+import React, { useContext } from 'react'
 import { UserReplyContext } from "../../contexts/TweetContext";
 import { StyledTweetsList } from '../common/StyledGroup'
 import ReplyItem from './ReplyItem'
@@ -12,7 +11,16 @@ const ReplysList = () => {
   return (
     <StyledTweetsList>
       {userReplys.map((userReply) => {
-        return <ReplyItem key={userReply.id} userReply={userReply} />;
+        return (
+          <ReplyItem
+            key={userReply.id}
+            userReply={userReply}
+            UserId={userReply.UserId}
+            comment={userReply.comment}
+            time={userReply.updatedAt}
+            Tweet={userReply.Tweet}
+          />
+        );
       })}
     </StyledTweetsList>
   );

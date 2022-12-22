@@ -11,7 +11,6 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/zh-tw";
 import clsx from "clsx";
 import { TweetContext } from "../../contexts/TweetContext";
-import avatarDefault from "../../assets/icons/avatar-default.svg";
 
 const ItemContainer = styled.div`
   display: flex;
@@ -31,6 +30,7 @@ const AvatarContainer = styled.div`
 const Avatar = styled.div`
   width: 50px;
   height: 50px;
+  border-radius: 50%;
   &:hover {
     cursor: pointer;
   }
@@ -115,41 +115,50 @@ const StyledIcon = styled.div`
     }
   }
 `;
-const TweetItem = ({ tweet }) => {
+const TweetItem = ({
+  tweet,
+  time,
+  description,
+  isLiked,
+  likedCount,
+  replyCount,
+}) => {
   const { toggleReplyModal } = useContext(ReplyModalContext);
   const { handleToggleLike } = useContext(TweetContext);
   const navigate = useNavigate();
   dayjs.extend(relativeTime);
+  const { account, avatar, id, name } = {...tweet.User};
+
   return (
     <>
-      <ItemContainer key={tweet.id}>
-        <AvatarContainer onClick={() => navigate("/user/:id")}>
-          <Avatar className='avatar' style={{ margin: "0px", backgroundImage: `url('${avatarDefault}')` }}></Avatar>
+      <ItemContainer>
+        <AvatarContainer onClick={() => navigate(`/${id}/${tweet.id}/tweets`)}>
+          <Avatar className='avatar' style={{ margin: "0px", backgroundImage: `url('${avatar}')` }}></Avatar>
         </AvatarContainer>
         <TextContainer>
-          <RowContainer onClick={() => navigate("/user/:id")}>
-            <Name>{tweet.userName}</Name>
+          <RowContainer onClick={() => navigate(`/user/${tweet.id}`)}>
+            <Name>{name}</Name>
             <Account>
-              @{tweet.userAccount} · {dayjs(`${tweet.updatedAt}`).locale("zh-tw").fromNow()}
+              @{account} · {dayjs(`${time}`).locale("zh-tw").fromNow()}
             </Account>
           </RowContainer>
           <RowContainer>
-            <TweetText onClick={() => navigate("/user/reply")}>{tweet.description}</TweetText>
+            <TweetText onClick={() => navigate(`/${id}/${tweet.id}`)}>{description}</TweetText>
           </RowContainer>
           <RowContainer>
             <IconsContainer>
               <IconContainer>
                 <StyledIcon className='replyIcon' onClick={toggleReplyModal}></StyledIcon>
-                <p>{tweet.replyCount}</p>
+                <p>{replyCount}</p>
               </IconContainer>
               <IconContainer>
                 <StyledIcon
-                  className={clsx("likeIcon", { like: tweet.isLiked })}
+                  className={clsx("likeIcon", { like: isLiked })}
                   onClick={() => {
                     handleToggleLike?.(tweet.id);
                   }}
                 ></StyledIcon>
-                <p>{tweet.likedCount}</p>
+                <p>{likedCount}</p>
               </IconContainer>
             </IconsContainer>
           </RowContainer>

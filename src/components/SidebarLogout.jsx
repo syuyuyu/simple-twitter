@@ -19,7 +19,7 @@ const StyledLink = styled.button`
   width: 100%;
   display: flex;
   align-items: center;
-  &:hover{
+  &:hover {
     cursor: pointer;
   }
 `;
@@ -30,7 +30,6 @@ const LogoutIcon = styled.div`
   margin-right: 18px;
   background-image: url(${logoutIcon});
 `;
-
 
 const SidebarLogout = () => {
   const navigate = useNavigate();
@@ -53,7 +52,7 @@ const SidebarLogout = () => {
         <LogoutIcon></LogoutIcon>
         <h5>登出</h5>
       </StyledLink>
-     </StyledSidebarLogout>
+    </StyledSidebarLogout>
   );
 };
 

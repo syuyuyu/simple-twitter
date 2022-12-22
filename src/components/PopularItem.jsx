@@ -8,7 +8,7 @@ import {
   StyledPopularItem,
 } from "../components/common/StyledGroup";
 
-const PopularItem = () => {
+const PopularItem = ( ) => {
   return (
     <>
       <StyledPopularItem>

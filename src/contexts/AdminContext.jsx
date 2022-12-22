@@ -75,6 +75,7 @@ export const AdminProvider = ({ children }) => {
         },
         logout: () => {
           localStorage.removeItem("authToken");
+          localStorage.removeItem("userId");
           setPayload(null);
           setIsAuthenticated(false);
         },

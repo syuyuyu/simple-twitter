@@ -2,7 +2,7 @@ import axios from "axios";
 
 const baseURL = "https://nameless-fortress-45508.herokuapp.com";
 
-
+//全部正在追蹤推文
 export const getTweets = async () => {
   try {
     const authToken = localStorage.getItem('authToken')
@@ -13,11 +13,11 @@ export const getTweets = async () => {
     console.error("[Get Tweets failed]:", error);
   }
 };
-
+//POST發送推文
 export const createTweet = async (payload) => {
   try {
     const { description, isLike, likeCount, replyCount, name, account, createdAt } = payload;
-    const res = await axios.post(`${baseURL}/tweets`, {
+    const res = await axios.post(`${baseURL}/api/tweets`, {
       description,
       replyCount,
       likeCount,
@@ -31,7 +31,7 @@ export const createTweet = async (payload) => {
     console.error("[Create Tweet failed]:", error);
   }
 };
-
+//PATCH個人資料
 export const patchTweet = async (payload) => {
   try {
     const { id, isLike } = payload;
@@ -43,10 +43,20 @@ export const patchTweet = async (payload) => {
     console.error("[Patch Tweet failed]:", error);
   }
 };
-
-export const deleteTweet = () => {};
-
-
+//GET喜歡的內容
+export const getLikeTweets = async () => {
+  try {
+    const authToken = localStorage.getItem("authToken");
+    const id = localStorage.getItem("userId");
+    const res = await axios.get(`${baseURL}/api/users/${id}/likes`, {
+      headers: { Authorization: `Bearer ${authToken}` },
+    });
+    return res.data;
+  } catch (error) {
+    console.error("[Get Tweets failed]:", error);
+  }
+};
+//GET User的推文
 export const getUserTweets = async () => {
   try {
     const authToken = localStorage.getItem('authToken')

@@ -14,14 +14,43 @@ import ContentTextarea from "../ContentTextarea";
 import TweetModal from "../Modals/TweetModal";
 import TweetsList from "../Lists/TweetsList";
 import { createTweet, getTweets } from "../../api/tweets";
-import { TweetContext } from "../../contexts/TweetContext";
+import { Top10Context, TweetContext } from "../../contexts/TweetContext";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
+import { getTop10 } from "../../api/user";
+import styled from "styled-components";
+import avatarDefault from "../../assets/icons/avatar-default.svg";
+
 
 
 const Main = () => {
-  const {setTweets} = useContext(TweetContext);
+
+  const Avatar = styled.div`
+    width: 50px;
+    height: 50px;
+    &:hover {
+      cursor: pointer;
+    }
+    &.avatar {
+      width: 50px;
+      height: 50px;
+      background-image: url(${avatarDefault});
+      background-size: cover;
+    }
+  `;
+  const ContentWrapper = styled.div`
+    display: flex;
+    flex-direction: row;
+    padding: 16px 8px 0 8.2px;
+    width: 100%;
+    margin-left: 8.2px;
+  `;
+
   const [inputValue, setInputValue] = useState("");
+  const { setTweets } = useContext(TweetContext);
+  const { setTop10List } = useContext(Top10Context);
+  const [isUpdating, setIsUpdating] = useState(false);
+  
   const handleChange = (value) => {
     setInputValue(value);
   };
@@ -32,7 +61,7 @@ const Main = () => {
     if (inputValue.length === 0) {
       return; //不可為空白
     }
-    if (inputValue.length === 140) {
+    if (inputValue.length > 140) {
       return; //字數上限140個字
     }
     try {
@@ -68,13 +97,13 @@ const Main = () => {
       console.error(error);
     }
   };
-
+//取得全部推文
   useEffect(() => {
     const getTweetsAsync = async () => {
       try {
         const tweets = await getTweets();
-        setTweets(tweets.map((tweet) => ({ ...tweet })));
-        // console.log(tweets);
+        setTweets(tweets.map((tweet) => ({ ...tweet  })));
+        console.log("主頁-全部推文",tweets);
       } catch (error) {
         console.error(error);
       }
@@ -82,7 +111,8 @@ const Main = () => {
     getTweetsAsync();
   }, [setTweets]);
 
-
+  
+//身分驗證
   useEffect(() => {
     if (!isAuthenticated) {
       return navigate("/");
@@ -96,14 +126,20 @@ const Main = () => {
           <StyledTitleH4>首頁</StyledTitleH4>
         </StyledHeader>
         <StyledContentContainer>
-          <StyledContentWrapper>
-            <StyledAvatarDefault>
-              <div className='avatar'></div>
-            </StyledAvatarDefault>
-            <ContentTextarea placeholder='有什麼新鮮事？' value={inputValue} onChange={handleChange} />
-          </StyledContentWrapper>
+          <ContentWrapper>
+            <Avatar className='avatar'></Avatar>
+            <ContentTextarea
+            placeholder='有什麼新鮮事？' 
+            // value={inputValue} 
+            // onChange={value=> setInputValue(value)}
+            />
+          </ContentWrapper>
           <StyledButtonContainer>
-            <StyledError>字數不可超過140字</StyledError>
+            {inputValue.length > 140 ? (
+              <StyledError>字數不可超過140字</StyledError>
+            ) : (
+              <StyledError>內容不可為空白</StyledError>
+            )}
             <StyledPublicButton onClick={() => handleAddTweet?.()}>推文</StyledPublicButton>
           </StyledButtonContainer>
         </StyledContentContainer>
