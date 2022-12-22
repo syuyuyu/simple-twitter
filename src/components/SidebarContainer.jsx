@@ -10,9 +10,7 @@ import { useNavigate } from 'react-router';
 
 const SidebarContainer = () => {
   const navigate = useNavigate()
-  const handleClick=()=>{
-    navigate('/user/profile/tweets')
-  }
+
 
   return (
     <>
@@ -21,12 +19,11 @@ const SidebarContainer = () => {
           <div className='logo-icon'></div>
         </LogoStyle>
         <SidebarItem value={"首頁"} path={"/user/main"} iconName={"mainIcon"} />
-        <SidebarItem value={"個人資料"} path={"/user/profile"} onClick={handleClick} iconName={"profileIcon"} />
+        <SidebarItem value={"個人資料"} path={"/user/profile"} onClick={()=>navigate('/user/profile/tweets')} iconName={"profileIcon"} />
         <SidebarItem value={"設定"} path={"/setting"} iconName={"settingIcon"} />
         <SidebarButton />
       </StyledSidebarContainer>
       <TweetModal />
-      {/* <EditModal /> */}
     </>
   );
 };

@@ -24,7 +24,7 @@ const RegistPage = () => {
       return
     };
 
-    const success = await register({
+    const res = await register({
       account,
       name,
       email,
@@ -32,7 +32,7 @@ const RegistPage = () => {
       checkPassword,
     });
 
-    if (success) {
+    if (res) {
       Swal.fire({
         title: "註冊成功",
         icon: "success",
