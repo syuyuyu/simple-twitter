@@ -1,11 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import jwt_decode from "jwt-decode";
-import { checkPermission, login } from "../api/auth";
-
-// const initUsers = {
-//   users: [],
-// };
+import { adminLogin,checkPermission } from "../api/admin";
 
 const defaultAdminCotext = {
   isAuthenticated: false, // 使用者是否登入的判斷依據，預設為 false，若取得後端的有效憑證，則切換為 true
@@ -58,7 +54,7 @@ export const AdminProvider = ({ children }) => {
           name: payload.name,
         },
         login: async (data) => {
-          const { success, token } = await login({
+          const { success, token } = await adminLogin({
             account: data.account,
             password: data.password,
           });

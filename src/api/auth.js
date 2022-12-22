@@ -15,7 +15,6 @@ export const login = async ({ account, password }) => {
       localStorage.setItem("userId",user.id)
       return { success: true, token,user }; // 改成token與user
     }
-    
   } catch (error) {
     console.log("[Login Failed]:", error);
     console.log(error);
@@ -25,7 +24,7 @@ export const login = async ({ account, password }) => {
 //註冊功能
 export const register = async ({ account, name, email, password, checkPassword }) => {
   try {
-    const { data } = await axios.post(`${authURL}/api/users`, {
+    const { data } = await axios.post(`${authURL}/api/auth/users`, {
       account,
       name,
       email,

@@ -14,18 +14,21 @@ export const getTweets = async () => {
   }
 };
 //POST發送推文
-export const createTweet = async (payload) => {
+export const createTweet = async (description) => {
+  const authToken = localStorage.getItem('authToken')
   try {
-    const { description, isLike, likeCount, replyCount, name, account, createdAt } = payload;
-    const res = await axios.post(`${baseURL}/api/tweets`, {
-      description,
-      replyCount,
-      likeCount,
-      isLike,
-      name,
-      account,
-      createdAt,
-    });
+    // const { description, isLike, likeCount, replyCount, name, account, createdAt } = payload;
+
+    const config ={
+        headers: {
+          Authorization: `Bearer ${authToken}`
+        }};
+
+    const data = {
+        "description": `${description}`,
+      };
+    const res = await axios.post(`${baseURL}/api/tweets`,data,config );
+
     console.log('api : ',res)
     return res.data;
   } catch (error) {

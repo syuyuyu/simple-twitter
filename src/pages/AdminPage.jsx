@@ -17,7 +17,7 @@ const AdminPage = () => {
   const navigate = useNavigate();
   const [account, setAccount] = useState("");
   const [password, setPassword] = useState("");
-const { login, isAuthenticated } = useAdmin();
+  const { login, isAuthenticated } = useAdmin();
 
 const handleClick = async () => {
   if (account.length === 0) {
