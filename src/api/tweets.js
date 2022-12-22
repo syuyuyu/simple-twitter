@@ -26,6 +26,7 @@ export const createTweet = async (payload) => {
       account,
       createdAt,
     });
+    console.log('api : ',res)
     return res.data;
   } catch (error) {
     console.error("[Create Tweet failed]:", error);
