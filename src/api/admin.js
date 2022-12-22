@@ -4,7 +4,7 @@ const authURL = "https://nameless-fortress-45508.herokuapp.com";
 
 export const login = async ({ account, password }) => {
   try {
-    const { data } = await axios.post(`${authURL}/api/admin/login`, { account, password });
+    const { data } = await axios.post(`${authURL}/api/auth/admin/login`, { account, password });
     console.log(data);
     const { token } = data;
     if (token) {

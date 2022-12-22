@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import {StyledHeader,StyledTitleH4,StyledPublicButton} from "./common/StyledGroup";
 import AuthInput from "../components/AuthInput";
 import styled from "styled-components";
+import TweetModal from "./Modals/TweetModal";
 
 const SettingContainer =styled.div`
   display:flex;
@@ -76,6 +77,7 @@ const Setting =()=>{
           </div>
         </InputContainer>
       </SettingContainer>
+      <TweetModal />
     </>
   );
 }

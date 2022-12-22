@@ -7,7 +7,7 @@ const authURL = "https://nameless-fortress-45508.herokuapp.com";
 //登入功能
 export const login = async ({ account, password }) => {
   try {
-    const { data } = await axios.post(`${authURL}/api/users/login`, { account, password });
+    const { data } = await axios.post(`${authURL}/api/auth/users/login`, { account, password });
 
     const { token,user } = data;
     if (token) {
@@ -46,7 +46,7 @@ export const register = async ({ account, name, email, password, checkPassword }
 //確認身分
 export const checkPermission = async (authToken) => {
   try {
-    const response = await axios.get(`${authURL}/api/test-auth`, {
+    const response = await axios.get(`${authURL}/api/auth/test-auth`, {
       headers: {
         Authorization: "Bearer " + authToken,
       },

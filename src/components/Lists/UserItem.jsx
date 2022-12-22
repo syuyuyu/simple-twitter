@@ -1,20 +1,19 @@
 import React from "react";
 import styled from "styled-components";
-import { StyledAvatarDefault ,StyledPublicButton} from "./common/StyledGroup";
-
+import { StyledAvatarDefault, StyledPublicButton } from "../../components/common/StyledGroup";
 
 const ItemContainer = styled.div`
   display: flex;
   flex-direction: row;
   border: 1px solid #e6ecf0;
   padding: 16px 29px 16px 24px;
-  `;
+`;
 
 const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin-left: 8px;
-  `;
+`;
 
 const RowContainer = styled.div`
   margin-bottom: 8px;
@@ -39,24 +38,25 @@ const TweetText = styled.p`
   line-height: 26px;
 `;
 
-const UserItem = ({id,name,avatar,個人簡介,isFollow}) => {
+const UserItem = ({ key,user,followerUser }) => {
   return (
     <ItemContainer>
       <StyledAvatarDefault style={{ margin: "0px" }}>
-        <div className='avatar'></div>
+        <div className={"followerUser.avatar"}></div>
       </StyledAvatarDefault>
       <TextContainer>
         <RowContainer>
-          <Name>{'Apple'}</Name>
-          {isFollow ?
-            <StyledPublicButton whiteMode ={true} style={{marginRight:'0px'}}>跟隨</StyledPublicButton> :
-            <StyledPublicButton style={{marginRight:'0px'}}>正在跟隨</StyledPublicButton>
-          }
+          <Name>{"followerUser.name"}</Name>
+          {user.isFollowed ? (
+            <StyledPublicButton whiteMode={true} style={{ marginRight: "0px" }}>
+              跟隨
+            </StyledPublicButton>
+          ) : (
+            <StyledPublicButton style={{ marginRight: "0px" }}>正在跟隨</StyledPublicButton>
+          )}
         </RowContainer>
         <RowContainer>
-          <TweetText>
-            {'Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. '}
-          </TweetText>
+          <TweetText>{"followerUser.introduction"}</TweetText>
         </RowContainer>
       </TextContainer>
     </ItemContainer>

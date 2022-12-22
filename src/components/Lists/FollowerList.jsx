@@ -1,11 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
+import { FollowerContext } from "../../contexts/TweetContext";
 import { StyledTweetsList } from "../common/StyledGroup";
-import UserItem from "../UserItem";
+import UserItem from "./UserItem";
 
 const FollowerList = () => {
+  const { followers } = useContext(FollowerContext);
   return (
     <StyledTweetsList>
-      <UserItem />
+      {followers.map((user) => {
+        return <UserItem 
+        key={user.followerId} 
+        user={user}
+        followerUser={user.followerUser}
+        />;
+      })}
     </StyledTweetsList>
   );
 };

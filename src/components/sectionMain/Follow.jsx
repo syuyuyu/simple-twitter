@@ -11,14 +11,18 @@ import {
 } from "../common/StyledGroup";
 import { NavLink as Link, Outlet, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useAuth } from "../../contexts/AuthContext";
+import { FollowerContext, FollowingContext } from "../../contexts/TweetContext";
+import { getFollowers, getFollowings } from "../../api/user";
 
 const Follow = () => {
   const navigate = useNavigate();
   const { isAuthenticated, currentMember} = useAuth();
+  const { setFollowers } = useContext(FollowerContext);
+  const { setFollowings } = useContext(FollowingContext);
 
-  const NavLink = styled(Link)`
+  const FollowNavLink = styled(Link)`
     height: 52px;
     width: 100%;
     display: flex;
@@ -35,6 +39,33 @@ const Follow = () => {
       color: var(--color-main);
     }
   `;
+//渲染追隨者
+useEffect(() => {
+  const getFollowersAsync = async () => {
+    try {
+      const followers = await getFollowers();
+      console.log("追隨者",followers);
+      setFollowers(followers);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  getFollowersAsync();
+}, [setFollowers]);
+//渲染追蹤ing名單
+useEffect(() => {
+  const getFollowingsAsync = async () => {
+    try {
+      const followings = await getFollowings();
+      console.log("追蹤ing名單", followings);
+      setFollowings(followings);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  getFollowingsAsync();
+}, [setFollowings]);
+
   useEffect(() => {
     if (!isAuthenticated) {
       navigate("/");
@@ -59,12 +90,12 @@ const Follow = () => {
       ></div>
       <StyledTweetsNavbarWrapper>
         <StyledTweetsNavbar style={{ width: "260px" }}>
-          <NavLink to='follower' activeStyle>
+          <FollowNavLink to='follower' activeStyle>
             追隨者
-          </NavLink>
-          <NavLink to='following' activeStyle>
+          </FollowNavLink>
+          <FollowNavLink to='following' activeStyle>
             正在追隨
-          </NavLink>
+          </FollowNavLink>
         </StyledTweetsNavbar>
       </StyledTweetsNavbarWrapper>
       <Outlet />

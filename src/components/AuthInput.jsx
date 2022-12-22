@@ -87,6 +87,7 @@ const AuthInput = ({ type, label, value, placeholder, onChange }) => {
         />
         <StyledAlertContainer>
           {value.length === 50 ? <StyledError>字數超出上限！</StyledError> : null}
+          {value.length === 0 ? <StyledError>內容不可為空白！</StyledError> : null}
           <StyledCount>{value.length}/50</StyledCount>
         </StyledAlertContainer>
       </StyledContainer>

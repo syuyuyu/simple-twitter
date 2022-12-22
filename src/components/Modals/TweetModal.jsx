@@ -1,9 +1,7 @@
-import React,{ useContext }  from "react";
+import React,{ useContext, useState }  from "react";
 import styled from "styled-components";
 import {
   StyledContentContainer,
-  StyledContentWrapper,
-  StyledAvatarDefault,
   StyledButtonContainer,
   StyledError,
   StyledPublicButton,
@@ -11,6 +9,7 @@ import {
 import ContentTextarea from "../ContentTextarea";
 import close from "../../assets/icons/close.svg";
 import { TweetModalContext } from "../../contexts/ModalContext";
+import avatarDefault from "../../assets/icons/avatar-default.svg";
 
 const Modal = styled.div`
   width: 100vw;
@@ -30,7 +29,8 @@ const Overlay = styled.div`
   right: 0;
   bottom: 0;
   position: fixed;
-  background: rgba(50, 50, 60, 0.4);
+  background: rgba(50, 50, 60);
+  opacity: 0.5;
 `;
 
 const Content = styled.div`
@@ -64,8 +64,36 @@ const NavContainer = styled.div`
   border-bottom: 1px solid #e6ecf0;
 `;
 
+const ContentWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  padding: 16px 8px 0 8.2px;
+  width: 100%;
+  margin-left: 8.2px;
+`;
+
+const Avatar = styled.div`
+  width: 50px;
+  height: 50px;
+  &:hover {
+    cursor: pointer;
+  }
+  &.avatar {
+    width: 50px;
+    height: 50px;
+    background-image: url(${avatarDefault});
+    background-size: cover;
+  }
+`;
+
 const TweetModal = () => {
     const {tweetModal,toggleTweetModal} = useContext(TweetModalContext);
+    const [inputValue, setInputValue] = useState(""); 
+
+    const handleChange = (value) => {
+      setInputValue(value);
+    };
+
   return (
     <>
       {tweetModal && (
@@ -76,16 +104,14 @@ const TweetModal = () => {
               <Close className='close' onClick={toggleTweetModal}></Close>
             </NavContainer>
             <StyledContentContainer style={{ border: "none", height: "243px" }}>
-              <StyledContentWrapper>
-                <StyledAvatarDefault>
-                  <div className='avatar'></div>
-                </StyledAvatarDefault>
+              <ContentWrapper>
+                <Avatar className='avatar'></Avatar>
                 <ContentTextarea
                   placeholder='有什麼新鮮事？'
-                  // value={content}
-                  // onChange={(accountInputValue) => setContevt(accountInputValue)}
+                  value={inputValue}
+                  onChange={(event) => handleChange?.(event.target.value)}
                 />
-              </StyledContentWrapper>
+              </ContentWrapper>
               <StyledButtonContainer>
                 <StyledError>字數不可超過140字</StyledError>
                 <StyledPublicButton>推文</StyledPublicButton>

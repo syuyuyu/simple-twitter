@@ -1,14 +1,16 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { LikeTweetContext } from '../../contexts/TweetContext';
 import { StyledTweetsList } from "../common/StyledGroup";
 import TweetItem from "./TweetItem";
 
+
 const LikeTweetsList = () => {
+  const { likeTweets } = useContext(LikeTweetContext);
   return (
     <StyledTweetsList>
-      {/* <TweetItem />
-      <TweetItem />
-      <TweetItem />
-      <TweetItem /> */}
+      {likeTweets.map((tweet) => {
+        return <TweetItem id={tweet.id} tweet={tweet} Tweet={tweet.Tweet} TweetId={tweet.TweetId} />;
+      })}
     </StyledTweetsList>
   );
 }

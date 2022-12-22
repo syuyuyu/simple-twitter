@@ -1,5 +1,5 @@
-import React, { useEffect, useState} from "react";
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import {
   AuthButton,
   AuthContainer,
@@ -21,25 +21,24 @@ const LoginPage = () => {
   const { login, isAuthenticated } = useAuth();
 
   const handleClick = async () => {
-    
     try {
-    if (account.length === 0) {
-      return;
-    }
-    if (password.length === 0) {
-      return;
-    }
-    const success = await login({ account, password });
-    if (success) {
-      Swal.fire({
-        title: "登入成功",
-        icon: "success",
-        showConfirmButton: false,
-        timer: 1000,
-        position: "top",
-      });
-      return
-    }
+      if (account.trim().length === 0) {
+        return;
+      }
+      if (password.trim().length === 0) {
+        return;
+      }
+      const success = await login({ account, password });
+      if (success) {
+        Swal.fire({
+          title: "登入成功",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1000,
+          position: "top",
+        });
+        return;
+      }
     } catch (error) {
       Swal.fire({
         title: "登入失敗",
@@ -51,11 +50,14 @@ const LoginPage = () => {
     }
   };
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      navigate("/user/main");
-    }
-  }, [navigate, isAuthenticated]);
+  useEffect(
+    (userId) => {
+      if (isAuthenticated) {
+        navigate('/user/main');
+      }
+    },
+    [navigate, isAuthenticated]
+  );
 
   return (
     <AuthContainer>
@@ -70,7 +72,7 @@ const LoginPage = () => {
         onChange={(accountInputValue) => setAccount(accountInputValue)}
       />
       <AuthInput
-        type='text'
+        type='password'
         label='密碼'
         placeholder='請設定密碼'
         value={password}

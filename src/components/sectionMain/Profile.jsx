@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { EditModalContext } from "../../contexts/ModalContext";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import {
   StyledMainContainer,
   StyledHeader,
@@ -27,7 +27,10 @@ import styled from "styled-components";
 import EditModal from "../Modals/EditModal";
 import { useAuth } from "../../contexts/AuthContext";
 import { getReplys } from "../../api/userReplys";
-import { UserReplyContext } from "../../contexts/TweetContext";
+import { LikeTweetContext, OtherUserContext, UserReplyContext } from "../../contexts/TweetContext";
+import { getLikeTweets } from "../../api/tweets";
+import TweetModal from "../Modals/TweetModal";
+import { getUser } from "../../api/user";
 
 const NavLink = styled(Link)`
   height: 52px;
@@ -48,30 +51,60 @@ const NavLink = styled(Link)`
 `;
 
 const Profile = () => {
-  const {toggleEditModal} = useContext(EditModalContext);
+  const { toggleEditModal } = useContext(EditModalContext);
   const navigate = useNavigate();
-  const { isAuthenticated,currentMember } = useAuth();
+  const { isAuthenticated, currentMember } = useAuth();
   const { setUserReplys } = useContext(UserReplyContext);
+  const { setLikeTweets } = useContext(LikeTweetContext);
+  const { otherUser, setOtherUser } = useContext(OtherUserContext);
 
+  //個人資料
+  useEffect(() => {
+    const getUserAsync = async () => {
+      try {
+        const user = await getUser();
+        console.log("個人頁面-個人資料", user);
+        setOtherUser(user);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getUserAsync();
+  }, [setOtherUser]);
+
+  //回覆串
   useEffect(() => {
     const getUserReplysAsync = async () => {
       try {
         const userReplys = await getReplys();
-        console.log(userReplys);
-        setUserReplys(userReplys.map((tweet) => ({ ...tweet })));
+        console.log("個人頁面-回覆串", userReplys);
+        setUserReplys(userReplys);
       } catch (error) {
         console.error(error);
       }
     };
     getUserReplysAsync();
   }, [setUserReplys]);
+  //喜歡的內容
+  useEffect(() => {
+    const getLikeTweetsAsync = async () => {
+      try {
+        const likeTweets = await getLikeTweets();
+        setLikeTweets(likeTweets.map((tweet) => ({ ...tweet })));
+        console.log("個人頁面-喜歡的內容", likeTweets);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getLikeTweetsAsync();
+  }, [setLikeTweets]);
 
-
-useEffect(() => {
-  if (!isAuthenticated) {
-    navigate("/");
-  }
-}, [navigate, isAuthenticated]);
+  //身分驗證
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate("/");
+    }
+  }, [navigate, isAuthenticated]);
 
   return (
     <>
@@ -81,37 +114,44 @@ useEffect(() => {
             <StyledBackIcon className='backIcon' onClick={() => navigate(-1)}></StyledBackIcon>
             <StyledTitleWrapper>
               <StyledTitleH5>{currentMember?.name}</StyledTitleH5>
-              <StyledTitleTweetCount>25推文</StyledTitleTweetCount>
+              <StyledTitleTweetCount>{otherUser.tweetCount}推文</StyledTitleTweetCount>
             </StyledTitleWrapper>
           </StyledTitleContainer>
         </StyledHeader>
         <StyledProfileContainer>
-          <StyledBackgroundImage></StyledBackgroundImage>
-          <StyledAvatarImage className='avatar'></StyledAvatarImage>
+          {otherUser.cover ? (
+            <StyledBackgroundImage
+              className='cover'
+              style={{ backgroundImage: `url('${otherUser.cover}')` }}
+            ></StyledBackgroundImage>
+          ) : (
+            <StyledBackgroundImage className='cover'></StyledBackgroundImage>
+          )}
+          <StyledAvatarImage
+            className='avatar'
+            style={{ backgroundImage: `url('${otherUser.avatar}')` }}
+          ></StyledAvatarImage>
 
           <StyledEditContainer>
-            <StyledPublicButton whiteMode={true} onClick={toggleEditModal}> 
+            <StyledPublicButton whiteMode={true} onClick={toggleEditModal}>
               編輯個人資料
             </StyledPublicButton>
           </StyledEditContainer>
 
           <StyledInfoWrapper>
-            <StyledTitleH5>{currentMember?.name}</StyledTitleH5>
-            <StyledAccount style={{ fontSize: "14px", fontWeight: "400" }}>@heyjohn</StyledAccount>
-            <StyledContent>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam impedit vel Quisquam impedit vel
-              Quisquam impedit vel
-            </StyledContent>
+            <StyledTitleH5>{otherUser.name}</StyledTitleH5>
+            <StyledAccount style={{ fontSize: "14px", fontWeight: "400" }}>@{otherUser.account}</StyledAccount>
+            <StyledContent>{otherUser.introduction}</StyledContent>
             <StyledFollowsWrapper>
               <Link to='follow/following'>
                 <StyledFollowWrapper>
-                  <p style={{ color: "var(--color-grayscale-dark100)" }}>34個</p>
+                  <p style={{ color: "var(--color-grayscale-dark100)" }}>{otherUser.followingCount}個</p>
                   <p>跟隨中</p>
                 </StyledFollowWrapper>
               </Link>
               <Link to='follow/follower'>
                 <StyledFollowWrapper>
-                  <p style={{ color: "var(--color-grayscale-dark100)" }}>59位</p>
+                  <p style={{ color: "var(--color-grayscale-dark100)" }}>{otherUser.followerCount}位</p>
                   <p>跟隨者</p>
                 </StyledFollowWrapper>
               </Link>
@@ -128,6 +168,7 @@ useEffect(() => {
         <Outlet />
       </StyledMainContainer>
       <EditModal />
+      <TweetModal />
     </>
   );
 };
