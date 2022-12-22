@@ -5,9 +5,9 @@ name: Deploy to GitHub pages
 
 on:
   push:
-    branches: [feature/a]
+    branches: [record]
   pull_request:
-    branches: [feature/a]
+    branches: [record]
 
 jobs:
   build:
