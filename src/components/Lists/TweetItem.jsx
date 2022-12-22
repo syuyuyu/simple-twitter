@@ -132,7 +132,7 @@ const TweetItem = ({
   return (
     <>
       <ItemContainer>
-        <AvatarContainer onClick={() => navigate(`/${id}/${tweet.id}/tweets`)}>
+        <AvatarContainer onClick={() => navigate(`/${id}/${tweet.id}`)}>
           <Avatar className='avatar' style={{ margin: "0px", backgroundImage: `url('${avatar}')` }}></Avatar>
         </AvatarContainer>
         <TextContainer>

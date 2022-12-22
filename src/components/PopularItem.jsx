@@ -1,6 +1,7 @@
 import React from "react";
+import { Navigate } from "react-router";
+import styled from "styled-components";
 import {
-  StyledAvatarDefault,
   StyledStyledNameContainer,
   StyledName,
   StyledAccount,
@@ -8,25 +9,44 @@ import {
   StyledPopularItem,
 } from "../components/common/StyledGroup";
 
-const PopularItem = ( ) => {
+const AvatarContainer = styled.div`
+  width: 50px;
+  height: 50px;
+  margin-right: 8px;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const Avatar = styled.div`
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  &:hover {
+    cursor: pointer;
+  }
+  &.avatar {
+    background-size: cover;
+  }
+`;
+
+const PopularItem = ({ account, avatar, followerCount, followingId, followingUser, isFollowed }) => {
+  const { id, name } = { ...followingUser };
   return (
     <>
       <StyledPopularItem>
-        <StyledAvatarDefault>
-          <div className='avatar'></div>
-        </StyledAvatarDefault>
+        <AvatarContainer>
+          <Avatar className='avatar' style={{ backgroundImage: `url('${avatar}')` }}></Avatar>
+        </AvatarContainer>
         <StyledStyledNameContainer>
-          <StyledName>Pizza Hut</StyledName>
-          <StyledAccount>@pizzahut</StyledAccount>
+          <StyledName>{name}</StyledName>
+          <StyledAccount>@{account}</StyledAccount>
         </StyledStyledNameContainer>
-        {/* 引入API使用下面這個 */}
-        {/* {isFollow ? (
+        {isFollowed ? (
           <StyledPublicButton>正在跟隨</StyledPublicButton>
         ) : (
           <StyledPublicButton className='active'>跟隨</StyledPublicButton>
-        )} */}
-        {/* 引入API刪除下面這個 */}
-        <StyledPublicButton className='active'>跟隨</StyledPublicButton>
+        )}
       </StyledPopularItem>
     </>
   );

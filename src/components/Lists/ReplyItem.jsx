@@ -23,6 +23,7 @@ const AvatarContainer = styled.div`
 const Avatar = styled.div`
   width: 50px;
   height: 50px;
+  border-radius: 50%;
   &:hover {
     cursor: pointer;
   }
@@ -82,26 +83,29 @@ const TweetText = styled.p`
   line-height: 26px;
 `;
 
-const ReplyItem = ({ userReply, key, comment, time, UserId, Tweet }) => {
+const ReplyItem = ({ key, User, UserId, comment, time, Tweet }) => {
   const navigate = useNavigate();
   dayjs.extend(relativeTime);
-  const { User } = { ...Tweet };
+  // const { account, id } = { ...Tweet.User };
+  const abc = { ...Tweet.User };
+  const {account: tweetUserAccount, id: tweetUserId} = abc;
+  const { account, avatar, id, name } = { ...User };
 
   return (
     <ItemContainer>
       <AvatarContainer onClick={() => navigate("/user/:id")}>
-        <Avatar className='avatar' style={{ margin: "0px", backgroundImage: `url('${userReply.avatar}')` }}></Avatar>
+        <Avatar className='avatar' style={{ margin: "0px", backgroundImage: `url('${avatar}')` }}></Avatar>
       </AvatarContainer>
       <TextContainer>
         <RowContainer>
-          <Name>{userReply.name}</Name>
+          <Name>{name}</Name>
           <Account>
-            @{"User.account"} · {dayjs(`${time}`).locale("zh-tw").fromNow()}
+            @{account} · {dayjs(`${time}`).locale("zh-tw").fromNow()}
           </Account>
         </RowContainer>
         <RowContainer>
           <p className='text'>回覆</p>
-          <p className='account'>@{"User.account"}</p>
+          <p className='account'>@{tweetUserAccount}</p>
         </RowContainer>
         <RowContainer>
           <TweetText>{comment}</TweetText>
