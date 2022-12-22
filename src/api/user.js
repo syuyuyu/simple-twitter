@@ -10,7 +10,7 @@ export const getUser = async () => {
     const res = await axios.get(`${baseURL}/api/users/${userId}`, {
       headers: { Authorization: `Bearer ${authToken}` },
     });
-    console.log("user GET api res:", res);
+    // console.log("user GET api res:", res);
     return res.data;
   } catch (error) {
     console.error("[Get User failed]:", error);

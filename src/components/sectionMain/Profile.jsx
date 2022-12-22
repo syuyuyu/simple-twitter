@@ -1,6 +1,6 @@
-import React, { useContext, useEffect,useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { EditModalContext } from "../../contexts/ModalContext";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import {
   StyledMainContainer,
   StyledHeader,
@@ -27,10 +27,11 @@ import styled from "styled-components";
 import EditModal from "../Modals/EditModal";
 import { useAuth } from "../../contexts/AuthContext";
 import { getReplys } from "../../api/userReplys";
-import { LikeTweetContext, OtherUserContext, UserReplyContext,TweetContext } from "../../contexts/TweetContext";
-import { getLikeTweets } from "../../api/tweets";
+import { LikeTweetContext, OtherUserContext, UserReplyContext, UserTweetContext } from "../../contexts/TweetContext";
+import { getLikeTweets, getUserTweets } from "../../api/tweets";
 import TweetModal from "../Modals/TweetModal";
 import { getUser } from "../../api/user";
+import { login } from "../../api/auth";
 
 const NavLink = styled(Link)`
   height: 52px;
@@ -54,23 +55,16 @@ const Profile = () => {
   const { toggleEditModal } = useContext(EditModalContext);
   const navigate = useNavigate();
   const { isAuthenticated, currentMember } = useAuth();
-  const {setUserReplys } = useContext(UserReplyContext);
-  const { userTweets } = useContext(TweetContext);
-  const [intro, setIntro] = useState('')
-  const [avatar, setAvatar] = useState('')
-  const [cover, setCover] = useState('')
-  const [name, setName] = useState('')
-  const [followerCount,setFollowerCount] = useState('')
-  const [followingCount,setFollowingCount] = useState('')
+  const { setUserReplys } = useContext(UserReplyContext);
   const { setLikeTweets } = useContext(LikeTweetContext);
   const { otherUser, setOtherUser } = useContext(OtherUserContext);
+  const { setUserTweets } = useContext(UserTweetContext);
 
-  //個人資料
+  //GET 個人資料
   useEffect(() => {
     const getUserAsync = async () => {
       try {
         const user = await getUser();
-        console.log("個人頁面-個人資料", user);
         setOtherUser(user);
       } catch (error) {
         console.error(error);
@@ -79,13 +73,25 @@ const Profile = () => {
     getUserAsync();
   }, [setOtherUser]);
 
+  //取得使用者自己的推文
+  useEffect(() => {
+    const getUserTweetsAsync = async () => {
+      try {
+        const userTweets = await getUserTweets();
+        setUserTweets(userTweets.map((userTweet) => ({ ...userTweet })));
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getUserTweetsAsync();
+  }, [setUserTweets]);
+
   //取得回覆串資料
   useEffect(() => {
     const getUserReplysAsync = async () => {
       try {
         const userReplys = await getReplys();
-        console.log("個人頁面-回覆串", userReplys);
-        setUserReplys(userReplys);
+        setUserReplys(userReplys.map((tweet) => ({ ...tweet })));
       } catch (error) {
         console.error(error);
       }
@@ -98,7 +104,6 @@ const Profile = () => {
       try {
         const likeTweets = await getLikeTweets();
         setLikeTweets(likeTweets.map((tweet) => ({ ...tweet })));
-        console.log("個人頁面-喜歡的內容", likeTweets);
       } catch (error) {
         console.error(error);
       }
@@ -106,30 +111,11 @@ const Profile = () => {
     getLikeTweetsAsync();
   }, [setLikeTweets]);
 
-  //取得user資料
-  useEffect(()=>{
-    const getUserData = async () => {
-      try {
-        const user = await getUser();
-        console.log('Profile useEffect getUser :',user)
-        setIntro(user.introduction)
-        setName(user.name)
-        setAvatar(user.avatar)
-        setCover(user.cover)
-        setFollowerCount(user.followerCount)
-        setFollowingCount(user.followingCount)
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    getUserData();
-  }, [isAuthenticated]);
-
-useEffect(() => {
-  if (!isAuthenticated) {
-    navigate("/");
-  }
-}, [navigate, isAuthenticated]);
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate("/");
+    }
+  }, [navigate, isAuthenticated]);
   //身分驗證
   useEffect(() => {
     if (!isAuthenticated) {

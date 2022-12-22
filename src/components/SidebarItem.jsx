@@ -47,7 +47,7 @@ const MainIcon = styled.div`
 const SidebarItem = ({ value, path, iconName}) => {
   return (
     <StyleSidebarItem>
-      <NavLink to={path} activeStyle>
+      <NavLink to={path}>
         <MainIcon className={iconName}></MainIcon>
         <h5>{value}</h5>
       </NavLink>

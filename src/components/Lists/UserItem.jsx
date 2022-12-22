@@ -9,6 +9,26 @@ const ItemContainer = styled.div`
   padding: 16px 29px 16px 24px;
 `;
 
+const AvatarContainer = styled.div`
+  width: 50px;
+  height: 50px;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const Avatar = styled.div`
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  &:hover {
+    cursor: pointer;
+  }
+  &.avatar {
+    background-size: cover;
+  }
+`;
+
 const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -38,16 +58,17 @@ const TweetText = styled.p`
   line-height: 26px;
 `;
 
-const UserItem = ({ key,user,followerUser }) => {
+const UserItem = ({ User, isFollowed }) => {
+  const {  avatar, introduction, name } = { ...User };
   return (
     <ItemContainer>
-      <StyledAvatarDefault style={{ margin: "0px" }}>
-        <div className={"followerUser.avatar"}></div>
-      </StyledAvatarDefault>
+      <AvatarContainer>
+        <Avatar className='avatar' style={{ margin: "0px", backgroundImage: `url('${avatar}')` }}></Avatar>
+      </AvatarContainer>
       <TextContainer>
         <RowContainer>
-          <Name>{"followerUser.name"}</Name>
-          {user.isFollowed ? (
+          <Name>{name}</Name>
+          {isFollowed ? (
             <StyledPublicButton whiteMode={true} style={{ marginRight: "0px" }}>
               跟隨
             </StyledPublicButton>
@@ -56,7 +77,7 @@ const UserItem = ({ key,user,followerUser }) => {
           )}
         </RowContainer>
         <RowContainer>
-          <TweetText>{"followerUser.introduction"}</TweetText>
+          <TweetText>{introduction}</TweetText>
         </RowContainer>
       </TextContainer>
     </ItemContainer>

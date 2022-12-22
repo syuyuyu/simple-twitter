@@ -8,7 +8,12 @@ const FollowingList = () => {
   return (
     <StyledTweetsList>
       {followings.map((user) => {
-        return <UserItem key={user.id} user={user} />;
+        return (
+          <UserItem
+            id={user.id}
+            User={user.followingUser}
+          />
+        );
       })}
     </StyledTweetsList>
   );

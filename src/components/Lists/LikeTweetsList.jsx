@@ -9,7 +9,17 @@ const LikeTweetsList = () => {
   return (
     <StyledTweetsList>
       {likeTweets.map((tweet) => {
-        return <TweetItem id={tweet.id} tweet={tweet} Tweet={tweet.Tweet} TweetId={tweet.TweetId} />;
+        return (
+          <TweetItem
+            id={tweet.id}
+            tweet={tweet}
+            time={tweet.updatedAt}
+            description={tweet.description}
+            isLiked={tweet.isLiked}
+            likedCount={tweet.likedCount}
+            replyCount={tweet.replyCount}
+          />
+        );
       })}
     </StyledTweetsList>
   );

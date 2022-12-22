@@ -7,18 +7,17 @@ import ReplyItem from './ReplyItem'
 
 const ReplysList = () => {
   const { userReplys } = useContext(UserReplyContext);
-  
   return (
     <StyledTweetsList>
       {userReplys.map((userReply) => {
         return (
           <ReplyItem
-            key={userReply.id}
-            userReply={userReply}
-            UserId={userReply.UserId}
-            comment={userReply.comment}
-            time={userReply.updatedAt}
-            Tweet={userReply.Tweet}
+          Tweet={userReply.Tweet}
+          User={userReply.User}
+          UserId={userReply.UserId}
+          comment={userReply.comment}
+          key={userReply.id}
+          time={userReply.updatedAt}
           />
         );
       })}
