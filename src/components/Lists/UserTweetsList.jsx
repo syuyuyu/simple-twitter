@@ -1,34 +1,28 @@
-import React, { useContext,useEffect } from "react";
-import { TweetContext } from "../../contexts/TweetContext";
+import React, { useContext } from "react";
+import {  UserTweetContext } from "../../contexts/TweetContext";
 import { StyledTweetsList } from "../common/StyledGroup";
 import TweetItem from "./TweetItem";
-import { getUserTweets } from "../../api/tweets";
 
-const TweetsList = () => {
-  const { userTweets,setUserTweets } = useContext(TweetContext);
-
-  //取得userTwieets資料
-  useEffect(()=>{
-    const UserTweets = async () => {
-      try {
-        const tweets = await getUserTweets();
-        // console.log('Profile useEffect UserTweets :',tweets)
-        setUserTweets(tweets)
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    UserTweets();
-  }, [setUserTweets]);
-  
+const UserTweetsList = () => {
+  const { userTweets } = useContext(UserTweetContext);
 
   return (
     <StyledTweetsList>
       {userTweets.map((tweet) => {
-        return <TweetItem key={tweet.id} tweet={tweet} />;
+        return (
+          <TweetItem
+            id={tweet.id}
+            tweet={tweet}
+            time={tweet.updatedAt}
+            description={tweet.description}
+            isLiked={tweet.isLiked}
+            likedCount={tweet.likedCount}
+            replyCount={tweet.replyCount}
+          />
+        );
       })}
     </StyledTweetsList>
   );
 };
 
-export default TweetsList;
+export default UserTweetsList;

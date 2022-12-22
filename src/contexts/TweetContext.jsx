@@ -35,11 +35,12 @@ export const Top10Context = createContext(initTop10List);
 export const FollowerContext = createContext(initFollowers);
 export const FollowingContext = createContext(initFollowings);
 export const OtherUserContext = createContext(initOtherUser);
+export const UserTweetContext = createContext(initUserTweets);
 
 //所有推文
 export const TweetProvider = ({ children }) => {
   const [tweets, setTweets] = useState([initTweets]);
-  const [userTweets,setUserTweets] = useState([initUserTweets]);
+  // const [userTweets,setUserTweets] = useState([initUserTweets]);
 
   const handleToggleLike = async (id) => {
     const currentTweet = tweets.find((tweet) => tweet.id === id);
@@ -67,13 +68,13 @@ export const TweetProvider = ({ children }) => {
     tweets,
     setTweets,
     handleToggleLike,
-    userTweets,
-    setUserTweets,
+    // userTweets,
+    // setUserTweets,
   };
   return <TweetContext.Provider value={value}>{children}</TweetContext.Provider>;
 };
 //使用者回覆串
-export const ReplyProvider = ({ children }) => {
+export const UserReplyProvider = ({ children }) => {
   const [userReplys, setUserReplys] = useState([initUserReplys]);
   const value = {
     userReplys,
@@ -122,7 +123,7 @@ export const FollowingProvider = ({ children }) => {
 
   return <FollowingContext.Provider value={value}>{children}</FollowingContext.Provider>;
 };
-//GET 其他使用者
+//GET 其他使用者資料
 export const OtherUserProvider = ({ children }) => {
   const [otherUser, setOtherUser] = useState([initOtherUser]);
   const value = {
@@ -131,4 +132,14 @@ export const OtherUserProvider = ({ children }) => {
   };
 
   return <OtherUserContext.Provider value={value}>{children}</OtherUserContext.Provider>;
+};
+//GET 使用者自己的所有推文
+export const UserTweetProvider = ({ children }) => {
+  const [userTweets, setUserTweets] = useState([initUserTweets]);
+  const value = {
+    userTweets,
+    setUserTweets,
+  };
+
+  return <UserTweetContext.Provider value={value}>{children}</UserTweetContext.Provider>;
 };
