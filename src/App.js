@@ -7,6 +7,7 @@ import { AdminPage, HomePage, LoginPage, MainPage, RegistPage, AdminMainPage, Se
 import Main from "./components/sectionMain/Main";
 import Profile from "./components/sectionMain/Profile";
 import TweetsList from "./components/Lists/TweetsList";
+import UserTweetsList from "./components/Lists/UserTweetsList";
 import UserReplysList from "./components/Lists/UserReplysList";
 import LikeTweetsList from "./components/Lists/LikeTweetsList";
 import OtherUser from "./components/sectionMain/OtherUser";
@@ -21,7 +22,7 @@ import {
   TweetModalContext,
   // ReplyModalContext
 } from "./contexts/ModalContext";
-import { TweetProvider } from "./contexts/TweetContext";
+import { TweetProvider,UserReplyProvider } from "./contexts/TweetContext";
 import { AuthProvider } from "./contexts/AuthContext";
 import { AdminProvider } from "./contexts/AdminContext";
 
@@ -52,14 +53,16 @@ function App() {
               {/* <ReplyModalContext.Provider value={{replyModal,toggleReplyModal}}> */}
               <EditModalContext.Provider value={{ editModal, toggleEditModal }}>
                 <TweetProvider>
+                <UserReplyProvider>
                   <Routes>
                     <Route path='*' element={<HomePage />} />
                     <Route path='login' element={<LoginPage />} />
                     <Route path='regist' element={<RegistPage />} />
                     <Route path='user' element={<MainPage />}>
                       <Route path='main' element={<Main />} />
-                      <Route path='profile' element={<Profile />}>
-                        <Route path='tweets' element={<TweetsList />} />
+                      <Route path='profile/*' element={<Profile />}>
+                        <Route path='tweets' element={<UserTweetsList />} />
+                        <Route path='*' element={<UserTweetsList />} />
                         <Route path='replys' element={<UserReplysList />} />
                         <Route path='likes' element={<LikeTweetsList />} />
                       </Route>
@@ -86,6 +89,7 @@ function App() {
                     <Route path='setting' element={<SettingPage />} />
                     <Route path='admin' element={<AdminPage />} />
                   </Routes>
+                </UserReplyProvider>
                 </TweetProvider>
               </EditModalContext.Provider>
               {/* </ReplyModalContext.Provider> */}

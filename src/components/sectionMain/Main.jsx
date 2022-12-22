@@ -18,9 +18,10 @@ import { TweetContext } from "../../contexts/TweetContext";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 
+
 const Main = () => {
+  const {setTweets} = useContext(TweetContext);
   const [inputValue, setInputValue] = useState("");
-const { setTweets } = useContext(TweetContext);
   const handleChange = (value) => {
     setInputValue(value);
   };
@@ -73,7 +74,7 @@ const { setTweets } = useContext(TweetContext);
       try {
         const tweets = await getTweets();
         setTweets(tweets.map((tweet) => ({ ...tweet })));
-        console.log(tweets);
+        // console.log(tweets);
       } catch (error) {
         console.error(error);
       }
@@ -81,9 +82,10 @@ const { setTweets } = useContext(TweetContext);
     getTweetsAsync();
   }, [setTweets]);
 
+
   useEffect(() => {
     if (!isAuthenticated) {
-      navigate("/");
+      return navigate("/");
     }
   }, [navigate, isAuthenticated]);
 

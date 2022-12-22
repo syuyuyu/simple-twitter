@@ -2,6 +2,7 @@ import styled from "styled-components";
 import logoutIcon from "../assets/icons/logout.svg";
 import { useAuth } from "../contexts/AuthContext";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const StyledSidebarLogout = styled.div`
   width: 100%;
@@ -32,6 +33,8 @@ const LogoutIcon = styled.div`
 
 
 const SidebarLogout = () => {
+  const navigate = useNavigate();
+
   const { logout } = useAuth();
   const handleClick = () => {
     logout();
@@ -42,6 +45,7 @@ const SidebarLogout = () => {
       timer: 1000,
       position: "top",
     });
+  navigate('admin')
   };
   return (
     <StyledSidebarLogout>

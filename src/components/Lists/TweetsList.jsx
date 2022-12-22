@@ -8,8 +8,8 @@ const TweetsList = () => {
 
   return (
     <StyledTweetsList>
-      {tweets.map((tweet) => {
-        return <TweetItem key={tweet.id} tweet={tweet} />;
+      {tweets.map((tweet,key) => {
+        return <TweetItem key={key} tweet={tweet} />;
       })}
     </StyledTweetsList>
   );
