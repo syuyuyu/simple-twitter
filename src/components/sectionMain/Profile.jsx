@@ -29,7 +29,7 @@ import { useAuth } from "../../contexts/AuthContext";
 import { getReplys } from "../../api/userReplys";
 import { UserReplyContext,TweetContext } from "../../contexts/TweetContext";
 import { getUser } from "../../api/user";
-import { getUserTweets } from "../../api/tweets";
+// import { getUserTweets } from "../../api/tweets";
 
 const NavLink = styled(Link)`
   height: 52px;
@@ -54,7 +54,7 @@ const Profile = () => {
   const navigate = useNavigate();
   const { isAuthenticated,currentMember } = useAuth();
   const {setUserReplys } = useContext(UserReplyContext);
-  const {userTweets,setUserTweets} = useContext(TweetContext);
+  const { userTweets } = useContext(TweetContext);
   const [intro, setIntro] = useState('')
   const [avatar, setAvatar] = useState('')
   const [cover, setCover] = useState('')
@@ -93,21 +93,7 @@ const Profile = () => {
       }
     };
     getUserData();
-  }, []);
-
-  //取得userTwieets資料
-  useEffect(()=>{
-    const UserTweets = async () => {
-      try {
-        const tweets = await getUserTweets();
-        console.log('Profile useEffect UserTweets :',tweets)
-        setUserTweets(tweets)
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    UserTweets();
-  }, []);
+  }, [isAuthenticated]);
 
 useEffect(() => {
   if (!isAuthenticated) {

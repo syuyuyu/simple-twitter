@@ -1,13 +1,22 @@
-import React from "react";
+import React ,{ useEffect }from "react";
 import styled from "styled-components";
 import { StyledAvatarDefault } from "../common/StyledGroup";
 import deleteIcon from "../../assets/icons/delete.svg"
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+import "dayjs/locale/zh-tw";
+import { TweetContext } from "../../contexts/TweetContext";
+import { useContext } from "react";
+import { adminDeleteTweets, adminGetTweets } from "../../api/admin";
+
+
 
 const ItemContainer = styled.div`
   display: flex;
   flex-direction: row;
   border: 1px solid #e6ecf0;
-  padding: 16px 29px 16px 24px;
+  padding: 16px 0px 16px 24px;
+  width: 100%;
 `;
 
 const TextContainer = styled.div`
@@ -15,12 +24,15 @@ const TextContainer = styled.div`
   flex-direction: column;
   margin-left: 8px;
   position: relative;
+  width: 100%;
 `;
 
 const RowContainer = styled.div`
   display: flex;
-  flex-flow: row;
   margin-bottom: 8px;
+  /* align-items: center; */
+  justify-content: space-between;
+  /* width: 100%; */
 `;
 
 const Name = styled.p`
@@ -44,6 +56,7 @@ const TweetText = styled.p`
   font-size: 16px;
   font-weight: 400;
   line-height: 26px;
+  width: 100%;
 `;
 
 const StyledRemoveIcon= styled.button`
@@ -51,42 +64,59 @@ const StyledRemoveIcon= styled.button`
   height: 24px;
   background-size: cover;
   background-image: url(${deleteIcon});
-  position: absolute;
+  position: relative;
   right: 0px;
-  transform: translateX(30px);
+  top: 0px;
+  /* transform: translateX(30px); */
   cursor: pointer;
 `
-const AdminTweetItem = () => {
+const Container = styled.div`
+  display: flex;
+  width: 100%;
+`
 
-  const handleRemoveClick = async(e)=>{
-    //取得要刪除的id，傳入delete API
-    // const tweetId = e.target.id
-    // const data = await delete({tweetId});
-    // if(data){
-      //印出新的list
-    // }
-  };
+const AvatarImg =styled.img`
+    width: 50px;
+    height: 50px;
+    background-size: cover;
+    border-radius: 50%;
+`
+
+const AdminTweetItem = ({
+  handleRemoveClick,
+  tweet,
+  id,
+  time,
+  description
+  }) => {
+  dayjs.extend(relativeTime);
+  const {account,avatar,name} = {...tweet.User}
 
 
+// tweetItem
   return (
-    <ItemContainer>
-      <StyledAvatarDefault style={{ margin: "0px" }}>
-        <div className='avatar'></div>
-      </StyledAvatarDefault>
-      <TextContainer>
-        <RowContainer>
-          <Name>Apple</Name>
-          <Account>@apple · 3小時</Account>
-        </RowContainer>
-        <RowContainer>
-          <TweetText>
-            Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. 
-          </TweetText>
-        </RowContainer>
-        <StyledRemoveIcon onClick={handleRemoveClick}></StyledRemoveIcon>
-      </TextContainer>
-    </ItemContainer>
-  );
-};
+    <>
+      <ItemContainer key={id}>
+        <StyledAvatarDefault style={{ margin: "0px"}} >
+          <AvatarImg style={{ backgroundImage:`url('${avatar}')`}}></AvatarImg>
+        </StyledAvatarDefault>
+        <TextContainer>
+          <RowContainer>
+            <Container>
+              <Name>{name}</Name>
+              <Account>@{account} · {dayjs(`${time}`).locale("zh-tw").fromNow()}</Account>
+            </Container>
+            <StyledRemoveIcon onClick={()=>handleRemoveClick?.(id)}></StyledRemoveIcon>
+          </RowContainer>
+          <RowContainer>
+            <TweetText>
+              {description}
+            </TweetText>
+          </RowContainer>
+        </TextContainer>
+      </ItemContainer>
+    </>
+  )
+}
 
 export default AdminTweetItem;

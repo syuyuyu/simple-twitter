@@ -2,6 +2,11 @@ import styled from "styled-components";
 import {StyledAdminUserCard,StyledAdminUserBackground,StyledAdminUserAvatar,StyledName} from "./common/StyledGroup";
 import likeIcom from "../assets/icons/like.svg";
 import tweetIcon from "../assets/icons/tweet.svg";
+// import {useEffect,useState, useContext} from "react";
+// import { adminGetUsers } from "../api/admin";
+import { useAdmin } from "../contexts/AdminContext";
+// import { useContext } from "react";
+
 
 const IconsContainer = styled.div`
   display: flex;
@@ -58,33 +63,38 @@ const StyledCardFollow = styled.div`
   }
 `
 
-const AdminUserCard =({user})=>{
+const AdminUserCard =()=>{
+  const { getUsers } = useAdmin();
+  // console.log('getUsers UserCard:' ,getUsers)
+
   return (
     <>
+    { getUsers?.map((user) => 
     <StyledAdminUserCard>
-      <StyledAdminUserBackground></StyledAdminUserBackground>
+      <StyledAdminUserBackground style={{backgroundImage:`${user.cover}`}}></StyledAdminUserBackground>
       <StyleUserCardContent>
-        <StyledName>{'user.name'}</StyledName>
-        <StyledUserAccount>@{'user.account'}</StyledUserAccount>
+        <StyledName>{user.name}</StyledName>
+        <StyledUserAccount>@{user.account}</StyledUserAccount>
           <IconsContainer>
             <IconContainer>
               <StyledIcon className='replyIcon'></StyledIcon>
-              <p>13</p>
+              <p>{user.tweetCount}</p>
             </IconContainer>
             <IconContainer>
               <StyledIcon className='likeIcon'></StyledIcon>
-              <p>76</p>
+              <p>{user.likeCount}</p>
             </IconContainer>
           </IconsContainer>
           <StyledCardFollow>
-            <span>34個</span>
+            <span>{user.followingCount}個</span>
             <span>跟隨中</span>
-            <span>59位</span>
+            <span>{user.followerCount}位</span>
             <span>跟隨者</span>
           </StyledCardFollow>
-          <StyledAdminUserAvatar src={'user.img'}></StyledAdminUserAvatar>
+          <StyledAdminUserAvatar src={user.avatar}></StyledAdminUserAvatar>
       </StyleUserCardContent>
     </StyledAdminUserCard>
+    )}
     </>
   )
 }

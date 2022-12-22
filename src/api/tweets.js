@@ -7,6 +7,7 @@ export const getTweets = async () => {
   try {
     const authToken = localStorage.getItem('authToken')
     const res = await axios.get(`${baseURL}/api/tweets/`, { headers: { Authorization: `Bearer ${authToken}` } });
+    // console.log('get tweets',res)
     return res.data;
   } catch (error) {
     console.error("[Get Tweets failed]:", error);

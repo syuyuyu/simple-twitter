@@ -122,7 +122,7 @@ const TweetItem = ({ tweet }) => {
   dayjs.extend(relativeTime);
   return (
     <>
-      <ItemContainer>
+      <ItemContainer key={tweet.id}>
         <AvatarContainer onClick={() => navigate("/user/:id")}>
           <Avatar className='avatar' style={{ margin: "0px", backgroundImage: `url('${avatarDefault}')` }}></Avatar>
         </AvatarContainer>
