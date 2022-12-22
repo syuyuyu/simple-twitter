@@ -66,7 +66,6 @@ function App() {
                         <FollowerProvider>
                           <FollowingProvider>
                             <OtherUserProvider>
-<<<<<<< HEAD
                               <UserTweetProvider>
                                 <Routes>
                                   <Route path='' element={<HomePage />} />
@@ -90,29 +89,6 @@ function App() {
                                       <Route path='replys' element={<UserReplysList />} />
                                       <Route path='likes' element={<LikeTweetsList />} />
                                     </Route>
-=======
-                              <Routes>
-                                <Route path='*' element={<HomePage />} />
-                                <Route path='login' element={<LoginPage />} />
-                                <Route path='regist' element={<RegistPage />} />
-                                <Route path='user' element={<MainPage />}>
-                                  <Route path='main' element={<Main />} />
-                                  <Route path='profile' element={<Profile />}>
-                                    <Route path='tweets' element={<TweetsList />} />
-                                    <Route path='' element={<TweetsList />} />
-                                    <Route path='replys' element={<UserReplysList />} />
-                                    <Route path='likes' element={<LikeTweetsList />} />
-                                  </Route>
-                                  <Route path=':id/follow' element={<Follow />}>
-                                    <Route path='follower' element={<FollowerList />} />
-                                    <Route path='following' element={<FollowingList />} />
-                                  </Route>
-                                  <Route path=':userIid' element={<OtherUser />}>
-                                    <Route path='tweets' element={<TweetsList />} />
-                                    <Route path='replys' element={<UserReplysList />} />
-                                    <Route path='likes' element={<LikeTweetsList />} />
-                                  </Route>
->>>>>>> 2bce4336f7e235f27c17ebb8c6f43ae83fe78907
 
                                     <Route path='setting' element={<Setting />} />
                                   </Route>
