@@ -1,15 +1,29 @@
-import { useEffect } from "react";
 import styled from "styled-components";
 import likeIcom from "../assets/icons/like.svg";
 import tweetIcon from "../assets/icons/tweet.svg";
 import { useAdmin } from "../contexts/AdminContext";
-import { useState } from "react";
+
+
+// const StyledAdminGroupContainer = styled.div`
+//   /* max-width: 1140px; */
+//   height: 100vh;
+//   margin: 0 auto;
+//   display: flex;
+//   /* display: grid; */
+//   padding-top:16px;
+//   grid-template-columns: 1fr 6fr;
+//   /* gap: 24px; */
+// `
+
 
 
 const StyledAdminUserCard = styled.div`
   height: 300px;
   border-radius: 10px;
   background-color: #F6F7F8;
+  /* min-width: 249px; */
+  /* margin-left: 8px; */
+  /* margin-right: 8px; */
 `
 const StyledAdminUserBackground = styled.div`
     height: 125px;

@@ -6,7 +6,7 @@ import AdminLogout from "./AdminLogout";
 const SectionAdminSidebar = () => {
   return (
     <>
-      <StyledSectionSidebar>
+      <StyledSectionSidebar style={{width:'178px',margeRight:'24px'}}>
         <AdminSidebarContainer />
         <AdminLogout />
       </StyledSectionSidebar>

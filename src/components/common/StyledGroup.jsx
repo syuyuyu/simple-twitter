@@ -11,6 +11,7 @@ const StyledGroupContainer = styled.div`
   gap: 24px;
 `;
 
+
 const StyledAdminGroupContainer = styled.div`
   max-width: 1140px;
   height: 100vh;
