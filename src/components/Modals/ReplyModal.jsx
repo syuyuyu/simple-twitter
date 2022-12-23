@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext ,useState } from "react";
 import styled from "styled-components";
 import {
   StyledContentContainer,
@@ -8,9 +8,13 @@ import {
   StyledError,
   StyledPublicButton,
 } from "../common/StyledGroup";
+import Swal from "sweetalert2";
 import close from "../../assets/icons/close.svg";
 import ReplyTweet from "../ReplyTweet";
 import { ReplyModalContext } from "../../contexts/ModalContext";
+import { TargetTweetContext } from "../../contexts/TweetContext";
+import { createReply } from "../../api/tweets";
+// import ContentTextarea from "../ContentTextarea";
 
 const Modal = styled.div`
   width: 100vw;
@@ -80,7 +84,69 @@ const StyledTextarea = styled.textarea`
 `;
 
 const ReplyModal = () => {
-   const {replyModal,toggleReplyModal} = useContext(ReplyModalContext);
+  const {replyModal,toggleReplyModal} = useContext(ReplyModalContext);
+  const {targetTweet} = useContext(TargetTweetContext);
+  const [inputValue,setInputValue] = useState();
+  const [isUpload,setIsUpload] = useState(false)
+  const id = targetTweet.id
+  //  console.log('targetTweet',targetTweet.id)
+
+  const handleChange =(descripton)=>{
+    if(isUpload){
+      return
+    }
+    setInputValue(descripton)
+  }
+
+  const handleSubmit=async({inputValue,id})=>{
+    if(isUpload){
+      Swal.fire({
+        title: "上傳中請稍等",
+        icon: "error",
+        showConfirmButton: false,
+        timer: 1000,
+        position: "top",
+      });
+    };
+    if(!inputValue){
+      Swal.fire({
+        title: "推文不可為空白",
+        icon: "error",
+        showConfirmButton: false,
+        timer: 1000,
+        position: "top",
+      });
+    };
+    setIsUpload(true)
+      console.log('reply modal id:',id)
+      console.log('reply modal inputValue:',inputValue)
+    try{
+      const comment = inputValue
+      const tweetId = id
+      const res = await createReply({comment,tweetId})
+      // console.log('reply modal id:',id)
+      console.log('reply res:',res)
+      if(res){
+        await Swal.fire({
+          title: "資料儲存中",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1000,
+          position: "top",
+        });
+      }
+      toggleReplyModal()
+      setIsUpload(false)
+    }catch(err){
+      Swal.fire({
+        title: "儲存失敗",
+        icon: "error",
+        showConfirmButton: false,
+        timer: 1000,
+        position: "top",
+      });
+    }
+  }
 
   return (
     <>
@@ -92,7 +158,7 @@ const ReplyModal = () => {
               <Close className='close' onClick={toggleReplyModal}></Close>
             </NavContainer>
             <TweetContainer>
-              <ReplyTweet />
+              <ReplyTweet tweet={targetTweet}/>
             </TweetContainer>
             <StyledContentContainer style={{ border: "none", height: "243px" }}>
               <StyledContentWrapper>
@@ -103,14 +169,15 @@ const ReplyModal = () => {
                   <StyledTextarea
                     type='text'
                     placeholder='推你的回覆'
-                    // value={value}
-                    // onChange={(event) => onChange?.(event.target.value)}
+                    value={inputValue}
+                    maxLength={140}
+                    onChange={(event) => handleChange?.(event.target.value)}
                   />
-                </StyledContainer>
+              </StyledContainer>
               </StyledContentWrapper>
               <StyledButtonContainer>
                 <StyledError>字數不可超過140字</StyledError>
-                <StyledPublicButton>回覆</StyledPublicButton>
+                <StyledPublicButton onClick={()=>handleSubmit({inputValue,id})}>回覆</StyledPublicButton>
               </StyledButtonContainer>
             </StyledContentContainer>
           </Content>
@@ -121,3 +188,5 @@ const ReplyModal = () => {
 };
 
 export default ReplyModal;
+
+

@@ -18,7 +18,7 @@ import FollowingList from "./components/Lists/FollowingList";
 import {
   EditModalContext,
   TweetModalContext,
-  // ReplyModalContext
+  ReplyModalContext
 } from "./contexts/ModalContext";
 import {
   FollowerProvider,
@@ -29,6 +29,7 @@ import {
   TweetProvider,
   UserReplyProvider,
   UserTweetProvider,
+  TargetTweetProvider
 } from "./contexts/TweetContext";
 import { AuthProvider } from "./contexts/AuthContext";
 import { AdminProvider } from "./contexts/AdminContext";
@@ -57,7 +58,7 @@ function App() {
         <AuthProvider>
           <AdminProvider>
             <TweetModalContext.Provider value={{ tweetModal, toggleTweetModal }}>
-              {/* <ReplyModalContext.Provider value={{replyModal,toggleReplyModal}}> */}
+              <ReplyModalContext.Provider value={{replyModal,toggleReplyModal}}>
               <EditModalContext.Provider value={{ editModal, toggleEditModal }}>
                 <TweetProvider>
                   <UserReplyProvider>
@@ -67,6 +68,7 @@ function App() {
                           <FollowingProvider>
                             <OtherUserProvider>
                               <UserTweetProvider>
+                                <TargetTweetProvider>
                                 <Routes>
                                   <Route path='*' element={<HomePage />} />
                                   <Route path='login' element={<LoginPage />} />
@@ -105,6 +107,7 @@ function App() {
                                   <Route path='setting' element={<SettingPage />} />
                                   <Route path='admin' element={<AdminPage />} />
                                 </Routes>
+                                </TargetTweetProvider>
                               </UserTweetProvider>
                             </OtherUserProvider>
                           </FollowingProvider>
@@ -114,7 +117,7 @@ function App() {
                   </UserReplyProvider>
                 </TweetProvider>
               </EditModalContext.Provider>
-              {/* </ReplyModalContext.Provider> */}
+              </ReplyModalContext.Provider>
             </TweetModalContext.Provider>
           </AdminProvider>
         </AuthProvider>

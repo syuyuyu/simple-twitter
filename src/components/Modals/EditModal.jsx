@@ -123,7 +123,6 @@ const EditModal = () => {
   const [intro, setIntro] = useState("");
   const [coverImg, setCoverImg] = useState(null);
   const [avatarImg, setAvatarImg] = useState(null);
-  // isUpdating是否正在串API
   const [isUpdating, setIsUpdating] = useState(false);
 
   const handleImgChange=(e)=>{
@@ -184,7 +183,6 @@ const EditModal = () => {
     })
   };
 
-
   const isValid = useMemo(() => {
     if (!name || name.length > 50) {
       return false;
@@ -195,7 +193,6 @@ const EditModal = () => {
     return true;
   }, [name, intro]);
 
-
   
   useEffect(()=>{
     const getUserData = async () => {
@@ -205,7 +202,6 @@ const EditModal = () => {
         setAvatarImg(user?.avatar);
         setName(user?.name);
         setIntro(user?.introduction);
-        // console.log('EditModal useEffect getUser')
       } catch (error) {
         console.error(error);
       }
@@ -213,107 +209,92 @@ const EditModal = () => {
     getUserData();
   }, [toggleEditModal]);
   
-  
-// })
-
   return (
     <>
       {editModal && (
         <Modal>
           <Overlay onClick={toggleEditModal}></Overlay>
-    <StyledGroupContainer>
-      <StyledSectionPopular></StyledSectionPopular>
-
-
-      <StyledSectionMain>
-          <Content>
-            <HeaderContainer>
-              <CloseIcon onClick={toggleEditModal}></CloseIcon>
-              <h5 style={{marginLeft:'30px'}}>編輯個人資料</h5>
-              <StyledPublicButton 
-                onClick={handleSubmit}
-                disabled={!isValid}
-                style={{
-                  position: 'absolute',
-                  right:'0',
-                  }}
-                  >儲存</StyledPublicButton>
-            </HeaderContainer>
-            
-            <ImageContainer>
-              {/* 背景圖 */}
-                  {/* <label for={isUpdating ? "" : "cover"}> */}
-              <StyledBackgroundImage style={{
-                backgroundImage:`url('${coverImg}')`,
-                objectFit:'contain',
-                backgroundRepeat: 'no-repeat',
-                backgroundSize: 'cover'}} >
-                {/* <CoverImage /> */}
-                <StyledBackgroundHover>
-                  <label for={"cover"}>
-                    <AddphotoIcon
-                      style={{marginRight:'38.5px'}}>
-                    </AddphotoIcon>
-                    <input
-                      ref={coverRef}
-                      accept="image/png, image/jpeg, image/jpg"
-                      type="file"
-                      id="cover"
-                      onChange={(e) => handleImgChange(e, "cover")}
+          <StyledGroupContainer>
+            <StyledSectionPopular></StyledSectionPopular>
+            <StyledSectionMain>
+                <Content>
+                  <HeaderContainer>
+                    <CloseIcon onClick={toggleEditModal}></CloseIcon>
+                    <h5 style={{marginLeft:'30px'}}>編輯個人資料</h5>
+                    <StyledPublicButton 
+                      onClick={handleSubmit}
+                      disabled={!isValid}
                       style={{
-                        display: "none"
-                      }}></input>
-                  </label>
-                  <CancelIcon onClick={handleCancel}></CancelIcon>
-                </StyledBackgroundHover>
-              </StyledBackgroundImage>
-              {/* 大頭照 */}
-              <StyledAvatarImage className='avatar' style={{backgroundImage:`url('${avatarImg}')`,objectFit:'contain',
-                backgroundRepeat: 'no-repeat',
-                backgroundSize: 'cover'}}>
-                <StyledBackgroundHover style={{borderRadius:'50%'}}>
-                    <label for={isUpdating ? "" : "avatar"}>
-                  <AddphotoIcon></AddphotoIcon>
-                      {/* <img src={avatarImg} width="200px" alt="" /> */}
-                      <input
-                        ref={coverRef}
-                        type="file"
-                        id="avatar"
-                        onChange={(e) => handleImgChange(e, "avatar")}
-                        style={{
-                          display: "none"
+                        position: 'absolute',
+                        right:'0',
                         }}
+                        >儲存</StyledPublicButton>
+                  </HeaderContainer>
+                  <ImageContainer>
+                    {/* 背景圖 */}
+                    <StyledBackgroundImage style={{
+                      backgroundImage:`url('${coverImg}')`,
+                      objectFit:'contain',
+                      backgroundRepeat: 'no-repeat',
+                      backgroundSize: 'cover'}} >
+                      <StyledBackgroundHover>
+                        <label for={"cover"}>
+                          <AddphotoIcon
+                            style={{marginRight:'38.5px'}}>
+                          </AddphotoIcon>
+                          <input
+                            ref={coverRef}
+                            accept="image/png, image/jpeg, image/jpg"
+                            type="file"
+                            id="cover"
+                            onChange={(e) => handleImgChange(e, "cover")}
+                            style={{
+                              display: "none"
+                            }}></input>
+                        </label>
+                        <CancelIcon onClick={handleCancel}></CancelIcon>
+                      </StyledBackgroundHover>
+                    </StyledBackgroundImage>
+                    {/* 大頭照 */}
+                    <StyledAvatarImage className='avatar' style={{backgroundImage:`url('${avatarImg}')`,objectFit:'contain',
+                      backgroundRepeat: 'no-repeat',
+                      backgroundSize: 'cover'}}>
+                      <StyledBackgroundHover style={{borderRadius:'50%'}}>
+                          <label for={isUpdating ? "" : "avatar"}>
+                        <AddphotoIcon></AddphotoIcon>
+                            <input
+                              ref={coverRef}
+                              type="file"
+                              id="avatar"
+                              onChange={(e) => handleImgChange(e, "avatar")}
+                              style={{
+                                display: "none"
+                              }}
+                            />
+                          </label>
+                      </StyledBackgroundHover>
+                    </StyledAvatarImage>
+                  </ImageContainer>
+                  <InputContainer>
+                    <AuthInput 
+                      label='名稱'
+                      placeholder='請輸入名稱'
+                      value={name}
+                      onChange={(value=>isUpdating? value :setName(value))}
+                    />
+                    <StyleddescriptionTextarea>
+                      <DescriptionTextarea //用useReducer
+                        label='介紹'
+                        placeholder='自我介紹'
+                        value={intro}
+                        onChange={(value=>isUpdating? value :setIntro(value))}
                       />
-                    </label>
-                </StyledBackgroundHover>
-              </StyledAvatarImage>
-            </ImageContainer>
-            
-            <InputContainer>
-              <AuthInput //用useReducer
-                label='名稱'
-                placeholder='請輸入名稱'
-                value={name}
-                // onChange={handleNameChange}
-                onChange={(value=>isUpdating? value :setName(value))}
-              />
-              <StyleddescriptionTextarea>
-                <DescriptionTextarea //用useReducer
-                  label='介紹'
-                  placeholder='自我介紹'
-                  value={intro}
-                  // onChange={handleIntroChange}
-                  onChange={(value=>isUpdating? value :setIntro(value))}
-                />
-                {/* <div>{intro}</div> */}
-              </StyleddescriptionTextarea>
-
-            </InputContainer>
-          </Content>
-        </StyledSectionMain>
-
-      <StyledSectionPopular></StyledSectionPopular>
-    </StyledGroupContainer>
+                    </StyleddescriptionTextarea>
+                  </InputContainer>
+                </Content>
+              </StyledSectionMain>
+            <StyledSectionPopular></StyledSectionPopular>
+          </StyledGroupContainer>
         </Modal>
       )}
     </>

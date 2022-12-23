@@ -24,7 +24,7 @@ export const login = async ({ account, password }) => {
 //註冊功能
 export const register = async ({ account, name, email, password, checkPassword }) => {
   try {
-    const { data } = await axios.post(`${authURL}/api/auth/users`, {
+    const { data } = await axios.post(`${authURL}/api/users`, {
       account,
       name,
       email,
@@ -32,9 +32,8 @@ export const register = async ({ account, name, email, password, checkPassword }
       checkPassword,
     });
     const { token } = data;
-    // console.log(data.data)
     if (token) {
-      return { success: true, ...data };
+      return { ...data };
     }
     return data;
   } catch (error) {

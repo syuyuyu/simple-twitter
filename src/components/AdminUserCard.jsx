@@ -1,13 +1,49 @@
 import styled from "styled-components";
-import {StyledAdminUserCard,StyledAdminUserBackground,StyledAdminUserAvatar,StyledName} from "./common/StyledGroup";
 import likeIcom from "../assets/icons/like.svg";
 import tweetIcon from "../assets/icons/tweet.svg";
-// import {useEffect,useState, useContext} from "react";
-// import { adminGetUsers } from "../api/admin";
 import { useAdmin } from "../contexts/AdminContext";
-// import { useContext } from "react";
 
 
+// const StyledAdminGroupContainer = styled.div`
+//   /* max-width: 1140px; */
+//   height: 100vh;
+//   margin: 0 auto;
+//   display: flex;
+//   /* display: grid; */
+//   padding-top:16px;
+//   grid-template-columns: 1fr 6fr;
+//   /* gap: 24px; */
+// `
+
+
+
+const StyledAdminUserCard = styled.div`
+  height: 300px;
+  border-radius: 10px;
+  background-color: #F6F7F8;
+  /* min-width: 249px; */
+  /* margin-left: 8px; */
+  /* margin-right: 8px; */
+`
+const StyledAdminUserBackground = styled.div`
+    height: 125px;
+    width: 100%;
+    background-color: grey;
+    border-radius: 10px 10px 0 0;
+    background-size:cover;
+    position: relative;
+`
+const StyledAdminUserAvatar= styled.img`
+    height:100px;
+    width: 100px;
+    background-color: black;
+    border-radius: 50%;
+    border: 3px solid var(--color-white);
+    position: absolute;
+    top: 0;
+    transform: translateY(-105px);
+    background-size:cover;
+`
 const IconsContainer = styled.div`
   display: flex;
   flex-direction: row;
@@ -22,7 +58,6 @@ const IconContainer = styled.div`
     line-height: 26px;
   }
 `;
-
 const StyledIcon = styled.div`
   width: 24px;
   height: 24px;
@@ -36,14 +71,22 @@ const StyledIcon = styled.div`
     background-image: url(${likeIcom});
   }
 `;
-
+const StyledName = styled.p`
+  height: 26px;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 26px;
+  color: var(--color-grayscale-dark100);
+  &:hover {
+    cursor: pointer;
+  }
+`;
 const StyledUserAccount = styled.p`
   font-size: 14px;
   font-weight: 400;
   line-height: 22px;
   color: var(--color-grayscale-dark70);
 `;
-
 const StyleUserCardContent = styled.div`
   display: flex;
   flex-direction: column;
@@ -51,7 +94,6 @@ const StyleUserCardContent = styled.div`
   margin-top: 32px;
   position: relative;
 `
-
 const StyledCardFollow = styled.div`
   color: var(--color-dark-100);
   margin-top: 13px;
@@ -62,16 +104,14 @@ const StyledCardFollow = styled.div`
   margin-right:8px;
   }
 `
-
 const AdminUserCard =()=>{
   const { getUsers } = useAdmin();
-  // console.log('getUsers UserCard:' ,getUsers)
 
   return (
     <>
     { getUsers?.map((user) => 
     <StyledAdminUserCard>
-      <StyledAdminUserBackground style={{backgroundImage:`${user.cover}`}}></StyledAdminUserBackground>
+      <StyledAdminUserBackground  style={{backgroundImage:`url('${user.cover}')`}}></StyledAdminUserBackground>
       <StyleUserCardContent>
         <StyledName>{user.name}</StyledName>
         <StyledUserAccount>@{user.account}</StyledUserAccount>

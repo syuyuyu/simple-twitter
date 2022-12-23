@@ -11,6 +11,7 @@ const StyledGroupContainer = styled.div`
   gap: 24px;
 `;
 
+
 const StyledAdminGroupContainer = styled.div`
   max-width: 1140px;
   height: 100vh;
@@ -276,11 +277,7 @@ const StyledAdminUserList = styled.div`
   grid-gap: 16px;
   grid-auto-rows: min-content;
   `
-const StyledAdminUserCard = styled.div`
-  height: 300px;
-  border-radius: 10px;
-  background-color: #F6F7F8;
-`
+
 const StyledAdminUserBackground = styled.div`
     height: 125px;
     width: 100%;
@@ -289,17 +286,7 @@ const StyledAdminUserBackground = styled.div`
     background-size:cover;
     position: relative;
 `
-const StyledAdminUserAvatar= styled.img`
-    height:100px;
-    width: 100px;
-    background-color: black;
-    border-radius: 50%;
-    border: 3px solid var(--color-white);
-    position: absolute;
-    top: 0;
-    transform: translateY(-105px);
-    background-size:cover;
-`
+
 const StyledAdminTweetsList=styled.div`
   display: flex;
   flex-direction: column;
@@ -406,9 +393,7 @@ export {
   StyledTitleTweetCount,
   StyledProfileContainer,
   StyledAdminUserList,
-  StyledAdminUserCard,
   StyledAdminUserBackground,
-  StyledAdminUserAvatar,
   StyleSectionAdminMain,
   StyledAdminTweetsList,
   StyledBackgroundImage,
