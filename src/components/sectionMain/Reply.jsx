@@ -97,6 +97,20 @@ const Reply = ({ replyModal, toggleReplyModal }) => {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
 
+  //GET 個人資料
+  // useEffect(() => {
+  //   const getOtherUserAsync = async () => {
+  //     try {
+  //       const user = await getOtherUser(param.userId);
+  //       setPersonalInfo(user);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
+  //   getOtherUserAsync();
+  // }, [param.userId]);
+
+  //身分驗證
   useEffect(() => {
     if (!isAuthenticated) {
       navigate("/");
@@ -140,7 +154,7 @@ const Reply = ({ replyModal, toggleReplyModal }) => {
           <TweetContainer style={{ border: "none" }}>
             <div className='icon-wrapper'>
               <div className='icon reply' onClick={toggleReplyModal}></div>
-              <div className='icon like active'></div>
+              <div className='icon like'></div>
             </div>
           </TweetContainer>
           <TweetReplysList />

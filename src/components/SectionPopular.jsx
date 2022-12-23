@@ -18,6 +18,7 @@ const SectionPopular = () => {
       try {
         const top10 = await getTop10();
         setTop10List(top10.map((user) => ({ ...user })));
+        console.log("這是TOP10", top10);
       } catch (error) {
         console.error(error);
       }

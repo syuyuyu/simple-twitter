@@ -16,29 +16,31 @@ import { useAuth } from "../../contexts/AuthContext";
 import { FollowerContext, FollowingContext } from "../../contexts/TweetContext";
 import { getFollowers, getFollowings } from "../../api/user";
 
+const FollowNavLink = styled(Link)`
+  height: 52px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-line-default);
+  &:hover {
+    cursor: pointer;
+    border-bottom: 2px solid var(--color-main);
+    color: var(--color-main);
+  }
+  &.active {
+    border-bottom: 2px solid var(--color-main);
+    color: var(--color-main);
+  }
+`;
+
 const Follow = () => {
   const navigate = useNavigate();
   const { isAuthenticated, currentMember} = useAuth();
   const { setFollowers } = useContext(FollowerContext);
   const { setFollowings } = useContext(FollowingContext);
 
-  const FollowNavLink = styled(Link)`
-    height: 52px;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: var(--color-line-default);
-    &:hover {
-      cursor: pointer;
-      border-bottom: 2px solid var(--color-main);
-      color: var(--color-main);
-    }
-    &.active {
-      border-bottom: 2px solid var(--color-main);
-      color: var(--color-main);
-    }
-  `;
+  
 //渲染追隨者
 useEffect(() => {
   const getFollowersAsync = async () => {

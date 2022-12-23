@@ -26,7 +26,7 @@ import { NavLink as Link } from "react-router-dom";
 import styled from "styled-components";
 import EditModal from "../Modals/EditModal";
 import { useAuth } from "../../contexts/AuthContext";
-import { getReplys } from "../../api/userReplys";
+import { getReplys } from "../../api/tweets";
 import { LikeTweetContext, OtherUserContext, UserReplyContext, UserTweetContext } from "../../contexts/TweetContext";
 import { getLikeTweets, getUserTweets } from "../../api/tweets";
 import TweetModal from "../Modals/TweetModal";
@@ -51,6 +51,7 @@ const NavLink = styled(Link)`
 `;
 
 const Profile = () => {
+  
   const { toggleEditModal } = useContext(EditModalContext);
   const navigate = useNavigate();
   const { isAuthenticated, currentMember } = useAuth();
@@ -110,11 +111,6 @@ const Profile = () => {
     getLikeTweetsAsync();
   }, [setLikeTweets]);
 
-  useEffect(() => {
-    if (!isAuthenticated) {
-      navigate("/");
-    }
-  }, [navigate, isAuthenticated]);
   //身分驗證
   useEffect(() => {
     if (!isAuthenticated) {

@@ -16,7 +16,7 @@ export const login = async ({ account, password }) => {
   }
 };
 
-export const checkPermission = async (authToken) => {
+export const checkAdminPermission = async (authToken) => {
   try {
     const response = await axios.get(`${authURL}/api/auth/test-admin`, {
       headers: {

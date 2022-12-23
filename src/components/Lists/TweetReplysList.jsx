@@ -6,7 +6,7 @@ import ReplyItem from './ReplyItem'
 const ReplysList = () => {
   return (
     <StyledTweetsList>
-      <ReplyItem />
+      {/* <ReplyItem /> */}
     </StyledTweetsList>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   StyledMainContainer,
   StyledHeader,
@@ -21,14 +21,15 @@ import {
   StyledTweetsNavbarWrapper,
 } from "../common/StyledGroup";
 import styled from "styled-components";
-import noti from '../../assets/icons/noti.svg'
-import notiActive from '../../assets/icons/noti-active.svg'
+import noti from "../../assets/icons/noti.svg";
+import notiActive from "../../assets/icons/noti-active.svg";
 import message from "../../assets/icons/message.svg";
 import messageActive from "../../assets/icons/message-active.svg";
 import { NavLink as Link, Outlet, useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
-import { OtherUserContext } from "../../contexts/TweetContext";
+import {  LikeTweetContext, UserReplyContext, UserTweetContext } from "../../contexts/TweetContext";
 import { getOtherUser } from "../../api/user";
+import { getOtherLikeTweets, getOtherReplys, getOtherUserTweets } from "../../api/tweets";
 
 const NotiButton = styled.div`
   width: 40px;
@@ -81,25 +82,68 @@ const NavLink = styled(Link)`
 `;
 
 const OtherUser = () => {
-  const navigate = useNavigate();
-  const { isAuthenticated, currentMember } = useAuth();
-  const param = useParams();
-  const { otherUser, setOtherUser } = useContext(OtherUserContext);
-  console.log("網址後面的id",param);
-
-useEffect(() => {
-  const getOtherUserAsync = async () => {
-    try {
-      const otherUser = await getOtherUser(param);
-      console.log(otherUser);
-      // setOtherUser(otherUser);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  getOtherUserAsync();
-}, [setOtherUser, param]);
   
+  const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
+  const param = useParams();
+  // const { otherUser, setOtherUser } = useContext(OtherUserContext);
+  const { setUserTweets } = useContext(UserTweetContext);
+  const { setUserReplys } = useContext(UserReplyContext);
+  const { setLikeTweets } = useContext(LikeTweetContext);
+  const [personalInfo, setPersonalInfo] = useState({});
+
+  //GET 個人資料
+  useEffect(() => {
+    const getOtherUserAsync = async () => {
+      try {
+        const user = await getOtherUser(param.userId);
+        setPersonalInfo(user);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getOtherUserAsync();
+  }, [param.userId]);
+
+  //GET otherUser自己的推文
+  useEffect(() => {
+    const getUserTweetsAsync = async () => {
+      try {
+        const userTweets = await getOtherUserTweets(param.userId);
+        setUserTweets(userTweets.map((userTweet) => ({ ...userTweet })));
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getUserTweetsAsync();
+  }, [setUserTweets, param.userId]);
+
+  //GET otherUser回覆串資料
+  useEffect(() => {
+    const getUserReplysAsync = async () => {
+      try {
+        const userReplys = await getOtherReplys(param.userId);
+        setUserReplys(userReplys.map((tweet) => ({ ...tweet })));
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getUserReplysAsync();
+  }, [setUserReplys, param.userId]);
+
+  useEffect(() => {
+    const getUserLikeTweetsAsync = async () => {
+      try {
+        const likeTweets = await getOtherLikeTweets(param.userId);
+        setLikeTweets(likeTweets.map((tweet) => ({ ...tweet })));
+        console.log("其他使用者的LikeTweets",likeTweets);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getUserLikeTweetsAsync();
+  }, [setLikeTweets, param.userId]);
+
   useEffect(() => {
     if (!isAuthenticated) {
       navigate("/");
@@ -112,14 +156,24 @@ useEffect(() => {
         <StyledTitleContainer>
           <StyledBackIcon className='backIcon' onClick={() => navigate(-1)}></StyledBackIcon>
           <StyledTitleWrapper>
-            <StyledTitleH5>{currentMember?.name}</StyledTitleH5>
-            <StyledTitleTweetCount>25推文</StyledTitleTweetCount>
+            <StyledTitleH5>{personalInfo?.name}</StyledTitleH5>
+            <StyledTitleTweetCount>{personalInfo.tweetCount}推文</StyledTitleTweetCount>
           </StyledTitleWrapper>
         </StyledTitleContainer>
       </StyledHeader>
       <StyledProfileContainer>
-        <StyledBackgroundImage></StyledBackgroundImage>
-        <StyledAvatarImage className='avatar'></StyledAvatarImage>
+        {personalInfo.cover ? (
+          <StyledBackgroundImage
+            className='cover'
+            style={{ backgroundImage: `url('${personalInfo.cover}')` }}
+          ></StyledBackgroundImage>
+        ) : (
+          <StyledBackgroundImage className='cover'></StyledBackgroundImage>
+        )}
+        <StyledAvatarImage
+          className='avatar'
+          style={{ backgroundImage: `url('${personalInfo.avatar}')` }}
+        ></StyledAvatarImage>
         <StyledEditContainer>
           <NotiButton>
             <div className='chat'></div>
@@ -130,22 +184,19 @@ useEffect(() => {
           <StyledPublicButton>正在跟隨</StyledPublicButton>
         </StyledEditContainer>
         <StyledInfoWrapper>
-          <StyledTitleH5>{otherUser.name}</StyledTitleH5>
-          <StyledAccount style={{ fontSize: "14px", fontWeight: "400" }}>@iamjane1999</StyledAccount>
-          <StyledContent>
-            其他使用者頁面 Lorem ipsum, dolor sit amet consectetur adipisicing elit. Harum inventore tenetur iste
-            expedita esse maxime.
-          </StyledContent>
+          <StyledTitleH5>{personalInfo.name}</StyledTitleH5>
+          <StyledAccount style={{ fontSize: "14px", fontWeight: "400" }}>@{personalInfo.account}</StyledAccount>
+          <StyledContent>{personalInfo.introduction}</StyledContent>
           <StyledFollowsWrapper>
             <Link to='follow/following'>
               <StyledFollowWrapper>
-                <p style={{ color: "var(--color-grayscale-dark100)" }}>231個</p>
+                <p style={{ color: "var(--color-grayscale-dark100)" }}>{personalInfo.followingCount}個</p>
                 <p>跟隨中</p>
               </StyledFollowWrapper>
             </Link>
             <Link to='follow/follower'>
               <StyledFollowWrapper>
-                <p style={{ color: "var(--color-grayscale-dark100)" }}>59位</p>
+                <p style={{ color: "var(--color-grayscale-dark100)" }}>{personalInfo.followerCount}位</p>
                 <p>跟隨者</p>
               </StyledFollowWrapper>
             </Link>
