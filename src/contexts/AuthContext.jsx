@@ -55,24 +55,31 @@ export const AuthProvider = ({ children }) => {
           name: payload.name,
         },
         register: async (data) => {
-          const { success, token, user } = await register({
-            account: data.account,
-            name: data.name,
-            email: data.email,
-            password: data.password,
-            checkPassword: data.checkPassword,
-          });
-          const tempPayload = jwt_decode(token);
-          if (tempPayload) {
-            setPayload(tempPayload);
-            setIsAuthenticated(true);
-            localStorage.setItem("authToken", token);
-            localStorage.setItem("userId", user.id);
-          } else {
-            setPayload(null);
-            setIsAuthenticated(false);
+          try{
+            const res = await register({
+              account: data.account,
+              name: data.name,
+              email: data.email,
+              password: data.password,
+              checkPassword: data.checkPassword,
+            });
+            // const {success, token, user}={res}
+            // console.log(success,token,user)
+            // const tempPayload = jwt_decode(token);
+            if (res) {
+            //   setPayload(tempPayload);
+            //   setIsAuthenticated(true);
+            //   localStorage.setItem("authToken", token);
+            //   localStorage.setItem("userId", user.id);
+            // } else {
+            //   setPayload(null);
+            //   setIsAuthenticated(false);
+            // }
+            return res;
+            }
+          }catch(err){
+            console.log('register error :',err)
           }
-          return success;
         },
         login: async (data) => {
           const { success, token, user } = await login({
