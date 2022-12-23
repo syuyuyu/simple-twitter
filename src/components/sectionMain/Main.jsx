@@ -18,83 +18,40 @@ import { useAuth } from "../../contexts/AuthContext";
 import {  getUser } from "../../api/user";
 import styled from "styled-components";
 import avatarDefault from "../../assets/icons/avatar-default.svg";
+import { createTweet } from "../../api/tweets";
+import Swal from "sweetalert2";
 
+const Avatar = styled.div`
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  &:hover {
+    cursor: pointer;
+  }
+  &.avatar {
+    width: 50px;
+    height: 50px;
+    background-image: url(${avatarDefault});
+    background-size: cover;
+  }
+`;
+const ContentWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  padding: 16px 8px 0 8.2px;
+  width: 100%;
+  margin-left: 8.2px;
+`;
 
 
 const Main = () => {
-  const Avatar = styled.div`
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    &:hover {
-      cursor: pointer;
-    }
-    &.avatar {
-      width: 50px;
-      height: 50px;
-      background-image: url(${avatarDefault});
-      background-size: cover;
-    }
-  `;
-  const ContentWrapper = styled.div`
-    display: flex;
-    flex-direction: row;
-    padding: 16px 8px 0 8.2px;
-    width: 100%;
-    margin-left: 8.2px;
-  `;
-
-  const [inputValue] = useState("");
+  const [inputValue,setInputValue] = useState("");
   const { setTweets } = useContext(TweetContext);
-  // const [isUpdating, setIsUpdating] = useState(false);
+  const [isUpdating, setIsUpdating] = useState(false);
   const { otherUser, setOtherUser } = useContext(OtherUserContext);
-
-  // const handleChange = (value) => {
-  //   setInputValue(value);
-  // };
-  const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
 
-  const handleAddTweet = async () => {
-    if (inputValue.length === 0) {
-      return; //不可為空白
-    }
-    if (inputValue.length > 140) {
-      return; //字數上限140個字
-    }
-    // try {
-    //   const data = await createTweet({
-    //     description: inputValue,
-    //     UserId: 4,
-    //     name: "大白",
-    //     account: "qwer1122",
-    //     isLike: false,
-    //     replyCount: 0,
-    //     likeCount: 0,
-    //     createdAt: new Date(),
-    //   });
-
-    //   setTweets((prevTweets) => {
-    //     return [
-    //       ...prevTweets,
-    //       {
-    //         id: data.id,
-    //         description: data.description,
-    //         UserId: 4,
-    //         name: data.name,
-    //         account: data.account,
-    //         isLike: false,
-    //         replyCount: data.replyCount,
-    //         likeCount: data.likeCount,
-    //         createdAt: new Date(),
-    //       },
-    //     ];
-    //   });
-    //   setInputValue("");
-    // } catch (error) {
-    //   console.error(error);
-    // }
-  };
   //取得全部推文
   useEffect(() => {
     const getTweetsAsync = async () => {
@@ -122,6 +79,45 @@ const Main = () => {
     getUserAsync();
   }, [setOtherUser]);
 
+
+  //上傳推文
+  const handleSubmit = async () => {
+    if(isUpdating){
+      Swal.fire({
+        title: "上傳中請稍等",
+        icon: "error",
+        showConfirmButton: false,
+        timer: 1000,
+        position: "top",
+      });
+    }
+    try {
+      setIsUpdating(true)
+      const res = await createTweet(inputValue);
+      console.log('res:',res);
+      if(res){
+        await Swal.fire({
+          title: "資料儲存中",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1000,
+          position: "top",
+        });
+        setIsUpdating(false)
+        return setInputValue('')
+      }
+      }catch(err){
+        Swal.fire({
+          title: "儲存失敗",
+          icon: "error",
+          showConfirmButton: false,
+          timer: 1000,
+          position: "top",
+        });
+      }
+  }
+
+
   //身分驗證
   useEffect(() => {
     if (!isAuthenticated) {
@@ -140,17 +136,18 @@ const Main = () => {
             <Avatar className='avatar' style={{ backgroundImage: `url('${otherUser.avatar}')` }}></Avatar>
             <ContentTextarea
               placeholder='有什麼新鮮事？'
-              // value={inputValue}
-              // onChange={value=> setInputValue(value)}
+              value={inputValue}
+              onChange={(value => isUpdating? value : setInputValue(value))}
             />
           </ContentWrapper>
           <StyledButtonContainer>
-            {inputValue.length > 140 ? (
-              <StyledError>字數不可超過140字</StyledError>
-            ) : (
+            {inputValue.length >= 140 && 
+            <StyledError>字數不可超過140字</StyledError>
+            }
+            {inputValue.length ===0 && 
               <StyledError>內容不可為空白</StyledError>
-            )}
-            <StyledPublicButton onClick={() => handleAddTweet?.()}>推文</StyledPublicButton>
+            }
+            <StyledPublicButton onClick={handleSubmit}>推文</StyledPublicButton>
           </StyledButtonContainer>
         </StyledContentContainer>
         <TweetsList />

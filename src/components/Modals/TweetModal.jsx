@@ -114,7 +114,6 @@ const TweetModal = () => {
     };
     setIsUpload(true)
     const description = inputValue
-    console.log('description: ',description)
     try{
       const res = await createTweet(description)
       console.log('res :',res)
