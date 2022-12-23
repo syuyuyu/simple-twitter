@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyledTweetsList } from '../common/StyledGroup'
-import ReplyItem from './ReplyItem'
+// import ReplyItem from './ReplyItem'
 
 
 const ReplysList = () => {

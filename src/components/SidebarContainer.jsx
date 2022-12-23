@@ -2,7 +2,6 @@ import { LogoStyle } from './common/authstyled';
 import { StyledSidebarContainer } from "../components/common/StyledGroup";
 import SidebarItem from './SidebarItem';
 import SidebarButton from './SidebarButton'
-import TweetModal from './Modals/TweetModal';
 
 
 const SidebarContainer = () => {
