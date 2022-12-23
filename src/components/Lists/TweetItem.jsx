@@ -115,6 +115,8 @@ const StyledIcon = styled.div`
     }
   }
 `;
+
+
 const TweetItem = ({
   tweet,
   time,
@@ -123,6 +125,7 @@ const TweetItem = ({
   likedCount,
   replyCount,
 }) => {
+  
   const { toggleReplyModal } = useContext(ReplyModalContext);
   const { handleToggleLike} = useContext(TweetContext);
   const navigate = useNavigate();
@@ -139,7 +142,7 @@ const TweetItem = ({
   return (
     <>
       <ItemContainer>
-        <AvatarContainer onClick={() => navigate(`/${id}/${tweet.id}`)}>
+        <AvatarContainer onClick={() => navigate(`/user/${id}`)}>
           <Avatar className='avatar' style={{ margin: "0px", backgroundImage: `url('${avatar}')` }}></Avatar>
         </AvatarContainer>
         <TextContainer>
@@ -150,7 +153,7 @@ const TweetItem = ({
             </Account>
           </RowContainer>
           <RowContainer>
-            <TweetText onClick={() => navigate(`/${id}/${tweet.id}`)}>{description}</TweetText>
+            <TweetText onClick={() => navigate(`/user/reply/${tweet.id}`)}>{description}</TweetText>
           </RowContainer>
           <RowContainer>
             <IconsContainer>

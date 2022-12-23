@@ -18,7 +18,6 @@ const SidebarContainer = () => {
         <SidebarItem value={"設定"} path={"/setting"} iconName={"settingIcon"} />
         <SidebarButton />
       </StyledSidebarContainer>
-      <TweetModal />
     </>
   );
 };

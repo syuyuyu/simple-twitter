@@ -1,5 +1,6 @@
 import { createContext, useState } from "react";
-import { patchTweet } from "../api/tweets";
+// import { useParams } from "react-router-dom";
+// import { postFollowing } from "../api/tweets";
 
 const initTweets = {
   tweets: [],
@@ -29,6 +30,10 @@ const initUserTweets = {
 const initTweet = {
   tweets: [],
 };
+const initFollowShips = {
+  followShips: [],
+};
+
 
 export const TweetContext = createContext(initTweets);
 export const UserReplyContext = createContext(initUserReplys);
@@ -39,40 +44,15 @@ export const FollowingContext = createContext(initFollowings);
 export const OtherUserContext = createContext(initOtherUser);
 export const UserTweetContext = createContext(initUserTweets);
 export const TargetTweetContext = createContext(initUserTweets);
+// export const FollowShipContext = createContext(initFollowShips);
 
 //所有推文
 export const TweetProvider = ({ children }) => {
   const [tweets, setTweets] = useState([initTweets]);
-  // const [userTweets,setUserTweets] = useState([initUserTweets]);
-
-  const handleToggleLike = async (id) => {
-    const currentTweet = tweets.find((tweet) => tweet.id === id);
-    try {
-      await patchTweet({
-        id,
-        isLike: !currentTweet.isLike,
-      });
-      setTweets((prevTweets) => {
-        return prevTweets.map((tweet) => {
-          if (tweet.id === id) {
-            return {
-              ...tweet,
-              isLike: !tweet.isLike,
-            };
-          }
-          return tweet;
-        });
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  
   const value = {
     tweets,
     setTweets,
-    handleToggleLike,
-    // userTweets,
-    // setUserTweets,
   };
   return <TweetContext.Provider value={value}>{children}</TweetContext.Provider>;
 };
@@ -108,10 +88,26 @@ export const Top10Provider = ({ children }) => {
 };
 //追隨者
 export const FollowerProvider = ({ children }) => {
-  const [followers, setFollowers] = useState([initFollowers]);
+  const [followers, setFollowers] = useState([initFollowShips]);
+  // const [followingship, setFollowingship] = useState([initFollowers]);
+  // const param = useParams()
+
+  // const handleFollow = async () => {
+  //   try {
+  //     const followShipData = await postFollowing(param.userId);
+  //     console.log("這是正在追隨者清單",followShipData);
+  //     // setFollowingship(followShipData.find((following) => following.id === userId));
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+
   const value = {
     followers,
     setFollowers,
+    // followingship,
+    // setFollowingship,
+    // handleFollow,
   };
 
   return <FollowerContext.Provider value={value}>{children}</FollowerContext.Provider>;

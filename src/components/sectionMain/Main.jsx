@@ -1,21 +1,20 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect ,useState } from "react";
 import {
   StyledHeader,
   StyledMainContainer,
   StyledTitleH4,
   StyledContentContainer,
   StyledButtonContainer,
-  StyledPublicButton,
   StyledError,
+  StyledPublicButton,
 } from "../common/StyledGroup";
 import ContentTextarea from "../ContentTextarea";
-import TweetModal from "../Modals/TweetModal";
 import TweetsList from "../Lists/TweetsList";
 import { getTweets } from "../../api/tweets";
-import { OtherUserContext,  TweetContext } from "../../contexts/TweetContext";
+import { OtherUserContext, TweetContext } from "../../contexts/TweetContext";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
-import {  getUser } from "../../api/user";
+import { getUser } from "../../api/user";
 import styled from "styled-components";
 import avatarDefault from "../../assets/icons/avatar-default.svg";
 import { createTweet } from "../../api/tweets";
@@ -109,7 +108,6 @@ const Main = () => {
       try {
         const user = await getUser();
         setOtherUser(user);
-        // console.log('取得使用者資料',user)
       } catch (error) {
         console.error(error);
       }
@@ -151,7 +149,6 @@ const Main = () => {
         </StyledContentContainer>
         <TweetsList />
       </StyledMainContainer>
-      <TweetModal />
     </>
   );
 };

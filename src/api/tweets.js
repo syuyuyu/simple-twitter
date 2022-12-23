@@ -90,17 +90,80 @@ export const createReply = async ({comment,tweetId}) => {
 };
 
 
-//PATCH個人資料
-export const patchTweet = async (payload) => {
+//GET User的回覆串
+export const getReplys = async () => {
   try {
-    const { id, isLike } = payload;
-    const res = await axios.patch(`${baseURL}/tweets/${id}`, {
-      isLike,
+    const authToken = localStorage.getItem("authToken");
+    const userId = localStorage.getItem("userId");
+    const res = await axios.get(`${baseURL}/api/users/${userId}/replied_tweets`, {
+      headers: { Authorization: `Bearer ${authToken}` },
     });
     return res.data;
   } catch (error) {
-    console.error("[Patch Tweet failed]:", error);
+    console.error("[Get Replys failed]:", error);
   }
 };
 
+//GET otherUser的推文
+export const getOtherUserTweets = async ( userId ) => {
+  try {
+    const authToken = localStorage.getItem('authToken')
+    const res = await axios.get(`${baseURL}/api/users/${userId}/tweets`, {headers: { Authorization: `Bearer ${authToken}` } });
+    return res.data;
+  } catch (error) {
+    console.error("[Get UserTweets failed]:", error);
+  }
+};
 
+//GET otherUser的回覆串
+export const getOtherReplys = async (userId) => {
+  try {
+    const authToken = localStorage.getItem("authToken");
+    const res = await axios.get(`${baseURL}/api/users/${userId}/replied_tweets`, {
+      headers: { Authorization: `Bearer ${authToken}` },
+    });
+    return res.data;
+  } catch (error) {
+    console.error("[Get Replys failed]:", error);
+  }
+};
+
+//GET otherUser喜歡的內容
+export const getOtherLikeTweets = async (userId) => {
+  try {
+    const authToken = localStorage.getItem("authToken");
+    const res = await axios.get(`${baseURL}/api/users/${userId}/likes`, {
+      headers: { Authorization: `Bearer ${authToken}` },
+    });
+    return res.data;
+  } catch (error) {
+    console.error("[Get Tweets failed]:", error);
+  }
+};
+
+//POST 正在追隨
+export const postFollowing = async (userId) => {
+  try {
+    const authToken = localStorage.getItem("authToken");
+    const res = await axios.post(
+      `${baseURL}/api/followships`,
+      { id: userId },
+      {headers: { Authorization: `Bearer ${authToken}` }}
+    );
+    return res.data;
+  } catch (error) {
+    console.error("[Get Tweets failed]:", error);
+  }
+};
+//DELETE 取消追隨
+export const postUnFollow = async (followingId) => {
+  try {
+    const authToken = localStorage.getItem("authToken");
+    const res = await axios.delete(`${baseURL}/api/followships/${followingId}`, {
+      headers: { Authorization: `Bearer ${authToken}` },
+    });
+    return res.data;
+  } catch (error) {
+    console.error("[Get Tweets failed]:", error);
+  }
+};

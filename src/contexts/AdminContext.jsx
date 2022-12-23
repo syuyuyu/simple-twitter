@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import jwt_decode from "jwt-decode";
-import { checkPermission, login } from "../api/admin";
+import { checkAdminPermission, login } from "../api/admin";
 
 // const initUsers = {
 //   users: [],
@@ -34,7 +34,7 @@ export const AdminProvider = ({ children }) => {
         setPayload(null);
         return;
       }
-      const result = await checkPermission(token);
+      const result = await checkAdminPermission(token);
       if (result) {
         setIsAuthenticated(true);
         const tempPayload = jwt_decode(token);

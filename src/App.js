@@ -85,19 +85,20 @@ function App() {
                                       <Route path='follower' element={<FollowerList />} />
                                       <Route path='following' element={<FollowingList />} />
                                     </Route>
-                                    <Route path=':userIid' element={<OtherUser />}>
+                                    <Route path=':userId' element={<OtherUser />}>
                                       <Route path='tweets' element={<UserTweetsList />} />
                                       <Route path='' element={<UserTweetsList />} />
                                       <Route path='replys' element={<UserReplysList />} />
                                       <Route path='likes' element={<LikeTweetsList />} />
                                     </Route>
+                                    <Route
+                                      path='reply/:replyId'
+                                      element={<Reply replyModal={replyModal} toggleReplyModal={toggleReplyModal} />}
+                                    />
 
                                     <Route path='setting' element={<Setting />} />
                                   </Route>
-                                  <Route
-                                    path='reply'
-                                    element={<Reply replyModal={replyModal} toggleReplyModal={toggleReplyModal} />}
-                                  />
+
                                   <Route path='home' element={<HomePage />} />
                                   <Route path='admin/*' element={<AdminMainPage />}>
                                     <Route path='main' element={<AdminTweetsList />} />
