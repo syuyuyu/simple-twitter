@@ -2,15 +2,10 @@ import { LogoStyle } from './common/authstyled';
 import { StyledSidebarContainer } from "../components/common/StyledGroup";
 import SidebarItem from './SidebarItem';
 import SidebarButton from './SidebarButton'
-// import EditModal from './Modals/EditModal';
 import TweetModal from './Modals/TweetModal';
-// import EditModal from './Modals/EditModal';
-import { useNavigate } from 'react-router';
 
 
 const SidebarContainer = () => {
-  const navigate = useNavigate()
-
 
   return (
     <>

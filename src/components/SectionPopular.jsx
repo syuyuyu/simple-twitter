@@ -24,7 +24,7 @@ const SectionPopular = () => {
       }
     };
     getUersAsync();
-  }, []);
+  }, [setTop10List]);
 
   return (
     <StyledSectionPopular>

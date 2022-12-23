@@ -1,6 +1,7 @@
 {
-  "name": "simple_twitter",
+  "name": "simple-twitter",
   "version": "0.1.0",
+  "homepage": "https://syuyuyu.github.io/simple-twitter",
   "private": true,
   "dependencies": {
     "@fontsource/montserrat": "^4.5.13",
@@ -13,6 +14,7 @@
     "buffer": "^6.0.3",
     "clsx": "^1.2.1",
     "dayjs": "^1.10.6",
+    "gh-pages": "^4.0.0",
     "json-server": "^0.17.0",
     "jwt-decode": "^3.1.2",
     "react": "^18.2.0",
@@ -28,7 +30,9 @@
     "dev-server": "json-server --watch db.json --port 3001",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [

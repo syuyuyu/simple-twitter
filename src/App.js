@@ -68,7 +68,7 @@ function App() {
                             <OtherUserProvider>
                               <UserTweetProvider>
                                 <Routes>
-                                  <Route path='' element={<HomePage />} />
+                                  <Route path='*' element={<HomePage />} />
                                   <Route path='login' element={<LoginPage />} />
                                   <Route path='regist' element={<RegistPage />} />
                                   <Route path='user' element={<MainPage />}>

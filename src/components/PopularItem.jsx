@@ -31,8 +31,6 @@ const Avatar = styled.div`
 
 
 const PopularItem = ({ account, avatar, followerCount, followingId, followingUser, isFollowed }) => {
-  
-
   const { id, name } = { ...followingUser };
   const navigate = useNavigate();
 // const{followingship,setFollowingship,handleFollow} = useContext(FollowShipContext)
