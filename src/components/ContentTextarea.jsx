@@ -21,7 +21,7 @@ const ContentTextarea = ({ inputValue, placeholder, onChange }) => {
     <>
       <StyledContainer>
         <StyledTextarea
-          type={"text"}
+          type='text'
           value={inputValue}
           placeholder={placeholder}
           maxLength={140}

@@ -26,7 +26,9 @@ const initOtherUser = {
 const initUserTweets = {
   usertweets: [],
 };
-
+const initTweet = {
+  tweets: [],
+};
 
 export const TweetContext = createContext(initTweets);
 export const UserReplyContext = createContext(initUserReplys);
@@ -36,6 +38,7 @@ export const FollowerContext = createContext(initFollowers);
 export const FollowingContext = createContext(initFollowings);
 export const OtherUserContext = createContext(initOtherUser);
 export const UserTweetContext = createContext(initUserTweets);
+export const TargetTweetContext = createContext(initUserTweets);
 
 //所有推文
 export const TweetProvider = ({ children }) => {
@@ -142,4 +145,15 @@ export const UserTweetProvider = ({ children }) => {
   };
 
   return <UserTweetContext.Provider value={value}>{children}</UserTweetContext.Provider>;
+};
+
+//單篇推文內容
+export const TargetTweetProvider = ({ children }) => {
+  const [targetTweet, setTargetTweet] = useState([initTweet]);
+  const value = {
+    targetTweet,
+    setTargetTweet,
+  };
+
+  return <TargetTweetContext.Provider value={value}>{children}</TargetTweetContext.Provider>;
 };

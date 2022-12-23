@@ -1,6 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import { StyledAvatarDefault } from "./common/StyledGroup";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+import "dayjs/locale/zh-tw";
+
 
 const ItemContainer = styled.div`
   display: flex;
@@ -61,27 +65,28 @@ color:var(--color-secondary);
   margin-right: 3px;
 `;
 
-const ReplyTweet = () => {
+const ReplyTweet = ({tweet}) => {
+  dayjs.extend(relativeTime);
+  const {account,avatar,name}={...tweet.User}
+
   return (
     <ItemContainer style={{ border: "none" }}>
       <StyledAvatarDefault style={{ margin: "0px" }}>
-        <div className='avatar'></div>
+        <div className='avatar' style={{ backgroundImage:`url('${avatar}')`,borderRadius:'50%'}}></div>
       </StyledAvatarDefault>
       <TextContainer>
         <RowContainer>
-          <Name>Apple</Name>
-          <Account>@apple · 3小時</Account>
+          <Name>{name}</Name>
+          <Account>@{account} · {dayjs(`${tweet.updatedAt}`).locale("zh-tw").fromNow()}</Account>
         </RowContainer>
         <RowContainer>
           <TweetText>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt non optio ipsam amet minima,
-            perspiciatis, autem eaque iure voluptatibus odio beata! perspiciatis, autem eaque iure volupt
-            
+            {tweet.description}
           </TweetText>
         </RowContainer>
         <RowContainer style={{ margin: "8px 0", padding: "3px 0" }}>
           <Span>回覆給</Span>
-          <Span style={{ color: "var(--color-main)" }}>@Mitsubishi</Span>
+          <Span style={{ color: "var(--color-main)" }}>@{account}</Span>
         </RowContainer>
       </TextContainer>
     </ItemContainer>

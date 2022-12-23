@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext ,useState } from "react";
 import styled from "styled-components";
 import replyIcon from "../../assets/icons/reply.svg";
 import unLikeIcon from "../../assets/icons/like.svg";
@@ -10,7 +10,7 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/zh-tw";
 import clsx from "clsx";
-import { TweetContext } from "../../contexts/TweetContext";
+import { TweetContext,TargetTweetContext } from "../../contexts/TweetContext";
 
 const ItemContainer = styled.div`
   display: flex;
@@ -124,10 +124,17 @@ const TweetItem = ({
   replyCount,
 }) => {
   const { toggleReplyModal } = useContext(ReplyModalContext);
-  const { handleToggleLike } = useContext(TweetContext);
+  const { handleToggleLike} = useContext(TweetContext);
   const navigate = useNavigate();
   dayjs.extend(relativeTime);
   const { account, avatar, id, name } = {...tweet.User};
+  const {setTargetTweet} = useContext(TargetTweetContext);
+
+  const handleClick=(data)=>{
+    setTargetTweet(data)
+    // console.log('tweet Item :',targetTweet)
+    toggleReplyModal()
+  }
 
   return (
     <>
@@ -148,7 +155,7 @@ const TweetItem = ({
           <RowContainer>
             <IconsContainer>
               <IconContainer>
-                <StyledIcon className='replyIcon' onClick={toggleReplyModal}></StyledIcon>
+                <StyledIcon className='replyIcon' onClick={()=>handleClick(tweet)}></StyledIcon>
                 <p>{replyCount}</p>
               </IconContainer>
               <IconContainer>

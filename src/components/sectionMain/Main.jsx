@@ -52,33 +52,6 @@ const Main = () => {
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
-  //取得全部推文
-  useEffect(() => {
-    const getTweetsAsync = async () => {
-      try {
-        const tweets = await getTweets();
-        setTweets(tweets.map((tweet) => ({ ...tweet })));
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    getTweetsAsync();
-  }, [setTweets]);
-
-  //GET 個人資料
-  useEffect(() => {
-    const getUserAsync = async () => {
-      try {
-        const user = await getUser();
-        setOtherUser(user);
-        console.log('取得使用者資料',user)
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    getUserAsync();
-  }, [setOtherUser]);
-
 
   //上傳推文
   const handleSubmit = async () => {
@@ -94,7 +67,7 @@ const Main = () => {
     try {
       setIsUpdating(true)
       const res = await createTweet(inputValue);
-      console.log('res:',res);
+      // console.log('res:',res);
       if(res){
         await Swal.fire({
           title: "資料儲存中",
@@ -117,6 +90,32 @@ const Main = () => {
       }
   }
 
+  //取得全部推文
+  useEffect(() => {
+    const getTweetsAsync = async () => {
+      try {
+        const tweets = await getTweets();
+        setTweets(tweets.map((tweet) => ({ ...tweet })));
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getTweetsAsync();
+  }, [setTweets]);
+
+  //GET 個人資料
+  useEffect(() => {
+    const getUserAsync = async () => {
+      try {
+        const user = await getUser();
+        setOtherUser(user);
+        // console.log('取得使用者資料',user)
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getUserAsync();
+  }, [setOtherUser]);
 
   //身分驗證
   useEffect(() => {
