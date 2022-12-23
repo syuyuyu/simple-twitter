@@ -111,6 +111,7 @@ const TweetModal = () => {
         timer: 1000,
         position: "top",
       });
+      return;
     };
     setIsUpload(true)
     const description = inputValue

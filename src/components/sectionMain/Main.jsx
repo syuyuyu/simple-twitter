@@ -54,6 +54,16 @@ const Main = () => {
 
   //上傳推文
   const handleSubmit = async () => {
+    if(!inputValue){
+      Swal.fire({
+        title: "推文不可為空白",
+        icon: "error",
+        showConfirmButton: false,
+        timer: 1000,
+        position: "top",
+      });
+      return;
+    };
     if(isUpdating){
       Swal.fire({
         title: "上傳中請稍等",
