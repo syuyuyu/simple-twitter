@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import jwt_decode from "jwt-decode";
-import { checkPermission, login } from "../api/auth";
+import { checkAdminPermission, login } from "../api/admin";
 
 // const initUsers = {
 //   users: [],
@@ -23,7 +23,7 @@ export const useAdmin = () => useContext(AdminContext);
 export const AdminProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [payload, setPayload] = useState(null);
-  const [getUsers,setGetUsers] = useState(null);
+  const [getUsers, setGetUsers] = useState(null);
   const { pathname } = useLocation();
 
   useEffect(() => {
@@ -34,7 +34,7 @@ export const AdminProvider = ({ children }) => {
         setPayload(null);
         return;
       }
-      const result = await checkPermission(token);
+      const result = await checkAdminPermission(token);
       if (result) {
         setIsAuthenticated(true);
         const tempPayload = jwt_decode(token);
@@ -85,15 +85,3 @@ export const AdminProvider = ({ children }) => {
     </AdminContext.Provider>
   );
 };
-
-
-// export const GetUsersContext = createContext();
-// export const GetUsersProvider = ({children})=>{
-//   const [getUsers,setGetUsers] = useState()
-//   const value = {
-//     getUsers,setGetUsers
-//   };
-//   return(
-//     <GetUsersContext.Provider value={value}>{children}</GetUsersContext.Provider>
-//   )
-// }

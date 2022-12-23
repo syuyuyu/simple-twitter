@@ -1,5 +1,5 @@
 import React from "react";
-import { Navigate } from "react-router";
+import { useNavigate } from "react-router";
 import styled from "styled-components";
 import {
   StyledStyledNameContainer,
@@ -17,7 +17,6 @@ const AvatarContainer = styled.div`
     cursor: pointer;
   }
 `;
-
 const Avatar = styled.div`
   width: 50px;
   height: 50px;
@@ -30,22 +29,30 @@ const Avatar = styled.div`
   }
 `;
 
+
 const PopularItem = ({ account, avatar, followerCount, followingId, followingUser, isFollowed }) => {
+  
+
   const { id, name } = { ...followingUser };
+  const navigate = useNavigate();
+// const{followingship,setFollowingship,handleFollow} = useContext(FollowShipContext)
+
   return (
     <>
       <StyledPopularItem>
-        <AvatarContainer>
+        <AvatarContainer onClick={() => navigate(`/user/${id}`)}>
           <Avatar className='avatar' style={{ backgroundImage: `url('${avatar}')` }}></Avatar>
         </AvatarContainer>
-        <StyledStyledNameContainer>
+        <StyledStyledNameContainer onClick={() => navigate(`/user/${id}`)}>
           <StyledName>{name}</StyledName>
           <StyledAccount>@{account}</StyledAccount>
         </StyledStyledNameContainer>
         {isFollowed ? (
-          <StyledPublicButton>正在跟隨</StyledPublicButton>
+          <StyledPublicButton >正在跟隨</StyledPublicButton>
         ) : (
-          <StyledPublicButton className='active'>跟隨</StyledPublicButton>
+          <StyledPublicButton className='active' >
+            跟隨
+          </StyledPublicButton>
         )}
       </StyledPopularItem>
     </>

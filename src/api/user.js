@@ -16,6 +16,7 @@ export const getUser = async () => {
     console.error("[Get User failed]:", error);
   }
 };
+
 //PUT 使用者個人資料
 export const putUser = async ({
     account,
@@ -81,7 +82,7 @@ export const getFollowers = async () => {
   }
 };
 
-//GET正在追蹤名單
+//GET 正在追蹤 名單
 export const getFollowings = async () => {
   try {
     const authToken = localStorage.getItem("authToken");
@@ -96,10 +97,9 @@ export const getFollowings = async () => {
   }
 };
 //GET 其他使用者推文
-export const getOtherUserTweets = async () => {
+export const getOtherUserTweets = async (userId) => {
   try {
     const authToken = localStorage.getItem("authToken");
-    const userId = localStorage.getItem("userId");
     const res = await axios.get(`${baseURL}/api/users/${userId}`, {
       headers: { Authorization: `Bearer ${authToken}` },
     });
@@ -111,7 +111,7 @@ export const getOtherUserTweets = async () => {
 };
 
 //GET 其他使用者資料
-export const getOtherUser = async (userId) => {
+export const getOtherUser = async ( userId ) => {
   try {
     const authToken = localStorage.getItem("authToken");
     const res = await axios.get(`${baseURL}/api/users/${userId}`, {
