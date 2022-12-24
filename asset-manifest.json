@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/simple-twitter/static/css/main.61258706.css",
-    "main.js": "/simple-twitter/static/js/main.ae5752cb.js",
+    "main.js": "/simple-twitter/static/js/main.8834ac6b.js",
     "static/js/787.aa94361f.chunk.js": "/simple-twitter/static/js/787.aa94361f.chunk.js",
     "static/media/noto-sans-tc-all-400-normal.woff": "/simple-twitter/static/media/noto-sans-tc-all-400-normal.c9b8651462a094eafc68.woff",
     "static/media/noto-sans-tc-111-400-normal.woff2": "/simple-twitter/static/media/noto-sans-tc-111-400-normal.fc8b0f10a0b780a10f0c.woff2",
@@ -135,11 +135,11 @@
     "static/media/message-active.svg": "/simple-twitter/static/media/message-active.c5b52c8a676b5398664803e45808dd02.svg",
     "static/media/like-active.svg": "/simple-twitter/static/media/like-active.5102054ff3b79583b714af97d170990f.svg",
     "main.61258706.css.map": "/simple-twitter/static/css/main.61258706.css.map",
-    "main.ae5752cb.js.map": "/simple-twitter/static/js/main.ae5752cb.js.map",
+    "main.8834ac6b.js.map": "/simple-twitter/static/js/main.8834ac6b.js.map",
     "787.aa94361f.chunk.js.map": "/simple-twitter/static/js/787.aa94361f.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.61258706.css",
-    "static/js/main.ae5752cb.js"
+    "static/js/main.8834ac6b.js"
   ]
 }
