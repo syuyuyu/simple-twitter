@@ -85,8 +85,9 @@ const Main = () => {
           timer: 1000,
           position: "top",
         });
+        setInputValue('')
         setIsUpdating(false)
-        return setInputValue('')
+        console.log('inputValue :',inputValue)
       }
       }catch(err){
         Swal.fire({
@@ -117,6 +118,7 @@ const Main = () => {
     const getUserAsync = async () => {
       try {
         const user = await getUser();
+        // console.log('user',user)
         setOtherUser(user);
       } catch (error) {
         console.error(error);

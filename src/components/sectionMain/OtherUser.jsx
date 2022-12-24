@@ -136,7 +136,7 @@ const OtherUser = () => {
       try {
         const likeTweets = await getOtherLikeTweets(param.userId);
         setLikeTweets(likeTweets.map((tweet) => ({ ...tweet })));
-        console.log("其他使用者的LikeTweets",likeTweets);
+        // console.log("其他使用者的LikeTweets",likeTweets);
       } catch (error) {
         console.error(error);
       }

@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const baseURL = "https://nameless-fortress-45508.herokuapp.com";
+// const baseURL = "https://nameless-fortress-45508.herokuapp.com";
+const baseURL = "https://protected-journey-43760.herokuapp.com";
 
 //GET 全部正在追蹤推文
 export const getTweets = async () => {
@@ -48,6 +49,20 @@ export const getLikeTweets = async () => {
     return res.data;
   } catch (error) {
     console.error("[Get Tweets failed]:", error);
+  }
+};
+
+//GET 特定推文回覆串
+export const getTweetReplys = async (tweetId) => {
+  try {
+    const authToken = localStorage.getItem("authToken");
+    const res = await axios.get(`${baseURL}/api/tweets/${tweetId}/replies`, {
+      headers: { Authorization: `Bearer ${authToken}` },
+    });
+    // console.log('getTweetReplys:',res.data)
+    return res.data;
+  } catch (error) {
+    console.error("[Get TweetReplys failed]:", error);
   }
 };
 

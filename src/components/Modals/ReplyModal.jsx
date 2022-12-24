@@ -119,14 +119,14 @@ const ReplyModal = () => {
       return;
     };
     setIsUpload(true)
-      console.log('reply modal id:',id)
-      console.log('reply modal inputValue:',inputValue)
+      // console.log('reply modal id:',id)
+      // console.log('reply modal inputValue:',inputValue)
     try{
       const comment = inputValue
       const tweetId = id
       const res = await createReply({comment,tweetId})
       // console.log('reply modal id:',id)
-      console.log('reply res:',res)
+      // console.log('reply res:',res)
       if(res){
         await Swal.fire({
           title: "資料儲存中",
