@@ -16,7 +16,7 @@ import TweetReplysList from "../Lists/TweetReplysList";
 import ReplyModal from "../Modals/ReplyModal";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
-import { getTargetTweet, postLike, postUnLike } from "../../api/tweets";
+import { getTargetTweet } from "../../api/tweets";
 import { TargetTweetContext } from "../../contexts/TweetContext";
 import dayjs from "dayjs";
 import { ReplyModalContext } from "../../contexts/ModalContext";
@@ -121,8 +121,8 @@ const Reply = () => {
   // const tweetIsLike = targetTweet.isLiked
   const { targetTweet, setTargetTweet } = useContext(TargetTweetContext);
   const { toggleReplyModal } = useContext(ReplyModalContext);
-  const [activeLike, setActiveLike] = useState("");
-  const [LikeCount, setLikeCount] = useState(targetTweet.likedCount);
+  const [activeLike] = useState("");
+  // const [LikeCount, setLikeCount] = useState(targetTweet.likedCount);
   const { id, avatar, account, name } = { ...targetTweet.User };
   // console.log("這是isLike>>>", targetTweet.isLiked);
   // console.log("這是activeLike>>>", activeLike);
@@ -130,36 +130,36 @@ const Reply = () => {
 
 
 
-  // //POST 按讚
-  const handleLike = async ({activeLike,tweetId}) => {
-    const UserId = localStorage.getItem("userId");
-    if (UserId === id) {
-      return;
-    }
-    try {
-      const res = await postLike(targetTweet.id);
-      console.log("POST 按讚", res);
-      if (activeLike) {
-        setActiveLike(true);
-        setLikeCount(LikeCount + 1);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  // // //POST 按讚
+  // const handleLike = async ({activeLike,tweetId}) => {
+  //   const UserId = localStorage.getItem("userId");
+  //   if (UserId === id) {
+  //     return;
+  //   }
+  //   try {
+  //     const res = await postLike(targetTweet.id);
+  //     console.log("POST 按讚", res);
+  //     if (activeLike) {
+  //       setActiveLike(true);
+  //       setLikeCount(LikeCount + 1);
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   
-  //POST 取消讚
-  const handleUnLike = async () => {
-    try {
-      const res = await postUnLike(params.replyId);
-      console.log("POST 取消讚", res);
-      if (!activeLike) {
-        setActiveLike(false);
-        setLikeCount(LikeCount + 1);
-      }
-    } catch (error) {}
-  };
+  // //POST 取消讚
+  // const handleUnLike = async () => {
+  //   try {
+  //     const res = await postUnLike(params.replyId);
+  //     console.log("POST 取消讚", res);
+  //     if (!activeLike) {
+  //       setActiveLike(false);
+  //       setLikeCount(LikeCount + 1);
+  //     }
+  //   } catch (error) {}
+  // };
 
   // // POST 取消讚
   // const handleUnLike = async ({activeLike,tweetId}) => {
@@ -242,12 +242,7 @@ const Reply = () => {
           <TweetContainer style={{ border: "none" }}>
             <div className='icon-wrapper'>
               <div className='icon reply' onClick={toggleReplyModal}></div>
-              {activeLike ? (
-                <div className='icon like active' onClick={handleUnLike}></div>
-              ) : (
-                <div className='icon like' onClick={handleLike}></div>
-              )}
-              {/* <div className={ activeLike? 'icon like active' : 'icon like'}  onClick={'handleToggle'}></div> */}
+              <div className={ activeLike? 'icon like active' : 'icon like'}  onClick={'handleToggle'}></div>
             </div>
           </TweetContainer>
           <TweetReplysList />
