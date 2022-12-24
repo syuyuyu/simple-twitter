@@ -21,7 +21,7 @@ import { TargetTweetContext } from "../../contexts/TweetContext";
 import dayjs from "dayjs";
 import { ReplyModalContext } from "../../contexts/ModalContext";
 import { getTweetReplys } from "../../api/tweets";
-import { TweetReplysContext } from "../../contexts/TweetContext"; 
+import { TweetReplysContext } from "../../contexts/TweetContext";
 
 const TweetContainer = styled.div`
   margin: 0 16px;
@@ -121,10 +121,9 @@ const Reply = () => {
   const [activeLike, setActiveLike] = useState(targetTweet.isLiked);
   const [LikeCount, setLikeCount] = useState(targetTweet.likedCount);
   const params = useParams();
-  console.log("isLike",targetTweet.isLiked);
+  console.log("isLike", targetTweet.isLiked);
   console.log("targetTweet", targetTweet.id);
-  const {setTweetReplyList} = useContext(TweetReplysContext);
-
+  const { setTweetReplyList } = useContext(TweetReplysContext);
 
   //GET 單篇推文資料
   useEffect(() => {
@@ -138,7 +137,7 @@ const Reply = () => {
       }
     };
     getTargetTweetAsync();
-  }, []);
+  }, [setTargetTweet, param.replyId, targetTweet]);
 
   //POST 按讚
   const handleLike = async (isLiked) => {
@@ -173,23 +172,21 @@ const Reply = () => {
     }
   }, [navigate, isAuthenticated]);
 
-
   //取得特定貼文回覆串
-useEffect(()=>{
-  const getReplys=async()=>{
-    try{
-      // console.log(params)
-      const res = await getTweetReplys(params.replyId)
-      // console.log('tweetITem replyList tweet id 824:',res);
-      setTweetReplyList(res.map((tweet)=>({ ...tweet })))
-      // console.log('tweetList',tweetReplyList)
-    }catch(err){
-      console.error('tweetITem replyList error :',err)
-    }
-  }
-  getReplys();
-},[params.replyId,setTweetReplyList])
-
+  useEffect(() => {
+    const getReplys = async () => {
+      try {
+        // console.log(params)
+        const res = await getTweetReplys(params.replyId);
+        // console.log('tweetITem replyList tweet id 824:',res);
+        setTweetReplyList(res.map((tweet) => ({ ...tweet })));
+        // console.log('tweetList',tweetReplyList)
+      } catch (err) {
+        console.error("tweetITem replyList error :", err);
+      }
+    };
+    getReplys();
+  }, [params.replyId, setTweetReplyList]);
 
   return (
     <>
