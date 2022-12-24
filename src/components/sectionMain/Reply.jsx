@@ -99,7 +99,7 @@ const Time = styled.p`
 const Reply = ({ replyModal, toggleReplyModal }) => {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
-  const {tweetReplyList,setTweetReplyList} = useContext(TweetReplysContext);
+  const {setTweetReplyList} = useContext(TweetReplysContext);
   const params = useParams();
 
 
@@ -138,7 +138,7 @@ useEffect(()=>{
     }
   }
   getReplys();
-},[navigate])
+},[params.replyId,setTweetReplyList])
 
 
   return (

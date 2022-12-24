@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState  } from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import replyIcon from "../../assets/icons/reply.svg";
 import unLikeIcon from "../../assets/icons/like.svg";
@@ -10,8 +10,8 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/zh-tw";
 import clsx from "clsx";
-import { TweetContext,TargetTweetContext,TweetReplysContext } from "../../contexts/TweetContext";
-import { getTweetReplys } from "../../api/tweets";
+import { TweetContext,TargetTweetContext } from "../../contexts/TweetContext";
+// import { getTweetReplys } from "../../api/tweets";
 
 const ItemContainer = styled.div`
   display: flex;
