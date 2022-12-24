@@ -61,7 +61,7 @@ export const AuthProvider = ({ children }) => {
               password: data.password,
               checkPassword: data.checkPassword,
             });
-            const { success, token, user } = { res };
+            const { token, user } = { res };
             const tempPayload = jwt_decode(token);
             if (res) {
               setPayload(tempPayload);
