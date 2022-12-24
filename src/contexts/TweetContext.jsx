@@ -160,7 +160,7 @@ export const TargetTweetProvider = ({ children }) => {
 
 //特定推文回覆串
 export const TweetReplysProvider = ({ children }) => {
-  const [tweetReplyList, setTweetReplyList] = useState([initTweets]);
+  const [tweetReplyList, setTweetReplyList] = useState([initTweetReplys]);
   
   const value = {
     tweetReplyList,
