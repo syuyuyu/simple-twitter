@@ -34,11 +34,17 @@ const PopularItem = ({ account, avatar, followerCount, followingId, followingUse
   const { id, name } = { ...followingUser };
   const navigate = useNavigate();
 // const{followingship,setFollowingship,handleFollow} = useContext(FollowShipContext)
+const userId = localStorage.getItem("userId");
+  const handleTargetUser = () => {
+    if (id === userId) {
+      return;
+    } navigate(`/user/${id}`);
+  };
 
   return (
     <>
       <StyledPopularItem>
-        <AvatarContainer onClick={() => navigate(`/user/${id}`)}>
+        <AvatarContainer onClick={handleTargetUser}>
           <Avatar className='avatar' style={{ backgroundImage: `url('${avatar}')` }}></Avatar>
         </AvatarContainer>
         <StyledStyledNameContainer onClick={() => navigate(`/user/${id}`)}>

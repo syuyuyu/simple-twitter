@@ -8,9 +8,10 @@ const UserTweetsList = () => {
 
   return (
     <StyledTweetsList>
-      {userTweets.map((tweet) => {
+      {userTweets.map((tweet,index) => {
         return (
           <TweetItem
+            key={index}
             id={tweet.id}
             tweet={tweet}
             time={tweet.updatedAt}

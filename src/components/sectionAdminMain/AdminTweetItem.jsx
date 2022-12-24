@@ -87,32 +87,30 @@ const AdminTweetItem = ({
   }) => {
   dayjs.extend(relativeTime);
   const {account,avatar,name} = {...tweet.User}
-
-
-// tweetItem
+  const StringLength = description.length;
   return (
     <>
       <ItemContainer key={id}>
-        <StyledAvatarDefault style={{ margin: "0px"}} >
-          <AvatarImg style={{ backgroundImage:`url('${avatar}')`}}></AvatarImg>
+        <StyledAvatarDefault style={{ margin: "0px" }}>
+          <AvatarImg style={{ backgroundImage: `url('${avatar}')` }}></AvatarImg>
         </StyledAvatarDefault>
         <TextContainer>
           <RowContainer>
             <Container>
               <Name>{name}</Name>
-              <Account>@{account} · {dayjs(`${time}`).locale("zh-tw").fromNow()}</Account>
+              <Account>
+                @{account} · {dayjs(`${time}`).locale("zh-tw").fromNow()}
+              </Account>
             </Container>
-            <StyledRemoveIcon onClick={()=>handleRemoveClick?.(id)}></StyledRemoveIcon>
+            <StyledRemoveIcon onClick={() => handleRemoveClick?.(id)}></StyledRemoveIcon>
           </RowContainer>
           <RowContainer>
-            <TweetText>
-              {description}
-            </TweetText>
+            <TweetText>{StringLength > 50 ? `${description?.substring(0, 50)} ...` : description}</TweetText>
           </RowContainer>
         </TextContainer>
       </ItemContainer>
     </>
-  )
+  );
 }
 
 export default AdminTweetItem;

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import styled from "styled-components";
 import {
   StyledAccount,
@@ -16,7 +16,7 @@ import TweetReplysList from "../Lists/TweetReplysList";
 import ReplyModal from "../Modals/ReplyModal";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
-import { getTargetTweet, postLike } from "../../api/tweets";
+import { getTargetTweet, postLike, postUnLike } from "../../api/tweets";
 import { TargetTweetContext } from "../../contexts/TweetContext";
 import dayjs from "dayjs";
 import { ReplyModalContext } from "../../contexts/ModalContext";
@@ -114,56 +114,71 @@ const Time = styled.p`
 const Reply = () => {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
-  const param = useParams();
-  const { targetTweet, setTargetTweet } = useContext(TargetTweetContext);
-  const { id, avatar, account, name } = { ...targetTweet.User };
-  const { toggleReplyModal } = useContext(ReplyModalContext);
-  const [activeLike, setActiveLike] = useState(targetTweet.isLiked);
-  const [LikeCount, setLikeCount] = useState(targetTweet.likedCount);
   const params = useParams();
-  console.log("isLike", targetTweet.isLiked);
-  console.log("targetTweet", targetTweet.id);
+  const { targetTweet, setTargetTweet } = useContext(TargetTweetContext);
+  const { toggleReplyModal } = useContext(ReplyModalContext);
+  // const [activeLike, setActiveLike] = useState("");
+  // const [LikeCount, setLikeCount] = useState(targetTweet.likedCount);
   const { setTweetReplyList } = useContext(TweetReplysContext);
+  const { id, avatar, account, name } = { ...targetTweet.User };
+  // console.log("這是isLike>>>", targetTweet.isLiked);
+  // console.log("這是activeLike>>>", activeLike);
 
   //GET 單篇推文資料
   useEffect(() => {
     const getTargetTweetAsync = async () => {
       try {
-        const tweet = await getTargetTweet(param.replyId);
+        const tweet = await getTargetTweet(params.replyId);
         setTargetTweet(tweet);
-        console.log("單篇推文", targetTweet);
+        return
       } catch (error) {
         console.error(error);
       }
     };
     getTargetTweetAsync();
-  }, [setTargetTweet, param.replyId, targetTweet]);
+  }, [setTargetTweet, params.replyId]);
+
+  //取得特定貼文回覆串
+  useEffect(() => {
+    const getReplys = async () => {
+      try {
+        const res = await getTweetReplys(params.replyId);
+        setTweetReplyList(res.map((tweet) => ({ ...tweet })));
+      } catch (err) {
+        console.error("tweetITem replyList error :", err);
+      }
+    };
+    getReplys();
+  }, [params.replyId, setTweetReplyList]);
 
   //POST 按讚
-  const handleLike = async (isLiked) => {
+  const handleLike = async () => {
     const UserId = localStorage.getItem("userId");
-    if (UserId === id) {
+    if (UserId === "id") {
       return;
     }
     try {
-      const success = await postLike(targetTweet.id);
-      console.log("POST 按讚", success);
-      if (isLiked) {
-        setActiveLike(true);
-        setLikeCount(LikeCount + 1);
-      }
+      const res = await postLike(params.replyId);
+      console.log("POST 按讚", res);
+      // if (isLiked) {
+      //   setActiveLike(true);
+      //   setLikeCount(LikeCount + 1);
+      // }
     } catch (error) {
       console.error(error);
     }
   };
   //POST 取消讚
-  // const handleUnLike = async () => {
-  //   try {
-  //     const abc = await postUnLike(params.replyId);
-  //     setActiveLike(false);
-  //     setLikeCount(LikeCount - 1);
-  //   } catch (error) {}
-  // };
+  const handleUnLike = async () => {
+    try {
+      const res = await postUnLike(params.replyId);
+      console.log("POST 取消讚", res);
+      // if (!isLiked) {
+      //   setActiveLike(false);
+      //   setLikeCount(LikeCount + 1);
+      // }
+    } catch (error) {}
+  };
 
   //身分驗證
   useEffect(() => {
@@ -171,22 +186,6 @@ const Reply = () => {
       navigate("/");
     }
   }, [navigate, isAuthenticated]);
-
-  //取得特定貼文回覆串
-  useEffect(() => {
-    const getReplys = async () => {
-      try {
-        // console.log(params)
-        const res = await getTweetReplys(params.replyId);
-        // console.log('tweetITem replyList tweet id 824:',res);
-        setTweetReplyList(res.map((tweet) => ({ ...tweet })));
-        // console.log('tweetList',tweetReplyList)
-      } catch (err) {
-        console.error("tweetITem replyList error :", err);
-      }
-    };
-    getReplys();
-  }, [params.replyId, setTweetReplyList]);
 
   return (
     <>
@@ -224,8 +223,8 @@ const Reply = () => {
           <TweetContainer style={{ border: "none" }}>
             <div className='icon-wrapper'>
               <div className='icon reply' onClick={toggleReplyModal}></div>
-              {activeLike ? (
-                <div className='icon like active'></div>
+              {targetTweet.isLiked ? (
+                <div className='icon like active' onClick={handleUnLike}></div>
               ) : (
                 <div className='icon like' onClick={handleLike}></div>
               )}

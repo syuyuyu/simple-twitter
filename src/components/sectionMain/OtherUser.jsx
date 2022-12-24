@@ -86,7 +86,6 @@ const OtherUser = () => {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
   const param = useParams();
-  // const { otherUser, setOtherUser } = useContext(OtherUserContext);
   const { setUserTweets } = useContext(UserTweetContext);
   const { setUserReplys } = useContext(UserReplyContext);
   const { setLikeTweets } = useContext(LikeTweetContext);
@@ -98,6 +97,7 @@ const OtherUser = () => {
       try {
         const user = await getOtherUser(param.userId);
         setPersonalInfo(user);
+        return
       } catch (error) {
         console.error(error);
       }
@@ -111,6 +111,7 @@ const OtherUser = () => {
       try {
         const userTweets = await getOtherUserTweets(param.userId);
         setUserTweets(userTweets.map((userTweet) => ({ ...userTweet })));
+        return
       } catch (error) {
         console.error(error);
       }
@@ -124,19 +125,20 @@ const OtherUser = () => {
       try {
         const userReplys = await getOtherReplys(param.userId);
         setUserReplys(userReplys.map((tweet) => ({ ...tweet })));
+        return
       } catch (error) {
         console.error(error);
       }
     };
     getUserReplysAsync();
   }, [setUserReplys, param.userId]);
-
+//GET otherUser喜歡的內容
   useEffect(() => {
     const getUserLikeTweetsAsync = async () => {
       try {
         const likeTweets = await getOtherLikeTweets(param.userId);
         setLikeTweets(likeTweets.map((tweet) => ({ ...tweet })));
-        // console.log("其他使用者的LikeTweets",likeTweets);
+        return
       } catch (error) {
         console.error(error);
       }

@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
 import avatarDefault from "../../assets/icons/avatar-default.svg";
 import backIcon from "../../assets/icons/back.svg";
+import backGround from '../../assets/images/defaultCover.png'
 
 const StyledGroupContainer = styled.div`
   max-width: 1140px;
@@ -304,6 +305,7 @@ const StyledBackgroundImage = styled.div`
   background: #aaa;
   &.cover {
     background-size: cover;
+    background-image: url(${backGround});
   }
 `;
 const StyledEditContainer = styled.div`

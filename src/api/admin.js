@@ -6,9 +6,11 @@ const authURL = "https://protected-journey-43760.herokuapp.com";
 export const login = async ({ account, password }) => {
   try {
     const { data } = await axios.post(`${authURL}/api/auth/admin/login`, { account, password });
-    console.log(data);
-    const { token } = data;
+    const { token, admin } = data;
     if (token) {
+      localStorage.setItem("authToken", token);
+      localStorage.setItem("userId", admin.id);
+      localStorage.setItem("role", admin.role);
       return { success: true, ...data };
     }
   } catch (error) {
@@ -28,8 +30,6 @@ export const checkAdminPermission = async (authToken) => {
   } catch (error) {
     console.error("[Check Permission Failed]:", error);
   }
-  // console.log('admin checkPermission ','pass',authToken)
-
 };
 
 export const adminGetUsers = async()=>{
