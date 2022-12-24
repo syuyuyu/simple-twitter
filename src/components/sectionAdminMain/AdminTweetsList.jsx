@@ -13,26 +13,25 @@ import { TweetContext } from "../../contexts/TweetContext";
 import { useContext } from "react";
 import { adminDeleteTweets, adminGetTweets } from "../../api/admin";
 
-
 const AdminTweetsList = () => {
   const navigate = useNavigate();
   const { isAuthenticated } = useAdmin();
-  const {tweets,setTweets}= useContext(TweetContext);
+  const { tweets, setTweets } = useContext(TweetContext);
 
   //DELETE 刪除事件
-  const handleRemoveClick = async(id)=>{
+  const handleRemoveClick = async (id) => {
     const newTweets = tweets.filter((tweet) => tweet.id !== id);
-    try{
+    try {
       const deleteItem = await adminDeleteTweets(id);
-      console.log(id)
-      console.log('delete tweets List : ',deleteItem)
+      console.log(id);
+      console.log("delete tweets List : ", deleteItem);
       setTweets(newTweets);
-    }catch(err){
-      console.error('delete tweet error:',err)
+    } catch (err) {
+      console.error("delete tweet error:", err);
     }
   };
 
-//GET 所有推文
+  //GET 所有推文
   useEffect(() => {
     const getTweetsAsync = async () => {
       try {
@@ -44,7 +43,7 @@ const AdminTweetsList = () => {
       }
     };
     getTweetsAsync();
-  }, [tweets,setTweets]);
+  }, [tweets, setTweets]);
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -52,7 +51,7 @@ const AdminTweetsList = () => {
     }
   }, [navigate, isAuthenticated]);
 
-// tweetList
+  // tweetList
   return (
     <>
       <StyleSectionAdminMain>
@@ -61,16 +60,16 @@ const AdminTweetsList = () => {
             <StyledTitleH4>推文清單</StyledTitleH4>
           </StyledHeader>
           <StyledTweetsList>
-          { tweets.map((tweet) => 
-            <AdminTweetItem 
-              handleRemoveClick={handleRemoveClick}
-              id={tweet.id}
-              key={tweet.id}
-              tweet={tweet}
-              time={tweet.updatedAt}
-              description={tweet.description}
-            />
-          )}
+            {tweets.map((tweet, index) => (
+              <AdminTweetItem
+                handleRemoveClick={handleRemoveClick}
+                id={tweet.id}
+                key={index}
+                tweet={tweet}
+                time={tweet.updatedAt}
+                description={tweet.description}
+              />
+            ))}
           </StyledTweetsList>
         </StyledAdminTweetsList>
       </StyleSectionAdminMain>

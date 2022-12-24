@@ -8,10 +8,10 @@ const TweetsList = () => {
 
   return (
     <StyledTweetsList>
-      {tweets.map((tweet) => {
+      {tweets.map((tweet,index) => {
         return (
           <TweetItem
-            key={tweet.id}
+            key={index}
             tweet={tweet}
             time={tweet.updatedAt}
             description={tweet.description}
