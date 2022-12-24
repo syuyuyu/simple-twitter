@@ -23,6 +23,7 @@ const SectionPopular = () => {
       }
     };
     getUersAsync();
+    return()=>{}
   }, [setTop10List]);
 
   return (

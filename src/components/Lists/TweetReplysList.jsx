@@ -5,20 +5,21 @@ import ReplyItem from './ReplyItem'
 
 const ReplysList = () => {
   const {tweetReplyList} = useContext(TweetReplysContext);
-console.log('tweetReplyList',tweetReplyList)
+// console.log('tweetReplyList',tweetReplyList)
 
   return (
     <StyledTweetsList>
-    {tweetReplyList.map((reply)=>{
+    {/* {tweetReplyList.map((reply,index)=>{
       return <ReplyItem
           Tweet={reply.Tweet}
           User={reply.User}
           UserId={reply.UserId}
           comment={reply.comment}
-          key={reply.id}
+          key={index}
+          replyId={reply.id}
           time={reply.updatedAt}
       />
-    })}  
+    })}   */}
     </StyledTweetsList>
   );
 }

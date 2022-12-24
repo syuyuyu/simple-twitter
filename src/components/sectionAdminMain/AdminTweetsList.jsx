@@ -44,12 +44,14 @@ const AdminTweetsList = () => {
       }
     };
     getTweetsAsync();
+    return()=>{}
   }, [setTweets]);
 
   useEffect(() => {
     if (!isAuthenticated) {
       navigate("/admin");
     }
+    return()=>{}
   }, [navigate, isAuthenticated]);
 
 // tweetList

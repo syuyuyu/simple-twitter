@@ -28,6 +28,7 @@ const AdminUserList = () => {
         }
     };
     getUsers();
+    return()=>{}
   },[setGetUsers])
 
 

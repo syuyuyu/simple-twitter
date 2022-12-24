@@ -53,6 +53,7 @@ useEffect(() => {
     }
   };
   getFollowersAsync();
+  return()=>{}
 }, [setFollowers]);
 //渲染追蹤ing名單
 useEffect(() => {
@@ -66,6 +67,7 @@ useEffect(() => {
     }
   };
   getFollowingsAsync();
+  return()=>{}
 }, [setFollowings]);
 
   useEffect(() => {

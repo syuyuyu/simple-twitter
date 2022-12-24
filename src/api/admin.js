@@ -3,20 +3,32 @@ import axios from "axios";
 // const authURL = "https://nameless-fortress-45508.herokuapp.com";
 const authURL = "https://protected-journey-43760.herokuapp.com";
 
+
 export const login = async ({ account, password }) => {
   try {
-    const { data } = await axios.post(`${authURL}/api/auth/admin/login`, { account, password });
+    const { data } = await axios.post({
+      method :'POST',
+      url: `${authURL}/api/auth/admin/login`,
+      data: {
+        account: account,
+        password: password,
+      },
+    })
     console.log(data);
     const { token } = data;
     if (token) {
       return { success: true, ...data };
     }
-  } catch (error) {
-    console.log("[Login Failed]:", error);
-    console.log(error.response.data.message);
-  }
-};
-//測試
+    }catch(err){
+        console.log("[Login Failed]:", err);
+        console.log(err.response.data.message);
+    }
+  };
+
+
+
+
+//測試 新的
 export const checkAdminPermission = async (authToken) => {
   try {
     const response = await axios.get(`${authURL}/api/auth/test-admin`, {
@@ -29,8 +41,28 @@ export const checkAdminPermission = async (authToken) => {
     console.error("[Check Permission Failed]:", error);
   }
   // console.log('admin checkPermission ','pass',authToken)
-
 };
+//測試 可刪
+// export const checkAdminPermission = async (authToken) => {
+//   try {
+//     const res = await axios({
+//       method :'GET',
+//       uer: `${authURL}/api/auth/test-admin`,
+//       header:{
+//         Authorization: "Bearer " + authToken,
+//       },
+//     })
+//       return res.data.success;
+//     }catch (error) {
+//     console.error("[Check Permission Failed]:", error);
+//   }
+//   };
+
+
+
+
+
+
 
 export const adminGetUsers = async()=>{
   try{
