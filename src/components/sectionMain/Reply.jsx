@@ -157,13 +157,13 @@ const Reply = () => {
     }
   };
   //POST 取消讚
-  const handleUnLike = async () => {
-    try {
-      const abc = await postUnLike(params.replyId);
-      setActiveLike(false);
-      setLikeCount(LikeCount - 1);
-    } catch (error) {}
-  };
+  // const handleUnLike = async () => {
+  //   try {
+  //     const abc = await postUnLike(params.replyId);
+  //     setActiveLike(false);
+  //     setLikeCount(LikeCount - 1);
+  //   } catch (error) {}
+  // };
 
   //身分驗證
   useEffect(() => {
