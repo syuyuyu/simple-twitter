@@ -16,7 +16,7 @@ import TweetReplysList from "../Lists/TweetReplysList";
 import ReplyModal from "../Modals/ReplyModal";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
-import { getTargetTweet } from "../../api/tweets";
+import { getTargetTweet, postLike, postUnLike } from "../../api/tweets";
 import { TargetTweetContext } from "../../contexts/TweetContext";
 import dayjs from "dayjs";
 import { ReplyModalContext } from "../../contexts/ModalContext";
@@ -117,60 +117,39 @@ const Reply = () => {
   const { isAuthenticated } = useAuth();
   const params = useParams();
   const { setTweetReplyList } = useContext(TweetReplysContext);
-  // const tweetId = targetTweet.id
-  // const tweetIsLike = targetTweet.isLiked
   const { targetTweet, setTargetTweet } = useContext(TargetTweetContext);
   const { toggleReplyModal } = useContext(ReplyModalContext);
-  const [activeLike] = useState("");
-  // const [LikeCount, setLikeCount] = useState(targetTweet.likedCount);
+  const [activeLike, setActiveLike] = useState(targetTweet.isLiked);
+  const [LikeCount, setLikeCount] = useState(targetTweet.likedCount);
   const { id, avatar, account, name } = { ...targetTweet.User };
-  // console.log("這是isLike>>>", targetTweet.isLiked);
-  // console.log("這是activeLike>>>", activeLike);
+  console.log("activeLike", activeLike);
 
-
-
-
-  // // //POST 按讚
-  // const handleLike = async ({activeLike,tweetId}) => {
-  //   const UserId = localStorage.getItem("userId");
-  //   if (UserId === id) {
-  //     return;
-  //   }
-  //   try {
-  //     const res = await postLike(targetTweet.id);
-  //     console.log("POST 按讚", res);
-  //     if (activeLike) {
-  //       setActiveLike(true);
-  //       setLikeCount(LikeCount + 1);
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-
-  
-  // //POST 取消讚
-  // const handleUnLike = async () => {
-  //   try {
-  //     const res = await postUnLike(params.replyId);
-  //     console.log("POST 取消讚", res);
-  //     if (!activeLike) {
-  //       setActiveLike(false);
-  //       setLikeCount(LikeCount + 1);
-  //     }
-  //   } catch (error) {}
-  // };
-
-  // // POST 取消讚
-  // const handleUnLike = async ({activeLike,tweetId}) => {
-  //   try {
-  //     const res = await postUnLike(tweetId);
-  //     console.log("POST 取消讚", res);
-  //     setActiveLike(false);
-  //     setLikeCount(LikeCount - 1);
-  //   } catch (error) {}
-  // };
-
+  //點讚開關
+  const handleToggleLike = async () => {
+    const UserId = localStorage.getItem("userId");
+    if (UserId === id) {
+      return;
+    }
+    if (targetTweet.isLiked === false) {
+      try {
+        const res = await postLike(targetTweet.id);
+        console.log("POST 按讚", res);
+        setActiveLike(true);
+        setLikeCount(LikeCount + 1);
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      try {
+        const res = await postUnLike(targetTweet.id);
+        console.log("POST 取消讚", res);
+        setActiveLike(false);
+        setLikeCount(LikeCount - 1);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
 
   //身分驗證
   useEffect(() => {
@@ -179,20 +158,20 @@ const Reply = () => {
     }
   }, [navigate, isAuthenticated]);
 
-
   //GET 單篇推文資料
   useEffect(() => {
     const getTargetTweetAsync = async () => {
       try {
         const tweet = await getTargetTweet(params.replyId);
         setTargetTweet(tweet);
-        return
+        console.log("targetTweet>>", tweet);
+        return;
       } catch (error) {
         console.error(error);
       }
     };
     getTargetTweetAsync();
-  }, [setTargetTweet, params.replyId]);
+  }, [activeLike, setTargetTweet, params.replyId]);
 
   //取得特定貼文回覆串
   useEffect(() => {
@@ -242,7 +221,7 @@ const Reply = () => {
           <TweetContainer style={{ border: "none" }}>
             <div className='icon-wrapper'>
               <div className='icon reply' onClick={toggleReplyModal}></div>
-              <div className={ activeLike? 'icon like active' : 'icon like'}  onClick={'handleToggle'}></div>
+              <div className={activeLike ? "icon like active" : "icon like"} onClick={handleToggleLike}></div>
             </div>
           </TweetContainer>
           <TweetReplysList />

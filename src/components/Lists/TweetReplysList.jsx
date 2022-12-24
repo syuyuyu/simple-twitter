@@ -9,7 +9,7 @@ const TweetReplysList = () => {
 
   return (
     <StyledTweetsList>
-      {tweetReplyList.map((reply,index) => {
+      {tweetReplyList.map((reply, index) => {
         return (
           <ReplyItem
             key={index}

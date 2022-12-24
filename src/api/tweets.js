@@ -3,18 +3,6 @@ import axios from "axios";
 // const baseURL = "https://nameless-fortress-45508.herokuapp.com";
 const baseURL = "https://protected-journey-43760.herokuapp.com";
 
-//GET 全部正在追蹤推文 舊的可刪
-// export const getTweets = async () => {
-//   try {
-//     const authToken = localStorage.getItem('authToken')
-//     const res = await axios.get(`${baseURL}/api/tweets/`, { headers: { Authorization: `Bearer ${authToken}` } });
-//     // console.log('get tweets',res)
-//     return res.data;
-//   } catch (error) {
-//     console.error("[Get Tweets failed]:", error);
-//   }
-// };
-
 //GET 全部正在追蹤推文 新的
 export const getTweets = async () => {
   const authToken = localStorage.getItem("authToken");
@@ -31,9 +19,6 @@ export const getTweets = async () => {
     console.error("[Get Tweets failed]:", error);
   }
 };
-
-
-
 //GET 單篇推文內容
 export const getTargetTweet = async ( tweetId ) => {
   try {
@@ -41,8 +26,6 @@ export const getTargetTweet = async ( tweetId ) => {
     const res = await axios.get(`${baseURL}/api/tweets/${tweetId}`, {
       headers: { Authorization: `Bearer ${authToken}` },
     });
-    // console.log('get tweet ',res)
-    // console.log(res.data)
     return res.data;
   } catch (error) {
     console.error("[Get One Tweet failed]:", error);
@@ -179,42 +162,6 @@ export const getOtherLikeTweets = async (userId) => {
   }
 };
 
-//POST 正在追隨
-export const postFollowing = async (userId) => {
-  const authToken = localStorage.getItem("authToken");
-  try {
-    const res = await axios({
-      method :'POST',
-      url: `${baseURL}/api/followships`,
-      data:{
-        id: userId
-      },
-      headers:{
-        Authorization: `Bearer ${authToken}`,
-      },
-    })
-      return res.data;
-    }catch (error) {
-    console.error("[Post Follow failed]:", error);
-  }
-};
-
-//DELETE 取消追隨
-export const postUnFollow = async (followingId) => {
-  const authToken = localStorage.getItem("authToken");
-  try {
-    const res = await axios({
-      method :'DELETE',
-      url: `${baseURL}/api/followships/${followingId}`,
-      headers:{
-        Authorization: `Bearer ${authToken}`,
-      },
-    })
-      return res.data;
-    }catch (error) {
-    console.error("[Delete Follow failed]:", error);
-  }
-};
 
 //POST 按讚 新的
 export const postLike = async (tweetId) => {
@@ -249,4 +196,3 @@ export const postUnLike = async (tweetId) => {
     console.error("[POST unLike failed]:", error);
   }
 };
-

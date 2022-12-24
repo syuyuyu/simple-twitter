@@ -29,17 +29,27 @@ const Avatar = styled.div`
   }
 `;
 
-
-const PopularItem = ({ account, avatar, followerCount, followingId, followingUser, isFollowed }) => {
+const PopularItem = ({
+  account,
+  avatar,
+  followerCount,
+  followingId,
+  followingUser,
+  isFollowed,
+  isFollow,
+  setIsFollow,
+  handleToggleFollow,
+}) => {
   const { id, name } = { ...followingUser };
   const navigate = useNavigate();
-// const{followingship,setFollowingship,handleFollow} = useContext(FollowShipContext)
-const userId = localStorage.getItem("userId");
+  const userId = localStorage.getItem("userId");
   const handleTargetUser = () => {
     if (id === userId) {
       return;
-    } navigate(`/user/${id}`);
+    }
+    navigate(`/user/${id}`);
   };
+setIsFollow(isFollowed);
 
   return (
     <>
@@ -51,10 +61,10 @@ const userId = localStorage.getItem("userId");
           <StyledName>{name}</StyledName>
           <StyledAccount>@{account}</StyledAccount>
         </StyledStyledNameContainer>
-        {isFollowed ? (
-          <StyledPublicButton >正在跟隨</StyledPublicButton>
+        {isFollow ? (
+          <StyledPublicButton onClick={() => handleToggleFollow(id)}>正在跟隨</StyledPublicButton>
         ) : (
-          <StyledPublicButton className='active' >
+          <StyledPublicButton className='active' onClick={() => handleToggleFollow(id)}>
             跟隨
           </StyledPublicButton>
         )}
