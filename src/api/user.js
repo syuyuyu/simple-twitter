@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const baseURL = "https://nameless-fortress-45508.herokuapp.com";
+// const baseURL = "https://nameless-fortress-45508.herokuapp.com";
+const baseURL = "https://protected-journey-43760.herokuapp.com";
 
 //GET 使用者個人資料
 export const getUser = async () => {

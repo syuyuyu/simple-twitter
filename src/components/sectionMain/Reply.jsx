@@ -1,8 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import {
   StyledAccount,
-  StyledAvatarDefault,
   StyledBackIcon,
   StyledHeader,
   StyledMainContainer,
@@ -15,8 +14,12 @@ import unlike from "../../assets/icons/like.svg";
 import like from "../../assets/icons/like-active.svg";
 import TweetReplysList from "../Lists/TweetReplysList";
 import ReplyModal from "../Modals/ReplyModal";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
+import { getTargetTweet, postLike, postUnLike } from "../../api/tweets";
+import { TargetTweetContext } from "../../contexts/TweetContext";
+import dayjs from "dayjs";
+import { ReplyModalContext } from "../../contexts/ModalContext";
 
 const TweetContainer = styled.div`
   margin: 0 16px;
@@ -78,6 +81,19 @@ const AvatarWrapper = styled.div`
     margin-left: 8px;
   }
 `;
+const Avatar = styled.div`
+  width: 50px;
+  height: 50px;
+  margin: 16px 8px 16px 16px;
+  border-radius: 50%;
+  &:hover {
+    cursor: pointer;
+  }
+  &.avatar {
+    background-size: cover;
+  }
+`;
+
 const Content = styled.p`
   padding-top: 8px;
   font-size: 24px;
@@ -93,22 +109,58 @@ const Time = styled.p`
   color: #6c757d;
 `;
 
-const Reply = ({ replyModal, toggleReplyModal }) => {
+const Reply = () => {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
+  const param = useParams();
+  const { targetTweet, setTargetTweet } = useContext(TargetTweetContext);
+  const { id, avatar, account, name } = { ...targetTweet.User };
+  const { toggleReplyModal } = useContext(ReplyModalContext);
+  const [activeLike, setActiveLike] = useState(targetTweet.isLiked);
+  const [LikeCount, setLikeCount] = useState(targetTweet.likedCount);
+  const params = useParams();
+  console.log("isLike",targetTweet.isLiked);
+  console.log("targetTweet", targetTweet.id);
 
-  //GET 個人資料
-  // useEffect(() => {
-  //   const getOtherUserAsync = async () => {
-  //     try {
-  //       const user = await getOtherUser(param.userId);
-  //       setPersonalInfo(user);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-  //   getOtherUserAsync();
-  // }, [param.userId]);
+  //GET 單篇推文資料
+  useEffect(() => {
+    const getTargetTweetAsync = async () => {
+      try {
+        const tweet = await getTargetTweet(param.replyId);
+        setTargetTweet(tweet);
+        console.log("單篇推文", targetTweet);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getTargetTweetAsync();
+  }, []);
+
+  //POST 按讚
+  const handleLike = async (isLiked) => {
+    const UserId = localStorage.getItem("userId");
+    if (UserId === id) {
+      return;
+    }
+    try {
+      const success = await postLike(targetTweet.id);
+      console.log("POST 按讚", success);
+      if (isLiked) {
+        setActiveLike(true);
+        setLikeCount(LikeCount + 1);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  //POST 取消讚
+  const handleUnLike = async () => {
+    try {
+      const abc = await postUnLike(params.replyId);
+      setActiveLike(false);
+      setLikeCount(LikeCount - 1);
+    } catch (error) {}
+  };
 
   //身分驗證
   useEffect(() => {
@@ -127,40 +179,43 @@ const Reply = ({ replyModal, toggleReplyModal }) => {
           </StyledTitleContainer>
           <TweetContainer style={{ flexFlow: "column" }}>
             <AvatarWrapper>
-              <StyledAvatarDefault style={{ margin: "0" }}>
-                <div className='avatar'></div>
-              </StyledAvatarDefault>
-              <div className='wrapper'>
-                <StyledName>Apple</StyledName>
-                <StyledAccount>@apple</StyledAccount>
+              <Avatar
+                className='avatar'
+                style={{ backgroundImage: `url('${avatar}')` }}
+                onClick={() => navigate(`/user/${id}`)}
+              ></Avatar>
+              <div className='wrapper' onClick={() => navigate(`/user/${id}`)}>
+                <StyledName>{name}</StyledName>
+                <StyledAccount>@{account}</StyledAccount>
               </div>
             </AvatarWrapper>
-            <Content>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Inventore nam eligendi ab, culpa illum vero
-              aliquam atque adipisci quam ullam.
-            </Content>
-            <Time>上午10:05 · 2021年11月10日</Time>
+            <Content>{targetTweet.description}</Content>
+            <Time>{dayjs(`${targetTweet.createdAt}`).locale("zh-tw").format("A hh:mm · YYYY[年]MM[月]DD[日]")}</Time>
           </TweetContainer>
           <TweetContainer>
             <div className='count-wrapper'>
-              <p className='count'>1234</p>
+              <p className='count'>{targetTweet.replyCount}</p>
               <p className='text'>回覆</p>
             </div>
             <div className='count-wrapper'>
-              <p className='count'>5678</p>
+              <p className='count'>{targetTweet.likedCount}</p>
               <p className='text'>喜歡次數</p>
             </div>
           </TweetContainer>
           <TweetContainer style={{ border: "none" }}>
             <div className='icon-wrapper'>
               <div className='icon reply' onClick={toggleReplyModal}></div>
-              <div className='icon like'></div>
+              {activeLike ? (
+                <div className='icon like active' onClick={handleUnLike}></div>
+              ) : (
+                <div className='icon like' onClick={handleLike}></div>
+              )}
             </div>
           </TweetContainer>
           <TweetReplysList />
         </StyledHeader>
       </StyledMainContainer>
-      <ReplyModal replyModal={replyModal} toggleReplyModal={toggleReplyModal} />
+      <ReplyModal />
     </>
   );
 };

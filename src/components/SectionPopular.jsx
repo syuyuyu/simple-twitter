@@ -18,7 +18,6 @@ const SectionPopular = () => {
       try {
         const top10 = await getTop10();
         setTop10List(top10.map((user) => ({ ...user })));
-        console.log("這是TOP10", top10);
       } catch (error) {
         console.error(error);
       }
@@ -31,9 +30,10 @@ const SectionPopular = () => {
       <StyledPopularContainer>
         <StyledTitleH4>推薦跟隨</StyledTitleH4>
         <StyledPopularList>
-          {top10List.map((user) => {
+          {top10List.map((user,i) => {
             return (
               <PopularItem
+              key={i}
                 account={user.account}
                 avatar={user.avatar}
                 followerCount={user.followerCount}

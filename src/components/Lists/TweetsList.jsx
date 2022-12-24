@@ -11,7 +11,7 @@ const TweetsList = () => {
       {tweets.map((tweet) => {
         return (
           <TweetItem
-            id={tweet.id}
+            key={tweet.id}
             tweet={tweet}
             time={tweet.updatedAt}
             description={tweet.description}

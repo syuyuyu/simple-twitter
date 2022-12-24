@@ -86,7 +86,6 @@ const TweetText = styled.p`
 const ReplyItem = ({ key, User, UserId, comment, time, Tweet }) => {
   const navigate = useNavigate();
   dayjs.extend(relativeTime);
-  // const { account, id } = { ...Tweet.User };
   const abc = { ...Tweet.User };
   const {account: tweetUserAccount} = abc;
   const { account, avatar, name } = { ...User };

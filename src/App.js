@@ -95,10 +95,8 @@ function App() {
                                       path='reply/:replyId'
                                       element={<Reply replyModal={replyModal} toggleReplyModal={toggleReplyModal} />}
                                     />
-
                                     <Route path='setting' element={<Setting />} />
                                   </Route>
-
                                   <Route path='home' element={<HomePage />} />
                                   <Route path='admin/*' element={<AdminMainPage />}>
                                     <Route path='main' element={<AdminTweetsList />} />

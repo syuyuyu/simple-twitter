@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const baseURL = "https://nameless-fortress-45508.herokuapp.com";
+// const baseURL = "https://nameless-fortress-45508.herokuapp.com";
+const baseURL = "https://protected-journey-43760.herokuapp.com";
 
 //GET 全部正在追蹤推文
 export const getTweets = async () => {
@@ -14,14 +15,17 @@ export const getTweets = async () => {
   }
 };
 //GET 單篇推文內容
-export const getTweet = async ({tweetId}) => {
+export const getTargetTweet = async ( tweetId ) => {
   try {
     const authToken = localStorage.getItem('authToken')
-    const res = await axios.get(`${baseURL}/api/tweets/${tweetId}`, { headers: { Authorization: `Bearer ${authToken}` } });
+    const res = await axios.get(`${baseURL}/api/tweets/${tweetId}`, {
+      headers: { Authorization: `Bearer ${authToken}` },
+    });
     // console.log('get tweet ',res)
+    console.log(res.data)
     return res.data;
   } catch (error) {
-    console.error("[Get Tweets failed]:", error);
+    console.error("[Get One Tweet failed]:", error);
   }
 };
 
@@ -47,7 +51,7 @@ export const getLikeTweets = async () => {
     });
     return res.data;
   } catch (error) {
-    console.error("[Get Tweets failed]:", error);
+    console.error("[Get LikeTweets failed]:", error);
   }
 };
 
@@ -70,7 +74,7 @@ export const createTweet = async (description) => {
   }
 };
 
-//POST發送推文
+//POST發送回覆
 export const createReply = async ({comment,tweetId}) => {
   const authToken = localStorage.getItem('authToken')
   try {
@@ -85,7 +89,7 @@ export const createReply = async ({comment,tweetId}) => {
     // console.log('api : ',res)
     return res.data;
   } catch (error) {
-    console.error("[Create Tweet failed]:", error);
+    console.error("[Create Reply failed]:", error);
   }
 };
 
@@ -100,7 +104,7 @@ export const getReplys = async () => {
     });
     return res.data;
   } catch (error) {
-    console.error("[Get Replys failed]:", error);
+    console.error("[Get UserReplys failed]:", error);
   }
 };
 
@@ -111,7 +115,7 @@ export const getOtherUserTweets = async ( userId ) => {
     const res = await axios.get(`${baseURL}/api/users/${userId}/tweets`, {headers: { Authorization: `Bearer ${authToken}` } });
     return res.data;
   } catch (error) {
-    console.error("[Get UserTweets failed]:", error);
+    console.error("[Get OtherUserTweets failed]:", error);
   }
 };
 
@@ -124,7 +128,7 @@ export const getOtherReplys = async (userId) => {
     });
     return res.data;
   } catch (error) {
-    console.error("[Get Replys failed]:", error);
+    console.error("[Get OtherUserReplys failed]:", error);
   }
 };
 
@@ -137,7 +141,7 @@ export const getOtherLikeTweets = async (userId) => {
     });
     return res.data;
   } catch (error) {
-    console.error("[Get Tweets failed]:", error);
+    console.error("[Get OtherUserLikeTweets failed]:", error);
   }
 };
 
@@ -152,7 +156,7 @@ export const postFollowing = async (userId) => {
     );
     return res.data;
   } catch (error) {
-    console.error("[Get Tweets failed]:", error);
+    console.error("[Post Follow failed]:", error);
   }
 };
 //DELETE 取消追隨
@@ -164,6 +168,30 @@ export const postUnFollow = async (followingId) => {
     });
     return res.data;
   } catch (error) {
-    console.error("[Get Tweets failed]:", error);
+    console.error("[Delete Follow failed]:", error);
+  }
+};
+//POST 按讚
+export const postLike = async (tweetId) => {
+  try {
+    const authToken = localStorage.getItem("authToken");
+    const res = await axios.post(`${baseURL}/api/tweets/${tweetId}/like`, {
+      headers: { Authorization: `Bearer ${authToken}` },
+    });
+    return res.data;
+  } catch (error) {
+    console.error("[POST Like failed]:", error);
+  }
+};
+//POST 取消讚
+export const postUnLike = async (tweetId) => {
+  try {
+    const authToken = localStorage.getItem("authToken");
+    const res = await axios.post(`${baseURL}/api/tweets/${tweetId}/unlike`, {
+      headers: { Authorization: `Bearer ${authToken}` },
+    });
+    return res.data;
+  } catch (error) {
+    console.error("[POST unLike failed]:", error);
   }
 };

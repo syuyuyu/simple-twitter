@@ -77,7 +77,7 @@ const ReplyTweet = ({tweet}) => {
       <TextContainer>
         <RowContainer>
           <Name>{name}</Name>
-          <Account>@{account} · {dayjs(`${tweet.updatedAt}`).locale("zh-tw").fromNow()}</Account>
+          <Account>@{account} · {dayjs(`${tweet.createdAt}`).locale("zh-tw").fromNow()}</Account>
         </RowContainer>
         <RowContainer>
           <TweetText>

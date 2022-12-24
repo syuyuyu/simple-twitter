@@ -5,7 +5,7 @@ import ReplyItem from './ReplyItem'
 
 
 
-const ReplysList = () => {
+const UserReplysList = () => {
   const { userReplys } = useContext(UserReplyContext);
   return (
     <StyledTweetsList>
@@ -25,4 +25,4 @@ const ReplysList = () => {
   );
 }
 
-export default ReplysList
+export default UserReplysList;
