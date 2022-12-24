@@ -7,7 +7,6 @@ import {
   StyledPublicButton,
 } from "../common/StyledGroup";
 import Swal from "sweetalert2";
-import ContentTextarea from "../ContentTextarea";
 import close from "../../assets/icons/close.svg";
 import { TweetModalContext } from "../../contexts/ModalContext";
 import avatarDefault from "../../assets/icons/avatar-default.svg";
@@ -88,6 +87,21 @@ const Avatar = styled.div`
   }
 `;
 
+  const StyledContainer = styled.div`
+    position: relative;
+    flex-grow: 0.9;
+    padding: 15px 0 0 8px;
+    height: 100%;
+  `;
+  const StyledTextarea = styled.textarea`
+    width: 100%;
+    font-size: 18px;
+    line-height: 26px;
+    outline: none;
+    border: none;
+    min-height: 150px;
+  `;
+
 const TweetModal = () => {
   const {tweetModal,toggleTweetModal} = useContext(TweetModalContext);
   const [inputValue, setInputValue] = useState(""); 
@@ -130,6 +144,7 @@ const TweetModal = () => {
       }
       toggleTweetModal()
       setIsUpload(false)
+      setInputValue('')
     }catch(err){
       Swal.fire({
         title: "儲存失敗",
@@ -153,11 +168,16 @@ const TweetModal = () => {
             <StyledContentContainer style={{ border: "none", height: "243px" }}>
               <ContentWrapper>
                 <Avatar className='avatar'></Avatar>
-                <ContentTextarea
-                  placeholder='有什麼新鮮事？'
-                  value={inputValue}
-                  onChange={(value => isUpload? value : setInputValue(value))}
-                />
+          <StyledContainer>
+            <StyledTextarea
+              type='text'
+              value={inputValue}
+              placeholder={'有什麼新鮮事？'}
+              maxLength={140}
+              onChange={(event) => setInputValue(event.target.value)}
+            />
+          </StyledContainer>
+     
               </ContentWrapper>
               <StyledButtonContainer>
                 <StyledError>字數不可超過140字</StyledError>

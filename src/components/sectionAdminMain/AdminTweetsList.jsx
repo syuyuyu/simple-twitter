@@ -37,6 +37,7 @@ const AdminTweetsList = () => {
       try {
         const tweets = await adminGetTweets();
         setTweets(tweets.map((tweet) => ({ ...tweet })));
+        // console.log('tweets',tweets)
         return;
       } catch (error) {
         console.error(error);
@@ -60,16 +61,16 @@ const AdminTweetsList = () => {
             <StyledTitleH4>推文清單</StyledTitleH4>
           </StyledHeader>
           <StyledTweetsList>
-            {tweets.map((tweet, index) => (
-              <AdminTweetItem
-                handleRemoveClick={handleRemoveClick}
-                id={tweet.id}
-                key={index}
-                tweet={tweet}
-                time={tweet.updatedAt}
-                description={tweet.description}
-              />
-            ))}
+          { tweets.map((tweet,index) => 
+            <AdminTweetItem 
+              handleRemoveClick={handleRemoveClick}
+              id={tweet.id}
+              key={index}
+              tweet={tweet}
+              time={tweet.updatedAt}
+              description={tweet.description}
+            />
+          )}
           </StyledTweetsList>
         </StyledAdminTweetsList>
       </StyleSectionAdminMain>

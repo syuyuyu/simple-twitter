@@ -72,6 +72,7 @@ const Profile = () => {
       }
     };
     getUserAsync();
+    return()=>{}
   }, [setOtherUser]);
 
   //取得使用者自己的推文
@@ -86,6 +87,7 @@ const Profile = () => {
       }
     };
     getUserTweetsAsync();
+    return()=>{}
   }, [setUserTweets]);
 
   //取得回覆串資料
@@ -100,6 +102,7 @@ const Profile = () => {
       }
     };
     getUserReplysAsync();
+    return()=>{}
   }, [setUserReplys]);
   //喜歡的內容
   useEffect(() => {
@@ -113,6 +116,7 @@ const Profile = () => {
       }
     };
     getLikeTweetsAsync();
+    return()=>{}
   }, [setLikeTweets]);
 
   //身分驗證

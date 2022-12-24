@@ -3,9 +3,18 @@ import axios from "axios";
 // const authURL = "https://nameless-fortress-45508.herokuapp.com";
 const authURL = "https://protected-journey-43760.herokuapp.com";
 
+
 export const login = async ({ account, password }) => {
   try {
-    const { data } = await axios.post(`${authURL}/api/auth/admin/login`, { account, password });
+    const { data } = await axios({
+      method :'POST',
+      url: `${authURL}/api/auth/admin/login`,
+      data: {
+        account: account,
+        password: password,
+      },
+    })
+    console.log(data);
     const { token, admin } = data;
     if (token) {
       localStorage.setItem("authToken", token);
@@ -13,12 +22,14 @@ export const login = async ({ account, password }) => {
       localStorage.setItem("role", admin.role);
       return { success: true, ...data };
     }
-  } catch (error) {
-    console.log("[Login Failed]:", error);
-    console.log(error.response.data.message);
-  }
-};
-//測試
+    }catch(err){
+        console.log("[Login Failed]:", err);
+        console.log(err.response.data.message);
+    }
+  };
+
+
+//測試 新的
 export const checkAdminPermission = async (authToken) => {
   try {
     const response = await axios.get(`${authURL}/api/auth/test-admin`, {
@@ -31,6 +42,7 @@ export const checkAdminPermission = async (authToken) => {
     console.error("[Check Permission Failed]:", error);
   }
 };
+
 
 export const adminGetUsers = async()=>{
   try{

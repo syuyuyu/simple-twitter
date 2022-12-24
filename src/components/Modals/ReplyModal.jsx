@@ -138,6 +138,7 @@ const ReplyModal = () => {
       }
       toggleReplyModal()
       setIsUpload(false)
+      setInputValue('')
     }catch(err){
       Swal.fire({
         title: "儲存失敗",
@@ -161,6 +162,7 @@ const ReplyModal = () => {
       }
     }
     getAvatar();
+    return()=>{}
   },[])
 
   return (

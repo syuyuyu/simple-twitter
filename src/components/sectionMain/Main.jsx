@@ -8,7 +8,6 @@ import {
   StyledError,
   StyledPublicButton,
 } from "../common/StyledGroup";
-import ContentTextarea from "../ContentTextarea";
 import TweetsList from "../Lists/TweetsList";
 import { getTweets } from "../../api/tweets";
 import { OtherUserContext, TweetContext } from "../../contexts/TweetContext";
@@ -40,6 +39,20 @@ const ContentWrapper = styled.div`
   padding: 16px 8px 0 8.2px;
   width: 100%;
   margin-left: 8.2px;
+`;
+const StyledContainer = styled.div`
+  position: relative;
+  flex-grow: 0.9;
+  padding: 15px 0 0 8px;
+  height: 100%;
+`;
+const StyledTextarea = styled.textarea`
+  width: 100%;
+  font-size: 18px;
+  line-height: 26px;
+  outline: none;
+  border: none;
+  min-height: 150px;
 `;
 
 
@@ -85,20 +98,19 @@ const Main = () => {
           timer: 1000,
           position: "top",
         });
-        setInputValue('')
         setIsUpdating(false)
-        console.log('inputValue :',inputValue)
+        setInputValue('')
       }
       }catch(err){
-        Swal.fire({
-          title: "儲存失敗",
-          icon: "error",
-          showConfirmButton: false,
-          timer: 1000,
-          position: "top",
-        });
+          Swal.fire({
+            title: "儲存失敗",
+            icon: "error",
+            showConfirmButton: false,
+            timer: 1000,
+            position: "top",
+          });
+        }
       }
-  }
 
   //取得全部推文
   useEffect(() => {
@@ -112,6 +124,7 @@ const Main = () => {
       }
     };
     getTweetsAsync();
+    return
   }, [setTweets]);
 
   //GET 個人資料
@@ -126,6 +139,7 @@ const Main = () => {
       }
     };
     getUserAsync();
+    return
   }, [setOtherUser]);
 
   //身分驗證
@@ -144,11 +158,15 @@ const Main = () => {
         <StyledContentContainer>
           <ContentWrapper>
             <Avatar className='avatar' style={{ backgroundImage: `url('${otherUser.avatar}')` }}></Avatar>
-            <ContentTextarea
-              placeholder='有什麼新鮮事？'
+          <StyledContainer>
+            <StyledTextarea
+              type='text'
               value={inputValue}
-              onChange={(value => isUpdating? value : setInputValue(value))}
+              placeholder={'有什麼新鮮事？'}
+              maxLength={140}
+              onChange={(event) => setInputValue(event.target.value)}
             />
+          </StyledContainer>
           </ContentWrapper>
           <StyledButtonContainer>
             {inputValue.length >= 140 && 
