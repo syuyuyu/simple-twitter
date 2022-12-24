@@ -22,7 +22,7 @@ import dayjs from "dayjs";
 import { ReplyModalContext } from "../../contexts/ModalContext";
 import { getTweetReplys } from "../../api/tweets";
 import { TweetReplysContext } from "../../contexts/TweetContext";
-import { getDefaultNormalizer } from "@testing-library/react";
+// import { getDefaultNormalizer } from "@testing-library/react";
 
 const TweetContainer = styled.div`
   margin: 0 16px;
@@ -117,8 +117,8 @@ const Reply = () => {
   const { isAuthenticated } = useAuth();
   const params = useParams();
   const { setTweetReplyList } = useContext(TweetReplysContext);
-  const tweetId = targetTweet.id
-  const tweetIsLike = targetTweet.isLiked
+  // const tweetId = targetTweet.id
+  // const tweetIsLike = targetTweet.isLiked
   const { targetTweet, setTargetTweet } = useContext(TargetTweetContext);
   const { toggleReplyModal } = useContext(ReplyModalContext);
   const [activeLike, setActiveLike] = useState("");
