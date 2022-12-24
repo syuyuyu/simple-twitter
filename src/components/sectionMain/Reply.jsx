@@ -16,7 +16,7 @@ import TweetReplysList from "../Lists/TweetReplysList";
 import ReplyModal from "../Modals/ReplyModal";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
-import { getTargetTweet } from "../../api/tweets";
+import { getTargetTweet, postLike, postUnLike } from "../../api/tweets";
 import { TargetTweetContext } from "../../contexts/TweetContext";
 import dayjs from "dayjs";
 import { ReplyModalContext } from "../../contexts/ModalContext";
@@ -134,8 +134,8 @@ const Reply = () => {
       try {
         const res = await postLike(targetTweet.id);
         console.log("POST 按讚", res);
-          setActiveLike(true);
-          setLikeCount(LikeCount + 1);
+        setActiveLike(true);
+        setLikeCount(LikeCount + 1);
       } catch (error) {
         console.error(error);
       }
@@ -143,8 +143,8 @@ const Reply = () => {
       try {
         const res = await postUnLike(targetTweet.id);
         console.log("POST 取消讚", res);
-          setActiveLike(false);
-          setLikeCount(LikeCount - 1);
+        setActiveLike(false);
+        setLikeCount(LikeCount - 1);
       } catch (error) {
         console.error(error);
       }
