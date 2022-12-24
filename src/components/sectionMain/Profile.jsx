@@ -79,6 +79,7 @@ const Profile = () => {
       try {
         const userTweets = await getUserTweets();
         setUserTweets(userTweets.map((userTweet) => ({ ...userTweet })));
+        
       } catch (error) {
         console.error(error);
       }

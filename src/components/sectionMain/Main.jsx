@@ -106,6 +106,7 @@ const Main = () => {
       try {
         const tweets = await getTweets();
         setTweets(tweets.map((tweet) => ({ ...tweet })));
+        console.log("所有推文",tweets)
       } catch (error) {
         console.error(error);
       }

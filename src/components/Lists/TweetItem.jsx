@@ -118,27 +118,17 @@ const StyledIcon = styled.div`
 `;
 
 
-const TweetItem = ({
-  tweet,
-  time,
-  description,
-  isLiked,
-  likedCount,
-  replyCount,
-}) => {
-  
+const TweetItem = ({ tweet, time, description, isLiked, likedCount, replyCount, tweetId }) => {
   const { toggleReplyModal } = useContext(ReplyModalContext);
-  const { handleToggleLike} = useContext(TweetContext);
+  const { handleToggleLike } = useContext(TweetContext);
   const navigate = useNavigate();
   dayjs.extend(relativeTime);
-  const {setTargetTweet } = useContext(TargetTweetContext);
-  const { account, avatar, id, name } = {...tweet.User};
-  
-
-  const handleClick=(data)=>{
-    setTargetTweet(data)
-    toggleReplyModal()
-  }
+  const { account, avatar, id, name } = { ...tweet.User };
+  const { setTargetTweet } = useContext(TargetTweetContext);
+  const handleClick = (data) => {
+    setTargetTweet(data);
+    toggleReplyModal();
+  };
 
 
 
@@ -161,7 +151,7 @@ const TweetItem = ({
           <RowContainer>
             <IconsContainer>
               <IconContainer>
-                <StyledIcon className='replyIcon' onClick={()=>handleClick(tweet)}></StyledIcon>
+                <StyledIcon className='replyIcon' onClick={() => handleClick(tweet)}></StyledIcon>
                 <p>{replyCount}</p>
               </IconContainer>
               <IconContainer>
