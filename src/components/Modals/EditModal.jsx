@@ -130,7 +130,7 @@ const EditModal = () => {
       return;
     }
     const selectedFile = e.target.files[0];
-    const objectUrl = URL.createObjectURL(selectedFile);
+    const objectUrl = window.URL.createObjectURL(selectedFile);
     if (e.target.id === "cover") {
       console.log('cover')
       setCoverImg(objectUrl);
@@ -151,22 +151,27 @@ const EditModal = () => {
       });
       return;
     };
-    setIsUpdating(true)
-    const introduction =intro
-    const cover = coverImg
-    const avatar = avatarImg
-    const patchUser = await putUser({name,introduction,cover,avatar})
-    // console.log('patchUser: ',patchUser)
-    setIsUpdating(false)
-    if(patchUser){
-      await Swal.fire({
-        title: "資料儲存中",
-        icon: "success",
-        showConfirmButton: false,
-        timer: 1000,
-        position: "top",
-      });
-      toggleEditModal()
+    try{
+      setIsUpdating(true)
+      const introduction =intro
+      const cover = coverImg
+      const avatar = avatarImg
+      const patchUser = await putUser({name,introduction,cover,avatar})
+      // console.log('patchUser: ',patchUser)
+      if(patchUser){
+        await Swal.fire({
+          title: "資料儲存中",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1000,
+          position: "top",
+        });
+        toggleEditModal()
+        setIsUpdating(false)
+        return;
+      }
+    }catch(err){
+     console.error('editModal faild :',err) 
     }
   };
 
