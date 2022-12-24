@@ -124,3 +124,41 @@ export const getOtherUser = async ( userId ) => {
     console.error("[Get User failed]:", error);
   }
 };
+
+//POST 開始追隨
+export const postFollowing = async (id) => {
+  try {
+    console.log("開始追隨的ID", id);
+    const authToken = localStorage.getItem("authToken");
+    const res = await axios({
+      method: "POST",
+      url: `${baseURL}/api/followships`,
+      data: {
+        id: id,
+      },
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
+    return res.data;
+  } catch (error) {
+    console.error("[Post Follow failed]:", error);
+  }
+};
+//DELETE 取消追隨
+export const deleteFollow = async (id) => {
+  try {
+    console.log("取消追隨的ID",id)
+    const authToken = localStorage.getItem("authToken");
+    const res = await axios({
+      method: "DELETE",
+      url: `${baseURL}/api/followships/${id}`,
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
+    return res.data;
+  } catch (error) {
+    console.error("[Delete Follow failed]:", error);
+  }
+};
