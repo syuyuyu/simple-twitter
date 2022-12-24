@@ -19,7 +19,7 @@ const AdminTweetsList = () => {
   const { isAuthenticated } = useAdmin();
   const {tweets,setTweets}= useContext(TweetContext);
 
-  //刪除事件
+  //DELETE 刪除事件
   const handleRemoveClick = async(id)=>{
     const newTweets = tweets.filter((tweet) => tweet.id !== id);
     try{
@@ -32,19 +32,19 @@ const AdminTweetsList = () => {
     }
   };
 
-//取得所有推文
+//GET 所有推文
   useEffect(() => {
     const getTweetsAsync = async () => {
       try {
         const tweets = await adminGetTweets();
         setTweets(tweets.map((tweet) => ({ ...tweet })));
-        // console.log('tweets: ',tweets);
+        return;
       } catch (error) {
         console.error(error);
       }
     };
     getTweetsAsync();
-  }, [setTweets]);
+  }, [tweets,setTweets]);
 
   useEffect(() => {
     if (!isAuthenticated) {

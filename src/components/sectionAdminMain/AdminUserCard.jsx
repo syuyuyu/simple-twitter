@@ -1,21 +1,7 @@
 import styled from "styled-components";
-import likeIcom from "../assets/icons/like.svg";
-import tweetIcon from "../assets/icons/tweet.svg";
-import { useAdmin } from "../contexts/AdminContext";
-
-
-// const StyledAdminGroupContainer = styled.div`
-//   /* max-width: 1140px; */
-//   height: 100vh;
-//   margin: 0 auto;
-//   display: flex;
-//   /* display: grid; */
-//   padding-top:16px;
-//   grid-template-columns: 1fr 6fr;
-//   /* gap: 24px; */
-// `
-
-
+import likeIcom from "../../assets/icons/like.svg";
+import tweetIcon from "../../assets/icons/tweet.svg";
+import { useAdmin } from "../../contexts/AdminContext";
 
 const StyledAdminUserCard = styled.div`
   height: 300px;
@@ -109,34 +95,34 @@ const AdminUserCard =()=>{
 
   return (
     <>
-    { getUsers?.map((user) => 
-    <StyledAdminUserCard>
-      <StyledAdminUserBackground  style={{backgroundImage:`url('${user.cover}')`}}></StyledAdminUserBackground>
-      <StyleUserCardContent>
-        <StyledName>{user.name}</StyledName>
-        <StyledUserAccount>@{user.account}</StyledUserAccount>
-          <IconsContainer>
-            <IconContainer>
-              <StyledIcon className='replyIcon'></StyledIcon>
-              <p>{user.tweetCount}</p>
-            </IconContainer>
-            <IconContainer>
-              <StyledIcon className='likeIcon'></StyledIcon>
-              <p>{user.likeCount}</p>
-            </IconContainer>
-          </IconsContainer>
-          <StyledCardFollow>
-            <span>{user.followingCount}個</span>
-            <span>跟隨中</span>
-            <span>{user.followerCount}位</span>
-            <span>跟隨者</span>
-          </StyledCardFollow>
-          <StyledAdminUserAvatar src={user.avatar}></StyledAdminUserAvatar>
-      </StyleUserCardContent>
-    </StyledAdminUserCard>
-    )}
+      {getUsers?.map((user, index) => (
+        <StyledAdminUserCard key={index}>
+          <StyledAdminUserBackground style={{ backgroundImage: `url('${user.cover}')` }}></StyledAdminUserBackground>
+          <StyleUserCardContent>
+            <StyledName>{user.name}</StyledName>
+            <StyledUserAccount>@{user.account}</StyledUserAccount>
+            <IconsContainer>
+              <IconContainer>
+                <StyledIcon className='replyIcon'></StyledIcon>
+                <p>{user.tweetCount}</p>
+              </IconContainer>
+              <IconContainer>
+                <StyledIcon className='likeIcon'></StyledIcon>
+                <p>{user.likeCount}</p>
+              </IconContainer>
+            </IconsContainer>
+            <StyledCardFollow>
+              <span>{user.followingCount}個</span>
+              <span>跟隨中</span>
+              <span>{user.followerCount}位</span>
+              <span>跟隨者</span>
+            </StyledCardFollow>
+            <StyledAdminUserAvatar src={user.avatar}></StyledAdminUserAvatar>
+          </StyleUserCardContent>
+        </StyledAdminUserCard>
+      ))}
     </>
-  )
+  );
 }
 
 export default AdminUserCard;

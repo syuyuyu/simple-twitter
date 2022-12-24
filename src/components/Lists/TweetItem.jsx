@@ -10,7 +10,7 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/zh-tw";
 import clsx from "clsx";
-import { TweetContext,TargetTweetContext } from "../../contexts/TweetContext";
+import { TweetContext, TargetTweetContext } from "../../contexts/TweetContext";
 // import { getTweetReplys } from "../../api/tweets";
 
 const ItemContainer = styled.div`
@@ -117,7 +117,6 @@ const StyledIcon = styled.div`
   }
 `;
 
-
 const TweetItem = ({ tweet, time, description, isLiked, likedCount, replyCount, tweetId }) => {
   const { toggleReplyModal } = useContext(ReplyModalContext);
   const { handleToggleLike } = useContext(TweetContext);
@@ -129,24 +128,28 @@ const TweetItem = ({ tweet, time, description, isLiked, likedCount, replyCount, 
     setTargetTweet(data);
     toggleReplyModal();
   };
-
-
+  const userId = localStorage.getItem("userId");
+  const handleTargetUser = () => {
+    if (id === userId) {
+      return;
+    } navigate(`/user/${id}`);
+  };
 
   return (
     <>
-      <ItemContainer >
-        <AvatarContainer onClick={() => navigate(`/user/${id}`)}>
+      <ItemContainer>
+        <AvatarContainer onClick={handleTargetUser}>
           <Avatar className='avatar' style={{ margin: "0px", backgroundImage: `url('${avatar}')` }}></Avatar>
         </AvatarContainer>
         <TextContainer>
-          <RowContainer onClick={() => navigate(`/user/${id}`)}>
+          <RowContainer onClick={handleTargetUser}>
             <Name>{name}</Name>
             <Account>
               @{account} · {dayjs(`${time}`).locale("zh-tw").fromNow()}
             </Account>
           </RowContainer>
           <RowContainer>
-            <TweetText onClick={()=>navigate(`/user/reply/${tweet.id}`)}>{description}</TweetText>
+            <TweetText onClick={() => navigate(`/user/reply/${tweet.id}`)}>{description}</TweetText>
           </RowContainer>
           <RowContainer>
             <IconsContainer>

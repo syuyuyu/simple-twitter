@@ -10,11 +10,12 @@ export const login = async ({ account, password }) => {
   try {
     const { data } = await axios.post(`${authURL}/api/auth/users/login`, { account, password });
 
-    const { token,user } = data;
+    const { token, user, role } = data;
     if (token) {
-      localStorage.setItem('authToken', token);
-      localStorage.setItem("userId",user.id)
-      return { success: true, token,user }; // 改成token與user
+      localStorage.setItem("authToken", token);
+      localStorage.setItem("userId", user.id);
+      localStorage.setItem("role", role);
+      return { success: true, token, user }; // 改成token與user
     }
   } catch (error) {
     console.log("[Login Failed]:", error);

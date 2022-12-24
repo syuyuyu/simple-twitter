@@ -1,16 +1,16 @@
-import React, { useContext } from 'react'
-import { LikeTweetContext } from '../../contexts/TweetContext';
+import React, { useContext } from "react";
+import { LikeTweetContext } from "../../contexts/TweetContext";
 import { StyledTweetsList } from "../common/StyledGroup";
 import TweetItem from "./TweetItem";
-
 
 const LikeTweetsList = () => {
   const { likeTweets } = useContext(LikeTweetContext);
   return (
     <StyledTweetsList>
-      {likeTweets.map((tweet) => {
+      {likeTweets.map((tweet, index) => {
         return (
           <TweetItem
+            key={index}
             id={tweet.id}
             tweet={tweet}
             time={tweet.updatedAt}
@@ -23,6 +23,6 @@ const LikeTweetsList = () => {
       })}
     </StyledTweetsList>
   );
-}
+};
 
-export default LikeTweetsList
+export default LikeTweetsList;

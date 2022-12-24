@@ -189,7 +189,7 @@ export const postUnFollow = async (followingId) => {
 export const postLike = async (tweetId) => {
   try {
     const authToken = localStorage.getItem("authToken");
-    const res = await axios.post(`${baseURL}/api/tweets/${tweetId}/like`, {
+    const res = await axios.post(`${baseURL}/api/tweets/564/like`, {
       headers: { Authorization: `Bearer ${authToken}` },
     });
     return res.data;

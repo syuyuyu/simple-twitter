@@ -106,7 +106,7 @@ const Main = () => {
       try {
         const tweets = await getTweets();
         setTweets(tweets.map((tweet) => ({ ...tweet })));
-        console.log("所有推文",tweets)
+        return;
       } catch (error) {
         console.error(error);
       }
@@ -119,8 +119,8 @@ const Main = () => {
     const getUserAsync = async () => {
       try {
         const user = await getUser();
-        // console.log('user',user)
         setOtherUser(user);
+        return;
       } catch (error) {
         console.error(error);
       }
