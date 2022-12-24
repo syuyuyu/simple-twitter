@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const authURL = "https://nameless-fortress-45508.herokuapp.com";
+// const authURL = "https://nameless-fortress-45508.herokuapp.com";
+const authURL = "https://protected-journey-43760.herokuapp.com";
 
 export const login = async ({ account, password }) => {
   try {
@@ -15,7 +16,7 @@ export const login = async ({ account, password }) => {
     console.log(error.response.data.message);
   }
 };
-
+//測試
 export const checkAdminPermission = async (authToken) => {
   try {
     const response = await axios.get(`${authURL}/api/auth/test-admin`, {
@@ -27,6 +28,8 @@ export const checkAdminPermission = async (authToken) => {
   } catch (error) {
     console.error("[Check Permission Failed]:", error);
   }
+  // console.log('admin checkPermission ','pass',authToken)
+
 };
 
 export const adminGetUsers = async()=>{

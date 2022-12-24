@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import styled from "styled-components";
 import {
   StyledAccount,
@@ -17,6 +17,9 @@ import TweetReplysList from "../Lists/TweetReplysList";
 import ReplyModal from "../Modals/ReplyModal";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
+import { getTweetReplys } from "../../api/tweets";
+import { TweetReplysContext } from "../../contexts/TweetContext";
+import { useParams } from "react-router-dom";
 
 const TweetContainer = styled.div`
   margin: 0 16px;
@@ -96,6 +99,9 @@ const Time = styled.p`
 const Reply = ({ replyModal, toggleReplyModal }) => {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
+  const {setTweetReplyList} = useContext(TweetReplysContext);
+  const params = useParams();
+
 
   //GET 個人資料
   // useEffect(() => {
@@ -116,6 +122,24 @@ const Reply = ({ replyModal, toggleReplyModal }) => {
       navigate("/");
     }
   }, [navigate, isAuthenticated]);
+
+
+  //取得特定貼文回覆串
+useEffect(()=>{
+  const getReplys=async()=>{
+    try{
+      // console.log(params)
+      const res = await getTweetReplys(params.replyId)
+      // console.log('tweetITem replyList tweet id 824:',res);
+      setTweetReplyList(res.map((tweet)=>({ ...tweet })))
+      // console.log('tweetList',tweetReplyList)
+    }catch(err){
+      console.error('tweetITem replyList error :',err)
+    }
+  }
+  getReplys();
+},[params.replyId,setTweetReplyList])
+
 
   return (
     <>

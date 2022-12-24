@@ -35,8 +35,17 @@ const Setting =()=>{
   const [checkedPassword, setCheckedPassword] = useState("");
   const [isUpdating, setIsUpdating] = useState(false);
 
-
   const handleSubmit=async()=>{
+    if(!account || !name || !email ){
+      Swal.fire({
+        title: "資料欄位為必填",
+        icon: "error",
+        showConfirmButton: false,
+        timer: 1000,
+        position: "top",
+      });
+      return;
+    };
     if(isUpdating){
       return;
     }
