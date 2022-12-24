@@ -225,7 +225,7 @@ const Reply = () => {
             <div className='icon-wrapper'>
               <div className='icon reply' onClick={toggleReplyModal}></div>
               {activeLike ? (
-                <div className='icon like active' onClick={handleUnLike}></div>
+                <div className='icon like active'></div>
               ) : (
                 <div className='icon like' onClick={handleLike}></div>
               )}
