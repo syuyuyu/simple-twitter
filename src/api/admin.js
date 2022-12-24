@@ -6,7 +6,7 @@ const authURL = "https://protected-journey-43760.herokuapp.com";
 
 export const login = async ({ account, password }) => {
   try {
-    const { data } = await axios.post({
+    const { data } = await axios({
       method :'POST',
       url: `${authURL}/api/auth/admin/login`,
       data: {
@@ -15,8 +15,11 @@ export const login = async ({ account, password }) => {
       },
     })
     console.log(data);
-    const { token } = data;
+    const { token, admin } = data;
     if (token) {
+      localStorage.setItem("authToken", token);
+      localStorage.setItem("userId", admin.id);
+      localStorage.setItem("role", admin.role);
       return { success: true, ...data };
     }
     }catch(err){
@@ -24,8 +27,6 @@ export const login = async ({ account, password }) => {
         console.log(err.response.data.message);
     }
   };
-
-
 
 
 //測試 新的
@@ -40,28 +41,7 @@ export const checkAdminPermission = async (authToken) => {
   } catch (error) {
     console.error("[Check Permission Failed]:", error);
   }
-  // console.log('admin checkPermission ','pass',authToken)
 };
-//測試 可刪
-// export const checkAdminPermission = async (authToken) => {
-//   try {
-//     const res = await axios({
-//       method :'GET',
-//       uer: `${authURL}/api/auth/test-admin`,
-//       header:{
-//         Authorization: "Bearer " + authToken,
-//       },
-//     })
-//       return res.data.success;
-//     }catch (error) {
-//     console.error("[Check Permission Failed]:", error);
-//   }
-//   };
-
-
-
-
-
 
 
 export const adminGetUsers = async()=>{

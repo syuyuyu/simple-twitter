@@ -66,6 +66,7 @@ const Profile = () => {
       try {
         const user = await getUser();
         setOtherUser(user);
+        return
       } catch (error) {
         console.error(error);
       }
@@ -80,7 +81,7 @@ const Profile = () => {
       try {
         const userTweets = await getUserTweets();
         setUserTweets(userTweets.map((userTweet) => ({ ...userTweet })));
-        
+        return
       } catch (error) {
         console.error(error);
       }
@@ -95,6 +96,7 @@ const Profile = () => {
       try {
         const userReplys = await getReplys();
         setUserReplys(userReplys.map((tweet) => ({ ...tweet })));
+        return
       } catch (error) {
         console.error(error);
       }
@@ -108,6 +110,7 @@ const Profile = () => {
       try {
         const likeTweets = await getLikeTweets();
         setLikeTweets(likeTweets.map((tweet) => ({ ...tweet })));
+        return
       } catch (error) {
         console.error(error);
       }

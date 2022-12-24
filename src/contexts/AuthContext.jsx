@@ -11,12 +11,8 @@ const defaultAuthContext = {
   logout: null, // 登出方法
 };
 
-
 const AuthContext = createContext(defaultAuthContext);
 export const useAuth = () => useContext(AuthContext);
-
-
-
 
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -27,7 +23,8 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const checkTokenIsValid = async () => {
       const token = localStorage.getItem("authToken");
-      if (!token) {
+      const role = localStorage.getItem("role");
+      if (!token || role === "admin") {
         setIsAuthenticated(false);
         setPayload(null);
         return;
@@ -53,9 +50,10 @@ export const AuthProvider = ({ children }) => {
         currentMember: payload && {
           id: payload.sub,
           name: payload.name,
+          role: payload.role
         },
         register: async (data) => {
-          try{
+          try {
             const res = await register({
               account: data.account,
               name: data.name,
@@ -63,22 +61,21 @@ export const AuthProvider = ({ children }) => {
               password: data.password,
               checkPassword: data.checkPassword,
             });
-            // const {success, token, user}={res}
-            // console.log(success,token,user)
-            // const tempPayload = jwt_decode(token);
+            const { token, user } = { res };
+            const tempPayload = jwt_decode(token);
             if (res) {
-            //   setPayload(tempPayload);
-            //   setIsAuthenticated(true);
-            //   localStorage.setItem("authToken", token);
-            //   localStorage.setItem("userId", user.id);
-            // } else {
-            //   setPayload(null);
-            //   setIsAuthenticated(false);
-            // }
-            return res;
+              setPayload(tempPayload);
+              setIsAuthenticated(true);
+              localStorage.setItem("authToken", token);
+              localStorage.setItem("userId", user.id);
+              localStorage.setItem("role", user.role);
+            } else {
+              setPayload(null);
+              setIsAuthenticated(false);
             }
-          }catch(err){
-            console.log('register error :',err)
+            return res;
+          } catch (err) {
+            console.log("register error :", err);
           }
         },
         login: async (data) => {
@@ -92,6 +89,7 @@ export const AuthProvider = ({ children }) => {
             setIsAuthenticated(true);
             localStorage.setItem("authToken", token);
             localStorage.setItem("userId", user.id);
+            localStorage.setItem("role", user.role);
           } else {
             setPayload(null);
             setIsAuthenticated(false);
@@ -101,6 +99,7 @@ export const AuthProvider = ({ children }) => {
         logout: () => {
           localStorage.removeItem("authToken");
           localStorage.removeItem("userId");
+          localStorage.removeItem("role");
           setPayload(null);
           setIsAuthenticated(false);
         },

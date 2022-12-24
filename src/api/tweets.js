@@ -211,7 +211,7 @@ export const postLike = async (tweetId) => {
   const authToken = localStorage.getItem("authToken");
   try {
     const res = await axios({
-      method :'GET',
+      method :'POST',
       url: `${baseURL}/api/tweets/${tweetId}/like`,
       headers:{
         Authorization: `Bearer ${authToken}`,
@@ -241,7 +241,7 @@ export const postUnLike = async (tweetId) => {
   const authToken = localStorage.getItem("authToken");
   try {
     const res = await axios({
-      method :'GET',
+      method :'POST',
       url: `${baseURL}/api/tweets/${tweetId}/unlike`,
       headers:{
         Authorization: `Bearer ${authToken}`,

@@ -29,7 +29,8 @@ export const AdminProvider = ({ children }) => {
   useEffect(() => {
     const checkTokenIsValid = async () => {
       const token = localStorage.getItem("authToken");
-      if (!token) {
+      const role = localStorage.getItem("role");
+      if (!token || role === "user") {
         setIsAuthenticated(false);
         setPayload(null);
         return;
@@ -56,6 +57,7 @@ export const AdminProvider = ({ children }) => {
         currentMember: payload && {
           id: payload.sub,
           name: payload.name,
+          role: payload.role,
         },
         login: async (data) => {
           const { success, token } = await login({
@@ -76,6 +78,7 @@ export const AdminProvider = ({ children }) => {
         logout: () => {
           localStorage.removeItem("authToken");
           localStorage.removeItem("userId");
+          localStorage.removeItem("role");
           setPayload(null);
           setIsAuthenticated(false);
         },

@@ -150,13 +150,13 @@ const ReplyModal = () => {
     }
   };
 
-
+//GET User個人資料
   useEffect(()=>{
     const getAvatar=async()=>{
       try{
         const res = await getUser()
-        // console.log('getAvatar:',res.avatar)
         setAvatar(res.avatar)
+        return;
       }catch(err){
         console.error('replyModal getAvatar error :',err)
       }

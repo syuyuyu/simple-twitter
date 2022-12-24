@@ -41,13 +41,13 @@ const Follow = () => {
   const { setFollowings } = useContext(FollowingContext);
 
   
-//渲染追隨者
+//GET 追隨者
 useEffect(() => {
   const getFollowersAsync = async () => {
     try {
       const followers = await getFollowers();
-      console.log("追隨者",followers);
       setFollowers(followers);
+      return;
     } catch (error) {
       console.error(error);
     }
@@ -55,13 +55,13 @@ useEffect(() => {
   getFollowersAsync();
   return()=>{}
 }, [setFollowers]);
-//渲染追蹤ing名單
+//GET 追蹤ing名單
 useEffect(() => {
   const getFollowingsAsync = async () => {
     try {
       const followings = await getFollowings();
-      console.log("追蹤ing名單", followings);
       setFollowings(followings);
+      return;
     } catch (error) {
       console.error(error);
     }

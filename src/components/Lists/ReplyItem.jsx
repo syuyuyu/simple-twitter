@@ -88,11 +88,18 @@ const ReplyItem = ({ replyId, User, UserId, comment, time, Tweet }) => {
   dayjs.extend(relativeTime);
   const abc = { ...Tweet.User };
   const {account: tweetUserAccount} = abc;
-  const { account, avatar, name } = { ...User };
+  const { account, avatar, name,id } = { ...User };
+  const userId = localStorage.getItem("userId");
+  const handleTargetUser = () => {
+    if (id === userId) {
+      return;
+    }
+    navigate(`/user/${id}`);
+  };
 
   return (
     <ItemContainer>
-      <AvatarContainer onClick={() => navigate("/user/:id")}>
+      <AvatarContainer onClick={handleTargetUser}>
         <Avatar className='avatar' style={{ margin: "0px", backgroundImage: `url('${avatar}')` }}></Avatar>
       </AvatarContainer>
       <TextContainer>

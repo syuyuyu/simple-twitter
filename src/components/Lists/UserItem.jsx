@@ -60,6 +60,7 @@ const TweetText = styled.p`
 
 const UserItem = ({ User, isFollowed }) => {
   const {  avatar, introduction, name } = { ...User };
+  
   return (
     <ItemContainer>
       <AvatarContainer>

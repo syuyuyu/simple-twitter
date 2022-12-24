@@ -98,19 +98,19 @@ const Main = () => {
           timer: 1000,
           position: "top",
         });
-        setInputValue(' ')
         setIsUpdating(false)
+        setInputValue('')
       }
-    }catch(err){
-        Swal.fire({
-          title: "儲存失敗",
-          icon: "error",
-          showConfirmButton: false,
-          timer: 1000,
-          position: "top",
-        });
+      }catch(err){
+          Swal.fire({
+            title: "儲存失敗",
+            icon: "error",
+            showConfirmButton: false,
+            timer: 1000,
+            position: "top",
+          });
+        }
       }
-  }
 
   //取得全部推文
   useEffect(() => {
@@ -118,7 +118,7 @@ const Main = () => {
       try {
         const tweets = await getTweets();
         setTweets(tweets.map((tweet) => ({ ...tweet })));
-        console.log("所有推文",tweets)
+        return;
       } catch (error) {
         console.error(error);
       }
@@ -132,8 +132,8 @@ const Main = () => {
     const getUserAsync = async () => {
       try {
         const user = await getUser();
-        // console.log('user',user)
         setOtherUser(user);
+        return;
       } catch (error) {
         console.error(error);
       }
