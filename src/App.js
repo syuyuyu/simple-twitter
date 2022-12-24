@@ -40,6 +40,7 @@ function App() {
   const [tweetModal, setTweetModal] = useState(false);
   const [replyModal, setReplyModal] = useState(false);
   const [editModal, setEditModal] = useState(false);
+  const basename = process.env.PUBLIC_URL;
 
   const toggleTweetModal = () => {
     setTweetModal(!tweetModal);
@@ -55,7 +56,7 @@ function App() {
     <div className='app'>
       <ResetStyle />
       <GlobalStyle />
-      <BrowserRouter>
+      <BrowserRouter basename={basename}>
         <AuthProvider>
           <AdminProvider>
             <TweetModalContext.Provider value={{ tweetModal, toggleTweetModal }}>
