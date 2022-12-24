@@ -103,6 +103,7 @@ const OtherUser = () => {
       }
     };
     getOtherUserAsync();
+    return()=>{}
   }, [param.userId]);
 
   //GET otherUser自己的推文
@@ -117,6 +118,7 @@ const OtherUser = () => {
       }
     };
     getUserTweetsAsync();
+    return()=>{}
   }, [setUserTweets, param.userId]);
 
   //GET otherUser回覆串資料
@@ -131,6 +133,7 @@ const OtherUser = () => {
       }
     };
     getUserReplysAsync();
+    return()=>{}
   }, [setUserReplys, param.userId]);
 //GET otherUser喜歡的內容
   useEffect(() => {
@@ -144,6 +147,7 @@ const OtherUser = () => {
       }
     };
     getUserLikeTweetsAsync();
+    return()=>{}
   }, [setLikeTweets, param.userId]);
 
   useEffect(() => {

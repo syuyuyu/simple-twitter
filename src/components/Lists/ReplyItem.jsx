@@ -83,7 +83,7 @@ const TweetText = styled.p`
   line-height: 26px;
 `;
 
-const ReplyItem = ({ key, User, UserId, comment, time, Tweet }) => {
+const ReplyItem = ({ replyId, User, UserId, comment, time, Tweet }) => {
   const navigate = useNavigate();
   dayjs.extend(relativeTime);
   const abc = { ...Tweet.User };

@@ -5,7 +5,7 @@ import ReplyItem from "./ReplyItem";
 
 const TweetReplysList = () => {
   const { tweetReplyList } = useContext(TweetReplysContext);
-  console.log("tweetReplyList>>>", tweetReplyList);
+  // console.log("tweetReplyList>>>", tweetReplyList);
 
   return (
     <StyledTweetsList>

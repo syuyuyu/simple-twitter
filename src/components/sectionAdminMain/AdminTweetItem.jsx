@@ -87,7 +87,7 @@ const AdminTweetItem = ({
   }) => {
   dayjs.extend(relativeTime);
   const {account,avatar,name} = {...tweet.User}
-  const StringLength = description.length;
+  const StringLength = description?.length;
   return (
     <>
       <ItemContainer key={id}>
