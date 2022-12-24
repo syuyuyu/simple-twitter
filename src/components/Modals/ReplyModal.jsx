@@ -1,4 +1,4 @@
-import React, { useContext ,useState } from "react";
+import React, { useContext ,useState,useEffect } from "react";
 import styled from "styled-components";
 import {
   StyledContentContainer,
@@ -14,7 +14,7 @@ import ReplyTweet from "../ReplyTweet";
 import { ReplyModalContext } from "../../contexts/ModalContext";
 import { TargetTweetContext } from "../../contexts/TweetContext";
 import { createReply } from "../../api/tweets";
-// import ContentTextarea from "../ContentTextarea";
+import { getUser } from "../../api/user";
 
 const Modal = styled.div`
   width: 100vw;
@@ -86,10 +86,10 @@ const StyledTextarea = styled.textarea`
 const ReplyModal = () => {
   const {replyModal,toggleReplyModal} = useContext(ReplyModalContext);
   const {targetTweet} = useContext(TargetTweetContext);
-  const [inputValue,setInputValue] = useState();
+  const [inputValue,setInputValue] = useState('');
   const [isUpload,setIsUpload] = useState(false)
   const id = targetTweet.id
-  //  console.log('targetTweet',targetTweet.id)
+  const [avater,setAvatar] = useState('');
 
   const handleChange =(descripton)=>{
     if(isUpload){
@@ -116,16 +116,17 @@ const ReplyModal = () => {
         timer: 1000,
         position: "top",
       });
+      return;
     };
     setIsUpload(true)
-      console.log('reply modal id:',id)
-      console.log('reply modal inputValue:',inputValue)
+      // console.log('reply modal id:',id)
+      // console.log('reply modal inputValue:',inputValue)
     try{
       const comment = inputValue
       const tweetId = id
       const res = await createReply({comment,tweetId})
       // console.log('reply modal id:',id)
-      console.log('reply res:',res)
+      // console.log('reply res:',res)
       if(res){
         await Swal.fire({
           title: "資料儲存中",
@@ -146,7 +147,21 @@ const ReplyModal = () => {
         position: "top",
       });
     }
-  }
+  };
+
+
+  useEffect(()=>{
+    const getAvatar=async()=>{
+      try{
+        const res = await getUser()
+        // console.log('getAvatar:',res.avatar)
+        setAvatar(res.avatar)
+      }catch(err){
+        console.error('replyModal getAvatar error :',err)
+      }
+    }
+    getAvatar();
+  },[])
 
   return (
     <>
@@ -162,8 +177,8 @@ const ReplyModal = () => {
             </TweetContainer>
             <StyledContentContainer style={{ border: "none", height: "243px" }}>
               <StyledContentWrapper>
-                <StyledAvatarDefault style={{ margin: "0px 8px 16px 16px" }}>
-                  <div className='avatar'></div>
+                <StyledAvatarDefault style={{ margin: "0px 8px 16px 16px"}}>
+                  <div className='avatar'style={{backgroundImage:`url('${avater}')`,borderRadius:'50%'}}></div>
                 </StyledAvatarDefault>
                 <StyledContainer>
                   <StyledTextarea

@@ -42,7 +42,7 @@ export const register = async ({ account, name, email, password, checkPassword }
   }
 };
 
-//確認身分
+//確認身分  //測試
 export const checkPermission = async (authToken) => {
   try {
     const response = await axios.get(`${authURL}/api/auth/test-auth`, {
@@ -54,4 +54,5 @@ export const checkPermission = async (authToken) => {
   } catch (error) {
     console.error("[Check Permission Failed]:", error);
   }
+  // console.log('checkPermission ','pass',authToken)
 };

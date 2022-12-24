@@ -28,12 +28,14 @@ const initUserTweets = {
   usertweets: [],
 };
 const initTweet = {
-  tweets: [],
+  tweet: [],
 };
 const initFollowShips = {
   followShips: [],
 };
-
+const initTweetReplys = {
+  tweetReplys: [],
+};
 
 export const TweetContext = createContext(initTweets);
 export const UserReplyContext = createContext(initUserReplys);
@@ -45,6 +47,8 @@ export const OtherUserContext = createContext(initOtherUser);
 export const UserTweetContext = createContext(initUserTweets);
 export const TargetTweetContext = createContext(initUserTweets);
 // export const FollowShipContext = createContext(initFollowShips);
+export const TweetReplysContext = createContext(initUserTweets);
+
 
 //所有推文
 export const TweetProvider = ({ children }) => {
@@ -152,4 +156,15 @@ export const TargetTweetProvider = ({ children }) => {
   };
 
   return <TargetTweetContext.Provider value={value}>{children}</TargetTweetContext.Provider>;
+};
+
+//特定推文回覆串
+export const TweetReplysProvider = ({ children }) => {
+  const [tweetReplyList, setTweetReplyList] = useState([initTweetReplys]);
+  
+  const value = {
+    tweetReplyList,
+    setTweetReplyList,
+  };
+  return <TweetReplysContext.Provider value={value}>{children}</TweetReplysContext.Provider>;
 };

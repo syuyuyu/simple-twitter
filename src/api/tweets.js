@@ -55,6 +55,20 @@ export const getLikeTweets = async () => {
   }
 };
 
+//GET 特定推文回覆串
+export const getTweetReplys = async (tweetId) => {
+  try {
+    const authToken = localStorage.getItem("authToken");
+    const res = await axios.get(`${baseURL}/api/tweets/${tweetId}/replies`, {
+      headers: { Authorization: `Bearer ${authToken}` },
+    });
+    // console.log('getTweetReplys:',res.data)
+    return res.data;
+  } catch (error) {
+    console.error("[Get TweetReplys failed]:", error);
+  }
+};
+
 //POST發送推文
 export const createTweet = async (description) => {
   const authToken = localStorage.getItem('authToken')

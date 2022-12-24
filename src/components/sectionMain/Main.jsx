@@ -54,6 +54,16 @@ const Main = () => {
 
   //上傳推文
   const handleSubmit = async () => {
+    if(!inputValue){
+      Swal.fire({
+        title: "推文不可為空白",
+        icon: "error",
+        showConfirmButton: false,
+        timer: 1000,
+        position: "top",
+      });
+      return;
+    };
     if(isUpdating){
       Swal.fire({
         title: "上傳中請稍等",
@@ -75,8 +85,9 @@ const Main = () => {
           timer: 1000,
           position: "top",
         });
+        setInputValue('')
         setIsUpdating(false)
-        return setInputValue('')
+        console.log('inputValue :',inputValue)
       }
       }catch(err){
         Swal.fire({
@@ -108,6 +119,7 @@ const Main = () => {
     const getUserAsync = async () => {
       try {
         const user = await getUser();
+        // console.log('user',user)
         setOtherUser(user);
       } catch (error) {
         console.error(error);

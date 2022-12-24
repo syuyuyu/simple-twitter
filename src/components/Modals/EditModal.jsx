@@ -141,6 +141,16 @@ const EditModal = () => {
   };
 
   const handleSubmit=async()=>{
+    if(!name){
+      Swal.fire({
+        title: "資料欄位為必填",
+        icon: "error",
+        showConfirmButton: false,
+        timer: 1000,
+        position: "top",
+      });
+      return;
+    };
     setIsUpdating(true)
     const introduction =intro
     const cover = coverImg

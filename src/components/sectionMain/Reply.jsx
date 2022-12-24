@@ -20,6 +20,8 @@ import { getTargetTweet, postLike, postUnLike } from "../../api/tweets";
 import { TargetTweetContext } from "../../contexts/TweetContext";
 import dayjs from "dayjs";
 import { ReplyModalContext } from "../../contexts/ModalContext";
+import { getTweetReplys } from "../../api/tweets";
+import { TweetReplysContext } from "../../contexts/TweetContext"; 
 
 const TweetContainer = styled.div`
   margin: 0 16px;
@@ -121,6 +123,8 @@ const Reply = () => {
   const params = useParams();
   console.log("isLike",targetTweet.isLiked);
   console.log("targetTweet", targetTweet.id);
+  const {setTweetReplyList} = useContext(TweetReplysContext);
+
 
   //GET 單篇推文資料
   useEffect(() => {
@@ -168,6 +172,24 @@ const Reply = () => {
       navigate("/");
     }
   }, [navigate, isAuthenticated]);
+
+
+  //取得特定貼文回覆串
+useEffect(()=>{
+  const getReplys=async()=>{
+    try{
+      // console.log(params)
+      const res = await getTweetReplys(params.replyId)
+      // console.log('tweetITem replyList tweet id 824:',res);
+      setTweetReplyList(res.map((tweet)=>({ ...tweet })))
+      // console.log('tweetList',tweetReplyList)
+    }catch(err){
+      console.error('tweetITem replyList error :',err)
+    }
+  }
+  getReplys();
+},[params.replyId,setTweetReplyList])
+
 
   return (
     <>
