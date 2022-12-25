@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAdmin } from "../../contexts/AdminContext";
 import {
-  StyledHeader,
   StyledTitleH4,
   StyledTweetsList,
   StyledAdminTweetsList,
@@ -48,7 +47,6 @@ const AdminTweetsList = () => {
       try {
         const tweets = await adminGetTweets();
         setTweets(tweets.map((tweet) => ({ ...tweet })));
-        // console.log('tweets',tweets)
         return;
       } catch (error) {
         console.error(error);
