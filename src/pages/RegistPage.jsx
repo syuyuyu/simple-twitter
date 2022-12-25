@@ -22,6 +22,7 @@ const RegistPage = () => {
     };
     try{
       const res = await register({account,name,email,password,checkPassword});
+      console.log(res)
         if (res) {
           Swal.fire({
             title: "註冊成功",
@@ -46,6 +47,13 @@ const RegistPage = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
+          Swal.fire({
+            title: "登入跳轉中",
+            icon: "success",
+            showCloseButton: false,
+            timer: 1000,
+            position: "top",
+          });
       navigate("/user/main");
     }
   }, [navigate, isAuthenticated]);
