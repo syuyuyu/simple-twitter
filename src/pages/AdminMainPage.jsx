@@ -5,12 +5,10 @@ import { Outlet } from "react-router-dom";
 
 const AdminMainPage = () => {
   return (
-    <>
       <StyledAdminGroupContainer>
         <SectionAdminSidebar />
         <Outlet />
       </StyledAdminGroupContainer>
-    </>
   );
 };
 
