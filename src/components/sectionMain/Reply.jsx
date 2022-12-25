@@ -13,7 +13,6 @@ import reply from "../../assets/icons/reply.svg";
 import unlike from "../../assets/icons/like.svg";
 import like from "../../assets/icons/like-active.svg";
 import TweetReplysList from "../Lists/TweetReplysList";
-import ReplyModal from "../Modals/ReplyModal";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import { getTargetTweet, postLike, postUnLike } from "../../api/tweets";
@@ -227,7 +226,6 @@ const Reply = () => {
           <TweetReplysList />
         </StyledHeader>
       </StyledMainContainer>
-      {/* <ReplyModal /> */}
     </>
   );
 };
