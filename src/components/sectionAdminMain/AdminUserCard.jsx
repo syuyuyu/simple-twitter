@@ -4,7 +4,7 @@ import tweetIcon from "../../assets/icons/tweet.svg";
 import { useAdmin } from "../../contexts/AdminContext";
 
 const StyledAdminUserCard = styled.div`
-  height: 300px;
+  height: 314px;
   border-radius: 10px;
   background-color: #F6F7F8;
   /* min-width: 249px; */

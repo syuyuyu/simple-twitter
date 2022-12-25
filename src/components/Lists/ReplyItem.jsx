@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 const ItemContainer = styled.div`
   display: flex;
   flex-direction: row;
-  border: 1px solid #e6ecf0;
+  border-bottom: 1px solid #e6ecf0;
   padding: 16px 29px 16px 24px;
 `;
 
@@ -87,12 +87,14 @@ const ReplyItem = ({ replyId, User, UserId, comment, time, Tweet }) => {
   const navigate = useNavigate();
   dayjs.extend(relativeTime);
   const abc = { ...Tweet?.User };
-  const {account: tweetUserAccount} = abc;
-  const { account, avatar, name,id } = { ...User };
-  const userId = localStorage.getItem("userId");
+  const { account: tweetUserAccount } = abc;
+  const { account, avatar, name, id } = { ...User };
+
+  //跳轉其他使用者個人資料頁面
   const handleTargetUser = () => {
-    if (id === userId) {
-      return;
+    const userId = localStorage.getItem("userId");
+    if (Number(id) === Number(userId)) {
+      return navigate("/user/profile");
     }
     navigate(`/user/${id}`);
   };

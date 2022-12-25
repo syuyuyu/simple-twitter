@@ -34,7 +34,7 @@ const AdminUserList = () => {
   return (
     <>
       <StyleSectionAdminMain>
-        <StyledHeader>
+        <StyledHeader >
           <StyledTitleH4>使用者列表</StyledTitleH4>
         </StyledHeader>
         <StyledAdminUserList>

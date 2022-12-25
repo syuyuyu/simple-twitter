@@ -5,6 +5,7 @@ import SectionPopular from "../components/SectionPopular";
 import { Outlet ,useNavigate } from "react-router-dom";
 import TweetModal from "../components/Modals/TweetModal";
 import { useAuth } from "../contexts/AuthContext";
+import ReplyModal from "../components/Modals/ReplyModal";
 
 const MainPage = () => {
   const {isAuthenticated} =  useAuth();
@@ -24,6 +25,7 @@ const MainPage = () => {
       <SectionPopular />
     </StyledGroupContainer>
     <TweetModal />
+    <ReplyModal/>
     </>
     
   );

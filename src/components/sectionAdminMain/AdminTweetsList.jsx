@@ -57,7 +57,7 @@ const AdminTweetsList = () => {
     <>
       <StyleSectionAdminMain>
         <StyledAdminTweetsList>
-          <StyledHeader>
+          <StyledHeader style={{ width: "937px"}}>
             <StyledTitleH4>推文清單</StyledTitleH4>
           </StyledHeader>
           <StyledTweetsList>
