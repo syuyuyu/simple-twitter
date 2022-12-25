@@ -23,7 +23,6 @@ const StyledSidebarButton =styled.button`
 
 
 const SidebarButton = () => {
-    // const {toggleTweetModal} = useContext(TweetModalContext);
     const {toggleTweetModal} = useContext(TweetModalContext);
   return (
     <StyledSidebarButton onClick={toggleTweetModal}>

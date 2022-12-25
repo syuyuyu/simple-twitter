@@ -99,25 +99,10 @@ export const Top10Provider = ({ children }) => {
 //追隨者
 export const FollowerProvider = ({ children }) => {
   const [followers, setFollowers] = useState([initFollowShips]);
-  // const [followingship, setFollowingship] = useState([initFollowers]);
-  // const param = useParams()
-
-  // const handleFollow = async () => {
-  //   try {
-  //     const followShipData = await postFollowing(param.userId);
-  //     console.log("這是正在追隨者清單",followShipData);
-  //     // setFollowingship(followShipData.find((following) => following.id === userId));
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
 
   const value = {
     followers,
     setFollowers,
-    // followingship,
-    // setFollowingship,
-    // handleFollow,
   };
 
   return <FollowerContext.Provider value={value}>{children}</FollowerContext.Provider>;

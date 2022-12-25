@@ -89,7 +89,7 @@ const OtherUser = () => {
   const { setUserReplys } = useContext(UserReplyContext);
   const { setLikeTweets } = useContext(LikeTweetContext);
   const [personalInfo, setPersonalInfo] = useState({});
-  const [isFollow, setIsFollow] = useState("");
+  const [isFollow, setIsFollow] = useState('');
 
   //GET 個人資料
   useEffect(() => {
@@ -97,7 +97,7 @@ const OtherUser = () => {
       try {
         const user = await getOtherUser(param.userId);
         setPersonalInfo(user);
-        console.log("其他使用者資料>>",user)
+        setIsFollow(user.isFollowed);
         return;
       } catch (error) {
         console.error(error);
@@ -154,17 +154,18 @@ const OtherUser = () => {
     return () => {};
   }, [setLikeTweets, param.userId]);
 
+  //跟隨功能
   const handleToggleFollow = async (targetUser) => {
     const userId = localStorage.getItem("userId");
-    if (Number(userId) === Number(targetUser.followingId)) {
+    if (Number(userId) === Number(targetUser.id)) {
       return;
     }
     //開始跟隨
-    if (!targetUser.isFollowed) {
+    if (isFollow === false) {
       try {
-        const res = await postFollowing(targetUser.followingId);
+        const res = await postFollowing(targetUser.id);
         if (res) {
-          setIsFollow(isFollow + 1);
+          setIsFollow(true);
         }
       } catch (error) {
         console.error(error);
@@ -172,9 +173,9 @@ const OtherUser = () => {
     } else {
       //取消追隨
       try {
-        const res = await deleteFollow(targetUser.followingId);
+        const res = await deleteFollow(targetUser.id);
         if (res) {
-          setIsFollow(isFollow - 1);
+          setIsFollow(false);
         }
       } catch (error) {
         console.error(error);
@@ -220,10 +221,10 @@ const OtherUser = () => {
           <NotiButton className='active'>
             <div className='noti'></div>
           </NotiButton>
-          {isFollow === 1 ? (
-            <StyledPublicButton onClick={(e) => handleToggleFollow(e)}>正在跟隨</StyledPublicButton>
+          {isFollow ? (
+            <StyledPublicButton onClick={() => handleToggleFollow(personalInfo)}>正在跟隨</StyledPublicButton>
           ) : (
-            <StyledPublicButton className='active' onClick={(e) => handleToggleFollow(e)}>
+            <StyledPublicButton className='active' onClick={() => handleToggleFollow(personalInfo)}>
               跟隨
             </StyledPublicButton>
           )}

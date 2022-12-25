@@ -2,7 +2,6 @@ import React, { useState,useEffect } from "react";
 import {StyledHeader,StyledTitleH4,StyledPublicButton} from "./common/StyledGroup";
 import AuthInput from "../components/AuthInput";
 import styled from "styled-components";
-import TweetModal from "./Modals/TweetModal";
 import { putUser,getUser } from "../api/user";
 import Swal from "sweetalert2";
 import SettingPasswordInput from "./AuthInputPassword";
@@ -166,7 +165,6 @@ const Setting =()=>{
           </div>
         </InputContainer>
       </SettingContainer>
-      <TweetModal />
     </>
   );
 }

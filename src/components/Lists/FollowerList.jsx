@@ -1,20 +1,19 @@
 import React, { useContext } from "react";
 import { FollowerContext } from "../../contexts/TweetContext";
 import { StyledTweetsList } from "../common/StyledGroup";
-import UserItem from "./UserItem";
+import FollowerUserItem from "./FollowerUserItem";
 
-const FollowerList = (handleToggleFollow) => {
+const FollowerList = () => {
   const { followers } = useContext(FollowerContext);
   return (
     <StyledTweetsList>
       {followers.map((user,index) => {
         return (
-          <UserItem
-            id={user.id}
+          <FollowerUserItem
             key={index}
-            User={user.followerUser}
+            UserId={user.followingId}
+            otherUser={user.followerUser}
             isFollowed={user.isFollowed}
-            handleToggleFollow={(User)=>{handleToggleFollow?.(User)}}
           />
         );
       })}

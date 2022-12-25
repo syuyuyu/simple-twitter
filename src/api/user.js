@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const baseURL = "https://nameless-fortress-45508.herokuapp.com";
-// const baseURL = "https://protected-journey-43760.herokuapp.com";
+// const baseURL = "https://nameless-fortress-45508.herokuapp.com";
+const baseURL = "https://protected-journey-43760.herokuapp.com";
 
 //GET 使用者個人資料
 export const getUser = async () => {
@@ -37,20 +37,20 @@ export const putUser = async ({formData}) => {
         console.error("[Put User failed]:", error);
       }
   };
-
-  //GET Top10
-  export const getTop10 = async () => {
-    try {
-      const authToken = localStorage.getItem("authToken");
-      const res = await axios.get(`${baseURL}/api/followships?top=10`, {
-        headers: { Authorization: `Bearer ${authToken}` },
-      });
-      return res.data;
-    } catch (error) {
-      console.error("[Get User failed]:", error);
-    }
-  };
   
+//GET Top10
+export const getTop10 = async () => {
+  try {
+    const authToken = localStorage.getItem("authToken");
+    const res = await axios.get(`${baseURL}/api/followships?top=10`, {
+      headers: { Authorization: `Bearer ${authToken}` },
+    });
+    return res.data;
+  } catch (error) {
+    console.error("[Get User failed]:", error);
+  }
+};
+
 //GET追隨者名單
 export const getFollowers = async () => {
   try {
@@ -86,7 +86,6 @@ export const getOtherUserTweets = async (userId) => {
     const res = await axios.get(`${baseURL}/api/users/${userId}`, {
       headers: { Authorization: `Bearer ${authToken}` },
     });
-    console.log("user GET api res:", res);
     return res.data;
   } catch (error) {
     console.error("[Get User failed]:", error);
@@ -94,7 +93,7 @@ export const getOtherUserTweets = async (userId) => {
 };
 
 //GET 其他使用者資料
-export const getOtherUser = async ( userId ) => {
+export const getOtherUser = async (userId) => {
   try {
     const authToken = localStorage.getItem("authToken");
     const res = await axios.get(`${baseURL}/api/users/${userId}`, {
@@ -109,7 +108,6 @@ export const getOtherUser = async ( userId ) => {
 //POST 開始追隨
 export const postFollowing = async (id) => {
   try {
-    console.log("開始追隨的ID>>", id);
     const authToken = localStorage.getItem("authToken");
     const res = await axios({
       method: "POST",
@@ -129,7 +127,6 @@ export const postFollowing = async (id) => {
 //DELETE 取消追隨
 export const deleteFollow = async (id) => {
   try {
-    console.log("取消追隨的ID>>",id)
     const authToken = localStorage.getItem("authToken");
     const res = await axios({
       method: "DELETE",

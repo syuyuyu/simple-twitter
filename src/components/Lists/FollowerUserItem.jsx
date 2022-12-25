@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { StyledPublicButton } from "../../components/common/StyledGroup";
-import { useControl } from "../../contexts/ControlContext";
+import { deleteFollow, postFollowing } from "../../api/user";
+import { StyledPublicButton } from "../common/StyledGroup";
 
 const ItemContainer = styled.div`
   display: flex;
@@ -60,25 +60,48 @@ const TweetText = styled.p`
   line-height: 26px;
 `;
 
-const UserItem = ({ id,User, isFollowed }) => {
+const FollowerUserItem = ({ UserId, otherUser, isFollowed }) => {
   const navigate = useNavigate();
-  const { avatar, introduction, name } = { ...User };
-  const {onToggleFollow}=useControl();
-  
+  const { id,avatar, introduction, name } = { ...otherUser };
+  const [isFollow, setIsFollow] = useState(isFollowed);
+
   //跳轉其他使用者個人資料頁面
   const handleTargetUser = () => {
     const userId = localStorage.getItem("userId");
-    if (Number(id) === Number(userId)) {
+    if (Number(UserId) === Number(userId)) {
       return navigate("/user/profile");
     }
     navigate(`/user/${id}`);
   };
 
-  const handleToggleFollow = async(User)=>{
-    const res = await onToggleFollow(User);
-    console.log('res',res)
-  }
-
+  //跟隨功能
+  const handleToggleFollow = async (targetUser) => {
+    const userId = localStorage.getItem("userId");
+    if (Number(userId) === Number(targetUser.id)) {
+      return;
+    }
+    //開始跟隨
+    if (isFollow === false) {
+      try {
+        const res = await postFollowing(targetUser.id);
+        if (res) {
+          setIsFollow(true);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      //取消追隨
+      try {
+        const res = await deleteFollow(targetUser.id);
+        if (res) {
+          setIsFollow(false);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
   return (
     <ItemContainer>
       <AvatarContainer onClick={handleTargetUser}>
@@ -87,13 +110,13 @@ const UserItem = ({ id,User, isFollowed }) => {
       <TextContainer>
         <RowContainer>
           <Name>{name}</Name>
-        {isFollowed ? (
-          <StyledPublicButton onClick={() => handleToggleFollow(User)}>正在跟隨</StyledPublicButton>
-        ) : (
-          <StyledPublicButton className='active' onClick={() => handleToggleFollow(User)}>
-            跟隨
-          </StyledPublicButton>
-        )}
+          {isFollow ? (
+            <StyledPublicButton onClick={() => handleToggleFollow(otherUser)}>正在跟隨</StyledPublicButton>
+          ) : (
+            <StyledPublicButton className='active' onClick={() => handleToggleFollow(otherUser)}>
+              跟隨
+            </StyledPublicButton>
+          )}
         </RowContainer>
         <RowContainer>
           <TweetText>{introduction}</TweetText>
@@ -103,4 +126,4 @@ const UserItem = ({ id,User, isFollowed }) => {
   );
 };
 
-export default UserItem;
+export default FollowerUserItem;
