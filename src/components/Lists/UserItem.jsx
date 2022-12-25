@@ -63,12 +63,16 @@ const UserItem = ({ id,User, isFollowed, isFollow, setIsFollow, handleToggleFoll
   const navigate = useNavigate();
   const userId = localStorage.getItem("userId");
   const { avatar, introduction, name } = { ...User };
+
+  //跳轉其他使用者個人資料頁面
   const handleTargetUser = () => {
-    if (id === userId) {
-      return;
+    const userId = localStorage.getItem("userId");
+    if (Number(id) === Number(userId)) {
+      return navigate("/user/profile");
     }
     navigate(`/user/${id}`);
   };
+  
   setIsFollow(isFollowed);
 
   return (

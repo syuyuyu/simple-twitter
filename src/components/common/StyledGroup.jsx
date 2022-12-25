@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import avatarDefault from "../../assets/icons/avatar-default.svg";
 import backIcon from "../../assets/icons/back.svg";
-import backGround from '../../assets/images/defaultCover.png'
+import backGround from "../../assets/images/defaultCover.png";
 
 const StyledGroupContainer = styled.div`
   max-width: 1140px;
@@ -12,15 +12,14 @@ const StyledGroupContainer = styled.div`
   gap: 24px;
 `;
 
-
 const StyledAdminGroupContainer = styled.div`
-  max-width: 1140px;
+  width: 100%;
   height: 100vh;
-  margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr 6fr;
-  gap: 24px;
-`
+  grid-template-columns: 202px 1fr;
+  gap: 16px;
+  margin:0 auto
+`;
 
 const StyledSectionSidebar = styled.div`
   height: 100vh;
@@ -48,6 +47,7 @@ const StyledPopularContainer = styled.div`
   border-radius: 16px;
   margin-top: 16px;
   padding-top: 4px;
+  padding-left: 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -184,7 +184,7 @@ const StyledHeader = styled.nav`
   /* position: fixed; */
   background: #ffffffa3;
   height: 74px;
-  border: 1px solid #e6ecf0;
+  border-bottom: 1px solid #e6ecf0;
 `;
 const StyledContentContainer = styled.div`
   position: relative;
@@ -221,7 +221,7 @@ const StyledError = styled.p`
 const StyledTweetsList = styled.div`
   display: flex;
   flex-direction: column;
-  flex: 1;
+  width:937px
 `;
 const StyledTitleContainer = styled.div`
   display: flex;
@@ -234,7 +234,7 @@ const StyledBackIcon = styled.div`
   height: 24px;
   background-size: cover;
   margin-right: 16px;
-  &:hover{
+  &:hover {
     cursor: pointer;
   }
   &.backIcon {
@@ -262,36 +262,36 @@ const StyledProfileContainer = styled.div`
 `;
 
 const StyleSectionAdminMain = styled.div`
-    width: 100%;
-    height: 100%;
-    overflow-y: auto;
-    scroll-behavior: smooth;
-    overscroll-behavior: contain;
-    ::-webkit-scrollbar {
-      width: 0;
-    }
-
-`
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  overscroll-behavior: contain;
+  ::-webkit-scrollbar {
+    width: 0;
+  }
+`;
 const StyledAdminUserList = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(249px, 1fr));
   grid-gap: 16px;
   grid-auto-rows: min-content;
-  `
+  padding: 16px 8px 0 16px;
+`;
 
 const StyledAdminUserBackground = styled.div`
-    height: 125px;
-    width: 100%;
-    background-color: grey;
-    border-radius: 10px 10px 0 0;
-    background-size:cover;
-    position: relative;
-`
+  height: 125px;
+  width: 100%;
+  background-color: grey;
+  border-radius: 10px 10px 0 0;
+  background-size: cover;
+  position: relative;
+`;
 
-const StyledAdminTweetsList=styled.div`
+const StyledAdminTweetsList = styled.div`
   display: flex;
   flex-direction: column;
-`
+`;
 
 const StyledTitleWrapper = styled.div`
   display: flex;
@@ -357,13 +357,13 @@ const StyledFollowWrapper = styled.div`
 const StyledTweetsNavbarWrapper = styled.div`
   width: 100%;
   height: 52px;
+  border-bottom: 1px solid #e6ecf0;
 `;
 const StyledTweetsNavbar = styled.div`
   width: 390px;
   display: flex;
   justify-content: space-between;
 `;
-
 
 export {
   StyledGroupContainer,

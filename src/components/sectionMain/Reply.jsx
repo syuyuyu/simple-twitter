@@ -227,7 +227,7 @@ const Reply = () => {
           <TweetReplysList />
         </StyledHeader>
       </StyledMainContainer>
-      <ReplyModal />
+      {/* <ReplyModal /> */}
     </>
   );
 };
