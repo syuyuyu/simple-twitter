@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
 import {
@@ -40,6 +40,8 @@ const PopularItem = ({
   const { id, name } = { ...followingUser };
   const navigate = useNavigate();
   const userId = localStorage.getItem("userId");
+  
+
   const handleTargetUser = () => {
     if (id === userId) {
       return;

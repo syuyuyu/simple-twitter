@@ -11,10 +11,10 @@ import {
 } from "../common/StyledGroup";
 import { NavLink as Link, Outlet, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import { FollowerContext, FollowingContext } from "../../contexts/TweetContext";
-import { getFollowers, getFollowings } from "../../api/user";
+import { deleteFollow, getFollowers, getFollowings, postFollowing } from "../../api/user";
 
 const FollowNavLink = styled(Link)`
   height: 52px;
@@ -39,6 +39,7 @@ const Follow = () => {
   const { isAuthenticated, currentMember} = useAuth();
   const { setFollowers } = useContext(FollowerContext);
   const { setFollowings } = useContext(FollowingContext);
+  const [isFollow, setIsFollow] = useState(0);
 
   
 //GET 追隨者
@@ -53,8 +54,11 @@ useEffect(() => {
     }
   };
   getFollowersAsync();
-  return()=>{}
-}, [setFollowers]);
+  return()=>{
+    setIsFollow(0)
+  }
+}, [isFollow,setFollowers]);
+
 //GET 追蹤ing名單
 useEffect(() => {
   const getFollowingsAsync = async () => {
@@ -67,14 +71,48 @@ useEffect(() => {
     }
   };
   getFollowingsAsync();
-  return()=>{}
-}, [setFollowings]);
+  return()=>{
+    setIsFollow(0)
+  }
+}, [isFollow,setFollowings]);
 
-  useEffect(() => {
-    if (!isAuthenticated) {
-      navigate("/");
+
+// //追隨開關
+  const handleToggleFollow = async (targetUser) => {
+    const userId = localStorage.getItem("userId");
+    if (userId === targetUser.followingId) {
+      return;
     }
-  }, [navigate, isAuthenticated]);
+    //開始跟隨
+    if (!targetUser.isFollowed) {
+      try {
+        const res = await postFollowing(targetUser.followingId);
+        if(res){
+          setIsFollow(isFollow+1);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      //取消追隨
+      try {
+        const res = await deleteFollow(targetUser.followingId);
+        if(res){
+          setIsFollow(isFollow-1);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
+
+
+//驗證 跳轉頁面
+useEffect(() => {
+  if (!isAuthenticated) {
+    navigate("/");
+  }
+}, [navigate, isAuthenticated]);
 
   return (
     <StyledMainContainer>
@@ -94,15 +132,15 @@ useEffect(() => {
       ></div>
       <StyledTweetsNavbarWrapper>
         <StyledTweetsNavbar style={{ width: "260px" }}>
-          <FollowNavLink to='follower' activeStyle>
+          <FollowNavLink to='follower' activeStyle handleToggleFollow={handleToggleFollow}>
             追隨者
           </FollowNavLink>
-          <FollowNavLink to='following' activeStyle>
+          <FollowNavLink to='following' activeStyle handleToggleFollow={handleToggleFollow}>
             正在追隨
           </FollowNavLink>
         </StyledTweetsNavbar>
       </StyledTweetsNavbarWrapper>
-      <Outlet />
+      <Outlet handleToggleFollow={handleToggleFollow} />
     </StyledMainContainer>
   );
 };
