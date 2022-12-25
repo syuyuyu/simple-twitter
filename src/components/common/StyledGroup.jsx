@@ -10,15 +10,21 @@ const StyledGroupContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 3.5fr 1.5fr;
   gap: 24px;
+  @media screen and (max-width: 1200px) {
+    max-width: 960px;
+  }
 `;
 
 const StyledAdminGroupContainer = styled.div`
-  width: 100%;
+  max-width: 1400px;
   height: 100vh;
+  margin: 0 auto;
   display: grid;
   grid-template-columns: 202px 1fr;
   gap: 16px;
-  margin:0 auto
+  @media screen and (max-width: 1200px) {
+    max-width: 960px;
+  }
 `;
 
 const StyledSectionSidebar = styled.div`
@@ -181,7 +187,6 @@ const StyledMainContainer = styled.div`
   }
 `;
 const StyledHeader = styled.nav`
-  /* position: fixed; */
   background: #ffffffa3;
   height: 74px;
   border-bottom: 1px solid #e6ecf0;
@@ -221,7 +226,11 @@ const StyledError = styled.p`
 const StyledTweetsList = styled.div`
   display: flex;
   flex-direction: column;
+
   width:100%;
+
+  
+
 `;
 
 
@@ -294,6 +303,9 @@ const StyledAdminTweetsList = styled.div`
   display: flex;
   flex-direction: column;
   width:937px;
+  @media screen and (max-width: 1200px) {
+    width: 730px;
+  }
 `;
 
 const StyledTitleWrapper = styled.div`

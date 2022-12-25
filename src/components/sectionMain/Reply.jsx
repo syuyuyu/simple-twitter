@@ -126,7 +126,7 @@ const Reply = () => {
   //點讚開關
   const handleToggleLike = async () => {
     const UserId = localStorage.getItem("userId");
-    if (UserId === id) {
+    if (Number(UserId) === Number(id)) {
       return;
     }
     if (targetTweet.isLiked === false) {
