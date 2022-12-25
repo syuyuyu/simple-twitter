@@ -152,11 +152,9 @@ const EditModal = () => {
     const selectedFile = e.target.files[0];
     const objectUrl = window.URL.createObjectURL(selectedFile);
     if (e.target.id === "cover") {
-      console.log('cover')
       setCoverImg(selectedFile);
       setCoverPre(objectUrl)
     } else if (e.target.id === "avatar") {
-      console.log('avatar')
       setAvatarImg(selectedFile);
       setAvatarPre(objectUrl);
     }
@@ -185,7 +183,6 @@ const EditModal = () => {
 
       setIsUpdating(true)
       const res = await putUser({formData})
-      console.log('editModal res: ',res)
       if(res){
         await Swal.fire({
           title: "資料儲存中",

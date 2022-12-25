@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// const authURL = "https://nameless-fortress-45508.herokuapp.com";
-const authURL = "https://protected-journey-43760.herokuapp.com";
+const authURL = "https://nameless-fortress-45508.herokuapp.com";
+// const authURL = "https://protected-journey-43760.herokuapp.com";
 
 
 export const login = async ({ account, password }) => {
@@ -14,7 +14,6 @@ export const login = async ({ account, password }) => {
         password: password,
       },
     })
-    console.log(data);
     const { token, admin } = data;
     if (token) {
       localStorage.setItem("authToken", token);
@@ -24,7 +23,6 @@ export const login = async ({ account, password }) => {
     }
     }catch(err){
         console.log("[Login Failed]:", err);
-        console.log(err.response.data.message);
     }
   };
 
