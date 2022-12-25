@@ -14,29 +14,29 @@ const SectionPopular = () => {
   const { top10List, setTop10List } = useContext(Top10Context);
   const [isFollow, setIsFollow] = useState("");
 
-  //追隨開關
-  const handleToggleFollow = async (user) => {
+  // //追隨開關
+  const handleToggleFollow = async (targetUser) => {
     const userId = localStorage.getItem("userId");
-    console.log("isFollow>>", isFollow);
-    if (userId === user.followingId) {
+    if (userId === targetUser.followingId) {
       return;
     }
-    console.log(user.isFollowed);
     //開始跟隨
-    if (!user.isFollowed) {
+    if (!targetUser.isFollowed) {
       try {
-        const res = await postFollowing(user.followingId);
-        console.log("POST 開始追隨", res);
-        setIsFollow(true);
+        const res = await postFollowing(targetUser.followingId);
+        if(res){
+          setIsFollow(isFollow+1);
+        }
       } catch (error) {
         console.error(error);
       }
     } else {
       //取消追隨
       try {
-        const res = await deleteFollow(user.followingId);
-        console.log("POST 取消追隨", res);
-        setIsFollow(false);
+        const res = await deleteFollow(targetUser.followingId);
+        if(res){
+          setIsFollow(isFollow-1);
+        }
       } catch (error) {
         console.error(error);
       }
@@ -55,7 +55,9 @@ const SectionPopular = () => {
       }
     };
     getUersAsync();
-    return () => {};
+    return () => {
+      setIsFollow(0)
+    };
   }, [isFollow, setTop10List]);
 
   return (
@@ -70,8 +72,6 @@ const SectionPopular = () => {
                 user={user}
                 account={user.account}
                 avatar={user.avatar}
-                // followerCount={user.followerCount}
-                // followingId={user.followingId}
                 followingUser={user.followingUser}
                 isFollowed={user.isFollowed}
                 handleToggleFollow={handleToggleFollow}

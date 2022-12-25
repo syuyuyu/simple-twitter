@@ -28,7 +28,7 @@ import messageActive from "../../assets/icons/message-active.svg";
 import { NavLink as Link, Outlet, useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import {  LikeTweetContext, UserReplyContext, UserTweetContext } from "../../contexts/TweetContext";
-import { getOtherUser } from "../../api/user";
+import { deleteFollow, getOtherUser, postFollowing } from "../../api/user";
 import { getOtherLikeTweets, getOtherReplys, getOtherUserTweets } from "../../api/tweets";
 
 const NotiButton = styled.div`
@@ -90,6 +90,8 @@ const OtherUser = () => {
   const { setUserReplys } = useContext(UserReplyContext);
   const { setLikeTweets } = useContext(LikeTweetContext);
   const [personalInfo, setPersonalInfo] = useState({});
+  const [isFollow, setIsFollow] = useState("");
+  
 
   //GET 個人資料
   useEffect(() => {
@@ -103,8 +105,12 @@ const OtherUser = () => {
       }
     };
     getOtherUserAsync();
-    return()=>{}
-  }, [param.userId]);
+    return()=>{
+      setIsFollow(0)
+
+    }
+  }, [isFollow,param.userId]);
+
 
   //GET otherUser自己的推文
   useEffect(() => {
@@ -121,6 +127,7 @@ const OtherUser = () => {
     return()=>{}
   }, [setUserTweets, param.userId]);
 
+
   //GET otherUser回覆串資料
   useEffect(() => {
     const getUserReplysAsync = async () => {
@@ -135,6 +142,8 @@ const OtherUser = () => {
     getUserReplysAsync();
     return()=>{}
   }, [setUserReplys, param.userId]);
+
+
 //GET otherUser喜歡的內容
   useEffect(() => {
     const getUserLikeTweetsAsync = async () => {
@@ -150,6 +159,36 @@ const OtherUser = () => {
     return()=>{}
   }, [setLikeTweets, param.userId]);
 
+
+   const handleToggleFollow = async (targetUser) => {
+    const userId = localStorage.getItem("userId");
+    if (userId === targetUser.followingId) {
+      return;
+    }
+    //開始跟隨
+    if (!targetUser.isFollowed) {
+      try {
+        const res = await postFollowing(targetUser.followingId);
+        if(res){
+          setIsFollow(isFollow+1);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      //取消追隨
+      try {
+        const res = await deleteFollow(targetUser.followingId);
+        if(res){
+          setIsFollow(isFollow-1);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
+
+  //身分驗證頁面跳轉
   useEffect(() => {
     if (!isAuthenticated) {
       navigate("/");
@@ -187,7 +226,13 @@ const OtherUser = () => {
           <NotiButton className='active'>
             <div className='noti'></div>
           </NotiButton>
-          <StyledPublicButton>正在跟隨</StyledPublicButton>
+        {isFollow === 1 ? (
+          <StyledPublicButton onClick={(e) => handleToggleFollow(e)}>正在跟隨</StyledPublicButton>
+        ) : (
+          <StyledPublicButton className='active' onClick={(e) => handleToggleFollow(e)}>
+            跟隨
+          </StyledPublicButton>
+        )}
         </StyledEditContainer>
         <StyledInfoWrapper>
           <StyledTitleH5>{personalInfo.name}</StyledTitleH5>
