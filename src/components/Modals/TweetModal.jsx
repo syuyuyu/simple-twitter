@@ -156,7 +156,6 @@ const TweetModal = () => {
     const getUserAsync = async () => {
       try {
         const user = await getUser();
-        console.log(user);
         setUser(user);
         return;
       } catch (error) {
