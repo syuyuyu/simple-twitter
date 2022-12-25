@@ -15,7 +15,6 @@ import { EditModalContext } from "../../contexts/ModalContext";
 import { getUser,putUser } from '../../api/user';
 
 
-
 const StyledGroupContainer = styled.div`
   max-width: 1140px;
   height: 100vh;
@@ -123,7 +122,9 @@ const EditModal = () => {
   const [name, setName] = useState("");
   const [intro, setIntro] = useState("");
   const [coverImg, setCoverImg] = useState(null);
+  const [coverPre, setCoverPre] = useState(null);
   const [avatarImg, setAvatarImg] = useState(null);
+  const [avatarPre, setAvatarPre] = useState(null);
   const [isUpdating, setIsUpdating] = useState(false);
   // 圖片上傳 暫留{
   // const fileReader = new FileReader();
@@ -141,7 +142,7 @@ const EditModal = () => {
   //}
 
 
-
+// const formData = new FormData()
 
   //上傳圖片
   const handleImgChange=(e)=>{
@@ -152,15 +153,18 @@ const EditModal = () => {
     const objectUrl = window.URL.createObjectURL(selectedFile);
     if (e.target.id === "cover") {
       console.log('cover')
-      setCoverImg(objectUrl);
+      setCoverImg(selectedFile);
+      setCoverPre(objectUrl)
     } else if (e.target.id === "avatar") {
       console.log('avatar')
-      setAvatarImg(objectUrl);
+      setAvatarImg(selectedFile);
+      setAvatarPre(objectUrl);
     }
   };
 
 
   const handleSubmit=async()=>{
+
     if(!name){
       Swal.fire({
         title: "資料欄位為必填",
@@ -171,12 +175,16 @@ const EditModal = () => {
       });
       return;
     };
+    
     try{
+    const formData = new FormData()
+      formData.append('name',name)
+      formData.append('introduction',intro)
+      formData.append('avatar',avatarImg)
+      formData.append('cover',coverImg)
+
       setIsUpdating(true)
-      const introduction =intro
-      const cover = coverImg
-      const avatar = avatarImg
-      const res = await putUser({name,introduction,cover,avatar})
+      const res = await putUser({formData})
       console.log('editModal res: ',res)
       if(res){
         await Swal.fire({
@@ -254,13 +262,13 @@ const EditModal = () => {
                         }}
                         >儲存</StyledPublicButton>
                   </HeaderContainer>
-                  <ImageContainer>
+                  <ImageContainer image>
                     {/* 背景圖 */}
                     <StyledBackgroundImage style={{
-                      backgroundImage:`url('${coverImg}')`,
+                      backgroundImage:`url('${coverPre}')`,
                       objectFit:'contain',
                       backgroundRepeat: 'no-repeat',
-                      backgroundSize: 'cover'}} >
+                      backgroundSize: 'cover'}} cover wrapped>
                       <StyledBackgroundHover>
                         {coverImg?
                         <label for={"cover"}>
@@ -269,11 +277,12 @@ const EditModal = () => {
                           </AddphotoIcon>
                           <input
                             ref={coverRef}
-                            accept="image/png, image/jpeg, image/jpg"
+                            accept="image/png,image/jpg,image/jpeg"
                             type="file"
                             id="cover"
+                            name="file"
                             src="coverImg"
-                            onChange={(e) => handleImgChange(e, "cover")}
+                            onChange={(e) => handleImgChange(e)}
                             style={{
                               display: "none"
                             }}></input>
@@ -284,10 +293,11 @@ const EditModal = () => {
                           </AddphotoIcon>
                           <input
                             ref={coverRef}
-                            accept="image/png, image/jpeg, image/jpg"
+                            accept="image/png,image/jpg,image/jpeg"
                             type="file"
                             id="cover"
-                            onChange={(e) => handleImgChange(e, "cover")}
+                            name="file"
+                            onChange={(e) => handleImgChange(e)}
                             style={{
                               display: "none"
                             }}></input>
@@ -297,9 +307,12 @@ const EditModal = () => {
                       </StyledBackgroundHover>
                     </StyledBackgroundImage>
                     {/* 大頭照 */}
-                    <StyledAvatarImage className='avatar' style={{backgroundImage:`url('${avatarImg}')`,objectFit:'contain',
+                    <StyledAvatarImage 
+                    className='avatar'
+                    style={{backgroundImage:`url('${avatarPre}')`,
+                      objectFit:'contain',
                       backgroundRepeat: 'no-repeat',
-                      backgroundSize: 'cover'}}>
+                      backgroundSize: 'cover'}} cover wrapped>
                       <StyledBackgroundHover style={{borderRadius:'50%'}}>
                         {avatarImg?
                           <label for={isUpdating ? "" : "avatar"}>
@@ -308,8 +321,10 @@ const EditModal = () => {
                               ref={coverRef}
                               type="file"
                               id="avatar"
+                              name="file"
+                              accept="image/png,image/jpg,image/jpeg"
                               src="avatarImg"
-                              onChange={(e) => handleImgChange(e, "avatar")}
+                              onChange={(e) => handleImgChange(e)}
                               style={{
                                 display: "none"
                               }}
@@ -321,7 +336,9 @@ const EditModal = () => {
                               ref={coverRef}
                               type="file"
                               id="avatar"
-                              onChange={(e) => handleImgChange(e, "avatar")}
+                              name="file"
+                              accept="image/png,image/jpg,image/jpeg"
+                              onChange={(e) => handleImgChange(e)}
                               style={{
                                 display: "none"
                               }}

@@ -18,42 +18,9 @@ export const getUser = async () => {
 };
 
 //PUT 使用者個人資料
-export const putUser = async ({
-  account,
-  name,
-  email,
-  introduction,
-  avatar,
-  cover,
-  password,
-  checkedPassword}) => {
+export const putUser = async ({formData}) => {
     const authToken = localStorage.getItem('authToken');
     const userId = localStorage.getItem('userId');
-    const getdata =  await getUser()
-
-    //新的判斷式
-    const accountInput = `${account}`==="undefined"? `${getdata.account}`:`${account}`;
-    const nametInput = `${name}`==="undefined"? `${getdata.name}`:`${name}`;
-    const emailInput =`${email}`==="undefined"? `${getdata.email}`: `${email};`
-    const introductionInput = `${introduction}`==="undefined"? `${getdata.introduction}` : `${introduction}`;
-
-    const avatarInput = `${avatar}`==="undefined"? `${getdata.avatar}`: `${avatar}`;
-
-    const coverInput = `${cover}`==="undefined"?  `${getdata.cover}`: `${cover}`;
-
-    const passwordInput = `${password}`;
-
-    const checkPasswordInput = `${checkedPassword}`;
-
-    const formData = new FormData()
-    formData.append('account',accountInput)
-    formData.append('name',nametInput)
-    formData.append('email',emailInput)
-    formData.append('introduction',introductionInput)
-    formData.append('avatar',avatarInput)
-    formData.append('cover',coverInput)
-    formData.append('password',passwordInput)
-    formData.append('checkPassword',checkPasswordInput)
     try{
         const res = await axios({
           method :'PUT',
