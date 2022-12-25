@@ -9,7 +9,7 @@ import {
   StyledPublicButton,
 } from "../common/StyledGroup";
 import TweetsList from "../Lists/TweetsList";
-import { getTweets, postLike, postUnLike } from "../../api/tweets";
+import { getTweets } from "../../api/tweets";
 import {  OtherUserContext, TweetContext } from "../../contexts/TweetContext";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
@@ -61,8 +61,6 @@ const Main = () => {
   const { setTweets } = useContext(TweetContext);
   const [isUpdating, setIsUpdating] = useState(false);
   const { otherUser, setOtherUser } = useContext(OtherUserContext);
-  const [activeLike, setActiveLike] = useState(null);
-  const [likeCount, setLikeCount] = useState(0);
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
@@ -90,7 +88,6 @@ const Main = () => {
     try {
       setIsUpdating(true);
       const res = await createTweet(inputValue);
-      // console.log('res:',res);
       if (res) {
         await Swal.fire({
           title: "資料儲存中",
@@ -113,35 +110,6 @@ const Main = () => {
     }
   };
 
-  //點讚開關
-  const handleToggleLike = async (targetTweet) => {
-    const UserId = localStorage.getItem("userId");
-    console.log(targetTweet);
-    const { id } = { ...targetTweet.User };
-    if (Number(UserId) === Number(id)) {
-      return;
-    }
-    if (targetTweet.isLiked === false) {
-      try {
-        const res = await postLike(targetTweet.id);
-        console.log("POST 按讚", res);
-        setActiveLike(true);
-        setLikeCount(likeCount + 1);
-      } catch (error) {
-        console.error(error);
-      }
-    } else {
-      try {
-        const res = await postUnLike(targetTweet.id);
-        console.log("POST 取消讚", res);
-        setActiveLike(false);
-        setLikeCount(likeCount - 1);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-  };
-
   //取得全部推文
   useEffect(() => {
     const getTweetsAsync = async () => {
@@ -155,7 +123,7 @@ const Main = () => {
     };
     getTweetsAsync();
     return;
-  }, [activeLike, likeCount, setTweets]);
+  }, [setTweets]);
 
   //GET 個人資料
   useEffect(() => {
@@ -204,7 +172,7 @@ const Main = () => {
             <StyledPublicButton onClick={handleSubmit}>推文</StyledPublicButton>
           </StyledButtonContainer>
         </StyledContentContainer>
-        <TweetsList handleToggleLike={handleToggleLike} />
+        <TweetsList />
       </StyledMainContainer>
     </>
   );

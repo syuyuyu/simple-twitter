@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import replyIcon from "../../assets/icons/reply.svg";
 import unLikeIcon from "../../assets/icons/like.svg";
@@ -9,6 +9,7 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/zh-tw";
 import { TargetTweetContext } from "../../contexts/TweetContext";
+import { postLike, postUnLike } from "../../api/tweets";
 
 const ItemContainer = styled.div`
   display: flex;
@@ -41,6 +42,7 @@ const Avatar = styled.div`
 const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
+  word-wrap: break-word;
   margin-left: 8px;
   &:hover {
     cursor: pointer;
@@ -81,7 +83,6 @@ const Account = styled.p`
   margin-left: 8px;
 `;
 
-
 const IconsContainer = styled.div`
   display: flex;
   flex-direction: row;
@@ -119,12 +120,14 @@ const StyledIcon = styled.div`
   }
 `;
 
-const TweetItem = ({ tweet, time, description, isLiked, likedCount, replyCount, handleToggleLike }) => {
+const TweetItem = ({ tweet, time, description, isLiked, likedCount, replyCount }) => {
   const { toggleReplyModal } = useContext(ReplyModalContext);
   const { setTargetTweet } = useContext(TargetTweetContext);
   const navigate = useNavigate();
   dayjs.extend(relativeTime);
   const { account, avatar, id, name } = { ...tweet.User };
+  const [activeLike, setActiveLike] = useState(isLiked);
+  const [likeCount, setLikeCount] = useState(likedCount);
 
   //回覆Modal
   const handleClick = (data) => {
@@ -132,11 +135,42 @@ const TweetItem = ({ tweet, time, description, isLiked, likedCount, replyCount, 
     toggleReplyModal();
   };
 
+  //點讚開關
+  const handleToggleLike = async (targetTweet) => {
+    const UserId = localStorage.getItem("userId");
+    const { id } = { ...targetTweet.User };
+    if (Number(UserId) === Number(id)) {
+      return;
+    }
+    if (activeLike === false) {
+      try {
+        const res = await postLike(targetTweet.id);
+        if (res.success) {
+          setActiveLike(true);
+          setLikeCount(likeCount + 1);
+        }
+        return;
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      try {
+        const res = await postUnLike(targetTweet.id);
+        if (res.success) {
+          setActiveLike(false);
+          setLikeCount(likeCount - 1);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
+
   //跳轉其他使用者個人資料頁面
   const handleTargetUser = () => {
     const userId = localStorage.getItem("userId");
     if (Number(id) === Number(userId)) {
-      return navigate('/user/profile');
+      return navigate("/user/profile");
     }
     navigate(`/user/${id}`);
   };
@@ -165,10 +199,10 @@ const TweetItem = ({ tweet, time, description, isLiked, likedCount, replyCount, 
               </IconContainer>
               <IconContainer>
                 <StyledIcon
-                  className={isLiked ? "likeIcon like" : "likeIcon"}
+                  className={activeLike ? "likeIcon like" : "likeIcon"}
                   onClick={() => handleToggleLike(tweet)}
                 ></StyledIcon>
-                <p>{likedCount}</p>
+                <p>{likeCount}</p>
               </IconContainer>
             </IconsContainer>
           </RowContainer>

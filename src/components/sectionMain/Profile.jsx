@@ -58,37 +58,6 @@ const Profile = () => {
   const { setLikeTweets } = useContext(LikeTweetContext);
   const { otherUser, setOtherUser } = useContext(OtherUserContext);
   const { setUserTweets } = useContext(UserTweetContext);
-  // const [activeLike, setActiveLike] = useState(null);
-  // const [likeCount, setLikeCount] = useState(0);
-
-  //點讚開關
-  // const handleToggleLike = async (targetTweet) => {
-  //   const UserId = localStorage.getItem("userId");
-  //   console.log(targetTweet);
-  //   const { id } = { ...targetTweet.User };
-  //   if (UserId === id) {
-  //     return;
-  //   }
-  //   if (targetTweet.isLiked === false) {
-  //     try {
-  //       const res = await postLike(targetTweet.id);
-  //       console.log("POST 按讚", res);
-  //       setActiveLike(true);
-  //       setLikeCount(likeCount + 1);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   } else {
-  //     try {
-  //       const res = await postUnLike(targetTweet.id);
-  //       console.log("POST 取消讚", res);
-  //       setActiveLike(false);
-  //       setLikeCount(likeCount - 1);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   }
-  // };
 
   //GET 個人資料
   useEffect(() => {

@@ -31,7 +31,6 @@ export const putUser = async ({
     const userId = localStorage.getItem('userId');
     const getdata =  await getUser()
 
-
     //新的判斷式
     const accountInput = `${account}`==="undefined"? `${getdata.account}`:`${account}`;
     const nametInput = `${name}`==="undefined"? `${getdata.name}`:`${name}`;
@@ -143,7 +142,7 @@ export const getOtherUser = async ( userId ) => {
 //POST 開始追隨
 export const postFollowing = async (id) => {
   try {
-    console.log("開始追隨的ID", id);
+    console.log("開始追隨的ID>>", id);
     const authToken = localStorage.getItem("authToken");
     const res = await axios({
       method: "POST",
@@ -163,7 +162,7 @@ export const postFollowing = async (id) => {
 //DELETE 取消追隨
 export const deleteFollow = async (id) => {
   try {
-    console.log("取消追隨的ID",id)
+    console.log("取消追隨的ID>>",id)
     const authToken = localStorage.getItem("authToken");
     const res = await axios({
       method: "DELETE",

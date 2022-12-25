@@ -3,7 +3,7 @@ import { TweetContext } from "../../contexts/TweetContext";
 import { StyledTweetsList } from "../common/StyledGroup";
 import TweetItem from "./TweetItem";
 
-const TweetsList = ({ activeLike, likeCount,handleToggleLike }) => {
+const TweetsList = () => {
   const { tweets } = useContext(TweetContext);
 
   return (
@@ -19,7 +19,6 @@ const TweetsList = ({ activeLike, likeCount,handleToggleLike }) => {
             isLiked={tweet.isLiked}
             likedCount={tweet.likedCount}
             replyCount={tweet.replyCount}
-            handleToggleLike={(tweet)=>{handleToggleLike?.(tweet)}}
           />
         );
       })}
