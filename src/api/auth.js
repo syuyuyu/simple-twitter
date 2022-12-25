@@ -2,8 +2,8 @@ import axios from "axios";
 import Swal from "sweetalert2";
 
 
-const authURL = "https://nameless-fortress-45508.herokuapp.com";
-// const authURL = "https://protected-journey-43760.herokuapp.com";
+// const authURL = "https://nameless-fortress-45508.herokuapp.com";
+const authURL = "https://protected-journey-43760.herokuapp.com";
 
 //登入功能
 export const login = async ({ account, password }) => {
