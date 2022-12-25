@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const baseURL = "https://nameless-fortress-45508.herokuapp.com";
-// const baseURL = "https://protected-journey-43760.herokuapp.com";
+// const baseURL = "https://nameless-fortress-45508.herokuapp.com";
+const baseURL = "https://protected-journey-43760.herokuapp.com";
 
 //GET 全部正在追蹤推文 新的
 export const getTweets = async () => {
@@ -65,7 +65,6 @@ export const getTweetReplys = async (tweetId) => {
     const res = await axios.get(`${baseURL}/api/tweets/${tweetId}/replies`, {
       headers: { Authorization: `Bearer ${authToken}` },
     });
-    // console.log('getTweetReplys:',res.data)
     return res.data;
   } catch (error) {
     console.error("[Get TweetReplys failed]:", error);
@@ -84,7 +83,6 @@ export const createTweet = async (description) => {
         "description": `${description}`,
       };
     const res = await axios.post(`${baseURL}/api/tweets`,data,config );
-    // console.log('api : ',res)
     return res.data;
   } catch (error) {
     console.error("[Create Tweet failed]:", error);
@@ -103,7 +101,6 @@ export const createReply = async ({comment,tweetId}) => {
         "comment": `${comment}`,
       };
     const res = await axios.post(`${baseURL}/api/tweets/${tweetId}/replies`,data,config );
-    // console.log('api : ',res)
     return res.data;
   } catch (error) {
     console.error("[Create Reply failed]:", error);

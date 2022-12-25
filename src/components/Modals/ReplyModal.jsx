@@ -119,14 +119,10 @@ const ReplyModal = () => {
       return;
     };
     setIsUpload(true)
-      // console.log('reply modal id:',id)
-      // console.log('reply modal inputValue:',inputValue)
     try{
       const comment = inputValue
       const tweetId = id
       const res = await createReply({comment,tweetId})
-      // console.log('reply modal id:',id)
-      // console.log('reply res:',res)
       if(res){
         await Swal.fire({
           title: "資料儲存中",
@@ -175,12 +171,12 @@ const ReplyModal = () => {
               <Close className='close' onClick={toggleReplyModal}></Close>
             </NavContainer>
             <TweetContainer>
-              <ReplyTweet tweet={targetTweet}/>
+              <ReplyTweet tweet={targetTweet} />
             </TweetContainer>
             <StyledContentContainer style={{ border: "none", height: "243px" }}>
               <StyledContentWrapper>
-                <StyledAvatarDefault style={{ margin: "0px 8px 16px 16px"}}>
-                  <div className='avatar'style={{backgroundImage:`url('${avater}')`,borderRadius:'50%'}}></div>
+                <StyledAvatarDefault style={{ margin: "0px 8px 16px 16px" }}>
+                  <div className='avatar' style={{ backgroundImage: `url('${avater}')`, borderRadius: "50%" }}></div>
                 </StyledAvatarDefault>
                 <StyledContainer>
                   <StyledTextarea
@@ -190,11 +186,11 @@ const ReplyModal = () => {
                     maxLength={140}
                     onChange={(event) => handleChange?.(event.target.value)}
                   />
-              </StyledContainer>
+                </StyledContainer>
               </StyledContentWrapper>
               <StyledButtonContainer>
-                <StyledError>字數不可超過140字</StyledError>
-                <StyledPublicButton onClick={()=>handleSubmit({inputValue,id})}>回覆</StyledPublicButton>
+                {inputValue?.length === 140 ? <StyledError>字數不可超過140字</StyledError> : null}
+                <StyledPublicButton onClick={() => handleSubmit({ inputValue, id })}>回覆</StyledPublicButton>
               </StyledButtonContainer>
             </StyledContentContainer>
           </Content>

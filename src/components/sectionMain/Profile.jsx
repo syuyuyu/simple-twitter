@@ -29,7 +29,6 @@ import { useAuth } from "../../contexts/AuthContext";
 import { getReplys } from "../../api/tweets";
 import { LikeTweetContext, OtherUserContext, UserReplyContext, UserTweetContext } from "../../contexts/TweetContext";
 import { getLikeTweets, getUserTweets } from "../../api/tweets";
-import TweetModal from "../Modals/TweetModal";
 import { getUser } from "../../api/user";
 
 const NavLink = styled(Link)`
@@ -187,7 +186,6 @@ const Profile = () => {
         <Outlet />
       </StyledMainContainer>
       <EditModal />
-      <TweetModal />
     </>
   );
 };

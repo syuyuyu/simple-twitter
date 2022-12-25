@@ -68,7 +68,6 @@ return (
         // toggle Like
         onToggleLike: async (targetTweet) => {
           const UserId = localStorage.getItem("userId");
-          console.log(targetTweet);
           const { id } = { ...targetTweet.User };
           if (Number(UserId) === Number(id)) {
             return

@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const authURL = "https://nameless-fortress-45508.herokuapp.com";
-// const authURL = "https://protected-journey-43760.herokuapp.com";
+// const authURL = "https://nameless-fortress-45508.herokuapp.com";
+const authURL = "https://protected-journey-43760.herokuapp.com";
 
 
 export const login = async ({ account, password }) => {
@@ -52,7 +52,6 @@ export const adminGetUsers = async()=>{
         Authorization: "Bearer " + authToken,
       },
     });
-    // console.log('adminGetUsers:',res)
     return res.data
   }catch(error){
     console.error("[Get Users Failed]:", error);
@@ -63,7 +62,6 @@ export const adminGetTweets = async () => {
   try {
     const authToken = localStorage.getItem('authToken')
     const res = await axios.get(`${authURL}/api/admin/tweets`, { headers: { Authorization: `Bearer ${authToken}` } });
-    // console.log('get admin tweets',res)
     return res.data;
   } catch (error) {
     console.error("[Get Tweets failed]:", error);

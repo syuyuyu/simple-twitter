@@ -130,18 +130,20 @@ const Reply = () => {
     if (targetTweet.isLiked === false) {
       try {
         const res = await postLike(targetTweet.id);
-        console.log("POST 按讚", res);
-        setActiveLike(true);
-        setLikeCount(likeCount + 1);
+        if(res){
+          setActiveLike(true);
+          setLikeCount(likeCount + 1);
+        }
       } catch (error) {
         console.error(error);
       }
     } else {
       try {
         const res = await postUnLike(targetTweet.id);
-        console.log("POST 取消讚", res);
-        setActiveLike(false);
-        setLikeCount(likeCount - 1);
+        if(res){
+          setActiveLike(false);
+          setLikeCount(likeCount - 1);
+        }
       } catch (error) {
         console.error(error);
       }

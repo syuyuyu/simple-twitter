@@ -1,12 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAdmin } from "../../contexts/AdminContext";
-import {
-  StyledTitleH4,
-  StyledTweetsList,
-  StyledAdminTweetsList,
-  StyleSectionAdminMain,
-} from "../common/StyledGroup";
+import { StyledTitleH4, StyledTweetsList, StyledAdminTweetsList, StyleSectionAdminMain } from "../common/StyledGroup";
 import AdminTweetItem from "./AdminTweetItem.jsx";
 import { TweetContext } from "../../contexts/TweetContext";
 import { useContext } from "react";
@@ -28,15 +23,14 @@ const AdminTweetsList = () => {
   const { isAuthenticated } = useAdmin();
   const { tweets, setTweets } = useContext(TweetContext);
 
-
   //DELETE 刪除事件
   const handleRemoveClick = async (id) => {
     const newTweets = tweets.filter((tweet) => tweet.id !== id);
     try {
       const deleteItem = await adminDeleteTweets(id);
-      console.log(id);
-      console.log("delete tweets List : ", deleteItem);
-      setTweets(newTweets);
+      if (deleteItem) {
+        setTweets(newTweets);
+      }
     } catch (err) {
       console.error("delete tweet error:", err);
     }
@@ -62,7 +56,6 @@ const AdminTweetsList = () => {
     }
   }, [navigate, isAuthenticated]);
 
-  
   return (
     <>
       <StyleSectionAdminMain>

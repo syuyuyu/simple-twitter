@@ -1,16 +1,12 @@
-import React,{ useContext, useState }  from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
-import {
-  StyledContentContainer,
-  StyledButtonContainer,
-  StyledError,
-  StyledPublicButton,
-} from "../common/StyledGroup";
+import { StyledContentContainer, StyledButtonContainer, StyledError, StyledPublicButton } from "../common/StyledGroup";
 import Swal from "sweetalert2";
 import close from "../../assets/icons/close.svg";
 import { TweetModalContext } from "../../contexts/ModalContext";
 import avatarDefault from "../../assets/icons/avatar-default.svg";
 import { createTweet } from "../../api/tweets";
+import { getUser } from "../../api/user";
 
 const Modal = styled.div`
   width: 100vw;
@@ -76,6 +72,7 @@ const ContentWrapper = styled.div`
 const Avatar = styled.div`
   width: 50px;
   height: 50px;
+  border-radius: 50%;
   &:hover {
     cursor: pointer;
   }
@@ -87,28 +84,29 @@ const Avatar = styled.div`
   }
 `;
 
-  const StyledContainer = styled.div`
-    position: relative;
-    flex-grow: 0.9;
-    padding: 15px 0 0 8px;
-    height: 100%;
-  `;
-  const StyledTextarea = styled.textarea`
-    width: 100%;
-    font-size: 18px;
-    line-height: 26px;
-    outline: none;
-    border: none;
-    min-height: 150px;
-  `;
+const StyledContainer = styled.div`
+  position: relative;
+  flex-grow: 0.9;
+  padding: 15px 0 0 8px;
+  height: 100%;
+`;
+const StyledTextarea = styled.textarea`
+  width: 100%;
+  font-size: 18px;
+  line-height: 26px;
+  outline: none;
+  border: none;
+  min-height: 150px;
+`;
 
 const TweetModal = () => {
-  const {tweetModal,toggleTweetModal} = useContext(TweetModalContext);
-  const [inputValue, setInputValue] = useState(""); 
-  const [isUpload,setIsUpload] = useState(false)
+  const { tweetModal, toggleTweetModal } = useContext(TweetModalContext);
+  const [inputValue, setInputValue] = useState("");
+  const [isUpload, setIsUpload] = useState(false);
+  const [user, setUser] = useState({});
 
-  const handleSubmit=async()=>{
-    if(isUpload){
+  const handleSubmit = async () => {
+    if (isUpload) {
       Swal.fire({
         title: "上傳中請稍等",
         icon: "error",
@@ -116,8 +114,8 @@ const TweetModal = () => {
         timer: 1000,
         position: "top",
       });
-    };
-    if(!inputValue){
+    }
+    if (!inputValue) {
       Swal.fire({
         title: "推文不可為空白",
         icon: "error",
@@ -126,14 +124,12 @@ const TweetModal = () => {
         position: "top",
       });
       return;
-    };
-    setIsUpload(true)
-    const description = inputValue
-    console.log('description: ',description)
-    try{
-      const res = await createTweet(description)
-      console.log('res :',res)
-      if(res){
+    }
+    setIsUpload(true);
+    const description = inputValue;
+    try {
+      const res = await createTweet(description);
+      if (res) {
         await Swal.fire({
           title: "資料儲存中",
           icon: "success",
@@ -142,10 +138,10 @@ const TweetModal = () => {
           position: "top",
         });
       }
-      toggleTweetModal()
-      setIsUpload(false)
-      setInputValue('')
-    }catch(err){
+      toggleTweetModal();
+      setIsUpload(false);
+      setInputValue("");
+    } catch (err) {
       Swal.fire({
         title: "儲存失敗",
         icon: "error",
@@ -154,7 +150,22 @@ const TweetModal = () => {
         position: "top",
       });
     }
-  }
+  };
+  //GET 個人資料
+  useEffect(() => {
+    const getUserAsync = async () => {
+      try {
+        const user = await getUser();
+        console.log(user);
+        setUser(user);
+        return;
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getUserAsync();
+    return () => {};
+  }, [setUser]);
 
   return (
     <>
@@ -167,20 +178,19 @@ const TweetModal = () => {
             </NavContainer>
             <StyledContentContainer style={{ border: "none", height: "243px" }}>
               <ContentWrapper>
-                <Avatar className='avatar'></Avatar>
-          <StyledContainer>
-            <StyledTextarea
-              type='text'
-              value={inputValue}
-              placeholder={'有什麼新鮮事？'}
-              maxLength={140}
-              onChange={(event) => setInputValue(event.target.value)}
-            />
-          </StyledContainer>
-     
+                <Avatar className='avatar' style={{ backgroundImage: `url('${user.avatar}')` }}></Avatar>
+                <StyledContainer>
+                  <StyledTextarea
+                    type='text'
+                    value={inputValue}
+                    placeholder={"有什麼新鮮事？"}
+                    maxLength={140}
+                    onChange={(event) => setInputValue(event.target.value)}
+                  />
+                </StyledContainer>
               </ContentWrapper>
               <StyledButtonContainer>
-                <StyledError>字數不可超過140字</StyledError>
+                {inputValue?.length === 140 ? <StyledError>字數不可超過140字</StyledError> : null}
                 <StyledPublicButton onClick={handleSubmit}>推文</StyledPublicButton>
               </StyledButtonContainer>
             </StyledContentContainer>

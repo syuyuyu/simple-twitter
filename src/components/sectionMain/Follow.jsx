@@ -11,10 +11,10 @@ import {
 } from "../common/StyledGroup";
 import { NavLink as Link, Outlet, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import { FollowerContext, FollowingContext } from "../../contexts/TweetContext";
-import { deleteFollow, getFollowers, getFollowings, postFollowing } from "../../api/user";
+import { getFollowers, getFollowings } from "../../api/user";
 
 const FollowNavLink = styled(Link)`
   height: 52px;
@@ -39,7 +39,6 @@ const Follow = () => {
   const { isAuthenticated, currentMember} = useAuth();
   const { setFollowers } = useContext(FollowerContext);
   const { setFollowings } = useContext(FollowingContext);
-  const [isFollow, setIsFollow] = useState(0);
 
   
 //GET 追隨者
@@ -54,10 +53,8 @@ useEffect(() => {
     }
   };
   getFollowersAsync();
-  return()=>{
-    setIsFollow(0)
-  }
-}, [isFollow,setFollowers]);
+  return
+}, [setFollowers]);
 
 //GET 追蹤ing名單
 useEffect(() => {
@@ -71,40 +68,11 @@ useEffect(() => {
     }
   };
   getFollowingsAsync();
-  return()=>{
-    setIsFollow(0)
-  }
-}, [isFollow,setFollowings]);
+  return
+}, [setFollowings]);
 
 
-// //追隨開關
-  const handleToggleFollow = async (targetUser) => {
-    const userId = localStorage.getItem("userId");
-    if (Number(userId) === Number(targetUser.followingId)) {
-      return;
-    }
-    //開始跟隨
-    if (!targetUser.isFollowed) {
-      try {
-        const res = await postFollowing(targetUser.followingId);
-        if(res){
-          setIsFollow(isFollow+1);
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    } else {
-      //取消追隨
-      try {
-        const res = await deleteFollow(targetUser.followingId);
-        if(res){
-          setIsFollow(isFollow-1);
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    }
-  };
+
 
 //驗證 跳轉頁面
 useEffect(() => {
@@ -131,15 +99,15 @@ useEffect(() => {
       ></div>
       <StyledTweetsNavbarWrapper>
         <StyledTweetsNavbar style={{ width: "260px" }}>
-          <FollowNavLink to='follower' activeStyle handleToggleFollow={handleToggleFollow}>
+          <FollowNavLink to='follower'>
             追隨者
           </FollowNavLink>
-          <FollowNavLink to='following' activeStyle handleToggleFollow={handleToggleFollow}>
+          <FollowNavLink to='following'>
             正在追隨
           </FollowNavLink>
         </StyledTweetsNavbar>
       </StyledTweetsNavbarWrapper>
-      <Outlet handleToggleFollow={handleToggleFollow} />
+      <Outlet />
     </StyledMainContainer>
   );
 };
