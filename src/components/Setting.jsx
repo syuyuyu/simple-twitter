@@ -7,7 +7,6 @@ import { putUser,getUser } from "../api/user";
 import Swal from "sweetalert2";
 import SettingPasswordInput from "./AuthInputPassword";
 
-
 const SettingContainer =styled.div`
   display:flex;
   flex-direction: column;
@@ -35,7 +34,8 @@ const Setting =()=>{
   const [checkedPassword, setCheckedPassword] = useState("");
   const [isUpdating, setIsUpdating] = useState(false);
 
-  const handleSubmit=async()=>{
+  //儲存個人資料
+  const handleSubmit = async()=>{
     if(!account || !name || !email ){
       Swal.fire({
         title: "資料欄位為必填",
@@ -57,24 +57,44 @@ const Setting =()=>{
         timer: 1000,
         position: "top",
       });
-    }
-    setIsUpdating(true)
-    console.log(checkedPassword)
-    const res = await putUser({account,name,email,password,checkedPassword})
-    console.log(res)
-    if(res){
-      await Swal.fire({
+      return;
+    };
+    if(isUpdating){
+      Swal.fire({
         title: "資料儲存中",
-        icon: "success",
+        icon: "error",
         showConfirmButton: false,
         timer: 1000,
         position: "top",
       });
+      return;
     }
-    setIsUpdating(false)
+    try{
+      setIsUpdating(true)
+      const formData = new FormData()
+      formData.append('account',account)
+      formData.append('name',name)
+      formData.append('email',email)
+      formData.append('password',password)
+      formData.append('checkedPassword',checkedPassword)
+      const res = await putUser(formData)
+      if(res){
+        await Swal.fire({
+          title: "資料儲存中",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1000,
+          position: "top",
+        });
+      }
+      setIsUpdating(false)
+      return;
+    }catch(err){
+      console.err('setting error :',err)
+    }
   }
 
-
+  // 放入user資料
   useEffect(()=>{
     const getUserData = async () => {
     try {
@@ -99,14 +119,14 @@ const Setting =()=>{
           </StyledHeader>
         </HeaderContainer>
         <InputContainer>
-          <AuthInput //用useReducer
+          <AuthInput 
             label='帳號'
             placeholder='請輸入帳號'
             isUpdating={isUpdating}
             value={account}
             onChange={(value) => isUpdating? value : setAccount(value)}
           />
-          <AuthInput //用useReducer
+          <AuthInput
             label='名稱'
             placeholder='請輸入名稱'
             isUpdating={isUpdating}
@@ -123,7 +143,7 @@ const Setting =()=>{
             value={email}
             onChange={(value) => isUpdating? value : setEmail(value)}
           />
-          <SettingPasswordInput //用useReducer
+          <SettingPasswordInput
             type='password'
             label='密碼'
             placeholder='請設定密碼'
@@ -132,7 +152,7 @@ const Setting =()=>{
             value={password}
             onChange={(value) => isUpdating? value : setPassword(value)}
           />
-          <SettingPasswordInput //用useReducer
+          <SettingPasswordInput
             type='password'
             label='密碼再確認'
             placeholder='請再次輸入密碼'
