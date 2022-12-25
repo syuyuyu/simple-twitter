@@ -288,6 +288,9 @@ const StyledAdminUserList = styled.div`
   grid-gap: 16px;
   grid-auto-rows: min-content;
   padding: 16px 8px 0 16px;
+  @media screen and (max-width: 1200px) {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
 `;
 
 const StyledAdminUserBackground = styled.div`

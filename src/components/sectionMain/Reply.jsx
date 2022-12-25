@@ -21,7 +21,6 @@ import dayjs from "dayjs";
 import { ReplyModalContext } from "../../contexts/ModalContext";
 import { getTweetReplys } from "../../api/tweets";
 import { TweetReplysContext } from "../../contexts/TweetContext";
-// import { getDefaultNormalizer } from "@testing-library/react";
 
 const TweetContainer = styled.div`
   margin: 0 16px;
@@ -121,7 +120,6 @@ const Reply = () => {
   const [activeLike, setActiveLike] = useState(targetTweet.isLiked);
   const [likeCount, setLikeCount] = useState(targetTweet.likedCount);
   const { id, avatar, account, name } = { ...targetTweet.User };
-  console.log("activeLike", activeLike);
 
   //點讚開關
   const handleToggleLike = async () => {
@@ -163,7 +161,6 @@ const Reply = () => {
       try {
         const tweet = await getTargetTweet(params.replyId);
         setTargetTweet(tweet);
-        console.log("targetTweet>>", tweet);
         return;
       } catch (error) {
         console.error(error);

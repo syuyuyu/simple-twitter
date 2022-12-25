@@ -15,14 +15,12 @@ const StyledContainer = styled.div`
   border-radius: 2px;
 `;
 
-
 const StyledtextareaWrap = styled.div`
   display: flex;
   flex-direction: column;
-  height:147px;
+  height: 147px;
   background-color: #f5f8fa;
-
-`
+`;
 const StyledLabel = styled.label`
   /* font-family: "Noto Sans TC", sans-serif; */
   width: 100%;
@@ -65,14 +63,14 @@ const StyledAlertContainer = styled.div`
   /* bottom:0px; */
 `;
 const StyledError = styled.div`
-    position: absolute;
-    left: 0;
-    margin-top: 4px;
-    height: 20px;
-    line-height: 20px;
-    font-size: 12px;
-    font-weight: 500;
-    color: var(--color-error);
+  position: absolute;
+  left: 0;
+  margin-top: 4px;
+  height: 20px;
+  line-height: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-error);
 `;
 
 const StyledCount = styled.div`
@@ -84,7 +82,6 @@ const StyledCount = styled.div`
   color: var(--color-grayscale-dark80);
 `;
 
-
 const DescriptionTextarea = ({ type, label, value, placeholder, onChange }) => {
   return (
     <>
@@ -93,15 +90,16 @@ const DescriptionTextarea = ({ type, label, value, placeholder, onChange }) => {
           <StyledLabel>{label}</StyledLabel>
           <StyledTextarea
             type={type || "text"}
-            className={value?.trim().length > 50 ? "active" : ""}
+            className={value?.trim().length === 160 ? "active" : ""}
             value={value}
             placeholder={placeholder}
             maxLength={160}
-            onChange={(event) => onChange?.(event.target.value)}/>
+            onChange={(event) => onChange?.(event.target.value)}
+          />
         </StyledtextareaWrap>
 
         <StyledAlertContainer>
-          {value?.trim().length > 160 ? <StyledError>字數超出上限！</StyledError> : null}
+          {value?.trim().length === 160 ? <StyledError>字數超出上限！</StyledError> : null}
           <StyledCount>{value?.trim().length}/160</StyledCount>
         </StyledAlertContainer>
       </StyledContainer>

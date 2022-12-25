@@ -35,9 +35,8 @@ return (
         newTweet,
         setNewTweet,
         onToggleFollow : async (targetUser) => {
-          console.log(targetUser)
-          if (userId === targetUser.id) {
-            return;
+          if (Number(targetUser.id) === Number(userId)) {
+            return
           }
           if (!targetUser.isFollowed) {
             try {
@@ -72,12 +71,11 @@ return (
           console.log(targetTweet);
           const { id } = { ...targetTweet.User };
           if (Number(UserId) === Number(id)) {
-            return;
+            return
           }
           if (targetTweet.isLiked === false) {
             try {
               const res = await postLike(targetTweet.id);
-              console.log("POST 按讚", res);
               setActiveLike(true);
               setLikeCount(likeCount + 1);
               setNewTweet(res)
@@ -88,7 +86,6 @@ return (
           } else {
             try {
               const res = await postUnLike(targetTweet.id);
-              console.log("POST 取消讚", res);
               setActiveLike(false);
               setLikeCount(likeCount - 1);
               setNewTweet(res)
@@ -98,65 +95,10 @@ return (
             }
           }
         }
-
       }}
-      
     >
         {children}
       </ControlCotext.Provider>
     </>
   );
 };
-
-
-
-
-
-
-
-
-      //   logout: () => {
-      //     localStorage.removeItem("authToken");
-      //     localStorage.removeItem("userId");
-      //     localStorage.removeItem("role");
-      //     setPayload(null);
-      //     setIsAuthenticated(false);
-      //   },
-      // }
-
-
-
- 
-  
-//   //追隨開關
-//   const handleToggleFollow = async (targetUser) => {
-//     const [isFollow, setIsFollow] = useState("");
-//     const userId = localStorage.getItem("userId");
-
-//     if (userId === targetUser.followingId) {
-//       return;
-//     }
-//     //開始跟隨
-//     if (!targetUser.isFollowed) {
-//       try {
-//         const res = await postFollowing(targetUser.followingId);
-//         if(res){
-//           setIsFollow(isFollow+1);
-//         }
-//       } catch (error) {
-//         console.error(error);
-//       }
-//     } else {
-//       //取消追隨
-//       try {
-//         const res = await deleteFollow(targetUser.followingId);
-//         if(res){
-//           setIsFollow(isFollow-1);
-//         }
-//       } catch (error) {
-//         console.error(error);
-//       }
-//     }
-//   };
-
-//   export default FollowController;
