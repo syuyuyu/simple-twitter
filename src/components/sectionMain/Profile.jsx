@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { EditModalContext } from "../../contexts/ModalContext";
 import { Outlet, useNavigate } from "react-router-dom";
 import {
@@ -26,7 +26,7 @@ import { NavLink as Link } from "react-router-dom";
 import styled from "styled-components";
 import EditModal from "../Modals/EditModal";
 import { useAuth } from "../../contexts/AuthContext";
-import { getReplys, postLike, postUnLike } from "../../api/tweets";
+import { getReplys } from "../../api/tweets";
 import { LikeTweetContext, OtherUserContext, UserReplyContext, UserTweetContext } from "../../contexts/TweetContext";
 import { getLikeTweets, getUserTweets } from "../../api/tweets";
 import TweetModal from "../Modals/TweetModal";
@@ -58,37 +58,37 @@ const Profile = () => {
   const { setLikeTweets } = useContext(LikeTweetContext);
   const { otherUser, setOtherUser } = useContext(OtherUserContext);
   const { setUserTweets } = useContext(UserTweetContext);
-  const [activeLike, setActiveLike] = useState(null);
-  const [likeCount, setLikeCount] = useState(0);
+  // const [activeLike, setActiveLike] = useState(null);
+  // const [likeCount, setLikeCount] = useState(0);
 
   //點讚開關
-  const handleToggleLike = async (targetTweet) => {
-    const UserId = localStorage.getItem("userId");
-    console.log(targetTweet);
-    const { id } = { ...targetTweet.User };
-    if (UserId === id) {
-      return;
-    }
-    if (targetTweet.isLiked === false) {
-      try {
-        const res = await postLike(targetTweet.id);
-        console.log("POST 按讚", res);
-        setActiveLike(true);
-        setLikeCount(likeCount + 1);
-      } catch (error) {
-        console.error(error);
-      }
-    } else {
-      try {
-        const res = await postUnLike(targetTweet.id);
-        console.log("POST 取消讚", res);
-        setActiveLike(false);
-        setLikeCount(likeCount - 1);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-  };
+  // const handleToggleLike = async (targetTweet) => {
+  //   const UserId = localStorage.getItem("userId");
+  //   console.log(targetTweet);
+  //   const { id } = { ...targetTweet.User };
+  //   if (UserId === id) {
+  //     return;
+  //   }
+  //   if (targetTweet.isLiked === false) {
+  //     try {
+  //       const res = await postLike(targetTweet.id);
+  //       console.log("POST 按讚", res);
+  //       setActiveLike(true);
+  //       setLikeCount(likeCount + 1);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   } else {
+  //     try {
+  //       const res = await postUnLike(targetTweet.id);
+  //       console.log("POST 取消讚", res);
+  //       setActiveLike(false);
+  //       setLikeCount(likeCount - 1);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   }
+  // };
 
   //GET 個人資料
   useEffect(() => {
