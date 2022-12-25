@@ -61,18 +61,11 @@ export const AuthProvider = ({ children }) => {
               password: data.password,
               checkPassword: data.checkPassword,
             });
-            const { token, user } = { res };
-            const tempPayload = jwt_decode(token);
             if (res) {
-              setPayload(tempPayload);
-              setIsAuthenticated(true);
-              localStorage.setItem("authToken", token);
-              localStorage.setItem("userId", user.id);
-              localStorage.setItem("role", user.role);
-            } else {
-              setPayload(null);
-              setIsAuthenticated(false);
-            }
+              localStorage.setItem("authToken", res.token);
+              localStorage.setItem("userId", res.id);
+              localStorage.setItem("role", res.role);
+            } 
             return res;
           } catch (err) {
             console.log("register error :", err);

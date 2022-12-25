@@ -138,6 +138,7 @@ const TweetItem = ({
   const userId = localStorage.getItem("userId");
   //跳轉其他使用者個人資料頁面
   const handleTargetUser = () => {
+    const userId = localStorage.getItem("userId");
     if (id === userId) {
       return;
     }

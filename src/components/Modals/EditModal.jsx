@@ -1,4 +1,4 @@
-import React,{useState,useContext,useRef,useEffect,useMemo } from 'react'
+import React,{useState,useContext,useRef,useEffect } from 'react'
 import Swal from "sweetalert2";
 import styled from "styled-components";
 import {
@@ -124,13 +124,30 @@ const EditModal = () => {
   const [coverImg, setCoverImg] = useState(null);
   const [avatarImg, setAvatarImg] = useState(null);
   const [isUpdating, setIsUpdating] = useState(false);
+  //上傳圖片 舊的
+  // const handleImgChange=(e)=>{
+  //   if(isUpdating){
+  //     return;
+  //   }
+  //   const selectedFile = e.target.files[0];
+  //   const objectUrl = window.URL.createObjectURL(selectedFile);
+  //   if (e.target.id === "cover") {
+  //     console.log('cover')
+  //     setCoverImg(objectUrl);
+  //   } else if (e.target.id === "avatar") {
+  //     console.log('avatar')
+  //     setAvatarImg(objectUrl);
+  //   }
+  // };
 
+
+//上傳圖片
   const handleImgChange=(e)=>{
     if(isUpdating){
       return;
     }
     const selectedFile = e.target.files[0];
-    const objectUrl = URL.createObjectURL(selectedFile);
+    const objectUrl = window.URL.createObjectURL(selectedFile);
     if (e.target.id === "cover") {
       console.log('cover')
       setCoverImg(objectUrl);
@@ -139,6 +156,7 @@ const EditModal = () => {
       setAvatarImg(objectUrl);
     }
   };
+
 
   const handleSubmit=async()=>{
     if(!name){
@@ -151,22 +169,27 @@ const EditModal = () => {
       });
       return;
     };
-    setIsUpdating(true)
-    const introduction =intro
-    const cover = coverImg
-    const avatar = avatarImg
-    const patchUser = await putUser({name,introduction,cover,avatar})
-    // console.log('patchUser: ',patchUser)
-    setIsUpdating(false)
-    if(patchUser){
-      await Swal.fire({
-        title: "資料儲存中",
-        icon: "success",
-        showConfirmButton: false,
-        timer: 1000,
-        position: "top",
-      });
-      toggleEditModal()
+    try{
+      setIsUpdating(true)
+      const introduction =intro
+      const cover = coverImg
+      const avatar = avatarImg
+      const res = await putUser({name,introduction,cover,avatar})
+      console.log('editModal res: ',res)
+      if(res){
+        await Swal.fire({
+          title: "資料儲存中",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1000,
+          position: "top",
+        });
+        toggleEditModal()
+        setIsUpdating(false)
+        return;
+      }
+    }catch(err){
+    console.error('editModal faild :',err) 
     }
   };
 
@@ -193,15 +216,15 @@ const EditModal = () => {
     })
   };
 
-  const isValid = useMemo(() => {
-    if (!name || name?.length > 50) {
-      return false;
-    }
-    if (!intro || intro?.length > 160) {
-      return false;
-    }
-    return true;
-  }, [name, intro]);
+  // const isValid = useMemo(() => {
+  //   if (!name || name.length > 50) {
+  //     return false;
+  //   }
+  //   if (!intro || intro.length > 160) {
+  //     return false;
+  //   }
+  //   return true;
+  // }, [name, intro]);
 
   
   useEffect(()=>{
@@ -227,13 +250,13 @@ const EditModal = () => {
           <StyledGroupContainer>
             <StyledSectionPopular></StyledSectionPopular>
             <StyledSectionMain>
+            {/* <form id="form" action="upload" method="post" enctype="multipart/form-data"> */}
                 <Content>
                   <HeaderContainer>
                     <CloseIcon onClick={toggleEditModal}></CloseIcon>
                     <h5 style={{marginLeft:'30px'}}>編輯個人資料</h5>
                     <StyledPublicButton 
                       onClick={handleSubmit}
-                      disabled={!isValid}
                       style={{
                         position: 'absolute',
                         right:'0',
@@ -302,6 +325,7 @@ const EditModal = () => {
                     </StyleddescriptionTextarea>
                   </InputContainer>
                 </Content>
+                {/* </form> */}
               </StyledSectionMain>
             <StyledSectionPopular></StyledSectionPopular>
           </StyledGroupContainer>
