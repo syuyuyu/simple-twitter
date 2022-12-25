@@ -10,7 +10,7 @@ export const getTweets = async () => {
   try {
     const res = await axios({
       method :'GET',
-      url: `${baseURL}/api/tweets/`,
+      url: `${baseURL}/api/tweets`,
       headers:{
         Authorization: `Bearer ${authToken}`,
       },
