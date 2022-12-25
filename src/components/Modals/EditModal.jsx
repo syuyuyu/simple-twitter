@@ -15,6 +15,7 @@ import { EditModalContext } from "../../contexts/ModalContext";
 import { getUser,putUser } from '../../api/user';
 
 
+
 const StyledGroupContainer = styled.div`
   max-width: 1140px;
   height: 100vh;
@@ -124,24 +125,25 @@ const EditModal = () => {
   const [coverImg, setCoverImg] = useState(null);
   const [avatarImg, setAvatarImg] = useState(null);
   const [isUpdating, setIsUpdating] = useState(false);
-  //上傳圖片 舊的
+  // 圖片上傳 暫留{
+  // const fileReader = new FileReader();
+  // const file = e.target.files[0];
+  // const [tmpImg,setTmpImg]=useState({
+  //   avatar:null,
+  //   cover:null,
+  // })
   // const handleImgChange=(e)=>{
-  //   if(isUpdating){
-  //     return;
+  //   fileReader.onload = () =>{
+  //     setTmpImg({...tmpImg , avatar : fileReader.result});
   //   }
-  //   const selectedFile = e.target.files[0];
-  //   const objectUrl = window.URL.createObjectURL(selectedFile);
-  //   if (e.target.id === "cover") {
-  //     console.log('cover')
-  //     setCoverImg(objectUrl);
-  //   } else if (e.target.id === "avatar") {
-  //     console.log('avatar')
-  //     setAvatarImg(objectUrl);
-  //   }
-  // };
+  // }
+  // fileReader.readAsDataURL(file);
+  //}
 
 
-//上傳圖片
+
+
+  //上傳圖片
   const handleImgChange=(e)=>{
     if(isUpdating){
       return;
@@ -215,18 +217,8 @@ const EditModal = () => {
       setCoverImg(coverImg)
     })
   };
-
-  // const isValid = useMemo(() => {
-  //   if (!name || name.length > 50) {
-  //     return false;
-  //   }
-  //   if (!intro || intro.length > 160) {
-  //     return false;
-  //   }
-  //   return true;
-  // }, [name, intro]);
-
   
+  //渲染 附值
   useEffect(()=>{
     const getUserData = async () => {
       try {
@@ -250,7 +242,6 @@ const EditModal = () => {
           <StyledGroupContainer>
             <StyledSectionPopular></StyledSectionPopular>
             <StyledSectionMain>
-            {/* <form id="form" action="upload" method="post" enctype="multipart/form-data"> */}
                 <Content>
                   <HeaderContainer>
                     <CloseIcon onClick={toggleEditModal}></CloseIcon>
@@ -271,6 +262,22 @@ const EditModal = () => {
                       backgroundRepeat: 'no-repeat',
                       backgroundSize: 'cover'}} >
                       <StyledBackgroundHover>
+                        {coverImg?
+                        <label for={"cover"}>
+                          <AddphotoIcon
+                            style={{marginRight:'38.5px'}}>
+                          </AddphotoIcon>
+                          <input
+                            ref={coverRef}
+                            accept="image/png, image/jpeg, image/jpg"
+                            type="file"
+                            id="cover"
+                            src="coverImg"
+                            onChange={(e) => handleImgChange(e, "cover")}
+                            style={{
+                              display: "none"
+                            }}></input>
+                        </label>:
                         <label for={"cover"}>
                           <AddphotoIcon
                             style={{marginRight:'38.5px'}}>
@@ -285,6 +292,7 @@ const EditModal = () => {
                               display: "none"
                             }}></input>
                         </label>
+                        }
                         <CancelIcon onClick={handleCancel}></CancelIcon>
                       </StyledBackgroundHover>
                     </StyledBackgroundImage>
@@ -293,6 +301,20 @@ const EditModal = () => {
                       backgroundRepeat: 'no-repeat',
                       backgroundSize: 'cover'}}>
                       <StyledBackgroundHover style={{borderRadius:'50%'}}>
+                        {avatarImg?
+                          <label for={isUpdating ? "" : "avatar"}>
+                        <AddphotoIcon></AddphotoIcon>
+                            <input
+                              ref={coverRef}
+                              type="file"
+                              id="avatar"
+                              src="avatarImg"
+                              onChange={(e) => handleImgChange(e, "avatar")}
+                              style={{
+                                display: "none"
+                              }}
+                            />
+                          </label>:
                           <label for={isUpdating ? "" : "avatar"}>
                         <AddphotoIcon></AddphotoIcon>
                             <input
@@ -305,6 +327,7 @@ const EditModal = () => {
                               }}
                             />
                           </label>
+                          }
                       </StyledBackgroundHover>
                     </StyledAvatarImage>
                   </ImageContainer>
@@ -316,7 +339,7 @@ const EditModal = () => {
                       onChange={(value=>isUpdating? value :setName(value))}
                     />
                     <StyleddescriptionTextarea>
-                      <DescriptionTextarea //用useReducer
+                      <DescriptionTextarea
                         label='介紹'
                         placeholder='自我介紹'
                         value={intro}
@@ -325,7 +348,6 @@ const EditModal = () => {
                     </StyleddescriptionTextarea>
                   </InputContainer>
                 </Content>
-                {/* </form> */}
               </StyledSectionMain>
             <StyledSectionPopular></StyledSectionPopular>
           </StyledGroupContainer>

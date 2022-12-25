@@ -3,8 +3,8 @@ import Swal from "sweetalert2";
 //第三方跨域請求
 // const corsURL = 'https://cors-anywhere.herokuapp.com/'; // use cors-anywhere to fetch api data
 
-// const authURL = "https://nameless-fortress-45508.herokuapp.com";
-const authURL = "https://protected-journey-43760.herokuapp.com";
+const authURL = "https://nameless-fortress-45508.herokuapp.com";
+// const authURL = "https://protected-journey-43760.herokuapp.com";
 
 //登入功能
 export const login = async ({ account, password }) => {
@@ -65,5 +65,4 @@ export const checkPermission = async (authToken) => {
   } catch (error) {
     console.error("[Check Permission Failed]:", error);
   }
-  // console.log('checkPermission ','pass',authToken)
 };

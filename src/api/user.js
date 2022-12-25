@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// const baseURL = "https://nameless-fortress-45508.herokuapp.com";
-const baseURL = "https://protected-journey-43760.herokuapp.com";
+const baseURL = "https://nameless-fortress-45508.herokuapp.com";
+// const baseURL = "https://protected-journey-43760.herokuapp.com";
 
 //GET 使用者個人資料
 export const getUser = async () => {
@@ -11,7 +11,6 @@ export const getUser = async () => {
     const res = await axios.get(`${baseURL}/api/users/${userId}`, {
       headers: { Authorization: `Bearer ${authToken}` },
     });
-    // console.log("user GET api res:", res);
     return res.data;
   } catch (error) {
     console.error("[Get User failed]:", error);
@@ -31,17 +30,7 @@ export const putUser = async ({
     const authToken = localStorage.getItem('authToken');
     const userId = localStorage.getItem('userId');
     const getdata =  await getUser()
-    //判斷式
-    // const data = {
-    //     // "account": `${account}`==="undefined"? `${getdata.account}`:`${account}`,
-    //     "name":` ${name}`==="undefined"? `${getdata.name}` : `${name}`,
-    //     "email": `${email}`==="undefined"? `${getdata.email}`: `${email}`,
-    //     "introduction": `${introduction}`==="undefined"? `${getdata.introduction}` : `${introduction}` ,
-    //     "avatar": `${avatar}`==="undefined"? `${getdata.avatar}`: `${avatar}` ,
-    //     "cover": `${cover}`==="undefined"?  `${getdata.cover}`: `${cover}` ,
-    //     "password": `${password}`,
-    //     "checkPassword": `${checkedPassword}`,
-    // };
+
 
     //新的判斷式
     const accountInput = `${account}`==="undefined"? `${getdata.account}`:`${account}`;
@@ -104,7 +93,6 @@ export const getFollowers = async () => {
     const res = await axios.get(`${baseURL}/api/users/${userId}/followers`, {
       headers: { Authorization: `Bearer ${authToken}` },
     });
-    // console.log("user GET api res:", res);
     return res.data;
   } catch (error) {
     console.error("[Get User failed]:", error);
@@ -119,12 +107,12 @@ export const getFollowings = async () => {
     const res = await axios.get(`${baseURL}/api/users/${userId}/followings`, {
       headers: { Authorization: `Bearer ${authToken}` },
     });
-    // console.log("user GET api res:", res);
     return res.data;
   } catch (error) {
     console.error("[Get User failed]:", error);
   }
 };
+
 //GET 其他使用者推文
 export const getOtherUserTweets = async (userId) => {
   try {
@@ -146,7 +134,6 @@ export const getOtherUser = async ( userId ) => {
     const res = await axios.get(`${baseURL}/api/users/${userId}`, {
       headers: { Authorization: `Bearer ${authToken}` },
     });
-    // console.log("user GET api res:", res);
     return res.data;
   } catch (error) {
     console.error("[Get User failed]:", error);

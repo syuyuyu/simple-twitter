@@ -16,7 +16,9 @@ export const ControlProvider = ({ children }) => {
   const [isFollow, setIsFollow] = useState(0);
   const [likeCount, setLikeCount] = useState(0);
   const [activeLike, setActiveLike] = useState(null);
-  // const userId = localStorage.getItem("userId");
+  const [newUser, setNewUser] = useState(null);
+  const [newTweet, setNewTweet] = useState(null);
+  const userId = localStorage.getItem("userId");
 
 return (
     <>
@@ -28,18 +30,23 @@ return (
         setActiveLike,
         likeCount,
         setLikeCount,
+        newUser,
+        setNewUser,
+        newTweet,
+        setNewTweet,
         onToggleFollow : async (targetUser) => {
           console.log(targetUser)
-          // if (userId === targetUser.followingId) {
-          //   return;
-          // }
-          // toggle follow
+          if (userId === targetUser.id) {
+            return;
+          }
           if (!targetUser.isFollowed) {
             try {
               const res = await postFollowing(targetUser.id);
               if(res){
-                setIsFollow(isFollow+1);
-                return res
+                return(
+                  setIsFollow(isFollow+1),
+                  setNewUser(res)
+                )
               }
             } catch (error) {
               console.error(error);
@@ -49,8 +56,10 @@ return (
             try {
               const res = await deleteFollow(targetUser.id);
               if(res){
-                setIsFollow(isFollow-1);
-                return res
+                return (
+                setIsFollow(isFollow-1),
+                setNewTweet(res)
+                )
               }
             } catch (error) {
               console.error(error);
@@ -71,6 +80,7 @@ return (
               console.log("POST 按讚", res);
               setActiveLike(true);
               setLikeCount(likeCount + 1);
+              setNewTweet(res)
               return res
             } catch (error) {
               console.error(error);
@@ -81,6 +91,7 @@ return (
               console.log("POST 取消讚", res);
               setActiveLike(false);
               setLikeCount(likeCount - 1);
+              setNewTweet(res)
               return res
             } catch (error) {
               console.error(error);

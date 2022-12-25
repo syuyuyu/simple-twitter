@@ -9,10 +9,11 @@ const FollowingList = (handleToggleFollow) => {
 
   return (
     <StyledTweetsList>
-      {followings?.map((user) => {
+      {followings?.map((user,index) => {
         return (
           <UserItem
             id={user.id}
+            key={index}
             User={user.followingUser}
             isFollowed={user.isFollowed}
             // setIsFollow={setIsFollow}
