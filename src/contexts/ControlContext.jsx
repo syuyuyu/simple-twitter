@@ -16,7 +16,7 @@ export const ControlProvider = ({ children }) => {
   const [isFollow, setIsFollow] = useState(0);
   const [likeCount, setLikeCount] = useState(0);
   const [activeLike, setActiveLike] = useState(null);
-  const userId = localStorage.getItem("userId");
+  // const userId = localStorage.getItem("userId");
 
 return (
     <>
