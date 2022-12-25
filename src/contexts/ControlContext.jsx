@@ -16,6 +16,9 @@ export const ControlProvider = ({ children }) => {
   const [isFollow, setIsFollow] = useState(0);
   const [likeCount, setLikeCount] = useState(0);
   const [activeLike, setActiveLike] = useState(null);
+  const [newUser, setNewUser] = useState(null);
+  const [newTweet, setNewTweet] = useState(null);
+  const userId = localStorage.getItem("userId");
 
 return (
     <>
@@ -27,13 +30,11 @@ return (
         setActiveLike,
         likeCount,
         setLikeCount,
+        newUser,
+        setNewUser,
+        newTweet,
+        setNewTweet,
         onToggleFollow : async (targetUser) => {
-          console.log(targetUser)
-          // if (userId === targetUser.followingId) {
-          //   return;
-          // }
-          // toggle follow
-          const userId = localStorage.getItem("userId");
           if (Number(targetUser.id) === Number(userId)) {
             return
           }
@@ -41,8 +42,10 @@ return (
             try {
               const res = await postFollowing(targetUser.id);
               if(res){
-                setIsFollow(isFollow+1);
-                return res
+                return(
+                  setIsFollow(isFollow+1),
+                  setNewUser(res)
+                )
               }
             } catch (error) {
               console.error(error);
@@ -52,8 +55,10 @@ return (
             try {
               const res = await deleteFollow(targetUser.id);
               if(res){
-                setIsFollow(isFollow-1);
-                return res
+                return (
+                setIsFollow(isFollow-1),
+                setNewTweet(res)
+                )
               }
             } catch (error) {
               console.error(error);
@@ -73,6 +78,7 @@ return (
               const res = await postLike(targetTweet.id);
               setActiveLike(true);
               setLikeCount(likeCount + 1);
+              setNewTweet(res)
               return res
             } catch (error) {
               console.error(error);
@@ -82,6 +88,7 @@ return (
               const res = await postUnLike(targetTweet.id);
               setActiveLike(false);
               setLikeCount(likeCount - 1);
+              setNewTweet(res)
               return res
             } catch (error) {
               console.error(error);
@@ -95,56 +102,3 @@ return (
     </>
   );
 };
-
-
-
-
-
-
-
-
-      //   logout: () => {
-      //     localStorage.removeItem("authToken");
-      //     localStorage.removeItem("userId");
-      //     localStorage.removeItem("role");
-      //     setPayload(null);
-      //     setIsAuthenticated(false);
-      //   },
-      // }
-
-
-
- 
-  
-//   //追隨開關
-//   const handleToggleFollow = async (targetUser) => {
-//     const [isFollow, setIsFollow] = useState("");
-//     const userId = localStorage.getItem("userId");
-
-//     if (userId === targetUser.followingId) {
-//       return;
-//     }
-//     //開始跟隨
-//     if (!targetUser.isFollowed) {
-//       try {
-//         const res = await postFollowing(targetUser.followingId);
-//         if(res){
-//           setIsFollow(isFollow+1);
-//         }
-//       } catch (error) {
-//         console.error(error);
-//       }
-//     } else {
-//       //取消追隨
-//       try {
-//         const res = await deleteFollow(targetUser.followingId);
-//         if(res){
-//           setIsFollow(isFollow-1);
-//         }
-//       } catch (error) {
-//         console.error(error);
-//       }
-//     }
-//   };
-
-//   export default FollowController;

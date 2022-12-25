@@ -16,6 +16,7 @@ const ItemContainer = styled.div`
   flex-direction: row;
   border-bottom: 1px solid #e6ecf0;
   padding: 16px 29px 16px 24px;
+  width: 100%;
 `;
 
 const AvatarContainer = styled.div`
@@ -52,6 +53,14 @@ const RowContainer = styled.div`
   display: flex;
   flex-flow: row;
   margin-bottom: 8px;
+  width: 100%;
+`;
+
+const TweetText = styled.p`
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  word-wrap: break-word;
 `;
 
 const Name = styled.p`
@@ -74,11 +83,6 @@ const Account = styled.p`
   margin-left: 8px;
 `;
 
-const TweetText = styled.div`
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 26px;
-`;
 const IconsContainer = styled.div`
   display: flex;
   flex-direction: row;

@@ -64,7 +64,7 @@ const UserItem = ({ id,User, isFollowed }) => {
   const navigate = useNavigate();
   const { avatar, introduction, name } = { ...User };
   const {onToggleFollow}=useControl();
-
+  
   //跳轉其他使用者個人資料頁面
   const handleTargetUser = () => {
     const userId = localStorage.getItem("userId");
@@ -73,10 +73,10 @@ const UserItem = ({ id,User, isFollowed }) => {
     }
     navigate(`/user/${id}`);
   };
-  const handleToggleFollow =(User)=>{
-    const res = onToggleFollow(User);
-    console.log('UserItem reducer res:',res)
 
+  const handleToggleFollow = async(User)=>{
+    const res = await onToggleFollow(User);
+    console.log('res',res)
   }
 
   return (

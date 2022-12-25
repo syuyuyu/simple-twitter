@@ -226,11 +226,14 @@ const StyledError = styled.p`
 const StyledTweetsList = styled.div`
   display: flex;
   flex-direction: column;
-  width: 937px;
-  @media screen and (max-width: 1200px) {
-    width: 730px;
-  }
+
+  width:100%;
+
+  
+
 `;
+
+
 const StyledTitleContainer = styled.div`
   display: flex;
   align-items: center;
@@ -302,6 +305,10 @@ const StyledAdminUserBackground = styled.div`
 const StyledAdminTweetsList = styled.div`
   display: flex;
   flex-direction: column;
+  width:937px;
+  @media screen and (max-width: 1200px) {
+    width: 730px;
+  }
 `;
 
 const StyledTitleWrapper = styled.div`

@@ -7,10 +7,11 @@ const FollowerList = (handleToggleFollow) => {
   const { followers } = useContext(FollowerContext);
   return (
     <StyledTweetsList>
-      {followers.map((user) => {
+      {followers.map((user,index) => {
         return (
           <UserItem
             id={user.id}
+            key={index}
             User={user.followerUser}
             isFollowed={user.isFollowed}
             handleToggleFollow={(User)=>{handleToggleFollow?.(User)}}
