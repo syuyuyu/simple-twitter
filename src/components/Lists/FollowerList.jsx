@@ -13,7 +13,6 @@ const FollowerList = (handleToggleFollow) => {
             id={user.id}
             User={user.followerUser}
             isFollowed={user.isFollowed}
-            // setIsFollow={setIsFollow}
             handleToggleFollow={(User)=>{handleToggleFollow?.(User)}}
           />
         );

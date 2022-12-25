@@ -13,20 +13,21 @@ import { useContext } from "react";
 import { adminDeleteTweets, adminGetTweets } from "../../api/admin";
 import styled from "styled-components";
 
+const StyledTweetListHeader = styled.nav`
+  width: 937px;
+  background: #ffffffa3;
+  height: 74px;
+  border-bottom: 1px solid #e6ecf0;
+  @media screen and (max-width: 1200px) {
+    width: 730px;
+  }
+`;
+
 const AdminTweetsList = () => {
   const navigate = useNavigate();
   const { isAuthenticated } = useAdmin();
   const { tweets, setTweets } = useContext(TweetContext);
 
-  const StyledTweetListHeader = styled.nav`
-    width: 937px;
-    background: #ffffffa3;
-    height: 74px;
-    border-bottom: 1px solid #e6ecf0;
-    @media screen and (max-width: 1200px) {
-      width: 730px;
-    }
-  `;
 
   //DELETE 刪除事件
   const handleRemoveClick = async (id) => {
@@ -61,7 +62,7 @@ const AdminTweetsList = () => {
     }
   }, [navigate, isAuthenticated]);
 
-  // tweetList
+  
   return (
     <>
       <StyleSectionAdminMain>

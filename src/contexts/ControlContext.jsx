@@ -16,7 +16,6 @@ export const ControlProvider = ({ children }) => {
   const [isFollow, setIsFollow] = useState(0);
   const [likeCount, setLikeCount] = useState(0);
   const [activeLike, setActiveLike] = useState(null);
-  // const userId = localStorage.getItem("userId");
 
 return (
     <>
@@ -34,6 +33,10 @@ return (
           //   return;
           // }
           // toggle follow
+          const userId = localStorage.getItem("userId");
+          if (Number(targetUser.id) === Number(userId)) {
+            return
+          }
           if (!targetUser.isFollowed) {
             try {
               const res = await postFollowing(targetUser.id);
@@ -63,12 +66,11 @@ return (
           console.log(targetTweet);
           const { id } = { ...targetTweet.User };
           if (Number(UserId) === Number(id)) {
-            return;
+            return
           }
           if (targetTweet.isLiked === false) {
             try {
               const res = await postLike(targetTweet.id);
-              console.log("POST 按讚", res);
               setActiveLike(true);
               setLikeCount(likeCount + 1);
               return res
@@ -78,7 +80,6 @@ return (
           } else {
             try {
               const res = await postUnLike(targetTweet.id);
-              console.log("POST 取消讚", res);
               setActiveLike(false);
               setLikeCount(likeCount - 1);
               return res
@@ -87,9 +88,7 @@ return (
             }
           }
         }
-
       }}
-      
     >
         {children}
       </ControlCotext.Provider>

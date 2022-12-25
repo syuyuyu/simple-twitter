@@ -31,17 +31,6 @@ export const putUser = async ({
     const authToken = localStorage.getItem('authToken');
     const userId = localStorage.getItem('userId');
     const getdata =  await getUser()
-    //判斷式
-    // const data = {
-    //     // "account": `${account}`==="undefined"? `${getdata.account}`:`${account}`,
-    //     "name":` ${name}`==="undefined"? `${getdata.name}` : `${name}`,
-    //     "email": `${email}`==="undefined"? `${getdata.email}`: `${email}`,
-    //     "introduction": `${introduction}`==="undefined"? `${getdata.introduction}` : `${introduction}` ,
-    //     "avatar": `${avatar}`==="undefined"? `${getdata.avatar}`: `${avatar}` ,
-    //     "cover": `${cover}`==="undefined"?  `${getdata.cover}`: `${cover}` ,
-    //     "password": `${password}`,
-    //     "checkPassword": `${checkedPassword}`,
-    // };
 
     //新的判斷式
     const accountInput = `${account}`==="undefined"? `${getdata.account}`:`${account}`;
@@ -104,7 +93,6 @@ export const getFollowers = async () => {
     const res = await axios.get(`${baseURL}/api/users/${userId}/followers`, {
       headers: { Authorization: `Bearer ${authToken}` },
     });
-    // console.log("user GET api res:", res);
     return res.data;
   } catch (error) {
     console.error("[Get User failed]:", error);
@@ -119,7 +107,6 @@ export const getFollowings = async () => {
     const res = await axios.get(`${baseURL}/api/users/${userId}/followings`, {
       headers: { Authorization: `Bearer ${authToken}` },
     });
-    // console.log("user GET api res:", res);
     return res.data;
   } catch (error) {
     console.error("[Get User failed]:", error);
@@ -146,7 +133,6 @@ export const getOtherUser = async ( userId ) => {
     const res = await axios.get(`${baseURL}/api/users/${userId}`, {
       headers: { Authorization: `Bearer ${authToken}` },
     });
-    // console.log("user GET api res:", res);
     return res.data;
   } catch (error) {
     console.error("[Get User failed]:", error);
@@ -156,7 +142,7 @@ export const getOtherUser = async ( userId ) => {
 //POST 開始追隨
 export const postFollowing = async (id) => {
   try {
-    console.log("開始追隨的ID", id);
+    console.log("開始追隨的ID>>", id);
     const authToken = localStorage.getItem("authToken");
     const res = await axios({
       method: "POST",
@@ -176,7 +162,7 @@ export const postFollowing = async (id) => {
 //DELETE 取消追隨
 export const deleteFollow = async (id) => {
   try {
-    console.log("取消追隨的ID",id)
+    console.log("取消追隨的ID>>",id)
     const authToken = localStorage.getItem("authToken");
     const res = await axios({
       method: "DELETE",
