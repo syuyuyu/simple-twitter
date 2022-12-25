@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { StyledPublicButton } from "../../components/common/StyledGroup";
+import { useControl } from "../../contexts/ControlContext";
 
 const ItemContainer = styled.div`
   display: flex;
@@ -59,9 +60,10 @@ const TweetText = styled.p`
   line-height: 26px;
 `;
 
-const UserItem = ({ id,User, isFollowed, handleToggleFollow }) => {
+const UserItem = ({ id,User, isFollowed }) => {
   const navigate = useNavigate();
   const { avatar, introduction, name } = { ...User };
+  const {onToggleFollow}=useControl();
 
   //跳轉其他使用者個人資料頁面
   const handleTargetUser = () => {
@@ -71,6 +73,11 @@ const UserItem = ({ id,User, isFollowed, handleToggleFollow }) => {
     }
     navigate(`/user/${id}`);
   };
+  const handleToggleFollow =(User)=>{
+    const res = onToggleFollow(User);
+    console.log('UserItem reducer res:',res)
+
+  }
 
   return (
     <ItemContainer>
