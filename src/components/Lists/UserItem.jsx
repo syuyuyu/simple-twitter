@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { StyledPublicButton } from "../../components/common/StyledGroup";
 
@@ -58,12 +59,21 @@ const TweetText = styled.p`
   line-height: 26px;
 `;
 
-const UserItem = ({ User, isFollowed }) => {
-  const {  avatar, introduction, name } = { ...User };
-  
+const UserItem = ({ id,User, isFollowed, isFollow, setIsFollow, handleToggleFollow }) => {
+  const navigate = useNavigate();
+  const userId = localStorage.getItem("userId");
+  const { avatar, introduction, name } = { ...User };
+  const handleTargetUser = () => {
+    if (id === userId) {
+      return;
+    }
+    navigate(`/user/${id}`);
+  };
+  setIsFollow(isFollowed);
+
   return (
     <ItemContainer>
-      <AvatarContainer>
+      <AvatarContainer onClick={handleTargetUser}>
         <Avatar className='avatar' style={{ margin: "0px", backgroundImage: `url('${avatar}')` }}></Avatar>
       </AvatarContainer>
       <TextContainer>

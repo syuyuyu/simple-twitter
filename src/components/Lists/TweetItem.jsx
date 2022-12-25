@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/zh-tw";
-import {  TargetTweetContext } from "../../contexts/TweetContext";
+import { TargetTweetContext } from "../../contexts/TweetContext";
 
 const ItemContainer = styled.div`
   display: flex;
@@ -115,18 +115,28 @@ const StyledIcon = styled.div`
   }
 `;
 
-const TweetItem = ({ tweet, time, description, isLiked, likedCount, replyCount, tweetId }) => {
+const TweetItem = ({
+  tweet,
+  time,
+  description,
+  isLiked,
+  likedCount,
+  replyCount,
+  handleToggleLike,
+}) => {
   const { toggleReplyModal } = useContext(ReplyModalContext);
+  const { setTargetTweet } = useContext(TargetTweetContext);
   const navigate = useNavigate();
   dayjs.extend(relativeTime);
   const { account, avatar, id, name } = { ...tweet.User };
-  const { setTargetTweet } = useContext(TargetTweetContext);
-  
+
+  //回覆Modal
   const handleClick = (data) => {
     setTargetTweet(data);
     toggleReplyModal();
   };
   
+  //跳轉其他使用者個人資料頁面
   const handleTargetUser = () => {
     const userId = localStorage.getItem("userId");
     if (id === userId) {
@@ -158,7 +168,10 @@ const TweetItem = ({ tweet, time, description, isLiked, likedCount, replyCount, 
                 <p>{replyCount}</p>
               </IconContainer>
               <IconContainer>
-                <StyledIcon></StyledIcon>
+                <StyledIcon
+                  className={isLiked ? "likeIcon like" : "likeIcon"}
+                  onClick={() => handleToggleLike(tweet)}
+                ></StyledIcon>
                 <p>{likedCount}</p>
               </IconContainer>
             </IconsContainer>

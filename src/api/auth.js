@@ -1,4 +1,5 @@
 import axios from "axios";
+import Swal from "sweetalert2";
 //第三方跨域請求
 // const corsURL = 'https://cors-anywhere.herokuapp.com/'; // use cors-anywhere to fetch api data
 
@@ -39,6 +40,14 @@ export const register = async ({ account, name, email, password, checkPassword }
     }
     return data;
   } catch (error) {
+      Swal.fire({
+        title: error.response.data.message,
+        icon: "error",
+        showCloseButton: false,
+        timer: 1000,
+        position: "top",
+      });
+  
     console.log("[Register failed]:", error); //登入串接失敗
 
   }

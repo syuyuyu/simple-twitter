@@ -189,7 +189,7 @@ const EditModal = () => {
         return;
       }
     }catch(err){
-     console.error('editModal faild :',err) 
+    console.error('editModal faild :',err) 
     }
   };
 

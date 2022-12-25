@@ -51,7 +51,6 @@ const NavLink = styled(Link)`
 `;
 
 const Profile = () => {
-  
   const { toggleEditModal } = useContext(EditModalContext);
   const navigate = useNavigate();
   const { isAuthenticated, currentMember } = useAuth();
@@ -59,6 +58,37 @@ const Profile = () => {
   const { setLikeTweets } = useContext(LikeTweetContext);
   const { otherUser, setOtherUser } = useContext(OtherUserContext);
   const { setUserTweets } = useContext(UserTweetContext);
+  // const [activeLike, setActiveLike] = useState(null);
+  // const [likeCount, setLikeCount] = useState(0);
+
+  //點讚開關
+  // const handleToggleLike = async (targetTweet) => {
+  //   const UserId = localStorage.getItem("userId");
+  //   console.log(targetTweet);
+  //   const { id } = { ...targetTweet.User };
+  //   if (UserId === id) {
+  //     return;
+  //   }
+  //   if (targetTweet.isLiked === false) {
+  //     try {
+  //       const res = await postLike(targetTweet.id);
+  //       console.log("POST 按讚", res);
+  //       setActiveLike(true);
+  //       setLikeCount(likeCount + 1);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   } else {
+  //     try {
+  //       const res = await postUnLike(targetTweet.id);
+  //       console.log("POST 取消讚", res);
+  //       setActiveLike(false);
+  //       setLikeCount(likeCount - 1);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   }
+  // };
 
   //GET 個人資料
   useEffect(() => {
@@ -66,13 +96,13 @@ const Profile = () => {
       try {
         const user = await getUser();
         setOtherUser(user);
-        return
+        return;
       } catch (error) {
         console.error(error);
       }
     };
     getUserAsync();
-    return()=>{}
+    return () => {};
   }, [setOtherUser]);
 
   //取得使用者自己的推文
@@ -81,13 +111,13 @@ const Profile = () => {
       try {
         const userTweets = await getUserTweets();
         setUserTweets(userTweets.map((userTweet) => ({ ...userTweet })));
-        return
+        return;
       } catch (error) {
         console.error(error);
       }
     };
     getUserTweetsAsync();
-    return()=>{}
+    return () => {};
   }, [setUserTweets]);
 
   //取得回覆串資料
@@ -96,13 +126,13 @@ const Profile = () => {
       try {
         const userReplys = await getReplys();
         setUserReplys(userReplys.map((tweet) => ({ ...tweet })));
-        return
+        return;
       } catch (error) {
         console.error(error);
       }
     };
     getUserReplysAsync();
-    return()=>{}
+    return () => {};
   }, [setUserReplys]);
   //喜歡的內容
   useEffect(() => {
@@ -110,13 +140,13 @@ const Profile = () => {
       try {
         const likeTweets = await getLikeTweets();
         setLikeTweets(likeTweets.map((tweet) => ({ ...tweet })));
-        return
+        return;
       } catch (error) {
         console.error(error);
       }
     };
     getLikeTweetsAsync();
-    return()=>{}
+    return () => {};
   }, [setLikeTweets]);
 
   //身分驗證

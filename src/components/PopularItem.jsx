@@ -30,14 +30,11 @@ const Avatar = styled.div`
 `;
 
 const PopularItem = ({
+  user,
   account,
   avatar,
-  followerCount,
-  followingId,
   followingUser,
   isFollowed,
-  isFollow,
-  setIsFollow,
   handleToggleFollow,
 }) => {
   const { id, name } = { ...followingUser };
@@ -49,7 +46,6 @@ const PopularItem = ({
     }
     navigate(`/user/${id}`);
   };
-setIsFollow(isFollowed);
 
   return (
     <>
@@ -61,10 +57,10 @@ setIsFollow(isFollowed);
           <StyledName>{name}</StyledName>
           <StyledAccount>@{account}</StyledAccount>
         </StyledStyledNameContainer>
-        {isFollow ? (
-          <StyledPublicButton onClick={() => handleToggleFollow(id)}>正在跟隨</StyledPublicButton>
+        {isFollowed ? (
+          <StyledPublicButton onClick={() => handleToggleFollow(user)}>正在跟隨</StyledPublicButton>
         ) : (
-          <StyledPublicButton className='active' onClick={() => handleToggleFollow(id)}>
+          <StyledPublicButton className='active' onClick={() => handleToggleFollow(user)}>
             跟隨
           </StyledPublicButton>
         )}

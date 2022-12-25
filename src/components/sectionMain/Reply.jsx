@@ -120,7 +120,7 @@ const Reply = () => {
   const { targetTweet, setTargetTweet } = useContext(TargetTweetContext);
   const { toggleReplyModal } = useContext(ReplyModalContext);
   const [activeLike, setActiveLike] = useState(targetTweet.isLiked);
-  const [LikeCount, setLikeCount] = useState(targetTweet.likedCount);
+  const [likeCount, setLikeCount] = useState(targetTweet.likedCount);
   const { id, avatar, account, name } = { ...targetTweet.User };
   console.log("activeLike", activeLike);
 
@@ -135,7 +135,7 @@ const Reply = () => {
         const res = await postLike(targetTweet.id);
         console.log("POST 按讚", res);
         setActiveLike(true);
-        setLikeCount(LikeCount + 1);
+        setLikeCount(likeCount + 1);
       } catch (error) {
         console.error(error);
       }
@@ -144,7 +144,7 @@ const Reply = () => {
         const res = await postUnLike(targetTweet.id);
         console.log("POST 取消讚", res);
         setActiveLike(false);
-        setLikeCount(LikeCount - 1);
+        setLikeCount(likeCount - 1);
       } catch (error) {
         console.error(error);
       }

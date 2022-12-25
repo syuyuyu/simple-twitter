@@ -3,12 +3,12 @@ import {  UserTweetContext } from "../../contexts/TweetContext";
 import { StyledTweetsList } from "../common/StyledGroup";
 import TweetItem from "./TweetItem";
 
-const UserTweetsList = () => {
+const UserTweetsList = ({ handleToggleLike, activeLike, likeCount }) => {
   const { userTweets } = useContext(UserTweetContext);
 
   return (
     <StyledTweetsList>
-      {userTweets.map((tweet,index) => {
+      {userTweets.map((tweet, index) => {
         return (
           <TweetItem
             key={index}
@@ -19,6 +19,9 @@ const UserTweetsList = () => {
             isLiked={tweet.isLiked}
             likedCount={tweet.likedCount}
             replyCount={tweet.replyCount}
+            handleToggleLike={handleToggleLike}
+            activeLike={activeLike}
+            likeCount={likeCount}
           />
         );
       })}
