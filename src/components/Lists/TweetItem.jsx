@@ -9,9 +9,7 @@ import { useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/zh-tw";
-import clsx from "clsx";
-import { TweetContext, TargetTweetContext } from "../../contexts/TweetContext";
-// import { getTweetReplys } from "../../api/tweets";
+import {  TargetTweetContext } from "../../contexts/TweetContext";
 
 const ItemContainer = styled.div`
   display: flex;
