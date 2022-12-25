@@ -1,6 +1,4 @@
 import { createContext, useState } from "react";
-// import { useParams } from "react-router-dom";
-// import { postFollowing } from "../api/tweets";
 
 const initTweets = {
   tweets: [],
@@ -36,6 +34,12 @@ const initFollowShips = {
 const initTweetReplys = {
   tweetReplys: [],
 };
+const initActiveLike = {
+  activeLike: null,
+};
+const initLikeCount = {
+  LikeCount: 0,
+};
 
 export const TweetContext = createContext(initTweets);
 export const UserReplyContext = createContext(initUserReplys);
@@ -48,6 +52,8 @@ export const UserTweetContext = createContext(initUserTweets);
 export const TargetTweetContext = createContext(initUserTweets);
 // export const FollowShipContext = createContext(initFollowShips);
 export const TweetReplysContext = createContext(initUserTweets);
+export const ActiveLikeContext = createContext(initActiveLike);
+export const LikeCountContext = createContext(initLikeCount);
 
 
 //所有推文
@@ -167,4 +173,24 @@ export const TweetReplysProvider = ({ children }) => {
     setTweetReplyList,
   };
   return <TweetReplysContext.Provider value={value}>{children}</TweetReplysContext.Provider>;
+};
+//按讚 active
+export const ActiveLikeProvider = ({ children }) => {
+  const [activeLike, setActiveLike] = useState(null);
+
+  const value = {
+    activeLike,
+    setActiveLike,
+  };
+  return <ActiveLikeContext.Provider value={value}>{children}</ActiveLikeContext.Provider>;
+};
+//按讚功能
+export const LikeCountProvider = ({ children }) => {
+  const [likeCount, setLikeCount] = useState(0);
+
+  const value = {
+    likeCount,
+    setLikeCount,
+  };
+  return <LikeCountContext.Provider value={value}>{children}</LikeCountContext.Provider>;
 };

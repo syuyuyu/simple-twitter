@@ -194,10 +194,10 @@ const EditModal = () => {
   };
 
   const isValid = useMemo(() => {
-    if (!name || name.length > 50) {
+    if (!name || name?.length > 50) {
       return false;
     }
-    if (!intro || intro.length > 160) {
+    if (!intro || intro?.length > 160) {
       return false;
     }
     return true;

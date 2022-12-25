@@ -33,13 +33,6 @@ const RegistPage = () => {
         }
         navigate('/login')
         }catch(err){
-          Swal.fire({
-            title: "註冊失敗",
-            icon: "error",
-            showCloseButton: false,
-            timer: 1000,
-            position: "top",
-          });
           console.log('registpage error :',err)
         }
       };
