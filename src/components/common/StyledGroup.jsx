@@ -187,7 +187,6 @@ const StyledMainContainer = styled.div`
   }
 `;
 const StyledHeader = styled.nav`
-  /* position: fixed; */
   background: #ffffffa3;
   height: 74px;
   border-bottom: 1px solid #e6ecf0;
@@ -227,7 +226,10 @@ const StyledError = styled.p`
 const StyledTweetsList = styled.div`
   display: flex;
   flex-direction: column;
-  width:937px
+  width: 937px;
+  @media screen and (max-width: 1200px) {
+    width: 730px;
+  }
 `;
 const StyledTitleContainer = styled.div`
   display: flex;
