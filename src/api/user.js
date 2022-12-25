@@ -18,50 +18,26 @@ export const getUser = async () => {
 };
 
 //PUT 使用者個人資料
-export const putUser = async ({ account, name, email, introduction, avatar, cover, password, checkedPassword }) => {
-  const authToken = localStorage.getItem("authToken");
-  const userId = localStorage.getItem("userId");
-  const getdata = await getUser();
-
-  //新的判斷式
-  const accountInput = `${account}` === "undefined" ? `${getdata.account}` : `${account}`;
-  const nametInput = `${name}` === "undefined" ? `${getdata.name}` : `${name}`;
-  const emailInput = `${email}` === "undefined" ? `${getdata.email}` : `${email};`;
-  const introductionInput = `${introduction}` === "undefined" ? `${getdata.introduction}` : `${introduction}`;
-
-  const avatarInput = `${avatar}` === "undefined" ? `${getdata.avatar}` : `${avatar}`;
-
-  const coverInput = `${cover}` === "undefined" ? `${getdata.cover}` : `${cover}`;
-
-  const passwordInput = `${password}`;
-
-  const checkPasswordInput = `${checkedPassword}`;
-
-  const formData = new FormData();
-  formData.append("account", accountInput);
-  formData.append("name", nametInput);
-  formData.append("email", emailInput);
-  formData.append("introduction", introductionInput);
-  formData.append("avatar", avatarInput);
-  formData.append("cover", coverInput);
-  formData.append("password", passwordInput);
-  formData.append("checkPassword", checkPasswordInput);
-  try {
-    const res = await axios({
-      method: "PUT",
-      url: `${baseURL}/api/users/${userId}`,
-      data: formData,
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-        "Content-Type": "multipart/form-data",
-      },
-    });
-    return { ...res.data };
-  } catch (error) {
-    console.error("[Put User failed]:", error);
-  }
-};
-
+export const putUser = async ({formData}) => {
+    const authToken = localStorage.getItem('authToken');
+    const userId = localStorage.getItem('userId');
+    try{
+        const res = await axios({
+          method :'PUT',
+          url: `${baseURL}/api/users/${userId}`,
+          data: formData,
+          headers:{
+            Authorization: `Bearer ${authToken}`,
+            'Content-Type': 'multipart/form-data',
+          },
+        })
+        console.log("user PUT api res:", res.data);
+        return { ...res.data };
+      } catch (error) {
+        console.error("[Put User failed]:", error);
+      }
+  };
+  
 //GET Top10
 export const getTop10 = async () => {
   try {
