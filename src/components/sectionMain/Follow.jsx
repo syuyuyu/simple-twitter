@@ -80,7 +80,7 @@ useEffect(() => {
 // //追隨開關
   const handleToggleFollow = async (targetUser) => {
     const userId = localStorage.getItem("userId");
-    if (userId === targetUser.followingId) {
+    if (Number(userId) === Number(targetUser.followingId)) {
       return;
     }
     //開始跟隨
@@ -105,7 +105,6 @@ useEffect(() => {
       }
     }
   };
-
 
 //驗證 跳轉頁面
 useEffect(() => {
