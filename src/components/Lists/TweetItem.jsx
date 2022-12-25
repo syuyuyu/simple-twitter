@@ -3,7 +3,6 @@ import styled from "styled-components";
 import replyIcon from "../../assets/icons/reply.svg";
 import unLikeIcon from "../../assets/icons/like.svg";
 import likeIcon from "../../assets/icons/like-active.svg";
-import ReplyModal from "../Modals/ReplyModal";
 import { ReplyModalContext } from "../../contexts/ModalContext";
 import { useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
@@ -14,7 +13,7 @@ import { TargetTweetContext } from "../../contexts/TweetContext";
 const ItemContainer = styled.div`
   display: flex;
   flex-direction: row;
-  border: 1px solid #e6ecf0;
+  border-bottom: 1px solid #e6ecf0;
   padding: 16px 29px 16px 24px;
 `;
 
@@ -115,15 +114,7 @@ const StyledIcon = styled.div`
   }
 `;
 
-const TweetItem = ({
-  tweet,
-  time,
-  description,
-  isLiked,
-  likedCount,
-  replyCount,
-  handleToggleLike,
-}) => {
+const TweetItem = ({ tweet, time, description, isLiked, likedCount, replyCount, handleToggleLike }) => {
   const { toggleReplyModal } = useContext(ReplyModalContext);
   const { setTargetTweet } = useContext(TargetTweetContext);
   const navigate = useNavigate();
@@ -135,12 +126,12 @@ const TweetItem = ({
     setTargetTweet(data);
     toggleReplyModal();
   };
-  
+
   //跳轉其他使用者個人資料頁面
   const handleTargetUser = () => {
     const userId = localStorage.getItem("userId");
-    if (id === userId) {
-      return;
+    if (Number(id) === Number(userId)) {
+      return navigate('/user/profile');
     }
     navigate(`/user/${id}`);
   };
@@ -178,7 +169,6 @@ const TweetItem = ({
           </RowContainer>
         </TextContainer>
       </ItemContainer>
-      <ReplyModal />
     </>
   );
 };

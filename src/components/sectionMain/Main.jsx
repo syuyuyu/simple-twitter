@@ -118,7 +118,7 @@ const Main = () => {
     const UserId = localStorage.getItem("userId");
     console.log(targetTweet);
     const { id } = { ...targetTweet.User };
-    if (UserId === id) {
+    if (Number(UserId) === Number(id)) {
       return;
     }
     if (targetTweet.isLiked === false) {

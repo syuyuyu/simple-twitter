@@ -41,10 +41,10 @@ const PopularItem = ({
   const navigate = useNavigate();
   const userId = localStorage.getItem("userId");
   
-
+  //跳轉其他使用者個人資料頁面
   const handleTargetUser = () => {
-    if (id === userId) {
-      return;
+    if (Number(id) === Number(userId)) {
+      return navigate("/user/profile");
     }
     navigate(`/user/${id}`);
   };
