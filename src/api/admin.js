@@ -14,7 +14,6 @@ export const login = async ({ account, password }) => {
         password: password,
       },
     })
-    console.log(data);
     const { token, admin } = data;
     if (token) {
       localStorage.setItem("authToken", token);
@@ -24,7 +23,6 @@ export const login = async ({ account, password }) => {
     }
     }catch(err){
         console.log("[Login Failed]:", err);
-        console.log(err.response.data.message);
     }
   };
 

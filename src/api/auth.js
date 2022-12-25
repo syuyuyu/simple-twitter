@@ -19,7 +19,6 @@ export const login = async ({ account, password }) => {
     }
   } catch (error) {
     console.log("[Login Failed]:", error);
-    console.log(error);
   }
 };
 
@@ -46,9 +45,7 @@ export const register = async ({ account, name, email, password, checkPassword }
         timer: 1000,
         position: "top",
       });
-  
     console.log("[Register failed]:", error); //登入串接失敗
-
   }
 };
 
