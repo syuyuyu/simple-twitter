@@ -221,8 +221,10 @@ const StyledError = styled.p`
 const StyledTweetsList = styled.div`
   display: flex;
   flex-direction: column;
-  width:937px
+  width:100%;
 `;
+
+
 const StyledTitleContainer = styled.div`
   display: flex;
   align-items: center;
@@ -291,6 +293,7 @@ const StyledAdminUserBackground = styled.div`
 const StyledAdminTweetsList = styled.div`
   display: flex;
   flex-direction: column;
+  width:937px;
 `;
 
 const StyledTitleWrapper = styled.div`
