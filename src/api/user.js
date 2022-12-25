@@ -95,6 +95,7 @@ export const putUser = async ({
       console.error("[Get User failed]:", error);
     }
   };
+  
 //GET追隨者名單
 export const getFollowers = async () => {
   try {
@@ -103,7 +104,7 @@ export const getFollowers = async () => {
     const res = await axios.get(`${baseURL}/api/users/${userId}/followers`, {
       headers: { Authorization: `Bearer ${authToken}` },
     });
-    console.log("user GET api res:", res);
+    // console.log("user GET api res:", res);
     return res.data;
   } catch (error) {
     console.error("[Get User failed]:", error);
@@ -118,7 +119,7 @@ export const getFollowings = async () => {
     const res = await axios.get(`${baseURL}/api/users/${userId}/followings`, {
       headers: { Authorization: `Bearer ${authToken}` },
     });
-    console.log("user GET api res:", res);
+    // console.log("user GET api res:", res);
     return res.data;
   } catch (error) {
     console.error("[Get User failed]:", error);

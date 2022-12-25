@@ -19,7 +19,7 @@ const TweetsList = ({ activeLike, likeCount,handleToggleLike }) => {
             isLiked={tweet.isLiked}
             likedCount={tweet.likedCount}
             replyCount={tweet.replyCount}
-            handleToggleLike={handleToggleLike}
+            handleToggleLike={(tweet)=>{handleToggleLike?.(tweet)}}
           />
         );
       })}

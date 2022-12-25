@@ -59,7 +59,7 @@ const TweetText = styled.p`
   line-height: 26px;
 `;
 
-const UserItem = ({ id,User, isFollowed, isFollow, setIsFollow, handleToggleFollow }) => {
+const UserItem = ({ id,User, isFollowed, handleToggleFollow }) => {
   const navigate = useNavigate();
   const { avatar, introduction, name } = { ...User };
 
@@ -71,8 +71,6 @@ const UserItem = ({ id,User, isFollowed, isFollow, setIsFollow, handleToggleFoll
     }
     navigate(`/user/${id}`);
   };
-  
-  setIsFollow(isFollowed);
 
   return (
     <ItemContainer>
@@ -82,13 +80,13 @@ const UserItem = ({ id,User, isFollowed, isFollow, setIsFollow, handleToggleFoll
       <TextContainer>
         <RowContainer>
           <Name>{name}</Name>
-          {isFollowed ? (
-            <StyledPublicButton whiteMode={true} style={{ marginRight: "0px" }}>
-              跟隨
-            </StyledPublicButton>
-          ) : (
-            <StyledPublicButton style={{ marginRight: "0px" }}>正在跟隨</StyledPublicButton>
-          )}
+        {isFollowed ? (
+          <StyledPublicButton onClick={() => handleToggleFollow(User)}>正在跟隨</StyledPublicButton>
+        ) : (
+          <StyledPublicButton className='active' onClick={() => handleToggleFollow(User)}>
+            跟隨
+          </StyledPublicButton>
+        )}
         </RowContainer>
         <RowContainer>
           <TweetText>{introduction}</TweetText>

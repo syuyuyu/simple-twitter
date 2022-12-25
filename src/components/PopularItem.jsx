@@ -39,10 +39,10 @@ const PopularItem = ({
 }) => {
   const { id, name } = { ...followingUser };
   const navigate = useNavigate();
-
+  const userId = localStorage.getItem("userId");
+  
   //跳轉其他使用者個人資料頁面
   const handleTargetUser = () => {
-    const userId = localStorage.getItem("userId");
     if (Number(id) === Number(userId)) {
       return navigate("/user/profile");
     }
