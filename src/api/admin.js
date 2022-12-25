@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const authURL = "https://nameless-fortress-45508.herokuapp.com";
-// const authURL = "https://protected-journey-43760.herokuapp.com";
+// const authURL = "https://nameless-fortress-45508.herokuapp.com";
+const authURL = "https://protected-journey-43760.herokuapp.com";
 
 
 export const login = async ({ account, password }) => {
