@@ -70,6 +70,7 @@ const Setting =()=>{
     }
     try{
       setIsUpdating(true)
+
       const formData = new FormData()
       formData.append('account',account)
       formData.append('name',name)
