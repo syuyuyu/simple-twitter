@@ -198,9 +198,9 @@ const EditModal = () => {
           '已移除',
           'success'
         )
-        setCoverImg('')
+        setCoverPre(null)
       }
-      setCoverImg(coverImg)
+      setCoverPre(null)
     })
   };
   
