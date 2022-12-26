@@ -122,7 +122,8 @@ const Reply = () => {
   const { id, avatar, account, name } = { ...targetTweet.User };
 
   //點讚開關
-  const handleToggleLike = async () => {
+  const handleToggleLike = async (activeLike) => {
+    console.log(activeLike)
     const UserId = localStorage.getItem("userId");
     if (Number(UserId) === Number(id)) {
       return;
@@ -163,13 +164,17 @@ const Reply = () => {
       try {
         const tweet = await getTargetTweet(params.replyId);
         setTargetTweet(tweet);
+        // setActiveLike(targetTweet.isLiked)
         return;
       } catch (error) {
         console.error(error);
       }
     };
     getTargetTweetAsync();
-  }, [activeLike, setTargetTweet, params.replyId]);
+    return()=>{
+        setActiveLike(null)
+    }
+  }, [setTargetTweet, params.replyId,targetTweet.isLiked]);
 
   //取得特定貼文回覆串
   useEffect(() => {
@@ -177,12 +182,18 @@ const Reply = () => {
       try {
         const res = await getTweetReplys(params.replyId);
         setTweetReplyList(res.map((tweet) => ({ ...tweet })));
+        setActiveLike(targetTweet.isLiked)
+
       } catch (err) {
         console.error("tweetITem replyList error :", err);
       }
     };
     getReplys();
-  }, [params.replyId, setTweetReplyList]);
+    return()=>{
+        setActiveLike(targetTweet.isLiked)
+    }
+  }, [params.replyId, setTweetReplyList,targetTweet.isLiked]);
+
   return (
     <>
       <StyledMainContainer>
@@ -219,7 +230,7 @@ const Reply = () => {
           <TweetContainer style={{ border: "none" }}>
             <div className='icon-wrapper'>
               <div className='icon reply' onClick={toggleReplyModal}></div>
-              <div className={activeLike ? "icon like active" : "icon like"} onClick={handleToggleLike}></div>
+              <div className={activeLike ? "icon like active" : "icon like"} onClick={()=>handleToggleLike(activeLike)}></div>
             </div>
           </TweetContainer>
           <TweetReplysList />

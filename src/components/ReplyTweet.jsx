@@ -22,7 +22,6 @@ const TextContainer = styled.div`
 const RowContainer = styled.div`
   display: flex;
   flex-flow: row;
-  /* margin-bottom: 8px; */
   &:nth-child(2)::before {
     content: "";
     position: absolute;
