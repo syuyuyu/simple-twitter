@@ -8,7 +8,6 @@ import {
   TitleH3,
 } from "../components/common/authstyled";
 import AuthInput from "../components/AuthInput";
-// import {Routes,Route} from "react-router-dom";
 import { NavLink as Link, useNavigate } from "react-router-dom";
 import { useAdmin } from "../contexts/AdminContext";
 import Swal from "sweetalert2";
@@ -27,7 +26,6 @@ const handleClick = async () => {
     return;
   }
   const success = await login({ account, password });
-
   if (success) {
     Swal.fire({
       title: "登入成功",
