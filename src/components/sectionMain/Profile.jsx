@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { EditModalContext } from "../../contexts/ModalContext";
 import { Outlet, useNavigate } from "react-router-dom";
 import {
@@ -29,7 +29,8 @@ import { useAuth } from "../../contexts/AuthContext";
 import { getReplys } from "../../api/tweets";
 import { LikeTweetContext, OtherUserContext, UserReplyContext, UserTweetContext } from "../../contexts/TweetContext";
 import { getLikeTweets, getUserTweets } from "../../api/tweets";
-import { getUser } from "../../api/user";
+import { getUser, putUser } from "../../api/user";
+import Swal from "sweetalert2";
 
 const NavLink = styled(Link)`
   height: 52px;
@@ -58,6 +59,96 @@ const Profile = () => {
   const { otherUser, setOtherUser } = useContext(OtherUserContext);
   const { setUserTweets } = useContext(UserTweetContext);
 
+  const [coverPre, setCoverPre] = useState(otherUser.cover);
+  const [avatarPre, setAvatarPre] = useState(otherUser.avatar);
+  const [coverImg, setCoverImg] = useState(null);
+  const [avatarImg, setAvatarImg] = useState(null);
+  const [isUpdating, setIsUpdating] = useState(false);
+  const [name, setName] = useState(otherUser.name);
+  const [intro, setIntro] = useState(otherUser.introduction);
+  const [noCover,setNoCover]= useState(false);
+  
+  //上傳圖片
+  const handleImgChange=(e)=>{
+    if(isUpdating){
+      return;
+    }
+    const selectedFile = e.target.files[0];
+    const objectUrl = window.URL.createObjectURL(selectedFile);
+    if (e.target.id === "cover") {
+      setCoverImg(selectedFile);
+      setCoverPre(objectUrl)
+    } else if (e.target.id === "avatar") {
+      setAvatarImg(selectedFile);
+      setAvatarPre(objectUrl);
+    }
+  };
+
+//刪除背景圖
+  const handleCancel=()=>{
+    Swal.fire({
+      title: '移除圖片',
+      text: "確定要移除圖片嗎?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '移除'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          'Deleted!',
+          '已移除',
+          'success'
+        )
+        setCoverPre('')
+        setNoCover(1)
+      }
+    })
+  };
+
+  //儲存個人資料
+  const handleSubmit=async()=>{
+    if(!name){
+      Swal.fire({
+        title: "資料欄位為必填",
+        icon: "error",
+        showConfirmButton: false,
+        timer: 1000,
+        position: "top",
+      });
+      return;
+    };
+    try{
+      // const newCover = coverImg? coverImg : coverPre
+      const cover = noCover===1? 'delete': coverImg
+      const formData = new FormData()
+      formData.append('name',name)
+      formData.append('introduction',intro)
+      formData.append('avatar',avatarImg)
+      formData.append('cover',cover)
+      setNoCover(0)
+
+      setIsUpdating(true)
+      const res = await putUser({formData})
+      if(res){
+        await Swal.fire({
+          title: "資料儲存中",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1000,
+          position: "top",
+        });
+        toggleEditModal()
+        setIsUpdating(false)
+        return;
+      }
+    }catch(err){
+      setNoCover(false)
+      console.error('editModal faild :',err) 
+    }
+  };
+
   //GET 個人資料
   useEffect(() => {
     const getUserAsync = async () => {
@@ -71,7 +162,7 @@ const Profile = () => {
     };
     getUserAsync();
     return () => {};
-  }, [setOtherUser]);
+  }, [setOtherUser,setCoverPre,setCoverImg]);
 
   //取得使用者自己的推文
   useEffect(() => {
@@ -137,17 +228,17 @@ const Profile = () => {
           </StyledTitleContainer>
         </StyledHeader>
         <StyledProfileContainer>
-          {otherUser.cover ? (
+          { noCover === false ? (
             <StyledBackgroundImage
               className='cover'
-              style={{ backgroundImage: `url('${otherUser.cover}')` }}
+              style={{ backgroundImage: `url('${coverPre}')` }}
             ></StyledBackgroundImage>
           ) : (
             <StyledBackgroundImage className='cover'></StyledBackgroundImage>
           )}
           <StyledAvatarImage
             className='avatar'
-            style={{ backgroundImage: `url('${otherUser.avatar}')` }}
+            style={{ backgroundImage: `url('${avatarPre}')` }}
           ></StyledAvatarImage>
 
           <StyledEditContainer>
@@ -155,11 +246,10 @@ const Profile = () => {
               編輯個人資料
             </StyledPublicButton>
           </StyledEditContainer>
-
           <StyledInfoWrapper>
-            <StyledTitleH5>{otherUser.name}</StyledTitleH5>
+            <StyledTitleH5>{name}</StyledTitleH5>
             <StyledAccount style={{ fontSize: "14px", fontWeight: "400" }}>@{otherUser.account}</StyledAccount>
-            <StyledContent>{otherUser.introduction}</StyledContent>
+            <StyledContent>{intro}</StyledContent>
             <StyledFollowsWrapper>
               <Link to='follow/following'>
                 <StyledFollowWrapper>
@@ -185,7 +275,26 @@ const Profile = () => {
         </StyledTweetsNavbarWrapper>
         <Outlet />
       </StyledMainContainer>
-      <EditModal />
+      <EditModal
+        // otherUser={otherUser}
+        handleImgChange={handleImgChange}
+        coverPre={coverPre}
+        // setCoverPre={setCoverPre}
+        avatarPre={avatarPre}
+        // setAvatarPre={setAvatarPre}
+        // coverImg={coverImg}
+        // setCoverImg={setCoverImg}
+        // avatarImg={avatarImg}
+        // setAvatarImg={setAvatarImg}
+        isUpdating={isUpdating}
+        // setIsUpdating={setIsUpdating}
+        handleSubmit={handleSubmit}
+        name={name}
+        setName={setName}
+        intro={intro}
+        setIntro={setIntro}
+        handleCancel={handleCancel}
+      />
     </>
   );
 };

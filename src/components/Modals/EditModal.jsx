@@ -1,5 +1,4 @@
-import React,{useState,useContext,useRef,useEffect } from 'react'
-import Swal from "sweetalert2";
+import React,{useContext,useRef} from 'react'
 import styled from "styled-components";
 import {
   StyledPublicButton,
@@ -12,7 +11,6 @@ import closeIcon from "../../assets/icons/close.svg"
 import addphotoIcon from "../../assets/icons/addphoto.svg"
 import cancelIcon from "../../assets/icons/cancel.svg"
 import { EditModalContext } from "../../contexts/ModalContext";
-import { getUser,putUser } from '../../api/user';
 
 
 const StyledGroupContainer = styled.div`
@@ -115,110 +113,29 @@ const StyledBackgroundHover = styled.div`
 const StyleddescriptionTextarea = styled.div``
 
 
-const EditModal = () => {
+const EditModal = (
+  {
+  handleImgChange,
+  coverPre,
+  // setCoverPre,
+  avatarPre,
+  // setAvatarPre,
+  // coverImg,
+  // setCoverImg,
+  // avatarImg,
+  // setAvatarImg,
+  isUpdating,
+  // setIsUpdating,
+  handleSubmit,
+  name,
+  setName,
+  intro,
+  setIntro,
+  handleCancel
+}
+  ) => {
   const coverRef = useRef();
-
   const {editModal,toggleEditModal} = useContext(EditModalContext);
-  const [name, setName] = useState("");
-  const [intro, setIntro] = useState("");
-  const [coverImg, setCoverImg] = useState(null);
-  const [coverPre, setCoverPre] = useState(null);
-  const [avatarImg, setAvatarImg] = useState(null);
-  const [avatarPre, setAvatarPre] = useState(null);
-  const [isUpdating, setIsUpdating] = useState(false);
-  
-  //上傳圖片
-  const handleImgChange=(e)=>{
-    if(isUpdating){
-      return;
-    }
-    const selectedFile = e.target.files[0];
-    const objectUrl = window.URL.createObjectURL(selectedFile);
-    if (e.target.id === "cover") {
-      setCoverImg(selectedFile);
-      setCoverPre(objectUrl)
-    } else if (e.target.id === "avatar") {
-      setAvatarImg(selectedFile);
-      setAvatarPre(objectUrl);
-    }
-  };
-  //儲存個人資料
-  const handleSubmit=async()=>{
-    if(!name){
-      Swal.fire({
-        title: "資料欄位為必填",
-        icon: "error",
-        showConfirmButton: false,
-        timer: 1000,
-        position: "top",
-      });
-      return;
-    };
-    
-    try{
-    const formData = new FormData()
-      formData.append('name',name)
-      formData.append('introduction',intro)
-      formData.append('avatar',avatarImg)
-      formData.append('cover',coverImg)
-
-      setIsUpdating(true)
-      const res = await putUser({formData})
-      if(res){
-        await Swal.fire({
-          title: "資料儲存中",
-          icon: "success",
-          showConfirmButton: false,
-          timer: 1000,
-          position: "top",
-        });
-        toggleEditModal()
-        setIsUpdating(false)
-        return;
-      }
-    }catch(err){
-    console.error('editModal faild :',err) 
-    }
-  };
-
-  //刪除背景圖
-  const handleCancel=()=>{
-    Swal.fire({
-      title: '移除圖片',
-      text: "確定要移除圖片嗎?",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: '移除'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire(
-          'Deleted!',
-          '已移除',
-          'success'
-        )
-        setCoverPre(null)
-      }
-      setCoverPre(null)
-    })
-  };
-  
-  //渲染 附值
-  useEffect(()=>{
-    const getUserData = async () => {
-      try {
-        const user = await getUser();
-        setCoverPre(user?.cover);
-        setAvatarPre(user?.avatar);
-        setName(user?.name);
-        setIntro(user?.introduction);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    getUserData();
-  }, [toggleEditModal]);
   
   return (
     <>
@@ -248,7 +165,7 @@ const EditModal = () => {
                       backgroundRepeat: 'no-repeat',
                       backgroundSize: 'cover'}} cover wrapped>
                       <StyledBackgroundHover>
-                        {coverImg?
+                        {coverPre?
                         <label for={"cover"}>
                           <AddphotoIcon
                             style={{marginRight:'38.5px'}}>
@@ -259,7 +176,7 @@ const EditModal = () => {
                             type="file"
                             id="cover"
                             name="file"
-                            src="coverImg"
+                            src="coverPre"
                             onChange={(e) => handleImgChange(e)}
                             style={{
                               display: "none"
@@ -292,7 +209,7 @@ const EditModal = () => {
                       backgroundRepeat: 'no-repeat',
                       backgroundSize: 'cover'}} cover wrapped>
                       <StyledBackgroundHover style={{borderRadius:'50%'}}>
-                        {avatarImg?
+                        {avatarPre?
                           <label for={isUpdating ? "" : "avatar"}>
                         <AddphotoIcon></AddphotoIcon>
                             <input
@@ -301,7 +218,7 @@ const EditModal = () => {
                               id="avatar"
                               name="file"
                               accept="image/png,image/jpg,image/jpeg"
-                              src="avatarImg"
+                              src="avatarPre"
                               onChange={(e) => handleImgChange(e)}
                               style={{
                                 display: "none"
