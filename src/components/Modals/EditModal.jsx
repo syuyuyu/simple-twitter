@@ -209,8 +209,8 @@ const EditModal = () => {
     const getUserData = async () => {
       try {
         const user = await getUser();
-        setCoverImg(user?.cover);
-        setAvatarImg(user?.avatar);
+        setCoverPre(user?.cover);
+        setAvatarPre(user?.avatar);
         setName(user?.name);
         setIntro(user?.introduction);
       } catch (error) {
