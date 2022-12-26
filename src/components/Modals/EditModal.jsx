@@ -198,9 +198,9 @@ const EditModal = () => {
           '已移除',
           'success'
         )
-        setCoverPre('')
+        setCoverPre(null)
       }
-      setCoverPre(coverPre)
+      setCoverPre(null)
     })
   };
   
