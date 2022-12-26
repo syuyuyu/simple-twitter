@@ -30,7 +30,7 @@ const Setting =()=>{
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [checkedPassword, setCheckedPassword] = useState("");
+  const [checkPassword, setCheckPassword] = useState("");
   const [isUpdating, setIsUpdating] = useState(false);
 
   //儲存個人資料
@@ -45,10 +45,7 @@ const Setting =()=>{
       });
       return;
     };
-    if(isUpdating){
-      return;
-    }
-    if(password !== checkedPassword){
+    if(password !== checkPassword){
       Swal.fire({
         title: "密碼不相同",
         icon: "error",
@@ -69,15 +66,15 @@ const Setting =()=>{
       return;
     }
     try{
-      setIsUpdating(true)
-
       const formData = new FormData()
       formData.append('account',account)
       formData.append('name',name)
       formData.append('email',email)
       formData.append('password',password)
-      formData.append('checkedPassword',checkedPassword)
-      const res = await putUser(formData)
+      formData.append('checkPassword',checkPassword)
+
+      setIsUpdating(true)
+      const res = await putUser({formData})
       if(res){
         await Swal.fire({
           title: "資料儲存中",
@@ -130,7 +127,6 @@ const Setting =()=>{
             label='名稱'
             placeholder='請輸入名稱'
             isUpdating={isUpdating}
-
             value={name}
             onChange={(value) => isUpdating? value : setName(value)}
           />
@@ -139,7 +135,6 @@ const Setting =()=>{
             label='Email'
             placeholder='請輸入Email'
             isUpdating={isUpdating}
-
             value={email}
             onChange={(value) => isUpdating? value : setEmail(value)}
           />
@@ -148,7 +143,6 @@ const Setting =()=>{
             label='密碼'
             placeholder='請設定密碼'
             isUpdating={isUpdating}
-
             value={password}
             onChange={(value) => isUpdating? value : setPassword(value)}
           />
@@ -157,9 +151,8 @@ const Setting =()=>{
             label='密碼再確認'
             placeholder='請再次輸入密碼'
             isUpdating={isUpdating}
-
-            value={checkedPassword}
-            onChange={(value) => isUpdating? value : setCheckedPassword(value)}
+            value={checkPassword}
+            onChange={(value) => isUpdating? value : setCheckPassword(value)}
           />
           <div className='buttonPosition'>
             <StyledPublicButton onClick={handleSubmit} style={{ marginRight: "0px", marginTop: "8px" }}>儲存</StyledPublicButton>

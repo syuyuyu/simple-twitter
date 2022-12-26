@@ -126,24 +126,7 @@ const EditModal = () => {
   const [avatarImg, setAvatarImg] = useState(null);
   const [avatarPre, setAvatarPre] = useState(null);
   const [isUpdating, setIsUpdating] = useState(false);
-  // 圖片上傳 暫留{
-  // const fileReader = new FileReader();
-  // const file = e.target.files[0];
-  // const [tmpImg,setTmpImg]=useState({
-  //   avatar:null,
-  //   cover:null,
-  // })
-  // const handleImgChange=(e)=>{
-  //   fileReader.onload = () =>{
-  //     setTmpImg({...tmpImg , avatar : fileReader.result});
-  //   }
-  // }
-  // fileReader.readAsDataURL(file);
-  //}
-
-
-// const formData = new FormData()
-
+  
   //上傳圖片
   const handleImgChange=(e)=>{
     if(isUpdating){
@@ -159,10 +142,8 @@ const EditModal = () => {
       setAvatarPre(objectUrl);
     }
   };
-
-
+  //儲存個人資料
   const handleSubmit=async()=>{
-
     if(!name){
       Swal.fire({
         title: "資料欄位為必填",
